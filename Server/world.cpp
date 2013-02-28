@@ -1,12 +1,5 @@
 #include "world.h"
 
-//cmdString is a formatted string containing information regarding the number of players, names of the players, player class choices, and who is on which team
-World::World(string cmdString)
-{
-//needs coding
-}
-
-
 void World::plCom(int ID, string com)
 {
     for(int i = 0; i < allPlChs.size(); ++i)
@@ -63,4 +56,15 @@ string World::Display()
         strm <<  allEntities.at(i)->Display();
     }
     return strm.str();
+}
+
+
+World::World(int numPlayers, int numRed, vector<string> names)
+{
+
+}
+
+World::World(string name)
+{
+    Entity* player = new PlCh(1, 2000, 1500, &this, name);
 }
