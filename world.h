@@ -5,7 +5,6 @@
 
 using namespace std;
 
-//A Pseudo-Singleton class
 #include "Entity.h"
 #include "Stats.h"
 #include "core.h"
@@ -31,13 +30,29 @@ private:
     vector<PlCh *> redPlChs;
     vector<PlCh *> bluePlChs;
 
+    vector<Entity *> allEntities;
+    vector<Tower *> allTowers;
+    vector<Minion *> allMinions;
+    vector<PlCh *> allPlChs;
+
     vector<bool> redAlive;
+    bool redVulnerable;
+
     vector<bool> blueAlive;
+    bool blueVulnerable;
 
 public:
-    World(string cmdString);
-    static World& instance() { return world; }
-};
+    World(int numPlayers, int numRed, vector<string> names);
+    Entity* getByID(int ID);
 
-extern World world;
+    //Sends a command to the player character with <ID>
+    void plCom(int ID, string com);
+
+    //returns a pointer to the nearest available enemy, All parameters come from the attacker
+    Entity* getNAE(int locX, int locY, string origColor);
+
+    //performs bounds check against all walls, towers, and cores, returns false if outside of movable space
+    bool boundsCheck(int locX, int locY, int uSize);
+
+};
 #endif // WORLD_H

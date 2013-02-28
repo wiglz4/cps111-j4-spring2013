@@ -26,7 +26,7 @@ void Minion::die()
     targetable = false;
     attackable = false;
     canMove = false;
-    state = "{DIE}";
+    animState = "{DIE}";
 }
 bool Minion::Attack()
 {

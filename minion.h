@@ -4,7 +4,11 @@
 class Minion : DynaUnit
 {
 protected:
-    int checkPoint;
+    int cpX;
+    int cpY;
+
+    //OUT OF LANE
+    bool OOL;
 public:
     Minion(string cTeam, int mX, int mY);
 };

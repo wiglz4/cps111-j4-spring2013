@@ -1,27 +1,33 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
+#include "world.h"
 #include "Stats.h"
 
 class Entity
 {
 protected:
+    World *map;
     static int curID;
+    int x;
+    int y;
     int curHealth;
     int maxHealth;
     string team;
+    int absoluteID;
+
     bool targetable;
     bool attackable;
-    int x;
-    int y;
+
     int size; //radius
     string type;
-    int absoluteID;
     //int sectorID;
 
 public:
     virtual bool damage(int value) = 0;
     virtual void onTick() = 0;
+    virtual string save() = 0;
+    virtual static Entity* load() = 0;
 
     int getCHealth(){return curHealth;}
     int getMHealth(){return maxHealth;}

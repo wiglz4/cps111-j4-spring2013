@@ -5,9 +5,6 @@
 
 class Tower : public Unit
 {
-    string towerLabel;
-    static int redId;
-    static int blueId;
 
 public:
     Tower(string cTeam);

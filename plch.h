@@ -5,12 +5,16 @@ class PlCh
 {
 protected:
     string plName;
-    int level;
-    int experience;
-    int experienceBound;
     Stats points;
+    bool underCommand;
+
+    //int level;
+    //int experience;
+    //int experienceBound;
+
 public:
     PlCh(string cTeam, int pX, int pY);
+    void command(string cmdString);
 //void levelUp();
 };
 
