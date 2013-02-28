@@ -5,7 +5,7 @@ class PlCh : public DynaUnit
 {
 protected:
     string plName;
-    Stats points;
+    Stats *points;
     bool display;
 
     //int level;

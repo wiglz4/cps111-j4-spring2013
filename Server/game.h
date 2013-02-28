@@ -7,10 +7,11 @@
 
 class Game
 {
+    static int curGameID;
     World *world;
     QTimer *timer;
     bool isPaused;
-    //vector<users *> *users;
+    vector<User *> users;
 
 private slots:
     void timerHit();
