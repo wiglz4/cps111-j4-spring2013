@@ -1,7 +1,7 @@
 #ifndef MINION_H
 #define MINION_H
 #include "dynaunit.h"
-class Minion : DynaUnit
+class Minion : public DynaUnit
 {
 protected:
     int cpX;
@@ -10,7 +10,7 @@ protected:
     //OUT OF LANE
     bool OOL;
 public:
-    Minion(string cTeam, int mX, int mY);
+    Minion(int cTeam, int newX, int newY, World *newMap);
 };
 
 #endif // MINION_H

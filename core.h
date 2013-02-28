@@ -5,7 +5,7 @@
 class Core : public Entity
 {
 public:
-    Core(string cTeam, int cX, int cY);
+    Core(int cTeam, int cX, int cY, World *newMap);
     void endGame();
 };
 

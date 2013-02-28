@@ -20,14 +20,10 @@ private:
     int deaths;
 
 public:
-    Stats(string name, string cclass):Uname(name),UClass(cclass){}
+    Stats(string name):Uname(name){}
     void incMKills(){++mKills;}
     void incTKills(){++tKills;}
     void incDeaths(){++deaths;}
-
-    int getMKills(){return mKills;}
-    int getTKills(){return tKills;}
-    int getDeaths(){return deaths;}
     string toString();
 };
 

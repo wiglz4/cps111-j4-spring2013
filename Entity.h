@@ -13,14 +13,15 @@ protected:
     int y;
     int curHealth;
     int maxHealth;
-    string team;
+    int team;
     int absoluteID;
+    bool updateHealth;
 
     bool targetable;
     bool attackable;
 
     int size; //radius
-    string type;
+    int type;
     //int sectorID;
 
 public:
@@ -28,14 +29,15 @@ public:
     virtual void onTick() = 0;
     virtual string save() = 0;
     virtual static Entity* load() = 0;
+    virtual string displayString();
 
     int getCHealth(){return curHealth;}
     int getMHealth(){return maxHealth;}
     int getSize() {return size;}
-    string getTeam() {return team;}
+    int getTeam() {return team;}
     bool getTargetable(){return targetable;}
     bool getAttackable(){return attackable;}
-    string getType(){return type;}
+    int getType(){return type;}
     int getX(){return x;}
     int getY(){return y;}
     int getID(){return absoluteID;}
@@ -43,6 +45,7 @@ public:
 
     void setTargetable(bool newState){targetable = newState;}
     void setAttackable(bool newState){attackable = newState;}
+    void setMap(World *newMap){map = newMap;}
 };
 
 int Entity::curID = 0;

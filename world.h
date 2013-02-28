@@ -14,6 +14,7 @@ using namespace std;
 #include "plch.h"
 #include "tower.h"
 #include "unit.h"
+#include "towershot.h"
 #include <string>
 #include <sstream>
 #include <vector>
@@ -41,8 +42,10 @@ private:
     vector<bool> blueAlive;
     bool blueVulnerable;
 
+    vector<towerShot *> shots;
 public:
     World(int numPlayers, int numRed, vector<string> names);
+
     Entity* getByID(int ID);
 
     //Sends a command to the player character with <ID>
@@ -53,6 +56,14 @@ public:
 
     //performs bounds check against all walls, towers, and cores, returns false if outside of movable space
     bool boundsCheck(int locX, int locY, int uSize);
+
+    void onTick();
+
+    string save();
+
+    void load(string loadString);
+
+    string Display();
 
 };
 #endif // WORLD_H

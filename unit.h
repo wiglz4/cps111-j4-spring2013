@@ -17,14 +17,18 @@ protected:
     Entity *target;
     Counter count;
     int targetPriority;
-    string aiState;
-    string animState;
+    string state;
+    bool updateState;
 
 public:
     virtual bool damage(int value) = 0;
     virtual void onTick() = 0;
+    virtual string save() = 0;
+    virtual static Entity* load() = 0;
+    virtual string displayString();
     virtual void die() = 0;
     bool Attack() = 0;
+
 
     void setCanAttack(bool newState){canAttack = newState;}
     void setAlive(bool newState){Alive = newState;}
