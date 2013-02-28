@@ -7,6 +7,7 @@
 
 namespace Ui {
     class MainWindow;
+    class StartWindow;
 }
 
 class MainWindow : public QMainWindow
@@ -17,6 +18,9 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     
+signals:
+    void hideStart();
+
 private:
     Ui::MainWindow *ui;
 };
