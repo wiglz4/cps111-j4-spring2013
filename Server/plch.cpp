@@ -13,7 +13,7 @@ PlCh::PlCh(int cTeam, int newX, int newY, World *newMap, string pName)
     updateHealth = true;
     targetable = true;
     attackable = true;
-    size = 999; //radius
+    size = 15; //radius
     type = 4;
     //int sectorID;
 
@@ -32,7 +32,7 @@ PlCh::PlCh(int cTeam, int newX, int newY, World *newMap, string pName)
     state = "id1";
     updateState = true;
 
-    speed = 999;
+    speed = .8;
     canMove = true;
     updatePosition = true;
 

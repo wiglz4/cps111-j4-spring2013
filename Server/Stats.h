@@ -10,6 +10,7 @@ using namespace std;
 class Stats
 {
 private:
+    string username;
     static int minionPoints;
     static int towerPoints;
     static int deathPoints;
@@ -20,11 +21,12 @@ private:
     int deaths;
 
 public:
-    Stats(string name):Uname(name){}
+    Stats(string name):username(name){}
     void incMKills(){++mKills;}
     void incTKills(){++tKills;}
     void incDeaths(){++deaths;}
     string toString();
+    void toFile();
 };
 
 #endif // STATS_H
