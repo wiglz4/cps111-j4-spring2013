@@ -35,8 +35,8 @@
     <widget class="QFrame" name="frBackground">
      <property name="geometry">
       <rect>
-       <x>-120</x>
-       <y>-2180</y>
+       <x>-200</x>
+       <y>-2220</y>
        <width>4000</width>
        <height>3000</height>
       </rect>
@@ -50,7 +50,6 @@
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <zorder>lblPlayer</zorder>
     </widget>
    </widget>
   </widget>
