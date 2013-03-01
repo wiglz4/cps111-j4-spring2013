@@ -14,13 +14,16 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    startwindow.cpp
+    startwindow.cpp \
+    scorewindow.cpp
 
 HEADERS  += mainwindow.h \
-    startwindow.h
+    startwindow.h \
+    scorewindow.h
 
 FORMS    += mainwindow.ui \
-    startwindow.ui
+    startwindow.ui \
+    scorewindow.ui
 
 RESOURCES += \
     resources.qrc
