@@ -14,9 +14,12 @@
    <string>Game Window</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(26, 26, 26);</string>
+   <string notr="true">background-color: rgb(26, 26, 26)</string>
   </property>
   <widget class="QWidget" name="centralWidget">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <widget class="QFrame" name="frGameArea">
     <property name="geometry">
      <rect>
@@ -27,14 +30,53 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color:rgb(255, 255, 255)</string>
+     <string notr="true"/>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
-    </property>
+    <widget class="QFrame" name="frBackground">
+     <property name="geometry">
+      <rect>
+       <x>-120</x>
+       <y>-2180</y>
+       <width>4000</width>
+       <height>3000</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-image: url(:/images/mapsm.png);</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <zorder>lblPlayer</zorder>
+    </widget>
+    <widget class="QLabel" name="lblPlayer">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>240</y>
+       <width>36</width>
+       <height>50</height>
+      </rect>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::NoContextMenu</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color:rgba(0,0,0,0%)</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="resources.qrc">:/images/hero1.png</pixmap>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -92,6 +134,8 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

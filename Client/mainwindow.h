@@ -3,6 +3,10 @@
 
 //#include "startwindow.h"
 #include <QMainWindow>
+#include <QKeyEvent>
+//REM
+#include <QTimer>
+//REM
 
 
 namespace Ui {
@@ -17,12 +21,27 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
+private slots:
+    void onTimerHit();
     
-signals:
-    void hideStart();
+protected:
+    void keyPressEvent(QKeyEvent * e);
+    void keyReleaseEvent(QKeyEvent *e);
 
 private:
     Ui::MainWindow *ui;
+    QKeyEvent *key;
+    QTimer *timer;
+    //REM
+    bool wPressed;
+    bool aPressed;
+    bool sPressed;
+    bool dPressed;
+    //REM
+
+signals:
+    void hideStart();
 };
 
 #endif // MAINWINDOW_H

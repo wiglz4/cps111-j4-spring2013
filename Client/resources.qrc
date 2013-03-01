@@ -2,5 +2,7 @@
     <qresource prefix="/">
         <file>images/mobatitlewindow.png</file>
         <file>images/button.png</file>
+        <file>images/mapsm.png</file>
+        <file>images/hero1.png</file>
     </qresource>
 </RCC>
