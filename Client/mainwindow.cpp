@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //REM
     timer = new QTimer(this);
     timer->setInterval(20);
-    connect(timer, SIGNAL(timeout()), this, SLOT(onTimerHit());
+    connect(timer, SIGNAL(timeout()), this, SLOT(onTimerHit()));
     timer->start();
     //REM
 }

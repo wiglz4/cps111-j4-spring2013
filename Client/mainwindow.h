@@ -12,6 +12,7 @@
 namespace Ui {
     class MainWindow;
     class StartWindow;
+    class ScoreWindow;
 }
 
 class MainWindow : public QMainWindow
