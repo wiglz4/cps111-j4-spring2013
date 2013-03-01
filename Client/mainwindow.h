@@ -4,6 +4,7 @@
 //#include "startwindow.h"
 #include <QMainWindow>
 #include <QKeyEvent>
+#include <QLabel>
 //REM
 #include <QTimer>
 //REM
@@ -28,6 +29,7 @@ private slots:
 protected:
     void keyPressEvent(QKeyEvent * e);
     void keyReleaseEvent(QKeyEvent *e);
+    QLabel *lblPlayer;
 
 private:
     Ui::MainWindow *ui;
