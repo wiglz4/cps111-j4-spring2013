@@ -62,6 +62,38 @@ void gameScreen::keyPressEvent(QKeyEvent *e)
         qDebug() << "D";
         //REM
     }
+    if(e->key() == Qt::Key_Up)
+    {
+        //gsui->wdgtPicture->scroll(0, -10);
+        //wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y()+20);
+        upPressed = true;
+        qDebug()<<"UP";
+        //gsui->wdgtPicture->repaint();
+    }
+    if(e->key() == Qt::Key_Left)
+    {
+        //wdgtPicture->move(wdgtPicture->x()+20, wdgtPicture->y());
+        //gsui->wdgtPicture->scroll(10, 0);
+        leftPressed = true;
+        qDebug()<<"LEFT";
+        //gsui->wdgtPicture->repaint();
+    }
+    if(e->key() == Qt::Key_Down)
+    {
+        //wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y()-20);
+        //gsui->wdgtPicture->scroll(0, 10);
+        downPressed = true;
+        qDebug()<<"DOWN";
+        //gsui->wdgtPicture->repaint();
+    }
+    if(e->key() == Qt::Key_Right)
+    {
+        //wdgtPicture->move(wdgtPicture->x()-20, wdgtPicture->y());
+        //gsui->wdgtPicture->scroll(-10, 0);
+        rightPressed = true;
+        qDebug()<<"RIGHT";
+        //gsui->wdgtPicture->repaint();
+    }
 }
 
 void gameScreen::keyReleaseEvent(QKeyEvent *e)
@@ -97,76 +129,125 @@ void gameScreen::keyReleaseEvent(QKeyEvent *e)
     if(e->key() == Qt::Key_Up)
     {
         //gsui->wdgtPicture->scroll(0, -10);
-        wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y()+20);
-        qDebug()<<"UP";
+        //wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y()+20);
+        upPressed = false;
+        qDebug()<<"~UP";
         //gsui->wdgtPicture->repaint();
     }
     if(e->key() == Qt::Key_Left)
     {
-        wdgtPicture->move(wdgtPicture->x()+20, wdgtPicture->y());
+        //wdgtPicture->move(wdgtPicture->x()+20, wdgtPicture->y());
         //gsui->wdgtPicture->scroll(10, 0);
-        qDebug()<<"LEFT";
+        leftPressed = false;
+        qDebug()<<"~LEFT";
         //gsui->wdgtPicture->repaint();
     }
     if(e->key() == Qt::Key_Down)
     {
-        wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y()-20);
+        //wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y()-20);
         //gsui->wdgtPicture->scroll(0, 10);
-        qDebug()<<"DOWN";
+        downPressed = false;
+        qDebug()<<"~DOWN";
         //gsui->wdgtPicture->repaint();
     }
     if(e->key() == Qt::Key_Right)
     {
-        wdgtPicture->move(wdgtPicture->x()-20, wdgtPicture->y());
+        //wdgtPicture->move(wdgtPicture->x()-20, wdgtPicture->y());
         //gsui->wdgtPicture->scroll(-10, 0);
-        qDebug()<<"RIGHT";
+        rightPressed = false;
+        qDebug()<<"~RIGHT";
         //gsui->wdgtPicture->repaint();
     }
+
 }
 
 //REM
 void gameScreen::onTimerHit()
 {
-    qDebug() << "Tick";
+    //qDebug() << "Tick";
     if(wPressed && !aPressed && !sPressed && !dPressed)
     {
-        hero->move(hero->x(), hero->y()-2);
+        hero->move(hero->x(), hero->y()-4);
     }
 
     if(wPressed && !aPressed && !sPressed && dPressed)
     {
-        hero->move(hero->x()+1, hero->y()-1);
+        hero->move(hero->x()+2, hero->y()-2);
     }
 
     if(!wPressed && !aPressed && !sPressed && dPressed)
     {
-        hero->move(hero->x()+2, hero->y());
+        hero->move(hero->x()+4, hero->y());
     }
 
     if(!wPressed && !aPressed && sPressed && dPressed)
     {
-        hero->move(hero->x()+1, hero->y()+1);
+        hero->move(hero->x()+2, hero->y()+2);
     }
 
     if(!wPressed && !aPressed && sPressed && !dPressed)
     {
-        hero->move(hero->x(), hero->y()+2);
+        hero->move(hero->x(), hero->y()+4);
     }
 
     if(!wPressed && aPressed && sPressed && !dPressed)
     {
-        hero->move(hero->x()-1, hero->y()+1);
+        hero->move(hero->x()-2, hero->y()+2);
     }
 
     if(!wPressed && aPressed && !sPressed && !dPressed)
     {
-        hero->move(hero->x()-2, hero->y());
+        hero->move(hero->x()-4, hero->y());
     }
 
     if(wPressed && aPressed && !sPressed && !dPressed)
     {
-        hero->move(hero->x()-1, hero->y()-1);
+        hero->move(hero->x()-2, hero->y()-2);
     }
+
+
+
+    if(upPressed && !rightPressed && !downPressed && !leftPressed)
+    {
+        //1
+        wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() + 6);
+    }
+    if(upPressed && rightPressed && !downPressed && !leftPressed)
+    {
+        //2
+        wdgtPicture->move(wdgtPicture->x() - 4, wdgtPicture->y() + 4);
+    }
+    if(!upPressed && rightPressed && !downPressed && !leftPressed)
+    {
+        //3
+        wdgtPicture->move(wdgtPicture->x() -6 , wdgtPicture->y());
+    }
+    if(!upPressed && rightPressed && downPressed && !leftPressed)
+    {
+        //4
+        wdgtPicture->move(wdgtPicture->x()-4, wdgtPicture->y() - 4);
+    }
+    if(!upPressed && !rightPressed && downPressed && !leftPressed)
+    {
+        //5
+        wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() - 6);
+    }
+    if(!upPressed && !rightPressed && downPressed && leftPressed)
+    {
+        //6
+        wdgtPicture->move(wdgtPicture->x() + 4, wdgtPicture->y() - 4);
+    }
+    if(!upPressed && !rightPressed && !downPressed && leftPressed)
+    {
+        //7
+        wdgtPicture->move(wdgtPicture->x() + 6, wdgtPicture->y());
+    }
+    if(upPressed && !rightPressed && !downPressed && leftPressed)
+    {
+        //8
+        wdgtPicture->move(wdgtPicture->x() + 4, wdgtPicture->y() + 4);
+    }
+
 
 
 }

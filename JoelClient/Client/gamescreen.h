@@ -49,6 +49,10 @@ protected:
     bool dPressed;
     //REM
 
+    bool upPressed;
+    bool rightPressed;
+    bool downPressed;
+    bool leftPressed;
 };
 
 #endif // GAMESCREEN_H
