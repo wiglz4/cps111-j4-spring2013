@@ -26,6 +26,7 @@ public:
     void incTKills(){++tKills;}
     void incDeaths(){++deaths;}
     string toString();
+    void toFile();
 };
 
 #endif // STATS_H
