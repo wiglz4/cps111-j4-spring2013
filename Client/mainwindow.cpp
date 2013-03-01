@@ -9,6 +9,7 @@
 #include <assert.h>
 #include <QLabel>
 #include <QPixmap>
+#include <QString>
 
 //REM
 #include <cmath>
@@ -35,11 +36,12 @@ MainWindow::MainWindow(QWidget *parent) :
     dPressed = false;
     sPressed = false;
 
-    lblPlayer = new QLabel(ui->frBackground)
-    QPixmap icon(":images/hero1.png");
-    lblPlayer->setPixmap(icon);
-    lblPlayer->setGeometry(360, 240, 36, 50);
-    lblPlayer->show();
+    player = new QLabel(ui->frGameArea);
+//    QPixmap icon(":/images/hero1.png");
+    player->setStyleSheet("background:url(:/image/hero1.png) no-repeat right top;");
+    player->setGeometry(360, 240, 36, 50);
+
+
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *e)
@@ -49,6 +51,7 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
         //REM
         wPressed = true;
         qDebug() << "W";
+        player->move(player->x(), player->y() + 5);
         //REM
     }
     if(e->key() == Qt::Key_A && !e->isAutoRepeat())
@@ -83,7 +86,6 @@ void MainWindow::keyReleaseEvent(QKeyEvent *e)
         wPressed = false;
         qDebug() << "~W";
         //REM
-        lblPlayer->move(lblPlayer.x(), lblPlayer.y() + 1);
     }
     if(e->key() == Qt::Key_A && !e->isAutoRepeat())
     {
@@ -140,7 +142,7 @@ void MainWindow::onTimerHit()
 
     if(wPressed && !aPressed && !sPressed && !dPressed)
     {
-        lblPlayer.move(lblPlayer.x(), lblPlayer.y() + 1);
+ //       lblPlayer.move(lblPlayer.x(), lblPlayer.y() + 1);
     }
     /*
     if(wPressed && !aPressed && !sPressed && dPressed)
@@ -150,7 +152,7 @@ void MainWindow::onTimerHit()
     */
     if(!wPressed && !aPressed && !sPressed && dPressed)
     {
-        lblPlayer.move(lblPlayer.x() + 1, lblPlayer.y());
+ //       lblPlayer.move(lblPlayer.x() + 1, lblPlayer.y());
     }
     /*
     if(!wPressed && !aPressed && sPressed && dPressed)
@@ -160,7 +162,7 @@ void MainWindow::onTimerHit()
     */
     if(!wPressed && !aPressed && sPressed && !dPressed)
     {
-        lblPlayer.move(lblPlayer.x(), lblPlayer.y() - 1);
+//        lblPlayer.move(lblPlayer.x(), lblPlayer.y() - 1);
     }
     /*
     if(!wPressed && aPressed && sPressed && !dPressed)
@@ -170,7 +172,7 @@ void MainWindow::onTimerHit()
     */
     if(!wPressed && aPressed && !sPressed && !dPressed)
     {
-        lblPlayer.move(lblPlayer.x() - 1, lblPlayer.y());
+ //       lblPlayer.move(lblPlayer.x() - 1, lblPlayer.y());
     }
     /*
     if(wPressed && aPressed && !sPressed && !dPressed)

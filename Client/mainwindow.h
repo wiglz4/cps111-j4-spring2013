@@ -30,7 +30,6 @@ private slots:
 protected:
     void keyPressEvent(QKeyEvent * e);
     void keyReleaseEvent(QKeyEvent *e);
-    QLabel *lblPlayer;
 
 private:
     Ui::MainWindow *ui;
@@ -41,6 +40,7 @@ private:
     bool aPressed;
     bool sPressed;
     bool dPressed;
+    QLabel *player;
     //REM
 
 signals:
