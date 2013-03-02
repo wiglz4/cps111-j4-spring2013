@@ -57,6 +57,8 @@ protected:
     bool rightPressed;
     bool downPressed;
     bool leftPressed;
+
+    int counter;
 };
 
 #endif // GAMESCREEN_H

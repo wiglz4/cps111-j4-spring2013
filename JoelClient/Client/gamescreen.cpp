@@ -2,6 +2,7 @@
 #include "ui_gamescreen.h"
 #include "entitylabel.h"
 #include <QPixmap>
+#include <QString>
 
 gameScreen::gameScreen(QWidget *parent) :
     QWidget(parent),
@@ -19,10 +20,10 @@ gameScreen::gameScreen(QWidget *parent) :
     wdgtPicture->setGeometry(20,20,4000,3000);
     wdgtPicture->setStyleSheet("background-image:url(:/images/mapsm.png)");
     hero = new EntityLabel(wdgtPicture);
-    hero->setGeometry(100,100,36,50);
+    hero->setGeometry(100,100,110,110);
     //QPixmap icon(":/images/hero1.png");
     //hero->setPixmap(icon);
-    hero->setStyleSheet("background:url(:/images/hero1.png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
+    hero->setStyleSheet("background:url(:/images/1.png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
     hero->show();
 
     gameFrame = new QFrame(this);
@@ -41,6 +42,8 @@ gameScreen::gameScreen(QWidget *parent) :
     rightPressed = false;
     downPressed = false;
     leftPressed = false;
+
+    counter = 1;
 
 }
 
@@ -210,6 +213,12 @@ void gameScreen::onTimerHit()
     if(!wPressed && aPressed && sPressed && !dPressed)
     {
         hero->move(hero->x()-2, hero->y()+2);
+        counter++;
+        if (counter > 19) {
+            counter = 1;
+        }
+        QString test;
+        hero->setStyleSheet("background:url(:/images/" + test.append(QString("%1").arg(counter)) + ".png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
     }
 
     if(!wPressed && aPressed && !sPressed && !dPressed)
