@@ -24,8 +24,6 @@ SOURCES += main.cpp\
     game.cpp \
     counter.cpp \
     core.cpp \
-    mytcpsocket.cpp \
-    myudpsocket.cpp \
     user.cpp
 
 HEADERS  += serverwindow.h \
@@ -41,8 +39,6 @@ HEADERS  += serverwindow.h \
     dynaunit.h \
     counter.h \
     core.h \
-    mytcpsocket.h \
-    myudpsocket.h \
     user.h
 
 FORMS    += serverwindow.ui
