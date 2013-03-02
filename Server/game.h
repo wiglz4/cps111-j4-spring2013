@@ -4,7 +4,8 @@
 #include "world.h"
 #include <vector>
 #include "user.h"
-#include "myudpsocket.h"
+#include <QUdpSocket>
+#include "serverwindow.h"
 
 class Game
 {
@@ -13,6 +14,8 @@ class Game
     QTimer *timer;
     bool isPaused;
     vector<User *> users;
+    QUdpSocket *sock;
+    ServerWindow *home;
 
 private slots:
     void timerHit();
@@ -20,7 +23,7 @@ private slots:
 
 
 public:
-    Game();
+    Game(ServerWindow * window, vector<User*> *vect);
 };
 
 #endif // GAME_H

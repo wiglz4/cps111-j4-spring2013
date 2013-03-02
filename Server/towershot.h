@@ -15,7 +15,7 @@ class towerShot
 
 
 public:
-    towerShot(int orgX, int orgY) {x = orgX; y = orgY;}
+    towerShot(int orgX, int orgY) {x = orgX; y = orgY; delay = }
     void dec(){--delay; if(delay == 0) { display = true;}}
     bool getDisplay(){return display;}
     void onTick();

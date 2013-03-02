@@ -13,16 +13,13 @@ protected:
     int y;
     int curHealth;
     int maxHealth;
+    bool healthChange;
     int team;
     int absoluteID;
-    bool updateHealth;
-
     bool targetable;
     bool attackable;
-
     int size; //radius
     int type;
-    //int sectorID;
 
 public:
     virtual bool damage(int value) = 0;
