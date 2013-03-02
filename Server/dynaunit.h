@@ -6,7 +6,7 @@ class DynaUnit : public Unit
 protected:
     double speed;
     bool canMove;
-    bool updatePosition;
+    bool positionChange;
 public:
     virtual bool damage(int value) = 0;
     virtual void onTick() = 0;

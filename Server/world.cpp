@@ -1,23 +1,11 @@
 #include "world.h"
 
-void World::plCom(int ID, string com)
-{
-    for(int i = 0; i < allPlChs.size(); ++i)
-    {
-        if(ID == allPlChs.at(i)->getID())
-        {
-            allPlChs.at(i)->command(com);
-            break;
-        }
-    }
-}
-
 Entity *World::getNAE(int locX, int locY, string origColor)
 {
 //needs coding
 }
 
-bool World::boundsCheck(int locX, int locY, int uSize)
+bool World::boundsCheck(Entity *ent)
 {
 //needs coding
 }
@@ -53,7 +41,7 @@ string World::Display()
     stringstream strm;
     for(int i = 0; i < allEntities.size(); i++)
     {
-        strm <<  allEntities.at(i)->Display();
+        strm <<  allEntities.at(i)->Display() <<" ";
     }
     return strm.str();
 }

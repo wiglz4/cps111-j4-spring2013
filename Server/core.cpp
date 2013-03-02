@@ -11,7 +11,7 @@ Core::Core(int cTeam, int newX, int newY, World *newMap)
     maxHealth = 999;
     team = cTeam;
     absoluteID = ++curID;
-    updateHealth = true;
+    healthChange = true;
 
     targetable = false;
     attackable = false;

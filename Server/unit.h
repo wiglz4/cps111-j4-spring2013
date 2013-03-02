@@ -18,7 +18,7 @@ protected:
     Counter count;
     int targetPriority;
     string state;
-    bool updateState;
+    bool stateChange;
 
 public:
     virtual bool damage(int value) = 0;

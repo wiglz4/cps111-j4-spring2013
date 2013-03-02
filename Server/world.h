@@ -18,6 +18,7 @@ using namespace std;
 #include <string>
 #include <sstream>
 #include <vector>
+#include "game.h"
 
 class World
 {
@@ -43,19 +44,17 @@ private:
     bool blueVulnerable;
 
     vector<towerShot *> shots;
+
 public:
     World(int numPlayers, int numRed, vector<string> names);
 
     Entity* getByID(int ID);
 
-    //Sends a command to the player character with <ID>
-    void plCom(int ID, string com);
-
     //returns a pointer to the nearest available enemy, All parameters come from the attacker
     Entity* getNAE(int locX, int locY, string origColor);
 
     //performs bounds check against all walls, towers, and cores, returns false if outside of movable space
-    bool boundsCheck(int locX, int locY, int uSize);
+    bool boundsCheck(Entity *ent);
 
     void onTick();
 
