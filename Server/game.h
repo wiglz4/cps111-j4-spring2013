@@ -4,6 +4,7 @@
 #include "world.h"
 #include <vector>
 #include "user.h"
+#include "myudpsocket.h"
 
 class Game
 {

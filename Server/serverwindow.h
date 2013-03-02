@@ -18,7 +18,6 @@ class ServerWindow : public QMainWindow
     Q_OBJECT
     QTcpServer *server;
     vector<User *> lobbyUsers;
-    vector<User *> gameUsers;
     vector<Game *> games;
 
     

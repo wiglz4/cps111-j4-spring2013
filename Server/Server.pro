@@ -23,7 +23,10 @@ SOURCES += main.cpp\
     minion.cpp \
     game.cpp \
     counter.cpp \
-    core.cpp
+    core.cpp \
+    mytcpsocket.cpp \
+    myudpsocket.cpp \
+    user.cpp
 
 HEADERS  += serverwindow.h \
     world.h \
@@ -37,6 +40,9 @@ HEADERS  += serverwindow.h \
     Entity.h \
     dynaunit.h \
     counter.h \
-    core.h
+    core.h \
+    mytcpsocket.h \
+    myudpsocket.h \
+    user.h
 
 FORMS    += serverwindow.ui

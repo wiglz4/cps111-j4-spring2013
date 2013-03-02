@@ -22,6 +22,9 @@ ServerWindow::~ServerWindow()
 
 void ServerWindow::clientConnected()
 {
+    QTcpSocket *sock = server.nextPendingConnection();
+    connect(sock, SIGNAL(disconnected()), this, SLOT(clientDisconnected()));
+    connect(sock, SIGNAL(readyRead()), this, SLOT(dataReceived()));
 }
 
 void ServerWindow::clientDisconnected()

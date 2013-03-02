@@ -9,6 +9,8 @@
 #include <QPixmap>
 #include "entitylabel.h"
 #include <vector>
+#include <QResizeEvent>
+#include <QFrame>
 
 //REM
 #include <QTimer>
@@ -35,11 +37,13 @@ private slots:
 private:
     Ui::gameScreen *gsui;
     QWidget *wdgtPicture;
+    QFrame *gameFrame;
 
 protected:
     void keyPressEvent(QKeyEvent * e);
     void keyReleaseEvent(QKeyEvent *e);
     void closeEvent(QCloseEvent *);
+    void resizeEvent ( QResizeEvent * event );
 
     //REM
     QTimer *timer;

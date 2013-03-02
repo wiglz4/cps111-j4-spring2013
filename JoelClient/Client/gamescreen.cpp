@@ -25,6 +25,23 @@ gameScreen::gameScreen(QWidget *parent) :
     hero->setStyleSheet("background:url(:/images/hero1.png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
     hero->show();
 
+    gameFrame = new QFrame(this);
+    gameFrame->setFrameShape(QFrame::Box);
+    gameFrame->setLineWidth(20);
+    gameFrame->setGeometry(0, 0, 800, 600);
+    gameFrame->show();
+
+    wPressed = false;
+    aPressed = false;
+    sPressed = false;
+    dPressed = false;
+
+
+    upPressed = false;
+    rightPressed = false;
+    downPressed = false;
+    leftPressed = false;
+
 }
 
 gameScreen::~gameScreen()
@@ -256,4 +273,9 @@ void gameScreen::closeEvent(QCloseEvent *)
 {
     timer->stop();
     qDebug()<<"Timer stopped";
+}
+
+void gameScreen::resizeEvent(QResizeEvent *event)
+{
+    gameFrame->resize(event->size());
 }
