@@ -19,6 +19,7 @@ using namespace std;
 #include <sstream>
 #include <vector>
 #include "game.h"
+#include "user.h"
 
 class World
 {
@@ -66,7 +67,8 @@ public:
 
     string Display();
 
-    void endGame();
+    //Team denotes the losing side
+    void endGame(int team);
 
 };
 #endif // WORLD_H

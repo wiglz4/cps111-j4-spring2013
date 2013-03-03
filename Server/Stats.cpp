@@ -3,12 +3,6 @@
 string Stats::toString()
 {
     stringstream strm;
-    strm << "{STATS}" << username << "{:}" << mKills << "{:}" << tKills << "{:}" << deaths << "{/STATS}";
+    strm << "6" <<" " << mKills << " " << mKills * minionPoints << " " << tKills << " " << tkills * towerPoints << " " << deaths << " " << deaths * deathPoints << " " << mKills * minionPoints + tKills * towerPoints + deaths * deathPoints << " " << username;
     return strm.str();
-}
-
-//writes strings to file
-void Stats::toFile()
-{
-
 }

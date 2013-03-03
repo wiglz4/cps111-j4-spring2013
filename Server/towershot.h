@@ -11,12 +11,12 @@ class towerShot
     int x,y,delay;
     bool display;
     bool alive;
-    double speed;
+    double speed = 3;
     Entity* target;
 
 
 public:
-    towerShot(int orgX, int orgY) {x = orgX; y = orgY; delay = 10;}
+    towerShot(int orgX, int orgY, Entity* targ) {x = orgX; y = orgY; delay = 10; target = targ; alive = true;}
     void dec(){--delay; if(delay == 0) { display = true;}}
     string DispShot();
     void onTick();

@@ -29,6 +29,7 @@ string World::save()
     {
         strm << allEntities.at(i)->save();
     }
+    return save.str();
 }
 
 void World::load(string loadString)
@@ -47,14 +48,14 @@ string World::Display()
 }
 
 
-World::World(int numPlayers, int numRed, Game* thisGame)
+World::World(int numPlayers, int numRed, Game* thisGame, vector<User *> *vect)
 {
 //Needs Coding
 }
 
 
 
-void World::endGame()
+void World::endGame(int team)
 {
-    game->endGame();
+    game->endGame(team);
 }

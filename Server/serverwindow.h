@@ -9,6 +9,8 @@
 #include "user.h"
 #include <vector>
 
+//NEEDS BUNCHES OF WORK
+
 namespace Ui {
 class ServerWindow;
 }

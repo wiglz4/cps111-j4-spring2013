@@ -1,5 +1,7 @@
 #include "game.h"
 
+//NEEDS BUNCHES OF WORK
+
 Game::Game(ServerWindow * window)
 {
     home = window;

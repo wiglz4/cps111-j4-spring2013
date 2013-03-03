@@ -2,7 +2,7 @@
 
 PlCh::PlCh(int cTeam, int newX, int newY, World *newMap, string pName)
 {
-
+//NEEDS CODING
 }
 
 void PlCh::command(string cmdString)
@@ -12,51 +12,60 @@ void PlCh::command(string cmdString)
     int rest; //parse for the rest of the stream
     if (x == 1)
     {
-        //do targeting bit
+        //NEEDS CODING - TARGET
     }
     else if (x == 2)
     {
-        //create value comparisons for what goes where
+        //NEEDS CODING - BUTTON PRESSED
     }
     else
     {
-        //create value comparisons for what goes where
+        //NEEDS CODING - BUTTON RELEASED
     }
+}
+
+void PlCh::cheatMode()
+{
+    //NEEDS CODING
 }
 
 void PlCh::onTick()
 {
-    //do ai caluclations based upon state and target and bools
+    //NEEDS CODING
 }
+
 bool PlCh::damage(int value)
 {
     curHealth = curHealth - value;
 }
+
 void PlCh::die()
 {
-    //change state to reflect death
+    //NEEDS CODING
 }
+
 bool PlCh::Attack()
 {
     return target->damage(atkDamage);
 }
+
 void PlCh::Move(int newX, int newY)
 {
     x = newX;
     y = newY;
 }
-//void levelUp(){}
+
 string PlCh::save()
 {
-
+    //NEEDS CODING
 }
 
 Entity* PlCh::load()
 {
-
+    //NEEDS CODING
 }
 
 string PlCh::displayString()
 {
-
+    //NEEDS CODING
 }

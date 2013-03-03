@@ -3,12 +3,12 @@
 int Core::curID = 1;
 Core::Core(int cTeam, int newX, int newY, World *newMap)
 {
-
+    //NEEDS CODING
 }
 
 void Core::endGame()
 {
-    map->endGame();
+    map->endGame(team);
 }
 
 bool Core::damage(int value)

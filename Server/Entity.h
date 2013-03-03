@@ -38,11 +38,12 @@ public:
     int getX(){return x;}
     int getY(){return y;}
     int getID(){return absoluteID;}
-    //int getSector(){return sectorID;}
 
+    void setCHEALTH(int newHealth){curHealth = newHealth;}
+    void setMHEALTH(int newHealth){maxHealth = newHealth;}
     void setTargetable(bool newState){targetable = newState;}
     void setAttackable(bool newState){attackable = newState;}
-    void setMap(World *newMap){map = newMap;}
+
 };
 
 int Entity::curID = 0;

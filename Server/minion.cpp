@@ -2,13 +2,14 @@
 //999 is an arbitrary, placeholder value;
 Minion::Minion(int cTeam, int newX, int newY, World *newMap)
 {
-
+//NEEDS CODING
 }
 
 void Minion::onTick()
 {
-    //minion AI goes here
+    //NEEDS CODING
 }
+
 bool Minion::damage(int value)
 {
     curHealth = (double)curHealth - (double) value * (double) armor / 100;
@@ -19,14 +20,17 @@ bool Minion::damage(int value)
     }
     return false;
 }
+
 void Minion::die()
 {
-
+//NEEDS CODING
 }
+
 bool Minion::Attack()
 {
     return target->damage(atkDamage);
 }
+
 void Minion::Move(int newX, int newY)
 {
     x = newX;
@@ -40,11 +44,11 @@ string Tower::save()
 
 Entity* Tower::load()
 {
-
+//NEEDS CODING
 }
 
 string Tower::displayString()
 {
-
+//NEEDS CODING
 }
 

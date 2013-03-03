@@ -7,6 +7,8 @@ protected:
     string plName;
     Stats *points;
     bool display;
+    bool isCheatMode;
+    int cheatCounter;
 
     //int level;
     //int experience;
@@ -15,6 +17,8 @@ protected:
 public:
     PlCh(int cTeam, int newX, int newY, World *newMap, string pName);
     void command(string cmdString);
+    string getStats(){return Stats.toString();}
+    void cheatMode();
 //void levelUp();
 };
 

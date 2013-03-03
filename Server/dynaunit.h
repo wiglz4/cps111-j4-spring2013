@@ -16,6 +16,8 @@ public:
     virtual void die() = 0;
     bool Attack() = 0;
     void Move(int newX, int newY) = 0;
+
+    void setSpeed(int newSpeed){speed = newSpeed;}
 };
 
 #endif // DYNAUNIT_H

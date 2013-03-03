@@ -2,6 +2,8 @@
 #include "ui_serverwindow.h"
 #include <QMessageBox>
 
+//NEEDS BUNCHES OF WORK
+
 ServerWindow::ServerWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::ServerWindow)

@@ -3,7 +3,7 @@
 //999 is an arbitrary, placeholder value;
 Tower::Tower(int cTeam, int newX, int newY, World *newMap)
 {
-
+    //NEEDS CODING
 }
 
 bool Tower::Attack()
@@ -13,13 +13,12 @@ bool Tower::Attack()
 
 void Tower::onTick()
 {
-    //Tower AI goes here
+    //NEEDS CODING
 }
 
 void Tower::die()
 {
-    //Process animation and label deletion here
-    //At the end, Alive = false;
+    //NEEDS CODING
 }
 
 bool Tower::damage(int value)

@@ -7,6 +7,8 @@
 #include <QUdpSocket>
 #include "serverwindow.h"
 
+//NEEDS BUNCHES OF WORK
+
 class Game
 {
     static int curGameID;
@@ -26,7 +28,7 @@ private slots:
 
 public:
     Game(ServerWindow * window, vector<User*> *vect);
-    void endGame();
+    void endGame(int team);
 };
 
 #endif // GAME_H

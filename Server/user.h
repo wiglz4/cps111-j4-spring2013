@@ -3,6 +3,8 @@
 #include <QTcpSocket>
 #include "plch.h"
 
+//NEEDS BUNCHES OF WORK
+
 class User
 {
     string userName;

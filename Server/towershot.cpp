@@ -1,7 +1,9 @@
 #include "towershot.h"
 
-
-
+string towerShot::DispShot()
+{
+    //NEEDS CODING
+}
 
 void towerShot::onTick()
 {
