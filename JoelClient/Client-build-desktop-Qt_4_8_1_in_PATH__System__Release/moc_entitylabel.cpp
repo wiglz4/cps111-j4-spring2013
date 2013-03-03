@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'entitylabel.h'
 **
-** Created: Sat Mar 2 17:42:05 2013
+** Created: Sat Mar 2 19:05:06 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.1)
 **
 ** WARNING! All changes made in this file will be lost!
