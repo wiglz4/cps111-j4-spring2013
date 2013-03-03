@@ -17,13 +17,14 @@ gameScreen::gameScreen(QWidget *parent) :
     //REM
 
     wdgtPicture = new QWidget(this);
-    wdgtPicture->setGeometry(20,20,4000,3000);
+    wdgtPicture->setGeometry(-100,-2150,4000,3000);
     wdgtPicture->setStyleSheet("background-image:url(:/images/mapsm.png)");
     hero = new EntityLabel(wdgtPicture);
-    hero->setGeometry(100,100,110,110);
+    hero->setGeometry(300,2350,110,110);
+    //wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() - 2800);
     //QPixmap icon(":/images/hero1.png");
     //hero->setPixmap(icon);
-    hero->setStyleSheet("background:url(:/images/1.png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
+    hero->setStyleSheet("background:url(:/images/d1.png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
     hero->show();
 
     gameFrame = new QFrame(this);
@@ -188,26 +189,51 @@ void gameScreen::onTimerHit()
     if(wPressed && !aPressed && !sPressed && !dPressed)
     {
         hero->move(hero->x(), hero->y()-4);
+        counter++;
+        if (counter > 19) {
+            counter = 1;
+        }
+        hero->setStyleSheet("background:url(:/images/w" + QString("%1").arg(counter) + ".png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
     }
 
     if(wPressed && !aPressed && !sPressed && dPressed)
     {
         hero->move(hero->x()+2, hero->y()-2);
+        counter++;
+        if (counter > 19) {
+            counter = 1;
+        }
+        hero->setStyleSheet("background:url(:/images/wd" + QString("%1").arg(counter) + ".png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
     }
 
     if(!wPressed && !aPressed && !sPressed && dPressed)
     {
         hero->move(hero->x()+4, hero->y());
+        counter++;
+        if (counter > 19) {
+            counter = 1;
+        }
+        hero->setStyleSheet("background:url(:/images/d" + QString("%1").arg(counter) + ".png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
     }
 
     if(!wPressed && !aPressed && sPressed && dPressed)
     {
         hero->move(hero->x()+2, hero->y()+2);
+        counter++;
+        if (counter > 19) {
+            counter = 1;
+        }
+        hero->setStyleSheet("background:url(:/images/sd" + QString("%1").arg(counter) + ".png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
     }
 
     if(!wPressed && !aPressed && sPressed && !dPressed)
     {
         hero->move(hero->x(), hero->y()+4);
+        counter++;
+        if (counter > 19) {
+            counter = 1;
+        }
+        hero->setStyleSheet("background:url(:/images/s" + QString("%1").arg(counter) + ".png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
     }
 
     if(!wPressed && aPressed && sPressed && !dPressed)
@@ -217,18 +243,27 @@ void gameScreen::onTimerHit()
         if (counter > 19) {
             counter = 1;
         }
-        QString test;
-        hero->setStyleSheet("background:url(:/images/" + test.append(QString("%1").arg(counter)) + ".png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
+        hero->setStyleSheet("background:url(:/images/as" + QString("%1").arg(counter) + ".png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
     }
 
     if(!wPressed && aPressed && !sPressed && !dPressed)
     {
         hero->move(hero->x()-4, hero->y());
+        counter++;
+        if (counter > 19) {
+            counter = 1;
+        }
+        hero->setStyleSheet("background:url(:/images/a" + QString("%1").arg(counter) + ".png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
     }
 
     if(wPressed && aPressed && !sPressed && !dPressed)
     {
         hero->move(hero->x()-2, hero->y()-2);
+        counter++;
+        if (counter > 19) {
+            counter = 1;
+        }
+        hero->setStyleSheet("background:url(:/images/aw" + QString("%1").arg(counter) + ".png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
     }
 
 
@@ -273,8 +308,6 @@ void gameScreen::onTimerHit()
         //8
         wdgtPicture->move(wdgtPicture->x() + 4, wdgtPicture->y() + 4);
     }
-
-
 
 }
 
