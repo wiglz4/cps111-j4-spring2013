@@ -3,7 +3,7 @@
 
 #include "minion.h"
 #include "plch.h"
-#include "entity.h"
+#include "Entity.h"
 #include <string>
 
 class towerShot

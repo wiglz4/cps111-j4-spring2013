@@ -15,11 +15,12 @@ gameScreen::gameScreen(QWidget *parent) :
     connect(timer, SIGNAL(timeout()), this, SLOT(onTimerHit()));
     timer->start();
     //REM
-
-    wdgtPicture = new QWidget(this);
-    wdgtPicture->setGeometry(-100,-2150,4000,3000);
+    wdgtGame = new QWidget(this);
+    wdgtGame->setGeometry(-100, -2150, 4000, 3000);
+    wdgtPicture = new QWidget(wdgtGame);
+    wdgtPicture->setGeometry(0,0,4000,3000);
     wdgtPicture->setStyleSheet("background-image:url(:/images/mapsm.png)");
-    hero = new EntityLabel(wdgtPicture);
+    hero = new EntityLabel(wdgtGame);
     hero->setGeometry(300,2350,110,110);
     //wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() - 2800);
     //QPixmap icon(":/images/hero1.png");
@@ -198,7 +199,7 @@ void gameScreen::onTimerHit()
 
     if(wPressed && !aPressed && !sPressed && dPressed)
     {
-        hero->move(hero->x()+2, hero->y()-2);
+        hero->move(hero->x()+3, hero->y()-3);
         counter++;
         if (counter > 19) {
             counter = 1;
@@ -218,7 +219,7 @@ void gameScreen::onTimerHit()
 
     if(!wPressed && !aPressed && sPressed && dPressed)
     {
-        hero->move(hero->x()+2, hero->y()+2);
+        hero->move(hero->x()+3, hero->y()+3);
         counter++;
         if (counter > 19) {
             counter = 1;
@@ -238,7 +239,7 @@ void gameScreen::onTimerHit()
 
     if(!wPressed && aPressed && sPressed && !dPressed)
     {
-        hero->move(hero->x()-2, hero->y()+2);
+        hero->move(hero->x()-3, hero->y()+3);
         counter++;
         if (counter > 19) {
             counter = 1;
@@ -258,7 +259,7 @@ void gameScreen::onTimerHit()
 
     if(wPressed && aPressed && !sPressed && !dPressed)
     {
-        hero->move(hero->x()-2, hero->y()-2);
+        hero->move(hero->x()-3, hero->y()-3);
         counter++;
         if (counter > 19) {
             counter = 1;
@@ -271,42 +272,50 @@ void gameScreen::onTimerHit()
     if(upPressed && !rightPressed && !downPressed && !leftPressed)
     {
         //1
-        wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() + 6);
+        //wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() + 6);
+        wdgtGame->scroll(0,6);
     }
     if(upPressed && rightPressed && !downPressed && !leftPressed)
     {
         //2
-        wdgtPicture->move(wdgtPicture->x() - 4, wdgtPicture->y() + 4);
+        //wdgtPicture->move(wdgtPicture->x() - 4, wdgtPicture->y() + 4);
+        wdgtGame->scroll(-4,+4);
     }
     if(!upPressed && rightPressed && !downPressed && !leftPressed)
     {
         //3
-        wdgtPicture->move(wdgtPicture->x() -6 , wdgtPicture->y());
+        //wdgtPicture->move(wdgtPicture->x() -6 , wdgtPicture->y());
+        wdgtGame->scroll(-6,0);
     }
     if(!upPressed && rightPressed && downPressed && !leftPressed)
     {
         //4
-        wdgtPicture->move(wdgtPicture->x()-4, wdgtPicture->y() - 4);
+        //wdgtPicture->move(wdgtPicture->x()-4, wdgtPicture->y() - 4);
+        wdgtGame->scroll(-4,-4);
     }
     if(!upPressed && !rightPressed && downPressed && !leftPressed)
     {
         //5
-        wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() - 6);
+        //wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() - 6);
+        wdgtGame->scroll(0,-6);
     }
     if(!upPressed && !rightPressed && downPressed && leftPressed)
     {
         //6
-        wdgtPicture->move(wdgtPicture->x() + 4, wdgtPicture->y() - 4);
+        //wdgtPicture->move(wdgtPicture->x() + 4, wdgtPicture->y() - 4);
+        wdgtGame->scroll(4,-4);
     }
     if(!upPressed && !rightPressed && !downPressed && leftPressed)
     {
         //7
-        wdgtPicture->move(wdgtPicture->x() + 6, wdgtPicture->y());
+        //wdgtPicture->move(wdgtPicture->x() + 6, wdgtPicture->y());
+        wdgtGame->scroll(6,0);
     }
     if(upPressed && !rightPressed && !downPressed && leftPressed)
     {
         //8
-        wdgtPicture->move(wdgtPicture->x() + 4, wdgtPicture->y() + 4);
+        //wdgtPicture->move(wdgtPicture->x() + 4, wdgtPicture->y() + 4);
+        wdgtGame->scroll(4, 4);
     }
 
 }

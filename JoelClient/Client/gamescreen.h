@@ -36,6 +36,7 @@ private slots:
     
 private:
     Ui::gameScreen *gsui;
+    QWidget *wdgtGame;
     QWidget *wdgtPicture;
     QFrame *gameFrame;
 
