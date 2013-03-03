@@ -4,6 +4,7 @@
 #include "minion.h"
 #include "plch.h"
 #include "entity.h"
+#include <string>
 
 class towerShot
 {
@@ -15,9 +16,9 @@ class towerShot
 
 
 public:
-    towerShot(int orgX, int orgY) {x = orgX; y = orgY; delay = }
+    towerShot(int orgX, int orgY) {x = orgX; y = orgY; delay = 10;}
     void dec(){--delay; if(delay == 0) { display = true;}}
-    bool getDisplay(){return display;}
+    string DispShot();
     void onTick();
     bool getAlive(){return alive;}
 

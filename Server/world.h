@@ -25,10 +25,13 @@ class World
 private:
     vector<Entity *> redEntities;
     vector<Entity *> blueEntities;
+
     vector<Tower *> redTowers;
     vector<Tower *> blueTowers;
+
     vector<Minion *> redMinions;
     vector<Minion *> blueMinions;
+
     vector<PlCh *> redPlChs;
     vector<PlCh *> bluePlChs;
 
@@ -45,13 +48,12 @@ private:
 
     vector<towerShot *> shots;
 
+    Game *game;
 public:
-    World(int numPlayers, int numRed, vector<string> names);
-
-    Entity* getByID(int ID);
+    World(int numPlayers, int numRed, Game* thisGame);
 
     //returns a pointer to the nearest available enemy, All parameters come from the attacker
-    Entity* getNAE(int locX, int locY, string origColor);
+    Entity* getNAE(Entity *ent);
 
     //performs bounds check against all walls, towers, and cores, returns false if outside of movable space
     bool boundsCheck(Entity *ent);
@@ -63,6 +65,8 @@ public:
     void load(string loadString);
 
     string Display();
+
+    void endGame();
 
 };
 #endif // WORLD_H

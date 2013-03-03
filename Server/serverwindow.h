@@ -32,6 +32,7 @@ private slots:
 private:
     Ui::ServerWindow *ui;
     int connectCount;
+    int gameCount;
 };
 
 #endif // SERVERWINDOW_H

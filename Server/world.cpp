@@ -47,12 +47,14 @@ string World::Display()
 }
 
 
-World::World(int numPlayers, int numRed, vector<string> names)
+World::World(int numPlayers, int numRed, Game* thisGame)
 {
-
+//Needs Coding
 }
 
-World::World(string name)
+
+
+void World::endGame()
 {
-    Entity* player = new PlCh(1, 2000, 1500, &this, name);
+    game->endGame();
 }

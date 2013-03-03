@@ -13,7 +13,6 @@ protected:
     bool canAttack;
     bool Alive;
     bool doneDie;
-    //AI personal;
     Entity *target;
     Counter count;
     int targetPriority;

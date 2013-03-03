@@ -6,4 +6,5 @@ Game::Game(ServerWindow * window)
     timer = new QTimer(home);
     connect(timer, SIGNAL(timeout()), this, SLOT(onTimerHit()));
     timer->setInterval(20);
+    over = false;
 }
