@@ -29,6 +29,7 @@ void Widget::connectGame(gameScreen *g)
 void Widget::on_btnLocal_clicked()
 {
     g->show();
+    g->grabKeyboard();
     this->hide();
 }
 
@@ -46,9 +47,9 @@ void Widget::connectScores(ScoreWindow *s)
 }
 
 void Widget::on_btnScores_clicked()
-{
-    this->hide();
+{    
     s->show();
+    this->hide();
 }
 
 void Widget::connectHelp(HelpWindow *h)
@@ -60,6 +61,11 @@ void Widget::connectHelp(HelpWindow *h)
 
 void Widget::on_btnHelp_clicked()
 {
-    this->hide();
     h->show();
+    this->hide();    
+}
+
+void Widget::on_btnExit_clicked()
+{
+    this->deleteLater();
 }

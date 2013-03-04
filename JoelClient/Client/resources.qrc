@@ -159,5 +159,8 @@
         <file>images/title.png</file>
         <file>images/helpbutton.png</file>
         <file>images/highscores.png</file>
+        <file>images/WASD.png</file>
+        <file>images/ARROWKEYS.png</file>
+        <file>images/hep.png</file>
     </qresource>
 </RCC>

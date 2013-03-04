@@ -21,6 +21,7 @@ private:
     Ui::HelpWindow *ui;
     Widget *w;
     QPushButton *button;
+    QWidget *arrows;
 
 private slots:
     void close_window();

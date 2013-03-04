@@ -40,11 +40,22 @@ gameScreen::gameScreen(QWidget *parent) :
     gameFrame->setGeometry(0, 0, 800, 600);
     gameFrame->show();
 
+    lblPause = new QLabel(gameFrame);
+    lblPause->setText("PAUSED");
+    lblPause->setStyleSheet("font-size:22pt; font-weight:600; color:rgb(0, 0, 0);");
+    lblPause->setGeometry(28, 100, 200, 200);
+    lblPause->hide();
+
+    pause = new QFrame(gameFrame);
+    pause->setGeometry(0, 0, 4000, 3000);
+    pause->setStyleSheet("background-color:rgba(0, 0, 0, 100);");
+    pause->hide();
+
     wPressed = false;
     aPressed = false;
     sPressed = false;
     dPressed = false;
-
+    pPressed = false;
 
     upPressed = false;
     rightPressed = false;
@@ -91,6 +102,21 @@ void gameScreen::serverDisconnected()
 
 void gameScreen::keyPressEvent(QKeyEvent *e)
 {
+    if(e->key() == Qt::Key_P && !e->isAutoRepeat())
+    {
+        if (pPressed == false){
+           timer->stop();
+           pPressed = true;
+           lblPause->show();
+           pause->show();
+        } else {
+           timer->start();
+           pPressed = false;
+           lblPause->hide();
+           pause->hide();
+        }
+        qDebug() << "P";
+    }
     if(e->key() == Qt::Key_W && !e->isAutoRepeat())
     {
         //REM

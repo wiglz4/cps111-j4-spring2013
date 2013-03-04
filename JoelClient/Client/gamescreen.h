@@ -46,6 +46,8 @@ private:
     QWidget *wdgtGame;
     QWidget *wdgtPicture;
     QFrame *gameFrame;
+    QLabel *lblPause;
+    QFrame *pause;
     QPushButton *menu;
     Widget *w;
     QTcpSocket *mySocket;
@@ -62,6 +64,7 @@ protected:
     bool aPressed;
     bool sPressed;
     bool dPressed;
+    bool pPressed;
     //REM
 
     bool upPressed;

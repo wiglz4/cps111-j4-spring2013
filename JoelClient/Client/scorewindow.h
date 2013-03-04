@@ -22,7 +22,6 @@ public:
 private slots:
     void close_window();
 
-
 private:
     Ui::ScoreWindow *ui;
     Widget *w;
@@ -33,3 +32,5 @@ signals:
 };
 
 #endif // SCOREWINDOW_H
+
+
