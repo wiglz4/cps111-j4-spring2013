@@ -6,7 +6,7 @@ class Unit : public Entity
 {
 protected:
     int atkDamage;
-    int atkSpeed;
+    double atkSpeed;
     int armor;
     int atkRange;
     int detRange;

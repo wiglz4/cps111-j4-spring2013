@@ -3,7 +3,19 @@
 int Core::curID = 1;
 Core::Core(int cTeam, int newX, int newY, World *newMap)
 {
-    //NEEDS CODING
+    map = newMap;
+    x = newX;
+    y = newY;
+    curHealth = 999;
+    maxHealth = 999;
+    healthChange = true;
+    team = cTeam;
+    absoluteID = ++curID;
+    targetable = true;
+    attackable = true;
+    size = 200; //radius
+    type = 1;
+
 }
 
 void Core::endGame()

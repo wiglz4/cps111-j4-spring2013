@@ -8,7 +8,8 @@ protected:
     Stats *points;
     bool display;
     bool isCheatMode;
-    int cheatCounter;
+    bool canCheatMode;
+    Counter cheatCounter;
 
     //int level;
     //int experience;

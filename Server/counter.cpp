@@ -10,6 +10,7 @@ bool Counter::Check()
 {
     if(current = endint)
     {
+        current = 0;
         return true;
     }
     else

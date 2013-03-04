@@ -47,11 +47,14 @@ private:
     vector<bool> blueAlive;
     bool blueVulnerable;
 
+    vector<User *> redUsers;
+    vector<User *> blueUsers;
+
     vector<towerShot *> shots;
 
     Game *game;
 public:
-    World(int numPlayers, int numRed, Game* thisGame);
+    World(vector<User *> *vect, Game* thisGame);
 
     //returns a pointer to the nearest available enemy, All parameters come from the attacker
     Entity* getNAE(Entity *ent);

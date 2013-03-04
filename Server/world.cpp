@@ -1,5 +1,10 @@
 #include "world.h"
 
+World::World(vector<User *> *vect, Game *thisGame)
+{
+    //NEEDS CODING
+}
+
 Entity *World::getNAE(int locX, int locY, string origColor)
 {
 //needs coding
@@ -46,14 +51,6 @@ string World::Display()
     }
     return strm.str();
 }
-
-
-World::World(int numPlayers, int numRed, Game* thisGame, vector<User *> *vect)
-{
-//Needs Coding
-}
-
-
 
 void World::endGame(int team)
 {
