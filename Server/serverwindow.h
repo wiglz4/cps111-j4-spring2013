@@ -8,6 +8,7 @@
 #include "game.h"
 #include "user.h"
 #include <vector>
+#include <QTimer>
 
 //NEEDS BUNCHES OF WORK
 
@@ -18,6 +19,7 @@ class ServerWindow;
 class ServerWindow : public QMainWindow
 {
     Q_OBJECT
+    QTimer *timer;
     QTcpServer *server;
     vector<User *> lobbyUsers;
     vector<Game *> games;

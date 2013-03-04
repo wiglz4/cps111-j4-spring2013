@@ -9,7 +9,6 @@ using namespace std;
 #include "Stats.h"
 #include "core.h"
 #include "counter.h"
-#include "dynaunit.h"
 #include "minion.h"
 #include "plch.h"
 #include "tower.h"

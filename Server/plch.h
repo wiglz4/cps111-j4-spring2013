@@ -1,7 +1,7 @@
 #ifndef PLCH_H
 #define PLCH_H
-#include "dynaunit.h"
-class PlCh : public DynaUnit
+#include "unit.h"
+class PlCh : public Unit
 {
 protected:
     string plName;

@@ -18,6 +18,10 @@ protected:
     int targetPriority;
     string state;
     bool stateChange;
+    double speed;
+    bool canMove;
+    bool positionChange;
+
 
 public:
     virtual bool damage(int value) = 0;
@@ -31,6 +35,7 @@ public:
 
     void setCanAttack(bool newState){canAttack = newState;}
     void setAlive(bool newState){Alive = newState;}
+    void setSpeed(int newSpeed){speed = newSpeed;}
 
 };
 
