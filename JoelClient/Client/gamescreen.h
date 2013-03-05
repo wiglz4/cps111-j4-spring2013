@@ -11,6 +11,7 @@
 #include <vector>
 #include <QResizeEvent>
 #include <QFrame>
+#include <QTcpSocket>
 #include "scorewindow.h"
 #include <QPushButton>
 
@@ -39,6 +40,8 @@ public:
 private slots:
     void onTimerHit();
     void return_to_menu();
+    void readCommand();
+    void serverDisconnected();
     
 private:
     Ui::gameScreen *gsui;
@@ -47,6 +50,7 @@ private:
     QFrame *gameFrame;
     QPushButton *menu;
     Widget *w;
+    QTcpSocket *mySocket;
 
 protected:
     void keyPressEvent(QKeyEvent * e);

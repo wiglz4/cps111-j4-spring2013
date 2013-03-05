@@ -3,6 +3,10 @@
 #include "entitylabel.h"
 #include <QPixmap>
 #include <QString>
+#include <QByteArray>
+#include <QTcpServer>
+#include <QTcpSocket>
+#include <string>
 
 gameScreen::gameScreen(QWidget *parent) :
     QWidget(parent),
@@ -48,6 +52,11 @@ gameScreen::gameScreen(QWidget *parent) :
     leftPressed = false;
 
     counter = 1;
+    mySocket = new QTcpSocket(this);
+    connect(mySocket, SIGNAL(readyRead()), this, SLOT(readCommand()));
+    connect(mySocket, SIGNAL(disconnected()), this, SLOT(serverDisconnected()));
+    mySocket->connectToHost("localhost",5000);
+
 
     menu = new QPushButton(this);
     menu->setGeometry(20,3,105,35);
@@ -62,6 +71,22 @@ gameScreen::gameScreen(QWidget *parent) :
 gameScreen::~gameScreen()
 {
     delete gsui;
+}
+
+
+void gameScreen::readCommand()
+{
+    if(mySocket->canReadLine()){
+        QString str = mySocket->readLine();
+        qDebug() << str;
+        mySocket->write(str.toAscii());
+
+    }
+}
+
+void gameScreen::serverDisconnected()
+{
+
 }
 
 void gameScreen::keyPressEvent(QKeyEvent *e)
