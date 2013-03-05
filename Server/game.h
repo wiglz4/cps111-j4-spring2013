@@ -19,12 +19,8 @@ class Game
     QUdpSocket *sock;
     int readyCount;
 
-
-
-
-
 public:
-    Game(ServerWindow * window, vector<User*> *vect);
+    Game(vector<User*> *vect);
     void endGame(int team);
     void onTick();
 };

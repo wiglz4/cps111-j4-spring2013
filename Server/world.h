@@ -19,7 +19,10 @@ using namespace std;
 #include <vector>
 #include "game.h"
 #include "user.h"
-
+class Game;
+class Entity;
+class Minion;
+class towerShot;
 class World
 {
 private:

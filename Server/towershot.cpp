@@ -1,5 +1,5 @@
 #include "towershot.h"
-
+double towerShot::speed = 8;
 string towerShot::DispShot()
 {
     //NEEDS CODING

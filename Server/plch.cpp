@@ -61,7 +61,6 @@ void PlCh::command(string cmdString)
         {
             target = ent;
         }
-        underCommand = true;
     }
     else if (type == 2)
     {
@@ -81,7 +80,6 @@ void PlCh::command(string cmdString)
         {
             d = true;
         }
-        underCommand = true;
         target = NULL;
     }
     else
@@ -102,8 +100,6 @@ void PlCh::command(string cmdString)
         {
             d = false;
         }
-        underCommand = false;
-        target = NULL;
     }
 }
 
@@ -122,10 +118,44 @@ void PlCh::onTick()
     int currentState = state;
     if(Alive)
     {
-        if(underCommand)
+        //if(underCommand)
+        //{
+        if (w || a || s || d)
         {
+            if(w && a && !s && !d)
+            {
 
+            }
+            if(w && !a && !s && !d)
+            {
+
+            }
+            if(!w && a && !s && !d)
+            {
+
+            }
+            if(!w && a && s && !d)
+            {
+
+            }
+            if(!w && !a && s && !d)
+            {
+
+            }
+            if(!w && !a && s && d)
+            {
+
+            }
+            if(!w && !a && !s && d)
+            {
+
+            }
+            if(w && !a && !s && d)
+            {
+
+            }
         }
+        //}
         else
         {
             if(target != NULL)
@@ -169,7 +199,6 @@ void PlCh::onTick()
                             //STATE Calculations here
                             x = tempX;
                             y = tempY;
-                            //OOL calculations here
                         }
                     }
                 }
@@ -223,7 +252,7 @@ void PlCh::onTick()
                         }
                         else
                         {
-                            if(false)
+                            /*if(OOL)
                             {
                                 //SPECIAL OOL LOGIC
                             }
@@ -255,7 +284,7 @@ void PlCh::onTick()
                                     y = tempY;
                                     //MESS WITH OOL
                                 }
-                            }
+                            }*/
                         }
                     }
                 }
@@ -304,13 +333,12 @@ void PlCh::onTick()
                                 //SET STATE HERE
                                 x = tempX;
                                 y = tempY;
-                                //MESS WITH OOL
                             }
                         }
                     }
                     else
                     {
-                        if(false)
+                        /*if(OOL)
                         {
                             //SPECIAL OOL LOGIC
                         }
@@ -342,7 +370,7 @@ void PlCh::onTick()
                                 y = tempY;
                                 //MESS WITH OOL
                             }
-                        }
+                        }*/
                     }
                 }
             }
@@ -353,16 +381,6 @@ void PlCh::onTick()
         if(count.Check())
         {
             Alive = true;
-            if (team == 1)
-            {
-                x = 999;
-                y = 999;
-            }
-            else
-            {
-                x = 999;
-                y = 999;
-            }
             count.reset(50/atkSpeed);
         }
     }

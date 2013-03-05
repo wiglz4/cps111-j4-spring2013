@@ -11,7 +11,7 @@ class towerShot
     int x,y,delay;
     bool display;
     bool alive;
-    double speed = 3;
+    double static speed;
     Entity* target;
 
 
