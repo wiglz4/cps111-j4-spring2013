@@ -11,11 +11,8 @@
 #include <vector>
 #include <QResizeEvent>
 #include <QFrame>
-<<<<<<< HEAD
 #include <QTcpSocket>
-=======
 #include "scorewindow.h"
->>>>>>> bd85f73005c408585feab44521998c0d2132559f
 
 //REM
 #include <QTimer>
@@ -39,6 +36,8 @@ public:
 
 private slots:
     void onTimerHit();
+    void readCommand();
+    void serverDisconnected();
     
 private:
     Ui::gameScreen *gsui;
@@ -52,7 +51,6 @@ protected:
     void keyReleaseEvent(QKeyEvent *e);
     void closeEvent(QCloseEvent *);
     void resizeEvent ( QResizeEvent * event );
-    void readCommand();
 
     //REM
     QTimer *timer;

@@ -53,7 +53,7 @@ gameScreen::gameScreen(QWidget *parent) :
     mySocket = new QTcpSocket(this);
     connect(mySocket, SIGNAL(readyRead()), this, SLOT(readCommand()));
     connect(mySocket, SIGNAL(disconnected()), this, SLOT(serverDisconnected()));
-    mySocket->connectToHost("tempHostName",8080);
+    mySocket->connectToHost("localhost",5000);
 
 
 }
@@ -64,12 +64,20 @@ gameScreen::~gameScreen()
 }
 
 
-/*void gameScreen::readCommand()
+void gameScreen::readCommand()
 {
-    qDebug() << readLine();
-    string f = "blah";
-    mySocket->write(f);
-}*/
+    if(mySocket->canReadLine()){
+        QString str = mySocket->readLine();
+        qDebug() << str;
+        mySocket->write(str.toAscii());
+
+    }
+}
+
+void gameScreen::serverDisconnected()
+{
+
+}
 
 void gameScreen::keyPressEvent(QKeyEvent *e)
 {
