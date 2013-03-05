@@ -1,14 +1,13 @@
 #ifndef SCOREWINDOW_H
 #define SCOREWINDOW_H
 
+class ScoreWindow;
+
 #include <QDialog>
-#include "gamescreen.h"
 #include "ui_scorewindow.h"
 #include "ui_widget.h"
 #include "widget.h"
 #include <QPushButton>
-
-class Widget;
 
 class ScoreWindow : public QDialog
 {

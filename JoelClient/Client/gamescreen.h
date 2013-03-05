@@ -1,6 +1,8 @@
 #ifndef GAMESCREEN_H
 #define GAMESCREEN_H
 
+class gameScreen;
+
 #include <QWidget>
 #include "widget.h"
 #include <QKeyEvent>
@@ -19,11 +21,7 @@
 #include <QTimer>
 //REM
 
-namespace Ui {
-class Widget;
-class gameScreen;
-class ScoreWindow;
-}
+
 
 
 class gameScreen : public QWidget

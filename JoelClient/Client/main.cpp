@@ -7,6 +7,8 @@ int main(int argc, char *argv[])
     gameScreen g;
     Widget w;
     ScoreWindow s;
+    HelpWindow h;
+    w.connectHelp(&h);
     w.connectGame(&g);
     w.connectScores(&s);
     w.show();

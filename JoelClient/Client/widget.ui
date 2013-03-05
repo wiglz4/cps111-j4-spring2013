@@ -7,14 +7,17 @@
     <x>0</x>
     <y>0</y>
     <width>200</width>
-    <height>195</height>
+    <height>250</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Game Start</string>
+   <string>Gate = Down</string>
   </property>
   <property name="autoFillBackground">
    <bool>false</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color:#43553a;</string>
   </property>
   <widget class="QLabel" name="lblBackground">
    <property name="geometry">
@@ -22,8 +25,11 @@
      <x>0</x>
      <y>0</y>
      <width>200</width>
-     <height>200</height>
+     <height>300</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:hex(43553a);</string>
    </property>
    <property name="text">
     <string/>
@@ -36,7 +42,7 @@
    <property name="geometry">
     <rect>
      <x>90</x>
-     <y>20</y>
+     <y>60</y>
      <width>105</width>
      <height>35</height>
     </rect>
@@ -61,7 +67,7 @@
    <property name="geometry">
     <rect>
      <x>90</x>
-     <y>60</y>
+     <y>100</y>
      <width>105</width>
      <height>35</height>
     </rect>
@@ -83,7 +89,7 @@
    <property name="geometry">
     <rect>
      <x>90</x>
-     <y>100</y>
+     <y>140</y>
      <width>105</width>
      <height>35</height>
     </rect>
@@ -102,7 +108,7 @@
    <property name="geometry">
     <rect>
      <x>90</x>
-     <y>140</y>
+     <y>180</y>
      <width>105</width>
      <height>35</height>
     </rect>
@@ -112,6 +118,41 @@
    </property>
    <property name="text">
     <string>High Scores</string>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblTitle">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>5</y>
+     <width>180</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background:url(:/images/title.png) no-repeat top left;</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnHelp">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>220</y>
+     <width>25</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background:url(:/images/helpbutton.png) no-repeat top left;</string>
+   </property>
+   <property name="text">
+    <string/>
    </property>
    <property name="flat">
     <bool>true</bool>

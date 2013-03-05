@@ -8,7 +8,8 @@ Widget::Widget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Widget),
     gsui(new Ui::gameScreen),
-    scui(new Ui::ScoreWindow)
+    scui(new Ui::ScoreWindow),
+    hsui(new Ui::HelpWindow)
 {
     ui->setupUi(this);
 }
@@ -48,4 +49,17 @@ void Widget::on_btnScores_clicked()
 {
     this->hide();
     s->show();
+}
+
+void Widget::connectHelp(HelpWindow *h)
+{
+    this->h = h;
+    hsui->setupUi(h);
+    h->connectWidget(this);
+}
+
+void Widget::on_btnHelp_clicked()
+{
+    this->hide();
+    h->show();
 }

@@ -156,5 +156,8 @@
         <file>images/wd17.png</file>
         <file>images/wd18.png</file>
         <file>images/wd19.png</file>
+        <file>images/title.png</file>
+        <file>images/helpbutton.png</file>
+        <file>images/highscores.png</file>
     </qresource>
 </RCC>
