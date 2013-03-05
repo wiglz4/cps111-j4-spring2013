@@ -2,11 +2,13 @@
 
 //NEEDS BUNCHES OF WORK
 
-Game::Game(ServerWindow * window)
+Game::Game()
 {
-    home = window;
-    timer = new QTimer(home);
-    connect(timer, SIGNAL(timeout()), this, SLOT(onTimerHit()));
-    timer->setInterval(20);
     over = false;
+}
+
+
+void Game::onTick()
+{
+    map->onTick();
 }

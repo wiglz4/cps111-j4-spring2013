@@ -5,11 +5,10 @@
 #include "gamescreen.h"
 #include "ui_gamescreen.h"
 #include "ui_widget.h"
+#include "ui_scorewindow.h"
+
 class gameScreen;
-namespace Ui {
-class Widget;
-class gameScreen;
-}
+class ScoreWindow;
 
 class Widget : public QWidget
 {
@@ -20,9 +19,14 @@ public:
     ~Widget();
     
     void connectGame(gameScreen *g);
+    void connectScores(ScoreWindow *s);
 
 private slots:
     void on_btnLocal_clicked();
+
+    void on_btnScores_clicked();
+
+    void close_dialog();
 
 signals:
     void startLocal();
@@ -30,6 +34,9 @@ signals:
 private:
     Ui::Widget *ui;
     Ui::gameScreen *gsui;
+    Ui::ScoreWindow *scui;
+    gameScreen *g;
+    ScoreWindow *s;
 };
 
 #endif // WIDGET_H

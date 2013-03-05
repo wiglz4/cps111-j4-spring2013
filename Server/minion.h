@@ -1,11 +1,13 @@
 #ifndef MINION_H
 #define MINION_H
-#include "dynaunit.h"
-class Minion : public DynaUnit
+#include "unit.h"
+class Minion : public Unit
 {
 protected:
     int cpX;
     int cpY;
+    int laneX;
+    int laneY;
 
     //OUT OF LANE
     bool OOL;

@@ -11,7 +11,11 @@
 #include <vector>
 #include <QResizeEvent>
 #include <QFrame>
+<<<<<<< HEAD
 #include <QTcpSocket>
+=======
+#include "scorewindow.h"
+>>>>>>> bd85f73005c408585feab44521998c0d2132559f
 
 //REM
 #include <QTimer>
@@ -20,6 +24,7 @@
 namespace Ui {
 class Widget;
 class gameScreen;
+class ScoreWindow;
 }
 
 class gameScreen : public QWidget

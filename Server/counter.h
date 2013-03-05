@@ -9,6 +9,7 @@ public:
     Counter(int end);
     bool Check();
     void reset(int newEnd);
+    void reset();
 };
 
 #endif // COUNTER_H

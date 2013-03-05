@@ -3,6 +3,8 @@
 
 #include "world.h"
 #include "Stats.h"
+#include <cmath>
+class World;
 
 class Entity
 {
@@ -25,7 +27,7 @@ public:
     virtual bool damage(int value) = 0;
     virtual void onTick() = 0;
     virtual string save() = 0;
-    virtual static Entity* load() = 0;
+    virtual Entity* load() = 0;
     virtual string displayString();
 
     int getCHealth(){return curHealth;}

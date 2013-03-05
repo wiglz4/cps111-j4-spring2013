@@ -13,22 +13,16 @@ class Game
 {
     static int curGameID;
     World *world;
-    QTimer *timer;
+    //QTimer *timer;//shunt to serverwindow
     bool over;
     vector<User *> users;
     QUdpSocket *sock;
-    ServerWindow *home;
     int readyCount;
 
-private slots:
-    void timerHit();
-
-
-
-
 public:
-    Game(ServerWindow * window, vector<User*> *vect);
+    Game(vector<User*> *vect);
     void endGame(int team);
+    void onTick();
 };
 
 #endif // GAME_H

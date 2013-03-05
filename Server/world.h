@@ -9,7 +9,6 @@ using namespace std;
 #include "Stats.h"
 #include "core.h"
 #include "counter.h"
-#include "dynaunit.h"
 #include "minion.h"
 #include "plch.h"
 #include "tower.h"
@@ -20,7 +19,10 @@ using namespace std;
 #include <vector>
 #include "game.h"
 #include "user.h"
-
+class Game;
+class Entity;
+class Minion;
+class towerShot;
 class World
 {
 private:
@@ -47,17 +49,22 @@ private:
     vector<bool> blueAlive;
     bool blueVulnerable;
 
+    vector<User *> redUsers;
+    vector<User *> blueUsers;
+
     vector<towerShot *> shots;
 
     Game *game;
 public:
-    World(int numPlayers, int numRed, Game* thisGame);
+    World(vector<User *> *vect, Game* thisGame);
 
     //returns a pointer to the nearest available enemy, All parameters come from the attacker
-    Entity* getNAE(Entity *ent);
+    Entity* getNAE(Entity *ent, int &distance);
 
     //performs bounds check against all walls, towers, and cores, returns false if outside of movable space
-    bool boundsCheck(Entity *ent);
+    bool boundsCheck(int x, int y);
+
+    Entity* getByID(int entID);
 
     void onTick();
 
