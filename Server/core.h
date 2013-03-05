@@ -1,6 +1,7 @@
 #ifndef CORE_H
 #define CORE_H
 #include "Entity.h"
+#include "world.h"
 class World;
 
 class Core : public Entity

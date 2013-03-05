@@ -24,7 +24,8 @@ SOURCES += main.cpp\
     game.cpp \
     counter.cpp \
     core.cpp \
-    user.cpp
+    user.cpp \
+    unit.cpp
 
 HEADERS  += serverwindow.h \
     world.h \

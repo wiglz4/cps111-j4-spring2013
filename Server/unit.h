@@ -24,6 +24,7 @@ protected:
 
 
 public:
+    Unit();
     virtual bool damage(int value) = 0;
     virtual void onTick() = 0;
     virtual string save() = 0;
@@ -33,9 +34,9 @@ public:
     virtual bool Attack(Entity * ent) = 0;
 
 
-    void setCanAttack(bool newState){canAttack = newState;}
-    void setAlive(bool newState){Alive = newState;}
-    void setSpeed(int newSpeed){speed = newSpeed;}
+    void setCanAttack(bool newState);
+    void setAlive(bool newState);
+    void setSpeed(int newSpeed);
 
 };
 
