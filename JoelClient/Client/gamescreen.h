@@ -11,6 +11,7 @@
 #include <vector>
 #include <QResizeEvent>
 #include <QFrame>
+#include <QTcpSocket>
 
 //REM
 #include <QTimer>
@@ -39,12 +40,14 @@ private:
     QWidget *wdgtGame;
     QWidget *wdgtPicture;
     QFrame *gameFrame;
+    QTcpSocket *mySocket;
 
 protected:
     void keyPressEvent(QKeyEvent * e);
     void keyReleaseEvent(QKeyEvent *e);
     void closeEvent(QCloseEvent *);
     void resizeEvent ( QResizeEvent * event );
+    void readCommand();
 
     //REM
     QTimer *timer;
