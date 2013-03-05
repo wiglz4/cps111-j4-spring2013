@@ -16,6 +16,9 @@
   <property name="autoFillBackground">
    <bool>false</bool>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background:rgb(67, 85, 58);</string>
+  </property>
   <widget class="QLabel" name="lblBackground">
    <property name="geometry">
     <rect>

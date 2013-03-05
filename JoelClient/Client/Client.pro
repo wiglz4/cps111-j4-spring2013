@@ -16,14 +16,17 @@ TEMPLATE = app
 SOURCES += main.cpp\
         widget.cpp \
     gamescreen.cpp \
-    entitylabel.cpp
+    entitylabel.cpp \
+    scorewindow.cpp
 
 HEADERS  += widget.h \
     gamescreen.h \
-    entitylabel.h
+    entitylabel.h \
+    scorewindow.h
 
 FORMS    += widget.ui \
-    gamescreen.ui
+    gamescreen.ui \
+    scorewindow.ui
 
 RESOURCES += \
     resources.qrc
