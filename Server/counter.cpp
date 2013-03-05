@@ -2,14 +2,15 @@
 
 Counter::Counter(int end)
 {
-    current = 0;
+    current = end;
     endint = end;
 }
 
 bool Counter::Check()
 {
-    if(current = endint)
+    if(current == endint)
     {
+        current = 0;
         return true;
     }
     else
@@ -23,4 +24,9 @@ void Counter::reset(int newEnd)
 {
     current = 0;
     endint = newEnd;
+}
+
+void Counter::reset()
+{
+    current = endint;
 }

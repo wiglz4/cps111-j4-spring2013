@@ -3,6 +3,7 @@
 
 #include "world.h"
 #include "Stats.h"
+#include <cmath>
 
 class Entity
 {

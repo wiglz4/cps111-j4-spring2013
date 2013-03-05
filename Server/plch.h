@@ -1,14 +1,21 @@
 #ifndef PLCH_H
 #define PLCH_H
-#include "dynaunit.h"
-class PlCh : public DynaUnit
+#include "unit.h"
+class PlCh : public Unit
 {
 protected:
     string plName;
     Stats *points;
     bool display;
     bool isCheatMode;
-    int cheatCounter;
+    bool canCheatMode;
+    Counter cheatCounter;
+    bool underCommand;
+
+    bool w;
+    bool a;
+    bool s;
+    bool d;
 
     //int level;
     //int experience;
@@ -19,6 +26,7 @@ public:
     void command(string cmdString);
     string getStats(){return Stats.toString();}
     void cheatMode();
+    void setName(string newName){plName = newName;}
 //void levelUp();
 };
 
