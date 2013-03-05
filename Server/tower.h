@@ -1,6 +1,6 @@
 #ifndef TOWER_H
 #define TOWER_H
-
+class Tower;
 #include "Entity.h"
 #include "unit.h"
 

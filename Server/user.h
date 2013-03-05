@@ -1,7 +1,7 @@
 #ifndef USER_H
 #define USER_H
 #include <QTcpSocket>
-#include "plch.h"
+#include <plch.h>
 
 //NEEDS BUNCHES OF WORK
 

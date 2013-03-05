@@ -44,7 +44,7 @@ void ServerWindow::clientDisconnected()
 
 void ServerWindow::timerHit()
 {
-    for(int i = 0; i < games.size(); ++i)
+    for(unsigned int i = 0; i < games.size(); ++i)
     {
         games.at(i)->onTick();
     }

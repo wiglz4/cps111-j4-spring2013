@@ -1,5 +1,6 @@
 #ifndef PLCH_H
 #define PLCH_H
+class PlCh;
 #include "unit.h"
 class PlCh : public Unit
 {

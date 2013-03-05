@@ -11,7 +11,7 @@
 #include <QTimer>
 
 //NEEDS BUNCHES OF WORK
-class Game;
+//class Game;
 namespace Ui {
 class ServerWindow;
 }

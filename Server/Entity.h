@@ -1,10 +1,10 @@
 #ifndef ENTITY_H
 #define ENTITY_H
+//class Entity;
 
 #include "world.h"
 #include "Stats.h"
 #include <cmath>
-class World;
 
 class Entity
 {
@@ -24,6 +24,7 @@ protected:
     int type;
 
 public:
+    Entity();
     virtual bool damage(int value) = 0;
     virtual void onTick() = 0;
     virtual string save() = 0;

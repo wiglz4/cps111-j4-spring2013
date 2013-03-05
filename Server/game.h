@@ -1,6 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 #include <QTimer>
+class Game;
 #include "world.h"
 #include <vector>
 #include "user.h"
@@ -13,7 +14,6 @@ class Game
 {
     static int curGameID;
     World *world;
-    //QTimer *timer;//shunt to serverwindow
     bool over;
     vector<User *> users;
     QUdpSocket *sock;

@@ -1,8 +1,8 @@
 #ifndef TOWERSHOT_H
 #define TOWERSHOT_H
 
-#include "minion.h"
-#include "plch.h"
+class towerShot;
+
 #include "Entity.h"
 #include <string>
 

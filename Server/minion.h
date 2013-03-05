@@ -1,5 +1,6 @@
 #ifndef MINION_H
 #define MINION_H
+class Minion;
 #include "unit.h"
 class Minion : public Unit
 {

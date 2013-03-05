@@ -2,8 +2,12 @@
 #define WORLD_H
 
 #include <string>
+#include <sstream>
+#include <vector>
 
 using namespace std;
+
+class World;
 
 #include "Entity.h"
 #include "Stats.h"
@@ -14,15 +18,13 @@ using namespace std;
 #include "tower.h"
 #include "unit.h"
 #include "towershot.h"
-#include <string>
-#include <sstream>
-#include <vector>
 #include "game.h"
 #include "user.h"
-class Game;
+
+/*class Game;
 class Entity;
 class Minion;
-class towerShot;
+class towerShot;*/
 class World
 {
 private:
@@ -55,8 +57,9 @@ private:
     vector<towerShot *> shots;
 
     Game *game;
+
 public:
-    World(vector<User *> *vect, Game* thisGame);
+    World(vector<User *> *vect);
 
     //returns a pointer to the nearest available enemy, All parameters come from the attacker
     Entity* getNAE(Entity *ent, int &distance);

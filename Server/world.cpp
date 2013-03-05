@@ -1,6 +1,6 @@
 #include "world.h"
 
-World::World(vector<User *> *vect, Game *thisGame)
+World::World(vector<User *> *vect)
 {
     //NEEDS CODING
 }
