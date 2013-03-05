@@ -25,10 +25,14 @@ Tower::Tower(int cTeam, int newX, int newY, World *newMap)
     Alive = true;
     doneDie = false;
     target = NULL;
-    count(5);
+    count(50 / atkSpeed);
     targetPriority = 0;
     state = 5;
     stateChange = true;
+
+    speed = 0;
+    canMove = false;
+    updatePosition = false;
 }
 
 bool Tower::Attack()
@@ -38,12 +42,69 @@ bool Tower::Attack()
 
 void Tower::onTick()
 {
-    //NEEDS CODING
+    double distance;
+    int currentState = state;
+    if(target != NULL)
+    {
+        distance = sqrt(pow(target->getY()-y, 2) + pow(target->getX() - x, 2));
+        if(distance < atkRange)
+        {
+            //SET STATE HERE
+            if(count.Check())
+            {
+                if(Attack(target))
+                {
+                    target = NULL;
+                }
+            }
+        }
+        else if (distance > atkRange)
+        {
+            target = NULL;
+            Entity* ent = map->getNAE(&this, distance);
+            if(ent != NULL)
+            {
+                if (distance < atkRange)
+                {
+                    target = ent;
+                    //SET STATE HERE
+                    if(count.Check())
+                    {
+                        if(Attack(ent))
+                        {
+                            target = NULL;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    else
+    {
+        target = NULL;
+        Entity* ent = map->getNAE(&this, distance);
+        if(ent != NULL)
+        {
+            if (distance < atkRange)
+            {
+                //SET STATE HERE
+                target = ent;
+                if(count.Check())
+                {
+                    if(Attack(ent))
+                    {
+                        target = NULL;
+                    }
+                }
+            }
+        }
+    }
 }
 
 void Tower::die()
 {
-    //NEEDS CODING
+    state = 99;
+    healthChange = true;
 }
 
 bool Tower::damage(int value)

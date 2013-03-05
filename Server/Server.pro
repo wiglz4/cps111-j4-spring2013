@@ -36,7 +36,6 @@ HEADERS  += serverwindow.h \
     minion.h \
     game.h \
     Entity.h \
-    dynaunit.h \
     counter.h \
     core.h \
     user.h

@@ -6,6 +6,8 @@ class Minion : public Unit
 protected:
     int cpX;
     int cpY;
+    int laneX;
+    int laneY;
 
     //OUT OF LANE
     bool OOL;

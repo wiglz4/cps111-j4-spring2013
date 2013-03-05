@@ -56,10 +56,12 @@ public:
     World(vector<User *> *vect, Game* thisGame);
 
     //returns a pointer to the nearest available enemy, All parameters come from the attacker
-    Entity* getNAE(Entity *ent);
+    Entity* getNAE(Entity *ent, int &distance);
 
     //performs bounds check against all walls, towers, and cores, returns false if outside of movable space
-    bool boundsCheck(Entity *ent);
+    bool boundsCheck(int x, int y);
+
+    Entity* getByID(int entID);
 
     void onTick();
 

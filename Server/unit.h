@@ -30,7 +30,7 @@ public:
     virtual static Entity* load() = 0;
     virtual string displayString();
     virtual void die() = 0;
-    bool Attack() = 0;
+    bool Attack(Entity * ent) = 0;
 
 
     void setCanAttack(bool newState){canAttack = newState;}
