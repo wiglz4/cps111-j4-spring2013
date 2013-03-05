@@ -27,10 +27,10 @@ public:
     virtual bool damage(int value) = 0;
     virtual void onTick() = 0;
     virtual string save() = 0;
-    virtual static Entity* load() = 0;
+    virtual Entity* load() = 0;
     virtual string displayString();
     virtual void die() = 0;
-    bool Attack(Entity * ent) = 0;
+    virtual bool Attack(Entity * ent) = 0;
 
 
     void setCanAttack(bool newState){canAttack = newState;}

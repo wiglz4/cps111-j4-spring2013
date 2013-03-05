@@ -68,7 +68,7 @@ void World::onTick()
     {
         allEntities.at(i)->onTick();
     }
-    for(inti = 0; i < shots.size(); ++i)
+    for(int i = 0; i < shots.size(); ++i)
     {
         shots.at(i)->onTick();
     }
@@ -79,7 +79,7 @@ string World::save()
     stringstream save;
     for(int i = 0; i < allEntities.size(); i++)
     {
-        strm << allEntities.at(i)->save();
+        save << allEntities.at(i)->save();
     }
     return save.str();
 }
@@ -94,7 +94,7 @@ string World::Display()
     stringstream strm;
     for(int i = 0; i < allEntities.size(); i++)
     {
-        strm <<  allEntities.at(i)->Display() <<" ";
+        strm <<  allEntities.at(i)->displayString() <<" ";
     }
     return strm.str();
 }

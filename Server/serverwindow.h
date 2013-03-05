@@ -11,7 +11,7 @@
 #include <QTimer>
 
 //NEEDS BUNCHES OF WORK
-
+class Game;
 namespace Ui {
 class ServerWindow;
 }
@@ -34,6 +34,7 @@ public:
 private slots:
     void clientConnected();
     void clientDisconnected();
+    void timerHit();
     
 private:
     Ui::ServerWindow *ui;

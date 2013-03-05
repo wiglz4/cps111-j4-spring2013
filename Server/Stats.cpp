@@ -1,5 +1,9 @@
 #include "Stats.h"
 
+int Stats::minionPoints = 5;
+int Stats::towerPoints = 50;
+int Stats::deathPoints = -10;
+
 string Stats::toString()
 {
     stringstream strm;

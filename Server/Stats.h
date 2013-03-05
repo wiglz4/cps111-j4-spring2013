@@ -11,9 +11,9 @@ class Stats
 {
 private:
     string username;
-    static int minionPoints = 5;
-    static int towerPoints = 50;
-    static int deathPoints = -10;
+    static int minionPoints;
+    static int towerPoints;
+    static int deathPoints;
 
     string UName;
     int mKills;
