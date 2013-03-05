@@ -28,9 +28,11 @@ gameScreen::gameScreen(QWidget *parent) :
     hero->setStyleSheet("background:url(:/images/d1.png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
     hero->show();
 
+    wdgtGame->grabKeyboard();
+
     gameFrame = new QFrame(this);
     gameFrame->setFrameShape(QFrame::Box);
-    gameFrame->setLineWidth(20);
+    gameFrame->setLineWidth(10);
     gameFrame->setGeometry(0, 0, 800, 600);
     gameFrame->show();
 
@@ -46,6 +48,14 @@ gameScreen::gameScreen(QWidget *parent) :
     leftPressed = false;
 
     counter = 1;
+
+    menu = new QPushButton(this);
+    menu->setGeometry(20,3,105,35);
+    menu->setFlat(true);
+    menu->setStyleSheet("background:url(:/images/button) no-repeat top left;border-style:none;background-color:rgba(0, 0, 0, 0);");
+    menu->setText("Main Menu");
+    menu->show();
+    connect(this->menu, SIGNAL(clicked()), this, SLOT(return_to_menu()));
 
 }
 
@@ -329,4 +339,10 @@ void gameScreen::closeEvent(QCloseEvent *)
 void gameScreen::resizeEvent(QResizeEvent *event)
 {
     gameFrame->resize(event->size());
+}
+
+void gameScreen::return_to_menu(){
+    this->hide();
+    wdgtGame->releaseKeyboard();
+    w->show();
 }

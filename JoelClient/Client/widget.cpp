@@ -22,6 +22,7 @@ void Widget::connectGame(gameScreen *g)
 {
     this->g = g;
     gsui->setupUi(g);
+    g->connectWidget(this);
 }
 
 void Widget::on_btnLocal_clicked()
