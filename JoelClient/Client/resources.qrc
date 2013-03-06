@@ -10,9 +10,7 @@
         <file>images/WASD.png</file>
         <file>images/ARROWKEYS.png</file>
         <file>images/hep.png</file>
-<<<<<<< HEAD
         <file>images/game title.png</file>
-=======
         <file>images/1/2/1.png</file>
         <file>images/1/2/2.png</file>
         <file>images/1/2/3.png</file>
@@ -484,6 +482,5 @@
         <file>images/2/4/8/17.png</file>
         <file>images/2/4/8/18.png</file>
         <file>images/2/4/8/19.png</file>
->>>>>>> 5c5e586af78d99e53a6a94216835bf0d2eba0eb5
     </qresource>
 </RCC>

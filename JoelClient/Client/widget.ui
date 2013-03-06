@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>671</width>
-    <height>352</height>
+    <width>280</width>
+    <height>331</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,13 +17,13 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color:#298A08;</string>
+   <string notr="true">background-color:#707070;</string>
   </property>
   <widget class="QLabel" name="lblBackground">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>-10</y>
+     <x>-20</x>
+     <y>200</y>
      <width>121</width>
      <height>131</height>
     </rect>
@@ -35,13 +35,13 @@
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="resources.qrc">:/images/wd9.png</pixmap>
+    <pixmap resource="resources.qrc">:/images/2/4/2/1.png</pixmap>
    </property>
   </widget>
   <widget class="QPushButton" name="btnLocal">
    <property name="geometry">
     <rect>
-     <x>490</x>
+     <x>170</x>
      <y>100</y>
      <width>105</width>
      <height>35</height>
@@ -66,7 +66,7 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>490</x>
+     <x>170</x>
      <y>140</y>
      <width>105</width>
      <height>35</height>
@@ -88,7 +88,7 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>490</x>
+     <x>170</x>
      <y>180</y>
      <width>105</width>
      <height>35</height>
@@ -107,7 +107,7 @@
   <widget class="QPushButton" name="btnScores">
    <property name="geometry">
     <rect>
-     <x>490</x>
+     <x>170</x>
      <y>220</y>
      <width>105</width>
      <height>35</height>
@@ -126,14 +126,14 @@
   <widget class="QLabel" name="lblTitle">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>10</x>
      <y>10</y>
-     <width>541</width>
+     <width>221</width>
      <height>71</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background:url(:/images/game title.png) no-repeat top left;</string>
+    <string notr="true">background:url(:/images/title.png) no-repeat top left;</string>
    </property>
    <property name="text">
     <string/>
@@ -142,7 +142,7 @@
   <widget class="QPushButton" name="btnHelp">
    <property name="geometry">
     <rect>
-     <x>570</x>
+     <x>250</x>
      <y>300</y>
      <width>25</width>
      <height>25</height>
@@ -161,7 +161,7 @@
   <widget class="QPushButton" name="btnExit">
    <property name="geometry">
     <rect>
-     <x>490</x>
+     <x>170</x>
      <y>260</y>
      <width>105</width>
      <height>35</height>
@@ -177,6 +177,54 @@
     <bool>true</bool>
    </property>
   </widget>
+  <widget class="QLabel" name="lblBackground_2">
+   <property name="geometry">
+    <rect>
+     <x>-10</x>
+     <y>240</y>
+     <width>121</width>
+     <height>131</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:hex(43553a);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resources.qrc">:/images/2/3/2/13.png</pixmap>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblBackground_3">
+   <property name="geometry">
+    <rect>
+     <x>-50</x>
+     <y>-20</y>
+     <width>371</width>
+     <height>281</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:hex(43553a);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="resources.qrc">:/images/1/2/6.png</pixmap>
+   </property>
+  </widget>
+  <zorder>lblBackground_3</zorder>
+  <zorder>lblBackground</zorder>
+  <zorder>btnLocal</zorder>
+  <zorder>btnLoad</zorder>
+  <zorder>btnNetwork</zorder>
+  <zorder>btnScores</zorder>
+  <zorder>lblTitle</zorder>
+  <zorder>btnHelp</zorder>
+  <zorder>btnExit</zorder>
+  <zorder>lblBackground_2</zorder>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
