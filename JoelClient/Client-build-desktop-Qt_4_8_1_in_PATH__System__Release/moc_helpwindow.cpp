@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'helpwindow.h'
 **
-** Created: Mon Mar 4 07:44:30 2013
+** Created: Tue Mar 5 20:04:40 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.1)
 **
 ** WARNING! All changes made in this file will be lost!

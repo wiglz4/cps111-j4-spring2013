@@ -65,7 +65,7 @@ void Widget::on_btnHelp_clicked()
     this->hide();    
 }
 
-void Widget::on_btnExit_clicked()
+int Widget::on_btnExit_clicked()
 {
-    this->deleteLater();
+    return 0;
 }

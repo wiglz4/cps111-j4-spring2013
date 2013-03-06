@@ -40,7 +40,7 @@ private slots:
 
     void on_btnHelp_clicked();
 
-    void on_btnExit_clicked();
+    int on_btnExit_clicked();
 
 signals:
     void startLocal();

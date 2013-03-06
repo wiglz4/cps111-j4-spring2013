@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>200</width>
-    <height>289</height>
+    <width>671</width>
+    <height>352</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,15 +17,15 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color:#43553a;</string>
+   <string notr="true">background-color:#298A08;</string>
   </property>
   <widget class="QLabel" name="lblBackground">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>40</y>
-     <width>200</width>
-     <height>300</height>
+     <x>50</x>
+     <y>-10</y>
+     <width>121</width>
+     <height>131</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -35,14 +35,14 @@
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="resources.qrc">:/images/mobatitlewindow.png</pixmap>
+    <pixmap resource="resources.qrc">:/images/wd9.png</pixmap>
    </property>
   </widget>
   <widget class="QPushButton" name="btnLocal">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>60</y>
+     <x>490</x>
+     <y>100</y>
      <width>105</width>
      <height>35</height>
     </rect>
@@ -66,8 +66,8 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>100</y>
+     <x>490</x>
+     <y>140</y>
      <width>105</width>
      <height>35</height>
     </rect>
@@ -88,8 +88,8 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>140</y>
+     <x>490</x>
+     <y>180</y>
      <width>105</width>
      <height>35</height>
     </rect>
@@ -107,8 +107,8 @@
   <widget class="QPushButton" name="btnScores">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>180</y>
+     <x>490</x>
+     <y>220</y>
      <width>105</width>
      <height>35</height>
     </rect>
@@ -126,14 +126,14 @@
   <widget class="QLabel" name="lblTitle">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>5</y>
-     <width>180</width>
-     <height>40</height>
+     <x>90</x>
+     <y>10</y>
+     <width>541</width>
+     <height>71</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background:url(:/images/title.png) no-repeat top left;</string>
+    <string notr="true">background:url(:/images/game title.png) no-repeat top left;</string>
    </property>
    <property name="text">
     <string/>
@@ -142,8 +142,8 @@
   <widget class="QPushButton" name="btnHelp">
    <property name="geometry">
     <rect>
-     <x>170</x>
-     <y>260</y>
+     <x>570</x>
+     <y>300</y>
      <width>25</width>
      <height>25</height>
     </rect>
@@ -161,8 +161,8 @@
   <widget class="QPushButton" name="btnExit">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>220</y>
+     <x>490</x>
+     <y>260</y>
      <width>105</width>
      <height>35</height>
     </rect>
