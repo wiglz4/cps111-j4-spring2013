@@ -19,7 +19,11 @@ SOURCES += main.cpp\
     entity.cpp \
     tower.cpp \
     minion.cpp \
-    plch.cpp
+    plch.cpp \
+    stats.cpp \
+    counter.cpp \
+    towershots.cpp \
+    user.cpp
 
 HEADERS  += serverwindow.h \
     game.h \
@@ -29,6 +33,10 @@ HEADERS  += serverwindow.h \
     core.h \
     tower.h \
     minion.h \
-    plch.h
+    plch.h \
+    stats.h \
+    counter.h \
+    towershots.h \
+    user.h
 
 FORMS    += serverwindow.ui

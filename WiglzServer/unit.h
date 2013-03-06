@@ -2,6 +2,7 @@
 #define UNIT_H
 
 class Entity;
+class Counter;
 
 class Unit : public Entity
 {
@@ -15,7 +16,7 @@ protected:
     bool Alive;
     bool doneDie;
     Entity *target;
-    //Counter count;
+    Counter *count;
     int targetPriority;
     int state;
     bool stateChange;

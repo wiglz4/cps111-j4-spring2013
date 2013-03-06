@@ -1,6 +1,7 @@
 #include "world.h"
 #include "entity.h"
 #include "unit.h"
+#include "counter.h"
 #include "minion.h"
 
 //999 is an arbitrary, placeholder value
@@ -29,7 +30,7 @@ Minion::Minion(int cTeam, int newX, int newY, World *newMap)
     Alive = true;
     doneDie = false;
     target = NULL;
-    //count(50/atkSpeed);
+    count = new Counter(50/atkSpeed);
     targetPriority = 0;
     state = 5;
     stateChange = true;
@@ -62,8 +63,8 @@ void Minion::onTick()
         {
             if(distance < atkRange)
             {
-                /*
-                if(count.Check())
+
+                if(count->Check())
                 {
                     //STATE Calculations here
                     if(Attack(target))
@@ -71,7 +72,7 @@ void Minion::onTick()
                         target = NULL;
                     }
                 }
-                */
+
             }
             else
             {
@@ -112,8 +113,8 @@ void Minion::onTick()
                     target = ent;
                     if (distance < atkRange)
                     {
-                        /*
-                        if(count.Check())
+
+                        if(count->Check())
                         {
                             //State Calculations here
                             if(Attack(target))
@@ -121,7 +122,7 @@ void Minion::onTick()
                                 target = NULL;
                             }
                         }
-                        */
+
                     }
                     else
                     {
@@ -201,8 +202,8 @@ void Minion::onTick()
                 target = ent;
                 if (distance < atkRange)
                 {
-                    /*
-                    if(count.Check())
+
+                    if(count->Check())
                     {
                         //SET STATE HERE
                         if(Attack(target))
@@ -210,7 +211,7 @@ void Minion::onTick()
                             target = NULL;
                         }
                     }
-                    */
+
                 }
                 else
                 {

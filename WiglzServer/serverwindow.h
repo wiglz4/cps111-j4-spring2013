@@ -7,6 +7,7 @@
 #include <QMainWindow>
 #include <QTimer>
 #include <game.h>
+#include <user.h>
 
 using namespace std;
 
@@ -19,9 +20,9 @@ class serverWindow : public QMainWindow
     Q_OBJECT
     QTimer *timer;
     QTcpServer *server;
-    //vector<User *> unUsers;
+    vector<User *> unUsers;
     vector<QTcpSocket *> unSocks;
-   // vector<User *> lobbyUsers;
+    vector<User *> lobbyUsers;
     Game *game;
 
 

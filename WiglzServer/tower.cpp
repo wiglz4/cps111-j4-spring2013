@@ -1,7 +1,9 @@
 #include "world.h"
 #include "entity.h"
 #include "unit.h"
+#include "counter.h"
 #include "tower.h"
+#include "towershots.h"
 #include <sstream>
 
 //999 is an arbitrary, placeholder value
@@ -30,7 +32,7 @@ Tower::Tower(int cTeam, int newX, int newY, World *newMap)
     Alive = true;
     doneDie = false;
     target = NULL;
-    //count(50 / atkSpeed);
+    count = new Counter(50 / atkSpeed);
     targetPriority = 0;
     state = 5;
     stateChange = true;
@@ -55,7 +57,7 @@ void Tower::onTick()
         if(distance < atkRange)
         {
             //SET STATE HERE
-            //if(count.Check())
+            if(count->Check())
             {
                 if(Attack(target))
                 {
@@ -73,15 +75,15 @@ void Tower::onTick()
                 {
                     target = ent;
                     //SET STATE HERE
-                    /*
-                    if(count.Check())
+
+                    if(count->Check())
                     {
                         if(Attack(ent))
                         {
                             target = NULL;
                         }
                     }
-                    */
+
                 }
             }
         }
@@ -95,16 +97,16 @@ void Tower::onTick()
             if (distance < atkRange)
             {
                 //SET STATE HERE
-                /*
+
                 target = ent;
-                if(count.Check())
+                if(count->Check())
                 {
                     if(Attack(ent))
                     {
                         target = NULL;
                     }
                 }
-                */
+
             }
         }
     }

@@ -9,7 +9,7 @@ Game::Game()
 
 void Game::onTick()
 {
-    //map->onTick();
+    gmap->onTick();
 }
 
 void Game::endGame(int team)

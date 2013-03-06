@@ -1,9 +1,10 @@
 #include "game.h"
 #include "world.h"
 #include "entity.h"
+#include "user.h"
 #include <sstream>
 
-World::World()
+World::World(vector<User *> *vect)
 {
     //NEEDS CODING
 }

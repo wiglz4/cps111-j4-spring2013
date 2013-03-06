@@ -8,6 +8,9 @@ class Game;
 class Entity;
 class Tower;
 class Minion;
+class PlCh;
+class TowerShots;
+class User;
 
 using namespace std;
 
@@ -23,15 +26,14 @@ private:
 
     vector<Minion *> redMinions;
     vector<Minion *> blueMinions;
-/*
+
     vector<PlCh *> redPlChs;
     vector<PlCh *> bluePlChs;
-*/
     vector<Entity *> allEntities;
 
     vector<Tower *> allTowers;
     vector<Minion *> allMinions;
- /*   vector<PlCh *> allPlChs;
+    vector<PlCh *> allPlChs;
 
     vector<bool> redAlive;
     bool redVulnerable;
@@ -39,16 +41,13 @@ private:
     vector<bool> blueAlive;
     bool blueVulnerable;
 
-    vector<User *> redUsers;
-    vector<User *> blueUsers;
+    vector<TowerShots *> shots;
 
-    vector<towerShot *> shots;
-    */
 
     Game *game;
 
 public:
-    World();
+    World(vector<User *> *vect);
 
     //returns a pointer to the nearest available enemy, All parameters come from the attacker
     Entity* getNAE(int x, int y, int team, double &distance);
