@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'widget.h'
 **
-** Created: Tue Mar 5 18:52:19 2013
+** Created: Tue Mar 5 21:00:21 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.1)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_Widget[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       5,   14, // methods
+       6,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -38,6 +38,7 @@ static const uint qt_meta_data_Widget[] = {
       43,    7,    7,    7, 0x08,
       66,    7,    7,    7, 0x08,
       81,    7,    7,    7, 0x08,
+     102,    7,    7,    7, 0x08,
 
        0        // eod
 };
@@ -45,7 +46,7 @@ static const uint qt_meta_data_Widget[] = {
 static const char qt_meta_stringdata_Widget[] = {
     "Widget\0\0startLocal()\0on_btnLocal_clicked()\0"
     "on_btnScores_clicked()\0close_dialog()\0"
-    "on_btnHelp_clicked()\0"
+    "on_btnHelp_clicked()\0on_btnExit_clicked()\0"
 };
 
 void Widget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -59,6 +60,7 @@ void Widget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         case 2: _t->on_btnScores_clicked(); break;
         case 3: _t->close_dialog(); break;
         case 4: _t->on_btnHelp_clicked(); break;
+        case 5: _t->on_btnExit_clicked(); break;
         default: ;
         }
     }
@@ -97,9 +99,9 @@ int Widget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 5)
+        if (_id < 6)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 6;
     }
     return _id;
 }

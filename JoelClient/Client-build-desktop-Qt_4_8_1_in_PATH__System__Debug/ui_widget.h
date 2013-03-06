@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'widget.ui'
 **
-** Created: Tue Mar 5 18:52:14 2013
+** Created: Tue Mar 5 21:00:17 2013
 **      by: Qt User Interface Compiler version 4.8.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -31,17 +31,18 @@ public:
     QPushButton *btnScores;
     QLabel *lblTitle;
     QPushButton *btnHelp;
+    QPushButton *btnExit;
 
     void setupUi(QWidget *Widget)
     {
         if (Widget->objectName().isEmpty())
             Widget->setObjectName(QString::fromUtf8("Widget"));
-        Widget->resize(200, 250);
+        Widget->resize(200, 289);
         Widget->setAutoFillBackground(false);
         Widget->setStyleSheet(QString::fromUtf8("background-color:#43553a;"));
         lblBackground = new QLabel(Widget);
         lblBackground->setObjectName(QString::fromUtf8("lblBackground"));
-        lblBackground->setGeometry(QRect(0, 0, 200, 300));
+        lblBackground->setGeometry(QRect(0, 40, 200, 300));
         lblBackground->setStyleSheet(QString::fromUtf8("background-color:hex(43553a);"));
         lblBackground->setPixmap(QPixmap(QString::fromUtf8(":/images/mobatitlewindow.png")));
         btnLocal = new QPushButton(Widget);
@@ -73,9 +74,14 @@ public:
         lblTitle->setStyleSheet(QString::fromUtf8("background:url(:/images/title.png) no-repeat top left;"));
         btnHelp = new QPushButton(Widget);
         btnHelp->setObjectName(QString::fromUtf8("btnHelp"));
-        btnHelp->setGeometry(QRect(170, 220, 25, 25));
+        btnHelp->setGeometry(QRect(170, 260, 25, 25));
         btnHelp->setStyleSheet(QString::fromUtf8("background:url(:/images/helpbutton.png) no-repeat top left;"));
         btnHelp->setFlat(true);
+        btnExit = new QPushButton(Widget);
+        btnExit->setObjectName(QString::fromUtf8("btnExit"));
+        btnExit->setGeometry(QRect(90, 220, 105, 35));
+        btnExit->setStyleSheet(QString::fromUtf8("background:url(:/images/button.png) no-repeat right top"));
+        btnExit->setFlat(true);
 
         retranslateUi(Widget);
 
@@ -92,6 +98,7 @@ public:
         btnScores->setText(QApplication::translate("Widget", "High Scores", 0, QApplication::UnicodeUTF8));
         lblTitle->setText(QString());
         btnHelp->setText(QString());
+        btnExit->setText(QApplication::translate("Widget", "Exit", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };
