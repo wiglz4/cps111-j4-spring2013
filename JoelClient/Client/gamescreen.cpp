@@ -29,7 +29,7 @@ gameScreen::gameScreen(QWidget *parent) :
     //wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() - 2800);
     //QPixmap icon(":/images/hero1.png");
     //hero->setPixmap(icon);
-    hero->setStyleSheet("background:url(:/images/d1.png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
+    hero->setStyleSheet("background:url(:/images/2/4/3/1.png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
     hero->show();
 
     wdgtGame->grabKeyboard();
@@ -255,7 +255,7 @@ void gameScreen::onTimerHit()
         if (counter > 19) {
             counter = 1;
         }
-        hero->setStyleSheet("background:url(:/images/w" + QString("%1").arg(counter) + ".png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
+        hero->setStyleSheet("background:url(:/images/2/4/1/" + QString("%1").arg(counter) + ".png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
     }
 
     if(wPressed && !aPressed && !sPressed && dPressed)
@@ -265,7 +265,7 @@ void gameScreen::onTimerHit()
         if (counter > 19) {
             counter = 1;
         }
-        hero->setStyleSheet("background:url(:/images/wd" + QString("%1").arg(counter) + ".png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
+        hero->setStyleSheet("background:url(:/images/2/4/2/" + QString("%1").arg(counter) + ".png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
     }
 
     if(!wPressed && !aPressed && !sPressed && dPressed)
@@ -275,7 +275,7 @@ void gameScreen::onTimerHit()
         if (counter > 19) {
             counter = 1;
         }
-        hero->setStyleSheet("background:url(:/images/d" + QString("%1").arg(counter) + ".png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
+        hero->setStyleSheet("background:url(:/images/2/4/3/" + QString("%1").arg(counter) + ".png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
     }
 
     if(!wPressed && !aPressed && sPressed && dPressed)
@@ -285,7 +285,7 @@ void gameScreen::onTimerHit()
         if (counter > 19) {
             counter = 1;
         }
-        hero->setStyleSheet("background:url(:/images/sd" + QString("%1").arg(counter) + ".png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
+        hero->setStyleSheet("background:url(:/images/2/4/4/" + QString("%1").arg(counter) + ".png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
     }
 
     if(!wPressed && !aPressed && sPressed && !dPressed)
@@ -295,7 +295,7 @@ void gameScreen::onTimerHit()
         if (counter > 19) {
             counter = 1;
         }
-        hero->setStyleSheet("background:url(:/images/s" + QString("%1").arg(counter) + ".png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
+        hero->setStyleSheet("background:url(:/images/2/4/5/" + QString("%1").arg(counter) + ".png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
     }
 
     if(!wPressed && aPressed && sPressed && !dPressed)
@@ -305,7 +305,7 @@ void gameScreen::onTimerHit()
         if (counter > 19) {
             counter = 1;
         }
-        hero->setStyleSheet("background:url(:/images/as" + QString("%1").arg(counter) + ".png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
+        hero->setStyleSheet("background:url(:/images/2/4/6/" + QString("%1").arg(counter) + ".png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
     }
 
     if(!wPressed && aPressed && !sPressed && !dPressed)
@@ -315,7 +315,7 @@ void gameScreen::onTimerHit()
         if (counter > 19) {
             counter = 1;
         }
-        hero->setStyleSheet("background:url(:/images/a" + QString("%1").arg(counter) + ".png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
+        hero->setStyleSheet("background:url(:/images/2/4/7/" + QString("%1").arg(counter) + ".png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
     }
 
     if(wPressed && aPressed && !sPressed && !dPressed)
@@ -325,7 +325,7 @@ void gameScreen::onTimerHit()
         if (counter > 19) {
             counter = 1;
         }
-        hero->setStyleSheet("background:url(:/images/aw" + QString("%1").arg(counter) + ".png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
+        hero->setStyleSheet("background:url(:/images/2/4/8/" + QString("%1").arg(counter) + ".png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
     }
 
 
