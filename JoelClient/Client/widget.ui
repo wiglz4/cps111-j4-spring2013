@@ -35,11 +35,7 @@
     <string/>
    </property>
    <property name="pixmap">
-<<<<<<< HEAD
-    <pixmap>:/images/wd9.png</pixmap>
-=======
     <pixmap resource="resources.qrc">:/images/2/4/2/1.png</pixmap>
->>>>>>> daeeebd768503ad6123c6614b16bc7e9eab5bc16
    </property>
   </widget>
   <widget class="QPushButton" name="btnLocal">
@@ -130,11 +126,7 @@
   <widget class="QLabel" name="lblTitle">
    <property name="geometry">
     <rect>
-<<<<<<< HEAD
      <x>50</x>
-=======
-     <x>10</x>
->>>>>>> daeeebd768503ad6123c6614b16bc7e9eab5bc16
      <y>10</y>
      <width>221</width>
      <height>71</height>
