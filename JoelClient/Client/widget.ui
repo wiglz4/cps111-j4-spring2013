@@ -22,8 +22,8 @@
   <widget class="QLabel" name="lblBackground">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>-10</y>
+     <x>40</x>
+     <y>160</y>
      <width>121</width>
      <height>131</height>
     </rect>
@@ -35,7 +35,7 @@
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="resources.qrc">:/images/wd9.png</pixmap>
+    <pixmap>:/images/wd9.png</pixmap>
    </property>
   </widget>
   <widget class="QPushButton" name="btnLocal">
@@ -126,7 +126,7 @@
   <widget class="QLabel" name="lblTitle">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>50</x>
      <y>10</y>
      <width>541</width>
      <height>71</height>
@@ -179,8 +179,6 @@
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
