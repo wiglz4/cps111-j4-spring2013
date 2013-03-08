@@ -3,7 +3,7 @@
 #include <QUdpSocket>
 #include <vector>
 
-
+//NEEDS BUNCHES OF WORK
 class World;
 class User;
 

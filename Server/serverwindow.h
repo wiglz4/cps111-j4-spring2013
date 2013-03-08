@@ -1,6 +1,7 @@
 #ifndef SERVERWINDOW_H
 #define SERVERWINDOW_H
 
+//NEEDS BUNCHES OF WORK
 #include <vector>
 #include <QTcpSocket>
 #include <QTcpServer>

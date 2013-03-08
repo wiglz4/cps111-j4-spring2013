@@ -1,6 +1,7 @@
 #include "game.h"
 #include "world.h"
 
+//NEEDS BUNCHES OF WORK
 Game::Game()
 {
     over = false;
@@ -14,5 +15,5 @@ void Game::onTick()
 
 void Game::endGame(int team)
 {
-
+//NEEDS CODING
 }

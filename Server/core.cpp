@@ -3,6 +3,7 @@
 #include "core.h"
 
 #include <string>
+#include <sstream>
 
 Core::Core(int cTeam, int newX, int newY, World *newMap)
 {
@@ -11,7 +12,8 @@ Core::Core(int cTeam, int newX, int newY, World *newMap)
     y = newY;
     curHealth = 999;
     maxHealth = 999;
-    healthChange = true;
+    healthChange = false;
+    isNew = true;
     team = cTeam;
     absoluteID = ++curID;
     targetable = true;
@@ -52,6 +54,19 @@ Entity* Core::load()
 
 string Core::displayString()
 {
-//NEEDS CODING
+//Bools: isNew, healthChange;
+    stringstream strm;
+    if(isNew)
+    {
+        strm<<" "<<(type * 10 + 1)<<" "<<absoluteID<<" "<<team<<" "<<((curHealth * 100) / maxHealth)<<" "<<x<<" "<<y;
+        isNew = false;
+        healthChange = false;
+    }
+    else if(!isNew && healthChange)
+    {
+        strm<<" "<<(type * 10 + 2)<<" "<<absoluteID<<" "<<((curHealth * 100) / maxHealth);
+        healthChange = false;
+    }
+    return strm.str();
 }
 

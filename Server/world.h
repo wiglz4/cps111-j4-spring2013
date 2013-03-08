@@ -1,6 +1,8 @@
 #ifndef WORLD_H
 #define WORLD_H
 
+//NEEDS SOME WORK
+
 #include <vector>
 #include <string>
 
@@ -43,6 +45,7 @@ private:
 
     vector<TowerShots *> shots;
 
+    bool isNewGame;
 
     Game *game;
 

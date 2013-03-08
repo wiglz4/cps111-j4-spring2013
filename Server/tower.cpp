@@ -15,7 +15,8 @@ Tower::Tower(int cTeam, int newX, int newY, World *newMap)
     y = newY;
     curHealth = 999;
     maxHealth = 999;
-    healthChange = true;
+    healthChange = false;
+    isNew = true;
     team = cTeam;
     absoluteID = ++curID;
     targetable = true;
@@ -30,19 +31,19 @@ Tower::Tower(int cTeam, int newX, int newY, World *newMap)
     detRange = 999;
     canAttack = true;
     Alive = true;
-    doneDie = false;
+    newDead = false;
     target = NULL;
     count = new Counter(50 / atkSpeed);
     targetPriority = 0;
     state = 5;
-    stateChange = true;
+    stateChange = false;
 
     speed = 0;
     canMove = false;
     positionChange = false;
 }
 
-bool Tower::Attack(Entity* ent)
+bool Tower::Attack()
 {
     return target->damage(atkDamage);
 }
@@ -59,29 +60,26 @@ void Tower::onTick()
             //SET STATE HERE
             if(count->Check())
             {
-                if(Attack(target))
+                if(Attack())
                 {
                     target = NULL;
                 }
             }
         }
-        else if (distance > atkRange)
+        else
         {
             target = NULL;
             Entity* ent = map->getNAE(x,y,team, distance);
-            if(ent != NULL)
+            if (distance < atkRange)
             {
-                if (distance < atkRange)
-                {
-                    target = ent;
-                    //SET STATE HERE
+                target = ent;
+                //SET STATE HERE
 
-                    if(count->Check())
+                if(count->Check())
+                {
+                    if(Attack())
                     {
-                        if(Attack(ent))
-                        {
-                            target = NULL;
-                        }
+                        target = NULL;
                     }
 
                 }
@@ -92,19 +90,16 @@ void Tower::onTick()
     {
         target = NULL;
         Entity* ent = map->getNAE(x,y,team, distance);
-        if(ent != NULL)
+        if (distance < atkRange)
         {
-            if (distance < atkRange)
-            {
-                //SET STATE HERE
+            //SET STATE HERE
 
-                target = ent;
-                if(count->Check())
+            target = ent;
+            if(count->Check())
+            {
+                if(Attack())
                 {
-                    if(Attack(ent))
-                    {
-                        target = NULL;
-                    }
+                    target = NULL;
                 }
 
             }
@@ -120,11 +115,14 @@ void Tower::die()
 
 bool Tower::damage(int value)
 {
+    if(Alive)
+    {
     curHealth = (double)curHealth - (double) value * (double) armor / 100;
     if(curHealth < 0)
     {
         die();
         return true;
+    }
     }
     return false;
 }
@@ -141,5 +139,37 @@ Entity* Tower::load()
 
 string Tower::displayString()
 {
-    //NEEDS CODING
+    //bools: isNew, healthChange, stateChange
+    stringstream strm;
+    if(Alive)
+    {
+        if(isNew)
+        {
+            strm<<" "<<(type * 10 + 1)<<" "<<absoluteID<<" "<<team<<" "<<((curHealth * 100) / maxHealth)<<" "<<state<< " "<<x<<" "<<y;
+            isNew = false;
+        }
+        else if(!healthChange && stateChange)
+        {
+            strm<<" "<<(type * 10 + 2)<<" "<<absoluteID<<" "<<state;
+            stateChange = false;
+        }
+        else if(healthChange && stateChange)
+        {
+            strm<<" "<<(type * 10 + 4)<<" "<<absoluteID<<" "<<((curHealth * 100) / maxHealth)<<" "<<state;
+            stateChange = false;
+            healthChange = false;
+        }
+        else if(healthChange && !stateChange)
+        {
+            strm<<" "<<(type * 10 + 3)<<" "<<absoluteID<<" "<<((curHealth * 100) / maxHealth);
+            healthChange = false;
+        }
+
+    }
+    else if(newDead)
+    {
+        strm<<" "<<(type * 10 + 5)<<" "<<absoluteID;
+        newDead = false;
+    }
+    return strm.str();
 }

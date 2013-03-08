@@ -14,6 +14,7 @@ PlCh::PlCh(int cTeam, int newX, int newY, World *newMap, string pName)
     curHealth = 999;
     maxHealth = 999;
     healthChange = true;
+    isNew = true;
     team = cTeam;
     absoluteID = ++curID;
     targetable = true;
@@ -28,9 +29,9 @@ PlCh::PlCh(int cTeam, int newX, int newY, World *newMap, string pName)
     detRange = 999;
     canAttack = true;
     Alive = true;
-    doneDie = false;
+    newDead = false;
     target = NULL;
-    count = new Counter(5);
+    count = new Counter(50/atkSpeed);
     targetPriority = 0;
     state = 5;
     stateChange = true;
@@ -44,7 +45,7 @@ PlCh::PlCh(int cTeam, int newX, int newY, World *newMap, string pName)
     display = true;
     isCheatMode = false;
     canCheatMode = true;
-    cheatCounter = new Counter(60);
+    cheatCounter = new Counter(3000);
 
     a = false;
     w = false;
@@ -124,41 +125,51 @@ void PlCh::onTick()
     int currentState = state;
     if(Alive)
     {
-        //if(underCommand)
-        //{
         if (w || a || s || d)
         {
-            if(w && a && !s && !d)
-            {
-
-            }
             if(w && !a && !s && !d)
             {
-
+                y -= speed;
+                state = 1;
+            }
+            if(w && a && !s && !d)
+            {
+                y -= (3 * speed) / 4;
+                x -= (3 * speed) / 4;
+                state = 8;
             }
             if(!w && a && !s && !d)
             {
-
+                x -= speed;
+                state = 7;
             }
             if(!w && a && s && !d)
             {
-
+                y += (3 * speed) / 4;
+                x -= (3 * speed) / 4;
+                state = 6;
             }
             if(!w && !a && s && !d)
             {
-
+                y += speed;
+                state = 5;
             }
             if(!w && !a && s && d)
             {
-
+                y += (3 * speed) / 4;
+                x += (3 * speed) / 4;
+                state = 4;
             }
             if(!w && !a && !s && d)
             {
-
+                x += speed;
+                state = 3;
             }
             if(w && !a && !s && d)
             {
-
+                y -= (3 * speed) / 4;
+                x += (3 * speed) / 4;
+                state = 2;
             }
         }
         //}
@@ -175,7 +186,7 @@ void PlCh::onTick()
                         if(count->Check())
                         {
                             //STATE Calculations here
-                            if(Attack(target))
+                            if(Attack())
                             {
                                 target = NULL;
                             }
@@ -224,7 +235,7 @@ void PlCh::onTick()
                                 if(count->Check())
                                 {
                                     //State Calculations here
-                                    if(Attack(target))
+                                    if(Attack())
                                     {
                                         target = NULL;
                                     }
@@ -260,42 +271,6 @@ void PlCh::onTick()
                                 }
                             }
                         }
-                        else
-                        {
-                            /*if(OOL)
-                            {
-                                //SPECIAL OOL LOGIC
-                            }
-                            else
-                            {
-                                distance = sqrt(pow(cpY-y, 2) + pow(cpX - x, 2));
-                                theta = asin((y-cpY)/distance);
-                                delta = acos((x-cpX)/distance);
-                                if(cpY > y)
-                                {
-                                    tempY = y + abs(speed * sin(theta));
-                                }
-                                else
-                                {
-                                    tempY = y - abs(speed * sin(theta));
-                                }
-                                if(cpX > x)
-                                {
-                                    tempX = x + abs(speed * cos(theta));
-                                }
-                                else
-                                {
-                                    tempX = x - abs(speed * cos(theta));
-                                }
-                                if(map->boundsCheck(tempX, tempY))
-                                {
-                                    //SET STATE HERE
-                                    x = tempX;
-                                    y = tempY;
-                                    //MESS WITH OOL
-                                }
-                            }*/
-                        }
                     }
                 }
             }
@@ -313,7 +288,7 @@ void PlCh::onTick()
                             if(count->Check())
                             {
                                 //SET STATE HERE
-                                if(Attack(target))
+                                if(Attack())
                                 {
                                     target = NULL;
                                 }
@@ -348,42 +323,6 @@ void PlCh::onTick()
                             }
                         }
                     }
-                    else
-                    {
-                        /*if(OOL)
-                        {
-                            //SPECIAL OOL LOGIC
-                        }
-                        else
-                        {
-                            distance = sqrt(pow(cpY-y, 2) + pow(cpX - x, 2));
-                            theta = asin((y-cpY)/distance);
-                            delta = acos((x-cpX)/distance);
-                            if(cpY > y)
-                            {
-                                tempY = y + abs(speed * sin(theta));
-                            }
-                            else
-                            {
-                                tempY = y - abs(speed * sin(theta));
-                            }
-                            if(cpX > x)
-                            {
-                                tempX = x + abs(speed * cos(theta));
-                            }
-                            else
-                            {
-                                tempX = x - abs(speed * cos(theta));
-                            }
-                            if(map->boundsCheck(tempX, tempY))
-                            {
-                                //SET STATE HERE
-                                x = tempX;
-                                y = tempY;
-                                //MESS WITH OOL
-                            }
-                        }*/
-                    }
                 }
             }
         }
@@ -394,6 +333,16 @@ void PlCh::onTick()
         if(count->Check())
         {
             Alive = true;
+            if(team == 1)
+            {
+                x = 999;
+                y = 999;
+            }
+            else
+            {
+                x = 999;
+                y = 999;
+            }
             count->reset(50/atkSpeed);
         }
 
@@ -404,17 +353,28 @@ string PlCh::getStats(){return points->toString();}
 
 bool PlCh::damage(int value)
 {
-    curHealth = curHealth - value;
+    if(Alive)
+    {
+    curHealth = (double)curHealth - (double) value * (double) armor / 100;
+    if(curHealth < 0)
+    {
+        die();
+        return true;
+    }
+    }
+    return false;
 }
 
 void PlCh::die()
 {
+
     //NEEDS CODING
     Alive = false;
-    //count.reset(1500);
+    newDead = true;
+    count->reset(1500);
 }
 
-bool PlCh::Attack(Entity *ent)
+bool PlCh::Attack()
 {
     return target->damage(atkDamage);
 }
@@ -433,5 +393,62 @@ Entity* PlCh::load()
 
 string PlCh::displayString()
 {
-    //NEEDS CODING
+    //
+    stringstream strm;
+    if(Alive)
+    {
+        if(isNew)
+        {
+            strm<<" "<<(type * 10 + 1)<<" "<<absoluteID<<" "<<team<<" "<<((curHealth * 100)/maxHealth)<<" "<<state<<" "<<x<<" "<<y<<" "<<plName;
+            isNew = false;
+            healthChange = false;
+            stateChange = false;
+            positionChange = false;
+        }
+        else if(!healthChange && !stateChange && positionChange)
+        {
+            strm<<" "<<(type * 10 + 2)<<" "<<absoluteID<<" "<<x<<" "<<y;
+            positionChange = false;
+        }
+        else if(!healthChange && stateChange && !positionChange)
+        {
+            strm<<" "<<(type * 10 + 3)<<" "<<absoluteID<<" "<<state;
+            stateChange = false;
+        }
+        else if(!healthChange && stateChange && positionChange)
+        {
+            strm<<" "<<(type * 10 + 4)<<" "<<absoluteID<<" "<<state<<" "<<x<<" "<<y;
+            stateChange = false;
+            positionChange = false;
+        }
+        else if(healthChange && !stateChange && !positionChange)
+        {
+            strm<<" "<<(type * 10 + 5)<<" "<<absoluteID<<" "<<((curHealth * 100) / maxHealth);
+            healthChange = false;
+        }
+        else if(healthChange && !stateChange && positionChange)
+        {
+            strm<<" "<<(type * 10 + 6)<<" "<<absoluteID<<" "<<((curHealth * 100) / maxHealth)<<" "<<x<<" "<<y;
+            healthChange = false;
+            positionChange = false;
+        }
+        else if(healthChange && stateChange && !positionChange)
+        {
+            strm<<" "<<(type * 10 + 7)<<" "<<absoluteID<<" "<<((curHealth * 100) / maxHealth)<<" "<<state;
+            healthChange = false;
+            stateChange = false;
+        }
+        else if (healthChange && stateChange && positionChange)
+        {
+            strm<<" "<<(type * 10 + 8)<<" "<<absoluteID<<" "<<((curHealth * 100) / maxHealth)<<" "<<state<<" "<<x<<" "<<y;
+        }
+    }
+    else
+    {
+        if(newDead)
+        {
+            strm<<" "<<(type * 10 + 9)<<" "<<absoluteID;
+            newDead = false;
+        }
+    }
 }

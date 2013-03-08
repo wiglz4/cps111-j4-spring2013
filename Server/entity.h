@@ -16,6 +16,7 @@ protected:
     int curHealth;
     int maxHealth;
     bool healthChange;
+    bool isNew;
     int team;
     int absoluteID;
     bool targetable;

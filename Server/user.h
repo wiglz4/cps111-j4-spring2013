@@ -1,5 +1,8 @@
 #ifndef USER_H
 #define USER_H
+
+//NEEDS BUNCHES OF WORK
+
 #include <string>
 #include <QTcpSocket>
 

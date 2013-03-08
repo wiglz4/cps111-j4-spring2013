@@ -23,7 +23,7 @@ public:
     virtual Entity* load();
     virtual string displayString();
     virtual void die();
-    virtual bool Attack(Entity * ent);
+    virtual bool Attack();
 };
 
 #endif // MINION_H
