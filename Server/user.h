@@ -4,16 +4,19 @@
 //NEEDS BUNCHES OF WORK
 
 #include <string>
-#include <QTcpSocket>
+#include <QWidget>
 
 class PlCh;
+class QTcpSocket;
 
-class User
+class User : public QWidget
 {
+    Q_OBJECT
     std::string userName;
     int team;
     QTcpSocket *sock;
     PlCh *character;
+
 
 public:
     User();

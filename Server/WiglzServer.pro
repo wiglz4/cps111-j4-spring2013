@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     stats.cpp \
     counter.cpp \
     towershots.cpp \
-    user.cpp
+    user.cpp \
+    usersocket.cpp
 
 HEADERS  += serverwindow.h \
     game.h \
@@ -37,6 +38,7 @@ HEADERS  += serverwindow.h \
     stats.h \
     counter.h \
     towershots.h \
-    user.h
+    user.h \
+    usersocket.h
 
 FORMS    += serverwindow.ui
