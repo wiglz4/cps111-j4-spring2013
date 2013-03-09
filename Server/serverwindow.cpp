@@ -84,7 +84,7 @@ void serverWindow::dataReceived()
                 if(!unUsers.at(i)->checkInstanceVars())
                 {
                     stringstream strm(str.toStdString());
-                    qDebug()<<str;
+                    //qDebug()<<str;
                     int team;
                     strm>>team;
                     qDebug()<<team;
@@ -99,7 +99,7 @@ void serverWindow::dataReceived()
                     if(!timerGo)
                     {
                         timerGo = true;
-                        qDebug()<<"Timer Started";
+                        //qDebug()<<"Timer Started";
                         timerHit();
                     }
                 }
@@ -141,7 +141,7 @@ void serverWindow::timerHit()
     else
     {
         QString message = game->onTick().c_str();
-        qDebug()<<message;
+        //qDebug()<<message;
         for(uint i = 0; i < unUsers.size(); ++i)
         {
             unUsers.at(i)->getSock()->write(message.toAscii());

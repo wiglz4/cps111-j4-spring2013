@@ -193,6 +193,8 @@ void PlCh::onTick()
                         if(count->Check())
                         {
                             //STATE Calculations here
+                            //QDEBUG HERE
+                            qDebug()<<"ATTACKING";
                             if(Attack())
                             {
                                 target = NULL;
@@ -244,6 +246,8 @@ void PlCh::onTick()
                                 if(count->Check())
                                 {
                                     //State Calculations here
+                                    //QDEBUG HERE
+                                    qDebug()<<"ATTACKING";
                                     if(Attack())
                                     {
                                         target = NULL;
@@ -301,6 +305,8 @@ void PlCh::onTick()
                             if(count->Check())
                             {
                                 //SET STATE HERE
+                                //QDEBUG HERE
+                                qDebug()<<"ATTACKING";
                                 if(Attack())
                                 {
                                     target = NULL;

@@ -28,12 +28,12 @@ World::World(vector<User *> *vect)
     Core *aCore = new Core(1, 100, 100,this);
     allEntities.push_back(aCore);
     redEntities.push_back(aCore);
-    qDebug()<<"RedCore";
+   // qDebug()<<"RedCore";
 
     aCore = new Core(2, 200, 100,this);
     allEntities.push_back(aCore);
     blueEntities.push_back(aCore);
-    qDebug()<<"BlueCore";
+    //qDebug()<<"BlueCore";
 
     Tower *aTower = new Tower(1, 100,300,this);
     allEntities.push_back(aTower);
@@ -47,8 +47,8 @@ World::World(vector<User *> *vect)
     aTower = new Tower(1, 100, 900, this);
     allEntities.push_back(aTower);
     redEntities.push_back(aTower);
-    qDebug()<<"RedTowers";
-    qDebug()<<redEntities.size();
+    //qDebug()<<"RedTowers";
+   // qDebug()<<redEntities.size();
 
     aTower = new Tower(2, 200, 300, this);
     allEntities.push_back(aTower);
@@ -62,8 +62,8 @@ World::World(vector<User *> *vect)
     aTower = new Tower(2,200,900,this);
     allEntities.push_back(aTower);
     blueEntities.push_back(aTower);
-    qDebug()<<"BlueTowers";
-    qDebug()<<blueEntities.size();
+    //qDebug()<<"BlueTowers";
+    //qDebug()<<blueEntities.size();
 
     Minion *aMinion = new Minion(1, 100, 1000, this);
     allEntities.push_back(aMinion);
@@ -136,8 +136,8 @@ Entity *World::getNAE(int x, int y, int team, double &distance)
             //qDebug()<<dist2;
             if(dist2 < distance)
             {
-                qDebug()<<111;
-                //distance = dist2;
+                //qDebug()<<111;
+                distance = dist2;
                 entNum = i;
             }
         }
