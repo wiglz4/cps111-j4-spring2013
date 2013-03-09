@@ -25,7 +25,7 @@ ScoreWindow::ScoreWindow(QWidget *parent) :
     btnExit2->setFocusPolicy(Qt::NoFocus);
     btnExit2->setStyleSheet("QPushButton { background:url(:/images/buttonex) no-repeat right top; } QPushButton:hover{ background:url(:/images/buttonex2.png) no-repeat right top; } QPushButton:pressed { background:url(:/images/buttonex.png) no-repeat right top; border: 0px solid grey; }");
     btnExit2->show();
-    connect(this->btnExit2, SIGNAL(clicked()), this, SLOT(on_btnExit2_clicked()));
+
 }
 
 ScoreWindow::~ScoreWindow()
@@ -45,6 +45,7 @@ void ScoreWindow::on_btnExit2_clicked()
     this->close();
 }
 
-
-
-
+void ScoreWindow::connectWidget(Widget *w){
+    this->w = w;
+    connect(this->btnExit2, SIGNAL(clicked()), this, SLOT(on_btnExit2_clicked()));
+}

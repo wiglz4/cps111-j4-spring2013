@@ -43,9 +43,6 @@ private slots:
 
     void on_btnExit_clicked();
 
-    void readCommand();
-
-    void serverDisconnected();
 
 signals:
     void startLocal();

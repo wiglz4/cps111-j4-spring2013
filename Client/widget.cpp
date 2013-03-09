@@ -14,8 +14,7 @@ Widget::Widget(QWidget *parent) :
     ui->setupUi(this);
 
     mySocket = new QTcpSocket(this);
-    connect(mySocket, SIGNAL(readyRead()), this, SLOT(readCommand()));
-    connect(mySocket, SIGNAL(disconnected()), this, SLOT(serverDisconnected()));
+
 
 }
 
@@ -24,22 +23,15 @@ Widget::~Widget()
     delete ui;
 }
 
-void Widget::readCommand()
-{
-    while (mySocket->canReadLine()) {
-        QString str = mySocket->readLine();
-        qDebug() << str;
-        QStringList tempList = str.split(" ", QString::SkipEmptyParts);
-        qDebug() << tempList.at(0);
-    }
 
-}
 
 void Widget::connectGame(gameScreen *g)
 {
     this->g = g;
     gsui->setupUi(g);
     g->connectWidget(this);
+    connect(mySocket, SIGNAL(readyRead()), this->g, SLOT(readCommand()));
+    connect(mySocket, SIGNAL(disconnected()), this->g, SLOT(serverDisconnected()));
 }
 
 void Widget::on_btnLocal_clicked()
@@ -49,10 +41,11 @@ void Widget::on_btnLocal_clicked()
             qDebug() << "Unable to connect to server.";
             return;
     }
-    QString message = "there you sexy thing you \n";
+    QString message = "BobJonesIII\n";
     mySocket->write(message.toAscii());
     g->show();
     g->takeOverKeyboard();
+    g->passSocket(mySocket);
     this->hide();
 }
 
@@ -93,7 +86,3 @@ void Widget::on_btnExit_clicked()
     this->close();
 }
 
-void Widget::serverDisconnected()
-{
-    //
-}

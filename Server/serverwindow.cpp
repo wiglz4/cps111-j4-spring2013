@@ -66,9 +66,10 @@ void serverWindow::dataReceived()
     while (sock->canReadLine()) {
         QString str = sock->readLine();
         qDebug() << str;
-        QString message("Hello ");
-        message += str + "(; /n";
+        QString message("41 7 2 21 8 300 2350 ");
+        message += str;
         sock->write(message.toAscii());
+        sock->write(str.toAscii());
 
     }
     /*if(game == NULL)

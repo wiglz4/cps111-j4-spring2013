@@ -40,11 +40,11 @@ gameScreen::gameScreen(QWidget *parent) :
     pause->setGeometry(0, 0, 4000, 3000);
     pause->setStyleSheet("background-color:rgba(0, 0, 0, 100);");
     pause->hide();
-
+/*
     wPressed = false;
     aPressed = false;
     sPressed = false;
-    dPressed = false;
+    dPressed = false;*/
     pPressed = false;
 
     upPressed = false;
@@ -52,12 +52,8 @@ gameScreen::gameScreen(QWidget *parent) :
     downPressed = false;
     leftPressed = false;
 
-    counter = 1;
+    //counter = 1;
 
-    hero = new EntityLabel(wdgtGame);
-    hero->setGeometry(300,2350,110,110);
-    hero->setStyleSheet("background:url(:/images/2/4/3/1.png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
-    hero->show();
 
 
     menu = new QPushButton(gameFrame);
@@ -86,12 +82,6 @@ gameScreen::gameScreen(QWidget *parent) :
 gameScreen::~gameScreen()
 {
     delete gsui;
-}
-
-
-void gameScreen::serverDisconnected()
-{
-
 }
 
 void gameScreen::updatePlayer(QStringList player)
@@ -124,6 +114,7 @@ void gameScreen::keyPressEvent(QKeyEvent *e)
 {
     if(e->key() == Qt::Key_P && !e->isAutoRepeat())
     {
+
         if (pPressed == false) {
            timer->stop();
            pPressed = true;
@@ -140,32 +131,37 @@ void gameScreen::keyPressEvent(QKeyEvent *e)
            bar->hide();
         }
         qDebug() << "P";
+
     }
     if(e->key() == Qt::Key_W && !e->isAutoRepeat())
     {
         //REM
-        wPressed = true;
+        //wPressed = true;
+        sock->write("2 1 ");
         qDebug() << "W";
         //REM
     }
     if(e->key() == Qt::Key_A && !e->isAutoRepeat())
     {
         //REM
-        aPressed = true;
+        //aPressed = true;
+        sock->write("2 4 ");
         qDebug() << "A";
         //REM
     }
     if(e->key() == Qt::Key_S && !e->isAutoRepeat())
     {
         //REM
-        sPressed = true;
+        //sPressed = true;
+        sock->write("2 3 ");
         qDebug() << "S";
         //REM
     }
     if(e->key() == Qt::Key_D && !e->isAutoRepeat())
     {
         //REM
-        dPressed = true;
+        //dPressed = true;
+        sock->write("2 2 ");
         qDebug() << "D";
         //REM
     }
@@ -208,28 +204,32 @@ void gameScreen::keyReleaseEvent(QKeyEvent *e)
     if(e->key() == Qt::Key_W && !e->isAutoRepeat())
     {
         //REM
-        wPressed = false;
+        //wPressed = false;
+        sock->write("3 1 ");
         qDebug() << "~W";
         //REM
     }
     if(e->key() == Qt::Key_A && !e->isAutoRepeat())
     {
         //REM
-        aPressed = false;
+        //aPressed = false;
+        sock->write("3 4 ");
         qDebug() << "~A";
         //REM
     }
     if(e->key() == Qt::Key_S && !e->isAutoRepeat())
     {
         //REM
-        sPressed = false;
+        //sPressed = false;
+        sock->write("3 3 ");
         qDebug() << "~S";
         //REM
     }
     if(e->key() == Qt::Key_D && !e->isAutoRepeat())
     {
         //REM
-        dPressed = false;
+        //dPressed = false;
+        sock->write("3 2 ");
         qDebug() << "~D";
         //REM
     }
@@ -271,7 +271,7 @@ void gameScreen::keyReleaseEvent(QKeyEvent *e)
 //REM
 void gameScreen::onTimerHit()
 {
-    //qDebug() << "Tick";
+/*    //qDebug() << "Tick";
     if(wPressed && !aPressed && !sPressed && !dPressed)
     {
         hero->move(hero->x(), hero->y()-4);
@@ -351,7 +351,7 @@ void gameScreen::onTimerHit()
         }
         hero->setStyleSheet("background:url(:/images/2/4/8/" + QString("%1").arg(counter) + ".png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
     }
-
+*/
 
 
     if(upPressed && !rightPressed && !downPressed && !leftPressed)
@@ -405,6 +405,7 @@ void gameScreen::onTimerHit()
 
 }
 
+
 void gameScreen::closeEvent(QCloseEvent *)
 {
     timer->stop();
@@ -420,4 +421,141 @@ void gameScreen::return_to_menu(){
     this->hide();
     wdgtGame->releaseKeyboard();
     w->show();
+}
+
+
+void gameScreen::readCommand()
+{
+    while (sock->canReadLine()) {
+        QString str = sock->readLine();
+        qDebug() << str;
+        QStringList tempList = str.split(" ", QString::SkipEmptyParts);
+        bool ok;
+        int command = tempList.at(0).toInt(&ok, 10);
+        int type = command/10;
+        if(ok){
+            switch (command)
+            {
+            //create
+            case 11: //core
+            case 21: //tower
+            case 31: //minion
+            case 41: //player
+                createEntity(type, tempList.at(1).toInt(&ok, 10), tempList.at(5).toInt(&ok, 10), tempList.at(6).toInt(&ok, 10));
+                qDebug() << tempList.at(7);
+                break;
+
+            //position change
+            case 32:
+            case 42:
+                moveEntity(tempList.at(1).toInt(&ok, 10), tempList.at(2).toInt(&ok, 10), tempList.at(3).toInt(&ok, 10));
+                break;
+
+            //state change
+            case 23:
+            case 33:
+            case 43:
+                //change state()
+                break;
+
+            //state and position change
+            case 34:
+            case 44:
+                //change state()
+                //cange position()
+                break;
+
+            //health change
+            case 15:
+            case 25:
+            case 35:
+            case 45:
+                //change health()
+                break;
+
+            //health and position change
+            case 36:
+            case 46:
+                //change health()
+                //change position()
+                break;
+
+            //health and state change
+            case 27:
+            case 37:
+            case 47:
+                //change health
+                //change state
+                break;
+
+            //heath state and position change
+            case 38:
+            case 48:
+                //change health
+                //change state
+                //change position
+                break;
+
+            //death
+            case 19:
+            case 29:
+            case 39:
+            case 49:
+                //exterminate
+                break;
+
+            case 2:
+                moveEntity(tempList.at(1).toInt(&ok, 10), tempList.at(2).toInt(&ok, 10), tempList.at(3).toInt(&ok, 10));
+            case 3:
+
+            default:
+                //yell at server!! Yell at Joel and Wiggles for sending something that we don't have! Crash program! Paint smily faces all over the screen! I dunno. . .
+                break;
+
+            }
+        }
+    }
+
+}
+
+void gameScreen::serverDisconnected()
+{
+    //
+}
+
+void gameScreen::createEntity(int type, int id, int posX, int posY){
+    EntityLabel *thing = new EntityLabel(id, type, posX, posY, wdgtGame);
+    //moveEntity(id, posX, posY);
+
+    if (type == 4){
+    hero = thing;
+    }
+    //hero->setGeometry(300,2350,110,110);
+    //hero->setStyleSheet("background:url(:/images/2/4/3/1.png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
+    thing->show();
+    objects.push_back(thing);
+
+}
+
+void gameScreen::moveEntity(int id, int x, int y){
+    EntityLabel *thing = objects.at(id--);
+    thing->move(x, y);
+    thing->setCounter(1);
+    int counter = thing->getCounter();
+    if (counter > 19) {
+        counter = 1;
+    }
+    hero->setStyleSheet("background:url(:/images/2/4/8/" + QString("%1").arg(counter) + ".png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
+}
+
+void gameScreen::changeEntityHealth(int id, int healthPercent){
+
+}
+
+void gameScreen::changeEntityState(int id, int state){
+
+}
+
+void gameScreen::exterminate(int id){
+
 }

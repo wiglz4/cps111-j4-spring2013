@@ -15,7 +15,7 @@ class ScoreWindow : public QDialog
     
 public:
     explicit ScoreWindow(QWidget *parent = 0);
-    void connectWidget(Widget *w){this->w = w;}
+    void connectWidget(Widget *w);
     ~ScoreWindow();
 
     

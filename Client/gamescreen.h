@@ -17,7 +17,9 @@ class gameScreen;
 #include "scorewindow.h"
 #include <QPushButton>
 #include <QStringList>
-
+#include <QTcpSocket>
+#include <QList>
+#include <vector>
 //REM
 #include <QTimer>
 //REM
@@ -36,12 +38,21 @@ public:
     void connectWidget(Widget *newW){w = newW;}
     ~gameScreen();
     void takeOverKeyboard() { wdgtGame->grabKeyboard(); }
+    void passSocket(QTcpSocket *s) {sock = s;}
+
+    void createEntity(int type, int id, int posX, int posY);
+    void moveEntity(int id, int x, int y);
+    void changeEntityState(int id, int state);
+    void changeEntityHealth(int id, int healthPercent);
+    void exterminate(int id);
+
 
 private slots:
     void onTimerHit();
     void return_to_menu();
     void serverDisconnected();
     void unPause();
+    void readCommand();
     
 private:
     Ui::gameScreen *gsui;
@@ -53,6 +64,8 @@ private:
     QPushButton *btnPause;
     QLabel *bar;
     Widget *w;
+    QTcpSocket *sock;
+    std::vector<EntityLabel*> objects;
 
     //update methods called from server
 
@@ -66,11 +79,11 @@ protected:
     void resizeEvent ( QResizeEvent * event );
 
     //REM
-    QTimer *timer;
+    QTimer *timer;/*
     bool wPressed;
     bool aPressed;
     bool sPressed;
-    bool dPressed;
+    bool dPressed;*/
     bool pPressed;
     //REM
 
@@ -79,7 +92,8 @@ protected:
     bool downPressed;
     bool leftPressed;
 
-    int counter;
+
+    //int counter;
 };
 
 #endif // GAMESCREEN_H
