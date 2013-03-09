@@ -30,7 +30,6 @@ class gameScreen;
 class gameScreen : public QWidget
 {
     Q_OBJECT
-    std::vector<EntityLabel*> labels;
     EntityLabel *hero;
     
 public:
@@ -46,6 +45,8 @@ public:
     void changeEntityHealth(int id, int healthPercent);
     void exterminate(int id);
 
+
+    EntityLabel getByID(int id);
 
 private slots:
     void onTimerHit();

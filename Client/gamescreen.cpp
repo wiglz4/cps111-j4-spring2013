@@ -10,6 +10,7 @@
 #include <QStringList>
 #include <string>
 #include <vector>
+#include <sstream>
 
 gameScreen::gameScreen(QWidget *parent) :
     QWidget(parent),
@@ -426,6 +427,7 @@ void gameScreen::return_to_menu(){
 
 void gameScreen::readCommand()
 {
+    /*
     while (sock->canReadLine()) {
         QString str = sock->readLine();
         qDebug() << str;
@@ -514,8 +516,59 @@ void gameScreen::readCommand()
 
             }
         }
-    }
+    }*/
 
+
+    while(sock->canReadLine())
+    {
+        QString str = sock->readLine();
+        std::stringstream strm(str.toStdString());
+        int entv;
+        int pHealth;
+        int x;
+        int y;
+        int id;
+        int state;
+        int team;
+        int type;
+        QString playername;
+        while(strm.str() != "")
+        {
+            entv = 0;
+            pHealth = 0;
+            x = 0;
+            y = 0;
+            id = 0;
+            state = 0;
+            team = 0;
+            playername = "";
+            strm>>entv;
+            if(entv == 11)
+            {
+                type = 1;
+                strm>>id>>team>>pHealth>>x>>y;
+                EntityLabel *ent = new EntityLabel(id,type,x,y,pHealth,playername,wdgtGame);
+                ent->setGeometry(x,y,200,200);
+                //ent->setStyleSheet(PICTURE OF A CORE BASED UPON TEAM);
+                //ent->show();
+                objects.push_back(ent);
+
+            }
+            else if(entv == 15)
+            {
+
+            }
+            else if(entv == 19)
+            {
+
+            }
+            else if(entv == 0)
+            {
+
+            }
+            //so on and so forth
+        }
+    }
 }
 
 void gameScreen::serverDisconnected()
@@ -523,6 +576,7 @@ void gameScreen::serverDisconnected()
     //
 }
 
+/*
 void gameScreen::createEntity(int type, int id, int posX, int posY){
     EntityLabel *thing = new EntityLabel(id, type, posX, posY, wdgtGame);
     //moveEntity(id, posX, posY);
@@ -534,8 +588,8 @@ void gameScreen::createEntity(int type, int id, int posX, int posY){
     //hero->setStyleSheet("background:url(:/images/2/4/3/1.png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
     thing->show();
     objects.push_back(thing);
-
 }
+*/
 
 void gameScreen::moveEntity(int id, int x, int y){
     EntityLabel *thing = objects.at(id--);
