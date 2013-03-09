@@ -2,13 +2,22 @@
 <ui version="4.0">
  <class>Widget</class>
  <widget class="QWidget" name="Widget">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>280</width>
-    <height>331</height>
+    <width>775</width>
+    <height>375</height>
    </rect>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>775</width>
+    <height>375</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Gate = Down</string>
@@ -17,66 +26,58 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color:#707070;</string>
+   <string notr="true"/>
   </property>
-  <widget class="QLabel" name="lblBackground">
+  <widget class="QPushButton" name="btnLocal">
    <property name="geometry">
     <rect>
-     <x>-20</x>
-     <y>200</y>
+     <x>568</x>
+     <y>141</y>
      <width>121</width>
-     <height>131</height>
+     <height>31</height>
     </rect>
    </property>
+   <property name="palette">
+    <palette>
+     <active/>
+     <inactive/>
+     <disabled/>
+    </palette>
+   </property>
+   <property name="mouseTracking">
+    <bool>true</bool>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
    <property name="styleSheet">
-    <string notr="true">background-color:hex(43553a);</string>
+    <string notr="true">QPushButton 
+{ 
+    background:url(:/images/buttonsp.png) no-repeat right top;
+}
+
+QPushButton:hover
+{
+    background:url(:/images/buttonsp2.png) no-repeat right top;
+} 
+
+QPushButton:pressed 
+{
+  background:url(:/images/buttonsp.png) no-repeat right top;
+  border: 0px solid grey;
+}</string>
    </property>
    <property name="text">
     <string/>
    </property>
-   <property name="pixmap">
-    <pixmap resource="resources.qrc">:/images/2/4/2/1.png</pixmap>
+   <property name="autoRepeatDelay">
+    <number>300</number>
    </property>
-  </widget>
-  <widget class="QPushButton" name="btnLocal">
-   <property name="geometry">
-    <rect>
-     <x>170</x>
-     <y>100</y>
-     <width>105</width>
-     <height>35</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background:url(:/images/button.png) no-repeat right top</string>
-   </property>
-   <property name="text">
-    <string>Start Game</string>
+   <property name="autoDefault">
+    <bool>false</bool>
    </property>
    <property name="default">
     <bool>false</bool>
-   </property>
-   <property name="flat">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="btnLoad">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>170</x>
-     <y>140</y>
-     <width>105</width>
-     <height>35</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background:url(:/images/button.png) no-repeat right top</string>
-   </property>
-   <property name="text">
-    <string>Load Game</string>
    </property>
    <property name="flat">
     <bool>true</bool>
@@ -88,17 +89,34 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>170</x>
-     <y>180</y>
-     <width>105</width>
-     <height>35</height>
+     <x>570</x>
+     <y>171</y>
+     <width>121</width>
+     <height>31</height>
     </rect>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
    <property name="styleSheet">
-    <string notr="true">background:url(:/images/button.png) no-repeat right top</string>
+    <string notr="true">QPushButton 
+{ 
+    background:url(:/images/buttonmp.png) no-repeat right top;
+}
+
+QPushButton:hover
+{
+    background:url(:/images/buttonmp2.png) no-repeat right top;
+} 
+
+QPushButton:pressed 
+{
+  background:url(:/images/buttonmp.png) no-repeat right top;
+  border: 0px solid grey;
+}</string>
    </property>
    <property name="text">
-    <string>Multiplayer</string>
+    <string/>
    </property>
    <property name="flat">
     <bool>true</bool>
@@ -107,17 +125,34 @@
   <widget class="QPushButton" name="btnScores">
    <property name="geometry">
     <rect>
-     <x>170</x>
-     <y>220</y>
-     <width>105</width>
+     <x>580</x>
+     <y>229</y>
+     <width>111</width>
      <height>35</height>
     </rect>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
    <property name="styleSheet">
-    <string notr="true">background:url(:/images/button.png) no-repeat right top</string>
+    <string notr="true">QPushButton 
+{ 
+    background:url(:/images/buttonhs.png) no-repeat right top;
+}
+
+QPushButton:hover
+{
+    background:url(:/images/buttonhs2.png) no-repeat right top;
+} 
+
+QPushButton:pressed 
+{
+  background:url(:/images/buttonhs.png) no-repeat right top;
+  border: 0px solid grey;
+}</string>
    </property>
    <property name="text">
-    <string>High Scores</string>
+    <string/>
    </property>
    <property name="flat">
     <bool>true</bool>
@@ -126,14 +161,14 @@
   <widget class="QLabel" name="lblTitle">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>10</y>
-     <width>221</width>
-     <height>71</height>
+     <x>30</x>
+     <y>2</y>
+     <width>651</width>
+     <height>161</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background:url(:/images/title.png) no-repeat top left;</string>
+    <string notr="true">background:url(:/images/game title.png) no-repeat top left;</string>
    </property>
    <property name="text">
     <string/>
@@ -142,14 +177,31 @@
   <widget class="QPushButton" name="btnHelp">
    <property name="geometry">
     <rect>
-     <x>250</x>
-     <y>300</y>
-     <width>25</width>
+     <x>604</x>
+     <y>257</y>
+     <width>101</width>
      <height>25</height>
     </rect>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
    <property name="styleSheet">
-    <string notr="true">background:url(:/images/helpbutton.png) no-repeat top left;</string>
+    <string notr="true">QPushButton 
+{ 
+    background:url(:/images/buttonct.png) no-repeat right top;
+}
+
+QPushButton:hover
+{
+    background:url(:/images/buttonct2.png) no-repeat right top;
+} 
+
+QPushButton:pressed 
+{
+  background:url(:/images/buttonct.png) no-repeat right top;
+  border: 0px solid grey;
+}</string>
    </property>
    <property name="text">
     <string/>
@@ -161,72 +213,142 @@
   <widget class="QPushButton" name="btnExit">
    <property name="geometry">
     <rect>
-     <x>170</x>
-     <y>260</y>
+     <x>620</x>
+     <y>283</y>
      <width>105</width>
-     <height>35</height>
+     <height>31</height>
     </rect>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
    <property name="styleSheet">
-    <string notr="true">background:url(:/images/button.png) no-repeat right top</string>
+    <string notr="true">QPushButton 
+{ 
+    background:url(:/images/buttonex.png) no-repeat right top;
+}
+
+QPushButton:hover
+{
+    background:url(:/images/buttonex2.png) no-repeat right top;
+} 
+
+QPushButton:pressed 
+{
+  background:url(:/images/buttonex.png) no-repeat right top;
+  border: 0px solid grey;
+}</string>
    </property>
    <property name="text">
-    <string>Exit</string>
+    <string/>
    </property>
    <property name="flat">
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLabel" name="lblBackground_2">
+  <widget class="QPushButton" name="btnLoad">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
-     <x>-10</x>
-     <y>240</y>
+     <x>574</x>
+     <y>201</y>
      <width>121</width>
-     <height>131</height>
+     <height>31</height>
     </rect>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
    <property name="styleSheet">
-    <string notr="true">background-color:hex(43553a);</string>
+    <string notr="true">QPushButton 
+{ 
+    background:url(:/images/buttonlg.png) no-repeat right top;
+}
+
+QPushButton:hover
+{
+    background:url(:/images/buttonlg2.png) no-repeat right top;
+} 
+
+QPushButton:pressed 
+{
+  background:url(:/images/buttonlg.png) no-repeat right top;
+  border: 0px solid grey;
+}</string>
    </property>
    <property name="text">
     <string/>
    </property>
-   <property name="pixmap">
-    <pixmap resource="resources.qrc">:/images/2/3/2/13.png</pixmap>
+   <property name="flat">
+    <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLabel" name="lblBackground_3">
+  <widget class="QLabel" name="lblTitle_2">
    <property name="geometry">
     <rect>
-     <x>-50</x>
-     <y>-20</y>
-     <width>371</width>
-     <height>281</height>
+     <x>687</x>
+     <y>147</y>
+     <width>21</width>
+     <height>165</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color:hex(43553a);</string>
+    <string notr="true">background:url(:/images/bar.png) no-repeat top left;</string>
    </property>
    <property name="text">
     <string/>
    </property>
-   <property name="pixmap">
-    <pixmap resource="resources.qrc">:/images/1/2/6.png</pixmap>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>775</width>
+     <height>376</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QWidget 
+{
+ background:url(:/images/backgrounde.png) no-repeat right top;
+}
+</string>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
-  <zorder>lblBackground_3</zorder>
-  <zorder>lblBackground</zorder>
+  <zorder>label</zorder>
+  <zorder>lblTitle</zorder>
   <zorder>btnLocal</zorder>
-  <zorder>btnLoad</zorder>
   <zorder>btnNetwork</zorder>
   <zorder>btnScores</zorder>
-  <zorder>lblTitle</zorder>
   <zorder>btnHelp</zorder>
   <zorder>btnExit</zorder>
-  <zorder>lblBackground_2</zorder>
+  <zorder>btnLoad</zorder>
+  <zorder>lblTitle_2</zorder>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
  <connections/>
+ <designerdata>
+  <property name="gridDeltaX">
+   <number>2</number>
+  </property>
+  <property name="gridDeltaY">
+   <number>2</number>
+  </property>
+  <property name="gridSnapX">
+   <bool>false</bool>
+  </property>
+  <property name="gridSnapY">
+   <bool>false</bool>
+  </property>
+  <property name="gridVisible">
+   <bool>true</bool>
+  </property>
+ </designerdata>
 </ui>

@@ -20,12 +20,14 @@ public:
 
     
 private slots:
-    void close_window();
+    void main_window();
+    void on_btnExit2_clicked();
 
 private:
     Ui::ScoreWindow *ui;
     Widget *w;
-    QPushButton* close;
+    QPushButton* main;
+    QPushButton* btnExit2;
 
 signals:
     void start_main();

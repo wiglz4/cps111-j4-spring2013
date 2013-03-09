@@ -40,15 +40,17 @@ private slots:
     void return_to_menu();
     void readCommand();
     void serverDisconnected();
+    void unPause();
     
 private:
     Ui::gameScreen *gsui;
     QWidget *wdgtGame;
     QWidget *wdgtPicture;
     QFrame *gameFrame;
-    QLabel *lblPause;
     QFrame *pause;
     QPushButton *menu;
+    QPushButton *btnPause;
+    QLabel *bar;
     Widget *w;
     QTcpSocket *mySocket;
 

@@ -7,6 +7,7 @@ class HelpWindow;
 #include "widget.h"
 #include "ui_widget.h"
 #include <QPushButton>
+#include <QLabel>
 
 class HelpWindow : public QWidget
 {
@@ -20,11 +21,14 @@ public:
 private:
     Ui::HelpWindow *ui;
     Widget *w;
-    QPushButton *button;
+    QPushButton* main;
+    QPushButton* btnExit2;
+    QLabel* img;
     QWidget *arrows;
 
 private slots:
-    void close_window();
+    void main_window();
+    void on_btnExit2_clicked();
 };
 
 #endif // HELPWINDOW_H

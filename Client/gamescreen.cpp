@@ -23,7 +23,7 @@ gameScreen::gameScreen(QWidget *parent) :
     wdgtGame->setGeometry(-100, -2150, 4000, 3000);
     wdgtPicture = new QWidget(wdgtGame);
     wdgtPicture->setGeometry(0,0,4000,3000);
-    wdgtPicture->setStyleSheet("background-image:url(:/images/mapsm.png)");
+    wdgtPicture->setStyleSheet("background-image:url(:/images/map4.png)");
     hero = new EntityLabel(wdgtGame);
     hero->setGeometry(300,2350,110,110);
     //wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() - 2800);
@@ -39,12 +39,6 @@ gameScreen::gameScreen(QWidget *parent) :
     gameFrame->setLineWidth(10);
     gameFrame->setGeometry(0, 0, 800, 600);
     gameFrame->show();
-
-    lblPause = new QLabel(gameFrame);
-    lblPause->setText("PAUSED");
-    lblPause->setStyleSheet("font-size:22pt; font-weight:600; color:rgb(0, 0, 0);");
-    lblPause->setGeometry(28, 100, 200, 200);
-    lblPause->hide();
 
     pause = new QFrame(gameFrame);
     pause->setGeometry(0, 0, 4000, 3000);
@@ -69,13 +63,26 @@ gameScreen::gameScreen(QWidget *parent) :
     mySocket->connectToHost("localhost",5000);
 
 
-    menu = new QPushButton(this);
-    menu->setGeometry(20,3,105,35);
+    menu = new QPushButton(gameFrame);
+    menu->setGeometry(588,310,121,31);
     menu->setFlat(true);
-    menu->setStyleSheet("background:url(:/images/button) no-repeat top left;border-style:none;background-color:rgba(0, 0, 0, 0);");
-    menu->setText("Main Menu");
-    menu->show();
+    menu->setStyleSheet("QPushButton { background:url(:/images/buttonmm) no-repeat right top; } QPushButton:hover{ background:url(:/images/buttonmm2.png) no-repeat right top; } QPushButton:pressed { background:url(:/images/buttonmm.png) no-repeat right top; border: 0px solid grey; }");
+    menu->setFocusPolicy(Qt::NoFocus);
+    menu->hide();
     connect(this->menu, SIGNAL(clicked()), this, SLOT(return_to_menu()));
+
+    btnPause = new QPushButton(gameFrame);
+    btnPause->setGeometry(600,285,121,31);
+    btnPause->setFlat(true);
+    btnPause->setStyleSheet("QPushButton { background:url(:/images/buttonpa) no-repeat right top; } QPushButton:hover{ background:url(:/images/buttonpa2.png) no-repeat right top; } QPushButton:pressed { background:url(:/images/buttonpa.png) no-repeat right top; border: 0px solid grey; }");
+    btnPause->setFocusPolicy(Qt::NoFocus);
+    btnPause->hide();
+    connect(this->btnPause, SIGNAL(clicked()), this, SLOT(unPause()));
+
+    bar = new QLabel(gameFrame);
+    bar->setGeometry(700,265,21,100);
+    bar->setStyleSheet("background:url(:/images/bar.png) no-repeat top left;");
+    bar->hide();
 
 }
 
@@ -100,6 +107,16 @@ void gameScreen::serverDisconnected()
 
 }
 
+void gameScreen::unPause()
+{
+    timer->start();
+    pPressed = false;
+    btnPause->hide();
+    menu->hide();
+    pause->hide();
+    bar->hide();
+}
+
 void gameScreen::keyPressEvent(QKeyEvent *e)
 {
     if(e->key() == Qt::Key_P && !e->isAutoRepeat())
@@ -107,13 +124,17 @@ void gameScreen::keyPressEvent(QKeyEvent *e)
         if (pPressed == false){
            timer->stop();
            pPressed = true;
-           lblPause->show();
            pause->show();
+           btnPause->show();
+           menu->show();
+           bar->show();
         } else {
            timer->start();
            pPressed = false;
-           lblPause->hide();
+           btnPause->hide();
+           menu->hide();
            pause->hide();
+           bar->hide();
         }
         qDebug() << "P";
     }

@@ -481,5 +481,34 @@
         <file>images/2/4/8/17.png</file>
         <file>images/2/4/8/18.png</file>
         <file>images/2/4/8/19.png</file>
+        <file>images/buttonmp.png</file>
+        <file>images/buttonsp.png</file>
+        <file>images/buttonmp2.png</file>
+        <file>images/buttonsp2.png</file>
+        <file>images/buttonct.png</file>
+        <file>images/buttonct2.png</file>
+        <file>images/buttonhs.png</file>
+        <file>images/buttonhs2.png</file>
+        <file>images/buttonlg.png</file>
+        <file>images/buttonlg2.png</file>
+        <file>images/buttonmm.png</file>
+        <file>images/buttonmm2.png</file>
+        <file>images/bar.png</file>
+        <file>images/buttonex.png</file>
+        <file>images/buttonpa.png</file>
+        <file>images/controls.png</file>
+        <file>images/game title.png</file>
+        <file>images/high scores.png</file>
+        <file>images/background.png</file>
+        <file>images/backgroundc.png</file>
+        <file>images/backgroundd.png</file>
+        <file>images/backgrounde.png</file>
+        <file>images/buttonex2.png</file>
+        <file>images/buttonpa2.png</file>
+        <file>images/map4.png</file>
+        <file>images/ARROWS.png</file>
+        <file>images/directions 1.png</file>
+        <file>images/directions 2.png</file>
+        <file>images/WASD2.png</file>
     </qresource>
 </RCC>
