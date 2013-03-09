@@ -42,7 +42,7 @@ void ScoreWindow::main_window(){
 
 void ScoreWindow::on_btnExit2_clicked()
 {
-    //return 0;
+    this->close();
 }
 
 

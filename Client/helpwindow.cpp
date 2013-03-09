@@ -43,6 +43,6 @@ void HelpWindow::main_window(){
 
 void HelpWindow::on_btnExit2_clicked()
 {
-    //return 0;
+    this->close();
 }
 
