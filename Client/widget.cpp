@@ -67,5 +67,5 @@ void Widget::on_btnHelp_clicked()
 
 void Widget::on_btnExit_clicked()
 {
-    //return 0;
+    this->close();
 }
