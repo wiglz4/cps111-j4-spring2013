@@ -16,9 +16,7 @@ Game::Game(std::vector<User *> *unUsers)
 
 std::string Game::onTick()
 {
-    //qDebug()<<"Game ticked";
     gmap->onTick();
-    //qDebug()<<"Map ticked";
     return gmap->Display();
 }
 

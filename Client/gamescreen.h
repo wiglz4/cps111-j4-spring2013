@@ -39,10 +39,11 @@ public:
     void takeOverKeyboard() { wdgtGame->grabKeyboard(); }
     void passSocket(QTcpSocket *s) {sock = s;}
 
-    void createEntity(int type, int id, int posX, int posY);
+    void createEntity(int type, int id, int team, int health, int state, int posX, int posY, QString name);
     void moveEntity(int id, int x, int y);
     void changeEntityState(int id, int state);
     void changeEntityHealth(int id, int healthPercent);
+    void animate(int id);
     void exterminate(int id);
 
 

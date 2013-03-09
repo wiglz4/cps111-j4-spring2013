@@ -28,12 +28,10 @@ World::World(vector<User *> *vect)
     Core *aCore = new Core(1, 100, 100,this);
     allEntities.push_back(aCore);
     redEntities.push_back(aCore);
-    qDebug()<<"RedCore";
 
     aCore = new Core(2, 200, 100,this);
     allEntities.push_back(aCore);
     blueEntities.push_back(aCore);
-    qDebug()<<"BlueCore";
 
     Tower *aTower = new Tower(1, 100,300,this);
     allEntities.push_back(aTower);
@@ -47,8 +45,6 @@ World::World(vector<User *> *vect)
     aTower = new Tower(1, 100, 900, this);
     allEntities.push_back(aTower);
     redEntities.push_back(aTower);
-    qDebug()<<"RedTowers";
-    qDebug()<<redEntities.size();
 
     aTower = new Tower(2, 200, 300, this);
     allEntities.push_back(aTower);
@@ -62,8 +58,6 @@ World::World(vector<User *> *vect)
     aTower = new Tower(2,200,900,this);
     allEntities.push_back(aTower);
     blueEntities.push_back(aTower);
-    qDebug()<<"BlueTowers";
-    qDebug()<<blueEntities.size();
 
     Minion *aMinion = new Minion(1, 100, 1000, this);
     allEntities.push_back(aMinion);
@@ -104,6 +98,7 @@ World::World(vector<User *> *vect)
     PlCh* aPlCh;
     for(int i = 0; i < vect->size();++i)
     {
+        qDebug()<<vect->at(i)->getTeam();
         if(vect->at(i)->getTeam() == 1)
         {
             aPlCh = new PlCh(1,100,1300 + redMod * 100, this, vect->at(i)->getName());
@@ -112,12 +107,11 @@ World::World(vector<User *> *vect)
         }
         else
         {
-            aPlCh = new PlCh(1,200,1300 + blueMod * 100, this, vect->at(i)->getName());
+            aPlCh = new PlCh(2,200,1300 + blueMod * 100, this, vect->at(i)->getName());
             allEntities.push_back(aPlCh);
             blueEntities.push_back(aPlCh);
         }
     }
-    //qDebug()<<"Map created";
 }
 
 
@@ -128,16 +122,12 @@ Entity *World::getNAE(int x, int y, int team, double &distance)
     int entNum = -1;
     if( team == 1)//red
     {
-        //qDebug()<<"red";
-        //qDebug()<<0 + blueEntities.size();
         for(unsigned int i = 0; i < blueEntities.size(); ++i)
         {
             dist2 = sqrt(pow(blueEntities.at(i)->getY()-y, 2) + pow(blueEntities.at(i)->getX() - x, 2));
-            //qDebug()<<dist2;
             if(dist2 < distance)
             {
-                qDebug()<<111;
-                //distance = dist2;
+                distance = dist2;
                 entNum = i;
             }
         }
@@ -148,7 +138,6 @@ Entity *World::getNAE(int x, int y, int team, double &distance)
     }
     else//blue
     {
-        //qDebug()<<"blue";
         for(unsigned int i = 0; i < redEntities.size(); ++i)
         {
             dist2 = sqrt(pow(redEntities.at(i)->getY()-y, 2) + pow(redEntities.at(i)->getX() - x, 2));
@@ -189,21 +178,18 @@ Entity *World::getByID(int entID)
 
 void World::onTick()
 {
-    //qDebug()<<"Map tick started";
 
     for(int i = 0; i < allEntities.size(); ++i)
     {
         allEntities.at(i)->onTick();
     }
 
-    //qDebug()<<"Entities ticked";
 
     for(int i = 0; i < shots.size(); ++i)
     {
         shots.at(i)->onTick();
     }
 
-    //qDebug()<<"Shots ticked";
 }
 
 
@@ -224,6 +210,7 @@ void World::load(string loadString)
 string World::Display()
 {
     stringstream strm;
+    strm<<"97179";
     for(int i = 0; i < allEntities.size(); ++i)
     {
         strm<<allEntities.at(i)->displayString();
@@ -240,7 +227,6 @@ string World::Display()
             allMinions.erase(allMinions.begin() + i);
         }
     }
-    //qDebug()<<strm.str().c_str();
     return strm.str();
 }
 

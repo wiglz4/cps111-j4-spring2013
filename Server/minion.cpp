@@ -21,7 +21,7 @@ Minion::Minion(int cTeam, int newX, int newY, World *newMap)
     targetable = true;
     attackable = true;
     size = 150; //radius
-    type = 1;
+    type = 3;
 
     atkDamage = 200;
     atkSpeed = 1.2;
@@ -294,12 +294,12 @@ bool Minion::damage(int value)
 {
     if(Alive)
     {
-    curHealth = (double)curHealth - (double) value * (double) armor / 100;
-    if(curHealth < 0)
-    {
-        die();
-        return true;
-    }
+        curHealth = (double)curHealth - (double) value * (double) armor / 100;
+        if(curHealth < 0)
+        {
+            die();
+            return true;
+        }
     }
     return false;
 }
@@ -335,7 +335,7 @@ string Minion::displayString()
     {
         if(isNew)
         {
-            strm<<" "<<(type * 10 + 1)<<" "<<absoluteID<<" "<<team<<" "<<((curHealth * 100) / maxHealth)<<" "<<state<<" "<<x<<" "<<y;
+            strm<<" "<<(type * 10 + 1)<<" "<<absoluteID<<" "<<team<<" "<<((curHealth * 100) / maxHealth)<<" "<<state<<" "<<x<<" "<<y<<" "<<"NOT";
             isNew = false;
             positionChange = false;
             healthChange = false;
