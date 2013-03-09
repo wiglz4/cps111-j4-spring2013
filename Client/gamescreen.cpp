@@ -6,7 +6,10 @@
 #include <QByteArray>
 #include <QTcpServer>
 #include <QTcpSocket>
+#include <QUdpSocket>
+#include <QStringList>
 #include <string>
+#include <vector>
 
 gameScreen::gameScreen(QWidget *parent) :
     QWidget(parent),
@@ -24,13 +27,6 @@ gameScreen::gameScreen(QWidget *parent) :
     wdgtPicture = new QWidget(wdgtGame);
     wdgtPicture->setGeometry(0,0,4000,3000);
     wdgtPicture->setStyleSheet("background-image:url(:/images/map4.png)");
-    hero = new EntityLabel(wdgtGame);
-    hero->setGeometry(300,2350,110,110);
-    //wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() - 2800);
-    //QPixmap icon(":/images/hero1.png");
-    //hero->setPixmap(icon);
-    hero->setStyleSheet("background:url(:/images/2/4/3/1.png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
-    hero->show();
 
     wdgtGame->grabKeyboard();
 
@@ -61,6 +57,11 @@ gameScreen::gameScreen(QWidget *parent) :
     connect(mySocket, SIGNAL(readyRead()), this, SLOT(readCommand()));
     connect(mySocket, SIGNAL(disconnected()), this, SLOT(serverDisconnected()));
     mySocket->connectToHost("localhost",5000);
+
+    hero = new EntityLabel(wdgtGame);
+    hero->setGeometry(300,2350,110,110);
+    hero->setStyleSheet("background:url(:/images/2/4/3/1.png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
+    hero->show();
 
 
     menu = new QPushButton(gameFrame);
@@ -94,17 +95,35 @@ gameScreen::~gameScreen()
 
 void gameScreen::readCommand()
 {
-    if(mySocket->canReadLine()){
+    if(mySocket->canReadLine()) {
         QString str = mySocket->readLine();
-        qDebug() << str;
-        mySocket->write(str.toAscii());
-
+        QStringList tempList = str.split(" ",QString::SkipEmptyParts );
+        bool ok;
+        if ((tempList.at(0).toInt(&ok, 10) > 40) && (tempList.at(0).toInt(&ok, 10) < 50)) {
+            updatePlayer(tempList);
+        }
     }
 }
 
 void gameScreen::serverDisconnected()
 {
 
+}
+
+void gameScreen::updatePlayer(QStringList player)
+{
+    bool ok;
+    if(player.at(0).toInt(&ok, 10) == 41) {
+    //    hero = new EntityLabel(wdgtGame);
+        hero->setGeometry(player.at(5).toInt(&ok,10),player.at(6).toInt(&ok,10),110,110);
+        hero->setStyleSheet("background:url(:/images/2/4/3/1.png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
+        hero->show();
+    }
+}
+
+void gameScreen::updatePos(EntityLabel *lblToUpdate, int x, int y, int width, int height)
+{
+    lblToUpdate->setGeometry(x,y,width,height);
 }
 
 void gameScreen::unPause()
@@ -121,7 +140,7 @@ void gameScreen::keyPressEvent(QKeyEvent *e)
 {
     if(e->key() == Qt::Key_P && !e->isAutoRepeat())
     {
-        if (pPressed == false){
+        if (pPressed == false) {
            timer->stop();
            pPressed = true;
            pause->show();

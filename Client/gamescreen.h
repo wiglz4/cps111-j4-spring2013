@@ -16,6 +16,7 @@ class gameScreen;
 #include <QTcpSocket>
 #include "scorewindow.h"
 #include <QPushButton>
+#include <QStringList>
 
 //REM
 #include <QTimer>
@@ -53,6 +54,11 @@ private:
     QLabel *bar;
     Widget *w;
     QTcpSocket *mySocket;
+
+    //update methods called from server
+
+     void updatePlayer(QStringList player);
+     void updatePos(EntityLabel *lblToUpdate, int x, int y, int width, int height);
 
 protected:
     void keyPressEvent(QKeyEvent * e);
