@@ -5,6 +5,7 @@
 #include "plch.h"
 #include "stats.h"
 #include <sstream>
+#include <QDebug>
 
 PlCh::PlCh(int cTeam, int newX, int newY, World *newMap, string pName)
 {
@@ -117,6 +118,9 @@ void PlCh::cheatMode()
 
 void PlCh::onTick()
 {
+    //REM
+    //qDebug()<<x<<" "<<y;
+    //REM
     double distance = 0;
     double theta;
     double delta;
@@ -177,6 +181,9 @@ void PlCh::onTick()
         {
             if(target != NULL)
             {
+                //REM
+                //qDebug()<<1;
+                //REM
                 distance = sqrt(pow(target->getY()-y, 2) + pow(target->getX() - x, 2));
                 if(distance < detRange)
                 {
@@ -195,6 +202,7 @@ void PlCh::onTick()
                     }
                     else
                     {
+                        //qDebug()<<12;
                         theta = asin((y-target->getY())/distance);
                         delta = acos((x-target->getX())/distance);
                         if(target->getY() > y)
@@ -223,6 +231,7 @@ void PlCh::onTick()
                 }
                 else
                 {
+                    //qDebug()<<2;
                     Entity *ent = map->getNAE(x,y,team, distance);
                     if (ent != NULL)
                     {
@@ -244,6 +253,7 @@ void PlCh::onTick()
                             }
                             else
                             {
+                                //qDebug()<<21;
                                 theta = asin((y-target->getY())/distance);
                                 delta = acos((x-target->getX())/distance);
                                 if(target->getY() > y)
@@ -276,9 +286,12 @@ void PlCh::onTick()
             }
             else
             {
+                //qDebug()<<3;
                 Entity *ent = map->getNAE(x,y,team, distance);
+                //qDebug()<<distance;
                 if (ent != NULL)
                 {
+                    //qDebug()<<9;
                     if(distance < detRange)
                     {
                         target = ent;
@@ -297,6 +310,7 @@ void PlCh::onTick()
                         }
                         else
                         {
+                            //qDebug()<<4;
                             theta = asin((y-target->getY())/distance);
                             delta = acos((x-target->getX())/distance);
                             if(target->getY() > y)
@@ -329,7 +343,7 @@ void PlCh::onTick()
     }
     else
     {
-
+        //qDebug()<<5;
         if(count->Check())
         {
             Alive = true;
@@ -393,7 +407,10 @@ Entity* PlCh::load()
 
 string PlCh::displayString()
 {
-    //
+    //REM
+    //qDebug()<<debugCount;
+    //debugCount++;
+    //REM
     stringstream strm;
     if(Alive)
     {
@@ -408,7 +425,7 @@ string PlCh::displayString()
         else if(!healthChange && !stateChange && positionChange)
         {
             strm<<" "<<(type * 10 + 2)<<" "<<absoluteID<<" "<<x<<" "<<y;
-            positionChange = false;
+            //positionChange = false;
         }
         else if(!healthChange && stateChange && !positionChange)
         {
@@ -441,7 +458,11 @@ string PlCh::displayString()
         else if (healthChange && stateChange && positionChange)
         {
             strm<<" "<<(type * 10 + 8)<<" "<<absoluteID<<" "<<((curHealth * 100) / maxHealth)<<" "<<state<<" "<<x<<" "<<y;
+            healthChange = false;
+            stateChange = false;
+            positionChange = false;
         }
+        return strm.str();
     }
     else
     {
@@ -449,6 +470,7 @@ string PlCh::displayString()
         {
             strm<<" "<<(type * 10 + 9)<<" "<<absoluteID;
             newDead = false;
+            return strm.str();
         }
     }
 }

@@ -1,3 +1,7 @@
+#include "world.h"
+#include "entity.h"
+#include "unit.h"
+#include "plch.h"
 #include "user.h"
 
 //NEEDS BUNCHES OF WORK
@@ -10,7 +14,7 @@ User::User()
 
 void User::command(std::string cmdString)
 {
-
+    character->command(cmdString);
 }
 
 bool User::checkInstanceVars()

@@ -17,7 +17,7 @@ class Game
 public:
     Game(std::vector<User *> *unUsers);
     void endGame(int team);
-    void onTick();
+    std::string onTick();
     bool getOver(){return over;}
 
 private:

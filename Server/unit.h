@@ -36,10 +36,12 @@ public:
     virtual bool Attack() = 0;
 
 
+
     void setCanAttack(bool newState);
     void setAlive(bool newState);
     void setSpeed(int newSpeed);
 
+    bool getAlive(){return Alive;}
 };
 
 #endif // UNIT_H
