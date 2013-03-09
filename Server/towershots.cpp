@@ -1,5 +1,6 @@
 #include "entity.h"
 #include "towershots.h"
+#include <sstream>
 
 using namespace std;
 
@@ -7,7 +8,11 @@ double TowerShots::speed = 8;
 
 string TowerShots::DispShot()
 {
-    //NEEDS CODING
+    stringstream strm;
+    if(display)
+    {
+        strm<<" "<<5<<" "<<x<<" "<<y;
+    }
 }
 
 void TowerShots::onTick()
@@ -29,5 +34,13 @@ void TowerShots::onTick()
     else
     {
         x = x - abs(speed * cos(theta));
+    }
+    if(delay > 0)
+    {
+        delay--;
+    }
+    else
+    {
+        display = true;
     }
 }

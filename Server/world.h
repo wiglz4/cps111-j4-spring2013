@@ -1,6 +1,8 @@
 #ifndef WORLD_H
 #define WORLD_H
 
+//NEEDS SOME WORK
+
 #include <vector>
 #include <string>
 
@@ -11,6 +13,7 @@ class Minion;
 class PlCh;
 class TowerShots;
 class User;
+class Counter;
 
 using namespace std;
 
@@ -43,8 +46,11 @@ private:
 
     vector<TowerShots *> shots;
 
+    bool isNewGame;
 
     Game *game;
+
+    Counter *count;
 
 public:
     World(vector<User *> *vect);
@@ -58,6 +64,8 @@ public:
     Entity* getByID(int entID);
 
     void onTick();
+
+    void spawn();
 
     string save();
 

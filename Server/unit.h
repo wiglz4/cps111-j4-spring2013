@@ -14,7 +14,7 @@ protected:
     int detRange;
     bool canAttack;
     bool Alive;
-    bool doneDie;
+    bool newDead;
     Entity *target;
     Counter *count;
     int targetPriority;
@@ -33,7 +33,7 @@ public:
     virtual Entity* load() = 0;
     virtual string displayString() = 0;
     virtual void die() = 0;
-    virtual bool Attack(Entity * ent) = 0;
+    virtual bool Attack() = 0;
 
 
     void setCanAttack(bool newState);

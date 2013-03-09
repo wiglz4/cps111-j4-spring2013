@@ -1,9 +1,12 @@
 #ifndef USER_H
 #define USER_H
+
+//NEEDS BUNCHES OF WORK
+
 #include <string>
-#include <QTcpSocket>
 
 class PlCh;
+class QTcpSocket;
 
 class User
 {
@@ -12,12 +15,19 @@ class User
     QTcpSocket *sock;
     PlCh *character;
 
+
 public:
     User();
     void setSocket(QTcpSocket * newSock){sock = newSock;}
     void setCharacter(PlCh *newChar){character = newChar;}
     void setUsername(std::string user){userName = user;}
-    void defaultTeam(){team = 1;}
+    void setTeam(int nTeam){team = nTeam;}
+    void command(std::string cmdString);
+    bool checkInstanceVars();
+    QTcpSocket* getSock(){return sock;}
+    int getTeam(){return team;}
+    std::string getName(){return userName;}
+    //void command(std::basic_string<char, std::char_traits<char>, std::allocator<char> >);
 };
 
 #endif // USER_H
