@@ -18,6 +18,7 @@ class Widget;
 #include "scorewindow.h"
 #include "helpwindow.h"
 #include "ui_helpwindow.h"
+#include <QTcpSocket>
 
 class Widget : public QWidget
 {
@@ -42,6 +43,10 @@ private slots:
 
     void on_btnExit_clicked();
 
+    void readCommand();
+
+    void serverDisconnected();
+
 signals:
     void startLocal();
 
@@ -53,6 +58,7 @@ private:
     gameScreen *g;
     ScoreWindow *s;
     HelpWindow *h;
+    QTcpSocket *mySocket;
 };
 
 #endif // WIDGET_H

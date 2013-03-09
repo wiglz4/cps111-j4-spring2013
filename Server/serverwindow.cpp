@@ -7,6 +7,8 @@
 #include <QTextCodec>
 #include <QString>
 #include <counter.h>
+#include <QLabel>
+#include <QDebug>
 
 //NEEDS BUNCHES OF WORK
 serverWindow::serverWindow(QWidget *parent) :
@@ -14,12 +16,14 @@ serverWindow::serverWindow(QWidget *parent) :
     ui(new Ui::serverWindow)
 {
     ui->setupUi(this);
-    connect(server, SIGNAL(newConnection()), this, SLOT(clientConnected()));
-    if(!server->listen(QHostAddress::Any, 1337))
+
+    connect(&server, SIGNAL(newConnection()), this, SLOT(clientConnected()));
+    if(!server.listen(QHostAddress::Any, 5000))
     {
         QMessageBox::critical(this, "ERROR", "Cannot start socket.");
         exit(1);
     }
+
     timer = new QTimer(this);
     timer->setInterval(20);
     connect(timer, SIGNAL(timeout()) , this, SLOT(timerHit()));
@@ -34,8 +38,9 @@ serverWindow::~serverWindow()
 
 void serverWindow::clientConnected()
 {
+    ui->label->setText("connected");
     User *user = new User();
-    QTcpSocket *sock = server->nextPendingConnection();
+    QTcpSocket *sock = server.nextPendingConnection();
     connect(sock, SIGNAL(disconnected()), this, SLOT(clientDisconnected()));
     connect(sock, SIGNAL(readyRead()), this, SLOT(dataReceived()));
     user->setSocket(sock);
@@ -54,9 +59,19 @@ void serverWindow::clientDisconnected()
 
 void serverWindow::dataReceived()
 {
+
+
     //Test code
     QTcpSocket *sock = dynamic_cast<QTcpSocket*>(sender());
-    if(game == NULL)
+    while (sock->canReadLine()) {
+        QString str = sock->readLine();
+        qDebug() << str;
+        QString message("Hello ");
+        message += str + "(; /n";
+        sock->write(message.toAscii());
+
+    }
+    /*if(game == NULL)
     {
         QString str = sock->readLine();
         for(uint i = 0; i < unUsers.size()-1;++i)
@@ -73,7 +88,7 @@ void serverWindow::dataReceived()
                     unUsers.at(i)->setUsername(username);
                     QString message("Hello ");
                     QString uname(username.c_str());
-                    message += uname + "!";
+                    message += uname + "(;";
                     sock->write(message.toAscii());
                     if(!timerGo)
                     {
@@ -97,7 +112,7 @@ void serverWindow::dataReceived()
         }
     }
     //Real code
-    /*
+
     QTcpSocket *sock = dynamic_cast<QTcpSocket*>(sender());
     for(uint i = 0; i < unUsers.size()-1; i++)
     {

@@ -28,7 +28,7 @@ gameScreen::gameScreen(QWidget *parent) :
     wdgtPicture->setGeometry(0,0,4000,3000);
     wdgtPicture->setStyleSheet("background-image:url(:/images/map4.png)");
 
-    wdgtGame->grabKeyboard();
+    //wdgtGame->grabKeyboard();
 
     gameFrame = new QFrame(this);
     gameFrame->setFrameShape(QFrame::Box);
@@ -53,10 +53,6 @@ gameScreen::gameScreen(QWidget *parent) :
     leftPressed = false;
 
     counter = 1;
-    mySocket = new QTcpSocket(this);
-    connect(mySocket, SIGNAL(readyRead()), this, SLOT(readCommand()));
-    connect(mySocket, SIGNAL(disconnected()), this, SLOT(serverDisconnected()));
-    mySocket->connectToHost("localhost",5000);
 
     hero = new EntityLabel(wdgtGame);
     hero->setGeometry(300,2350,110,110);
@@ -92,18 +88,6 @@ gameScreen::~gameScreen()
     delete gsui;
 }
 
-
-void gameScreen::readCommand()
-{
-    if(mySocket->canReadLine()) {
-        QString str = mySocket->readLine();
-        QStringList tempList = str.split(" ",QString::SkipEmptyParts );
-        bool ok;
-        if ((tempList.at(0).toInt(&ok, 10) > 40) && (tempList.at(0).toInt(&ok, 10) < 50)) {
-            updatePlayer(tempList);
-        }
-    }
-}
 
 void gameScreen::serverDisconnected()
 {

@@ -35,11 +35,11 @@ public:
     explicit gameScreen(QWidget *parent = 0);
     void connectWidget(Widget *newW){w = newW;}
     ~gameScreen();
+    void takeOverKeyboard() { wdgtGame->grabKeyboard(); }
 
 private slots:
     void onTimerHit();
     void return_to_menu();
-    void readCommand();
     void serverDisconnected();
     void unPause();
     
@@ -53,7 +53,6 @@ private:
     QPushButton *btnPause;
     QLabel *bar;
     Widget *w;
-    QTcpSocket *mySocket;
 
     //update methods called from server
 

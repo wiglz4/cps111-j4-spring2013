@@ -21,7 +21,7 @@ class serverWindow : public QMainWindow
 {
     Q_OBJECT
     QTimer *timer;
-    QTcpServer *server;
+    QTcpServer server;
     vector<User *> unUsers;
     vector<QTcpSocket *> unSocks;
     vector<User *> lobbyUsers;
