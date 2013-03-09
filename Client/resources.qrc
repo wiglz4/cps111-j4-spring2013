@@ -506,5 +506,9 @@
         <file>images/buttonex2.png</file>
         <file>images/buttonpa2.png</file>
         <file>images/map4.png</file>
+        <file>images/ARROWS.png</file>
+        <file>images/directions 1.png</file>
+        <file>images/directions 2.png</file>
+        <file>images/WASD2.png</file>
     </qresource>
 </RCC>
