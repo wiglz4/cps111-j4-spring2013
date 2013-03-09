@@ -64,7 +64,7 @@ void serverWindow::dataReceived()
 
     //Test code
     QTcpSocket *sock = dynamic_cast<QTcpSocket*>(sender());
-    /*
+
     while (sock->canReadLine()) {
         QString str = sock->readLine();
         qDebug() << str;
@@ -73,7 +73,7 @@ void serverWindow::dataReceived()
         sock->write(message.toAscii());
         sock->write(str.toAscii());
 
-    }*/
+    }
     if(game == NULL)
     {
         QString str = sock->readLine();
