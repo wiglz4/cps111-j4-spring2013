@@ -335,7 +335,7 @@ string Minion::displayString()
     {
         if(isNew)
         {
-            strm<<" "<<(type * 10 + 1)<<" "<<absoluteID<<" "<<team<<" "<<((curHealth * 100) / maxHealth)<<" "<<state<<" "<<x<<" "<<y;
+            strm<<" "<<(type * 10 + 1)<<" "<<absoluteID<<" "<<team<<" "<<((curHealth * 100) / maxHealth)<<" "<<state<<" "<<x<<" "<<y<<" "<<"0";
             isNew = false;
             positionChange = false;
             healthChange = false;

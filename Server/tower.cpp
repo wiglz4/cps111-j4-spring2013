@@ -147,30 +147,30 @@ string Tower::displayString()
     {
         if(isNew)
         {
-            strm<<" "<<(type * 10 + 1)<<" "<<absoluteID<<" "<<team<<" "<<((curHealth * 100) / maxHealth)<<" "<<state<< " "<<x<<" "<<y;
+            strm<<" "<<(type * 10 + 1)<<" "<<absoluteID<<" "<<team<<" "<<((curHealth * 100) / maxHealth)<<" "<<state<< " "<<x<<" "<<y<<" "<<"0";
             isNew = false;
         }
         else if(!healthChange && stateChange)
         {
-            strm<<" "<<(type * 10 + 2)<<" "<<absoluteID<<" "<<state;
+            strm<<" "<<(type * 10 + 3)<<" "<<absoluteID<<" "<<state;
             stateChange = false;
         }
         else if(healthChange && stateChange)
         {
-            strm<<" "<<(type * 10 + 4)<<" "<<absoluteID<<" "<<((curHealth * 100) / maxHealth)<<" "<<state;
+            strm<<" "<<(type * 10 + 7)<<" "<<absoluteID<<" "<<((curHealth * 100) / maxHealth)<<" "<<state;
             stateChange = false;
             healthChange = false;
         }
         else if(healthChange && !stateChange)
         {
-            strm<<" "<<(type * 10 + 3)<<" "<<absoluteID<<" "<<((curHealth * 100) / maxHealth);
+            strm<<" "<<(type * 10 + 5)<<" "<<absoluteID<<" "<<((curHealth * 100) / maxHealth);
             healthChange = false;
         }
 
     }
     else if(newDead)
     {
-        strm<<" "<<(type * 10 + 5)<<" "<<absoluteID;
+        strm<<" "<<(type * 10 + 9)<<" "<<absoluteID;
         newDead = false;
     }
     return strm.str();

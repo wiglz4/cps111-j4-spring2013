@@ -95,7 +95,7 @@ void serverWindow::dataReceived()
                     QString message("Hello ");
                     QString uname(username.c_str());
                     message += uname + "!;";
-                    sock->write(message.toAscii());
+                    //sock->write(message.toAscii());
                     if(!timerGo)
                     {
                         timerGo = true;

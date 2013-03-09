@@ -224,6 +224,7 @@ void World::load(string loadString)
 string World::Display()
 {
     stringstream strm;
+    strm<<"NOTANENTITY";
     for(int i = 0; i < allEntities.size(); ++i)
     {
         strm<<allEntities.at(i)->displayString();
