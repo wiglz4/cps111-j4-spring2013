@@ -2,6 +2,8 @@
 #include "world.h"
 #include "user.h"
 
+#include <QDebug>
+
 //NEEDS BUNCHES OF WORK
 Game::Game(std::vector<User *> *unUsers)
 {
@@ -12,9 +14,12 @@ Game::Game(std::vector<User *> *unUsers)
 }
 
 
-void Game::onTick()
+std::string Game::onTick()
 {
+    //qDebug()<<"Game ticked";
     gmap->onTick();
+    //qDebug()<<"Map ticked";
+    return gmap->Display();
 }
 
 void Game::endGame(int team)

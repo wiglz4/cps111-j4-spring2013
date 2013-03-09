@@ -18,7 +18,7 @@ class User
 
 public:
     User();
-    void setSocket(QTcpSocket * newSock){sock = newSock;}
+    void setSocket(QTcpSocket *newSock){sock = newSock;}
     void setCharacter(PlCh *newChar){character = newChar;}
     void setUsername(std::string user){userName = user;}
     void setTeam(int nTeam){team = nTeam;}

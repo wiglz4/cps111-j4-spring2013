@@ -32,6 +32,7 @@ private:
 
     vector<PlCh *> redPlChs;
     vector<PlCh *> bluePlChs;
+
     vector<Entity *> allEntities;
 
     vector<Tower *> allTowers;

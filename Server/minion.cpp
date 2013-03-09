@@ -41,6 +41,7 @@ Minion::Minion(int cTeam, int newX, int newY, World *newMap)
     canMove = true;
     positionChange = true;
 
+    //CHANGE WITH IFS
     cpX = 999;
     cpY = 999;
     OOL = false;
@@ -52,6 +53,7 @@ Minion::Minion(int cTeam, int newX, int newY, World *newMap)
 //Fix this (split it up into methods)
 void Minion::onTick()
 {
+    /*
     double distance = 0;
     double theta;
     double delta;
@@ -285,6 +287,7 @@ void Minion::onTick()
             }
         }
     }
+    */
 }
 
 bool Minion::damage(int value)
@@ -315,11 +318,13 @@ bool Minion::Attack()
 string Minion::save()
 {
     //NEED CODING
+    return NULL;
 }
 
 Entity* Minion::load()
 {
     //NEEDS CODING
+    return NULL;
 }
 
 string Minion::displayString()
@@ -376,6 +381,7 @@ string Minion::displayString()
             stateChange = false;
             positionChange = false;
         }
+        return strm.str();
     }
     else
     {
@@ -383,7 +389,9 @@ string Minion::displayString()
         {
             strm<<" "<<(type * 10 + 9)<<" "<<absoluteID;
             newDead = false;
+            return strm.str();
         }
     }
+    return strm.str();
 }
 

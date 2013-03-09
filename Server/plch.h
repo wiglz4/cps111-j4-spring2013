@@ -26,6 +26,10 @@ protected:
     //int experience;
     //int experienceBound;
 
+    //REM
+    int debugCount;
+    //REM
+
 public:
     PlCh(int cTeam, int newX, int newY, World *newMap, string pName);
     void command(string cmdString);

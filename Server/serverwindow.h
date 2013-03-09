@@ -24,7 +24,6 @@ class serverWindow : public QMainWindow
     QTcpServer server;
     vector<User *> unUsers;
     vector<QTcpSocket *> unSocks;
-    vector<User *> lobbyUsers;
     Game *game;
     bool timerGo;
     //Counter *count;

@@ -28,6 +28,7 @@ serverWindow::serverWindow(QWidget *parent) :
     timer->setInterval(20);
     connect(timer, SIGNAL(timeout()) , this, SLOT(timerHit()));
     timerGo = false;
+    game = NULL;
     //timer->start();
 }
 
@@ -63,6 +64,7 @@ void serverWindow::dataReceived()
 
     //Test code
     QTcpSocket *sock = dynamic_cast<QTcpSocket*>(sender());
+    /*
     while (sock->canReadLine()) {
         QString str = sock->readLine();
         qDebug() << str;
@@ -70,29 +72,33 @@ void serverWindow::dataReceived()
         message += str + "(; /n";
         sock->write(message.toAscii());
 
-    }
-    /*if(game == NULL)
+    }*/
+    if(game == NULL)
     {
         QString str = sock->readLine();
-        for(uint i = 0; i < unUsers.size()-1;++i)
+        for(uint i = 0; i < unUsers.size(); ++i)
         {
             if(sock == unUsers.at(i)->getSock())
             {
                 if(!unUsers.at(i)->checkInstanceVars())
                 {
                     stringstream strm(str.toStdString());
+                    qDebug()<<str;
                     int team;
                     strm>>team;
+                    qDebug()<<team;
+                    qDebug()<<strm.str().c_str();
                     std::string username = strm.str();
                     unUsers.at(i)->setTeam(team);
                     unUsers.at(i)->setUsername(username);
                     QString message("Hello ");
                     QString uname(username.c_str());
-                    message += uname + "(;";
+                    message += uname + "!;";
                     sock->write(message.toAscii());
                     if(!timerGo)
                     {
                         timerGo = true;
+                        qDebug()<<"Timer Started";
                         timerHit();
                     }
                 }
@@ -111,19 +117,6 @@ void serverWindow::dataReceived()
             }
         }
     }
-    //Real code
-
-    QTcpSocket *sock = dynamic_cast<QTcpSocket*>(sender());
-    for(uint i = 0; i < unUsers.size()-1; i++)
-    {
-        if(sock == unUsers.at(i)->getSock())
-        {
-             QString str = sock->readLine();
-             unUsers.at(i)->command(str.toStdString());
-             break;
-        }
-    }
-    */
 }
 
 void serverWindow::timerHit()
@@ -146,6 +139,11 @@ void serverWindow::timerHit()
     }
     else
     {
-        game->onTick();
+        QString message = game->onTick().c_str();
+        qDebug()<<message;
+        for(uint i = 0; i < unUsers.size(); ++i)
+        {
+            unUsers.at(i)->getSock()->write(message.toAscii());
+        }
     }
 }

@@ -50,6 +50,7 @@ bool Tower::Attack()
 
 void Tower::onTick()
 {
+    /*
     double distance;
     int currentState = state;
     if(target != NULL)
@@ -105,6 +106,7 @@ void Tower::onTick()
             }
         }
     }
+    */
 }
 
 void Tower::die()

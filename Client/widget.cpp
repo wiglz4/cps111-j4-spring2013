@@ -49,7 +49,7 @@ void Widget::on_btnLocal_clicked()
             qDebug() << "Unable to connect to server.";
             return;
     }
-    QString message = "there you sexy thing you \n";
+    QString message = "979 COM FIRST \n";
     mySocket->write(message.toAscii());
     g->show();
     g->takeOverKeyboard();
