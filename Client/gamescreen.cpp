@@ -272,6 +272,7 @@ void gameScreen::keyReleaseEvent(QKeyEvent *e)
 //REM
 void gameScreen::onTimerHit()
 {
+    //rem, once you're sure new stuff works
 /*    //qDebug() << "Tick";
     if(wPressed && !aPressed && !sPressed && !dPressed)
     {
@@ -436,85 +437,7 @@ void gameScreen::readCommand()
         int command = tempList.at(0).toInt(&ok, 10);
         int type = command/10;
         if(ok){
-            switch (command)
-            {
-            //create
-            case 11: //core
-            case 21: //tower
-            case 31: //minion
-            case 41: //player
-                createEntity(type, tempList.at(1).toInt(&ok, 10), tempList.at(5).toInt(&ok, 10), tempList.at(6).toInt(&ok, 10));
-                qDebug() << tempList.at(7);
-                break;
 
-            //position change
-            case 32:
-            case 42:
-                moveEntity(tempList.at(1).toInt(&ok, 10), tempList.at(2).toInt(&ok, 10), tempList.at(3).toInt(&ok, 10));
-                break;
-
-            //state change
-            case 23:
-            case 33:
-            case 43:
-                //change state()
-                break;
-
-            //state and position change
-            case 34:
-            case 44:
-                //change state()
-                //cange position()
-                break;
-
-            //health change
-            case 15:
-            case 25:
-            case 35:
-            case 45:
-                //change health()
-                break;
-
-            //health and position change
-            case 36:
-            case 46:
-                //change health()
-                //change position()
-                break;
-
-            //health and state change
-            case 27:
-            case 37:
-            case 47:
-                //change health
-                //change state
-                break;
-
-            //heath state and position change
-            case 38:
-            case 48:
-                //change health
-                //change state
-                //change position
-                break;
-
-            //death
-            case 19:
-            case 29:
-            case 39:
-            case 49:
-                //exterminate
-                break;
-
-            case 2:
-                moveEntity(tempList.at(1).toInt(&ok, 10), tempList.at(2).toInt(&ok, 10), tempList.at(3).toInt(&ok, 10));
-            case 3:
-
-            default:
-                //yell at server!! Yell at Joel and Wiggles for sending something that we don't have! Crash program! Paint smily faces all over the screen! I dunno. . .
-                break;
-
-            }
         }
     }*/
 
@@ -523,15 +446,9 @@ void gameScreen::readCommand()
     {
         QString str = sock->readLine();
         std::stringstream strm(str.toStdString());
-        int entv;
-        int pHealth;
-        int x;
-        int y;
-        int id;
-        int state;
-        int team;
-        int type;
+        int entv, pHealth, x, y, id, state, team, type;
         QString playername;
+        std::string temp;
         while(strm.str() != "")
         {
             entv = 0;
@@ -543,30 +460,92 @@ void gameScreen::readCommand()
             team = 0;
             playername = "";
             strm>>entv;
-            if(entv == 11)
+            type = entv/10;
+            switch (entv)
             {
-                type = 1;
-                strm>>id>>team>>pHealth>>x>>y;
-                EntityLabel *ent = new EntityLabel(id,type,x,y,pHealth,playername,wdgtGame);
-                ent->setGeometry(x,y,200,200);
-                //ent->setStyleSheet(PICTURE OF A CORE BASED UPON TEAM);
-                //ent->show();
-                objects.push_back(ent);
+            //create
+            case 11: //core
+            case 21: //tower
+            case 31: //minion
+            case 41: //player
+                strm >> id >> team >> pHealth >> state >> x >> y;
+                temp = strm.str();
+                playername = temp.c_str();
+                createEntity(type, id, team, pHealth, state, x, y, playername);
+                break;
+
+            //position change
+            case 32: //minion
+            case 42: //player
+                strm >> id >> x >> y;
+                moveEntity(id, x, y);
+                break;
+
+            //state change
+            case 23: //tower
+            case 33: //minion
+            case 43: //player
+                strm >> id >> state;
+                changeEntityState(id, state);
+                break;
+
+            //state and position change
+            case 34: //minion
+            case 44: //player
+                strm >> id >> state >> x >> y;
+                changeEntityState(id, state);
+                moveEntity(id, x, y);
+                break;
+
+            //health change
+            case 15: //core
+            case 25: //tower
+            case 35: //minion
+            case 45: //player
+                strm >> id >> pHealth;
+                changeEntityHealth(id, pHealth);
+                break;
+
+            //health and position change
+            case 36: //minion
+            case 46: //player
+                strm >> id >> pHealth >> x >> y;
+                changeEntityHealth(id, pHealth);
+                moveEntity(id, x, y);
+                break;
+
+            //health and state change
+            case 27: //tower
+            case 37: //minion
+            case 47: //player
+                strm >> id >> pHealth >> state;
+                changeEntityHealth(id, pHealth);
+                changeEntityState(id, state);
+                break;
+
+            //heath state and position change
+            case 38: //minion
+            case 48: //player
+                strm >> id >> pHealth >> state >> x >> y;
+                changeEntityHealth(id, pHealth);
+                changeEntityState(id, state);
+                moveEntity(id, x, y);
+                break;
+
+            //death
+            case 19: //core
+            case 29: //tower
+            case 39: //minion
+            case 49: //player
+                strm >> id;
+                exterminate(id);
+                break;
+
+            default:
+                qDebug() << "Error code AAUGH: Unidentified Case: " << entv;
+                break;
 
             }
-            else if(entv == 15)
-            {
-
-            }
-            else if(entv == 19)
-            {
-
-            }
-            else if(entv == 0)
-            {
-
-            }
-            //so on and so forth
         }
     }
 }
@@ -576,40 +555,40 @@ void gameScreen::serverDisconnected()
     //
 }
 
-/*
-void gameScreen::createEntity(int type, int id, int posX, int posY){
-    EntityLabel *thing = new EntityLabel(id, type, posX, posY, wdgtGame);
-    //moveEntity(id, posX, posY);
 
-    if (type == 4){
-    hero = thing;
-    }
-    //hero->setGeometry(300,2350,110,110);
-    //hero->setStyleSheet("background:url(:/images/2/4/3/1.png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
+void gameScreen::createEntity(int type, int id, int team, int health, int state, int posX, int posY, QString name){
+    EntityLabel *thing = new EntityLabel(id, team, type, posX, posY, health, state, name, wdgtGame);
+
+    //if on screen
     thing->show();
     objects.push_back(thing);
 }
-*/
+
 
 void gameScreen::moveEntity(int id, int x, int y){
     EntityLabel *thing = objects.at(id--);
     thing->move(x, y);
     thing->setCounter(1);
+    //move to EntityLabel Class
     int counter = thing->getCounter();
     if (counter > 19) {
         counter = 1;
     }
     hero->setStyleSheet("background:url(:/images/2/4/8/" + QString("%1").arg(counter) + ".png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
+    //end
 }
 
 void gameScreen::changeEntityHealth(int id, int healthPercent){
-
+    EntityLabel *thing = objects.at(id--);
+    thing->setHealth(healthPercent);
 }
 
 void gameScreen::changeEntityState(int id, int state){
-
+    EntityLabel *thing = objects.at(id--);
+    thing->setState(state);
 }
 
 void gameScreen::exterminate(int id){
-
+    EntityLabel *thing = objects.at(id--);
+    thing->die();
 }
