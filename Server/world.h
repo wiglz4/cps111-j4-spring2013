@@ -13,6 +13,7 @@ class Minion;
 class PlCh;
 class TowerShots;
 class User;
+class Counter;
 
 using namespace std;
 
@@ -49,6 +50,8 @@ private:
 
     Game *game;
 
+    Counter *count;
+
 public:
     World(vector<User *> *vect);
 
@@ -61,6 +64,8 @@ public:
     Entity* getByID(int entID);
 
     void onTick();
+
+    void spawn();
 
     string save();
 

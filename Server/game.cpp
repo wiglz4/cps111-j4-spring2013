@@ -1,9 +1,13 @@
 #include "game.h"
 #include "world.h"
+#include "user.h"
 
 //NEEDS BUNCHES OF WORK
-Game::Game()
+Game::Game(std::vector<User *> *unUsers)
 {
+    users = unUsers;
+    gmap = new World(users);
+    sock = new QUdpSocket();
     over = false;
 }
 

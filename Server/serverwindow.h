@@ -9,6 +9,7 @@
 #include <QTimer>
 #include <game.h>
 #include <user.h>
+#include <counter.h>
 
 using namespace std;
 
@@ -25,6 +26,8 @@ class serverWindow : public QMainWindow
     vector<QTcpSocket *> unSocks;
     vector<User *> lobbyUsers;
     Game *game;
+    bool timerGo;
+    //Counter *count;
 
 
 public:
@@ -34,6 +37,8 @@ public:
 private slots:
     void clientConnected();
     void clientDisconnected();
+    void dataReceived();
+
     void timerHit();
 
 private:

@@ -11,13 +11,14 @@ class Game
 {
     World *world;
     bool over;
-    std::vector<User *> users;
+    std::vector<User *> *users;
     QUdpSocket *sock;
 
 public:
-    Game();
+    Game(std::vector<User *> *unUsers);
     void endGame(int team);
     void onTick();
+    bool getOver(){return over;}
 
 private:
     World *gmap;

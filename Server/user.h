@@ -4,14 +4,12 @@
 //NEEDS BUNCHES OF WORK
 
 #include <string>
-#include <QWidget>
 
 class PlCh;
 class QTcpSocket;
 
-class User : public QWidget
+class User
 {
-    Q_OBJECT
     std::string userName;
     int team;
     QTcpSocket *sock;
@@ -23,7 +21,13 @@ public:
     void setSocket(QTcpSocket * newSock){sock = newSock;}
     void setCharacter(PlCh *newChar){character = newChar;}
     void setUsername(std::string user){userName = user;}
-    void defaultTeam(){team = 1;}
+    void setTeam(int nTeam){team = nTeam;}
+    void command(std::string cmdString);
+    bool checkInstanceVars();
+    QTcpSocket* getSock(){return sock;}
+    int getTeam(){return team;}
+    std::string getName(){return userName;}
+    //void command(std::basic_string<char, std::char_traits<char>, std::allocator<char> >);
 };
 
 #endif // USER_H
