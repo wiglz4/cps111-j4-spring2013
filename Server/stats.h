@@ -4,6 +4,9 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <QDebug>
+#include <assert.h>
+#include <QString>
 
 using namespace std;
 
@@ -20,11 +23,15 @@ private:
     int tKills;
     int deaths;
 
+    bool tests;
+
 public:
     Stats(string name):username(name){}
     void incMKills(){++mKills;}
     void incTKills(){++tKills;}
     void incDeaths(){++deaths;}
+    bool runTests();
+
     string toString();
 };
 
