@@ -58,7 +58,7 @@ string Core::displayString()
     stringstream strm;
     if(isNew)
     {
-        strm<<" "<<(type * 10 + 1)<<" "<<absoluteID<<" "<<team<<" "<<((curHealth * 100) / maxHealth)<<" "<<"0"<<" "<<x<<" "<<y<<"0";
+        strm<<" "<<(type * 10 + 1)<<" "<<absoluteID<<" "<<team<<" "<<((curHealth * 100) / maxHealth)<<" "<<0<<" "<<x<<" "<<y<<" "<<"NOT";
         isNew = false;
         healthChange = false;
     }

@@ -112,6 +112,7 @@ void Tower::onTick()
 void Tower::die()
 {
     state = 99;
+    stateChange = true;
     healthChange = true;
 }
 
@@ -147,7 +148,7 @@ string Tower::displayString()
     {
         if(isNew)
         {
-            strm<<" "<<(type * 10 + 1)<<" "<<absoluteID<<" "<<team<<" "<<((curHealth * 100) / maxHealth)<<" "<<state<< " "<<x<<" "<<y<<" "<<"0";
+            strm<<" "<<(type * 10 + 1)<<" "<<absoluteID<<" "<<team<<" "<<((curHealth * 100) / maxHealth)<<" "<<state<< " "<<x<<" "<<y<<" "<<"NOT";
             isNew = false;
         }
         else if(!healthChange && stateChange)

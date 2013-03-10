@@ -27,6 +27,7 @@ class serverWindow : public QMainWindow
     Game *game;
     bool timerGo;
     //Counter *count;
+    bool debug;
 
 
 public:

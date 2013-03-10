@@ -37,14 +37,16 @@ void Widget::connectGame(gameScreen *g)
 void Widget::on_btnLocal_clicked()
 {
     mySocket->connectToHost("localhost",5000);
+
     if (!mySocket->waitForConnected())  {
             qDebug() << "Unable to connect to server.";
             return;
     }
+
     QString message = "BobJonesIII\n";
     mySocket->write(message.toAscii());
     g->show();
-    g->takeOverKeyboard();
+    g->grabKeyboard();
     g->passSocket(mySocket);
     this->hide();
 }

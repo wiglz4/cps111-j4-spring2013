@@ -41,7 +41,7 @@ gameScreen::gameScreen(QWidget *parent) :
     pause->setGeometry(0, 0, 4000, 3000);
     pause->setStyleSheet("background-color:rgba(0, 0, 0, 100);");
     pause->hide();
-/*
+    /*
     wPressed = false;
     aPressed = false;
     sPressed = false;
@@ -78,6 +78,8 @@ gameScreen::gameScreen(QWidget *parent) :
     bar->setStyleSheet("background:url(:/images/bar.png) no-repeat top left;");
     bar->hide();
 
+    this->grabKeyboard();
+
 }
 
 gameScreen::~gameScreen()
@@ -89,7 +91,7 @@ void gameScreen::updatePlayer(QStringList player)
 {
     bool ok;
     if(player.at(0).toInt(&ok, 10) == 41) {
-    //    hero = new EntityLabel(wdgtGame);
+        //    hero = new EntityLabel(wdgtGame);
         hero->setGeometry(player.at(5).toInt(&ok,10),player.at(6).toInt(&ok,10),110,110);
         hero->setStyleSheet("background:url(:/images/2/4/3/1.png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
         hero->show();
@@ -113,23 +115,24 @@ void gameScreen::unPause()
 
 void gameScreen::keyPressEvent(QKeyEvent *e)
 {
+    qDebug()<<"Key pressed";
     if(e->key() == Qt::Key_P && !e->isAutoRepeat())
     {
 
         if (pPressed == false) {
-           timer->stop();
-           pPressed = true;
-           pause->show();
-           btnPause->show();
-           menu->show();
-           bar->show();
+            timer->stop();
+            pPressed = true;
+            pause->show();
+            btnPause->show();
+            menu->show();
+            bar->show();
         } else {
-           timer->start();
-           pPressed = false;
-           btnPause->hide();
-           menu->hide();
-           pause->hide();
-           bar->hide();
+            timer->start();
+            pPressed = false;
+            btnPause->hide();
+            menu->hide();
+            pause->hide();
+            bar->hide();
         }
         qDebug() << "P";
 
@@ -138,7 +141,7 @@ void gameScreen::keyPressEvent(QKeyEvent *e)
     {
         //REM
         //wPressed = true;
-        sock->write("2 1 ");
+        sock->write("2 1");
         qDebug() << "W";
         //REM
     }
@@ -146,7 +149,7 @@ void gameScreen::keyPressEvent(QKeyEvent *e)
     {
         //REM
         //aPressed = true;
-        sock->write("2 4 ");
+        sock->write("2 4");
         qDebug() << "A";
         //REM
     }
@@ -154,7 +157,7 @@ void gameScreen::keyPressEvent(QKeyEvent *e)
     {
         //REM
         //sPressed = true;
-        sock->write("2 3 ");
+        sock->write("2 3");
         qDebug() << "S";
         //REM
     }
@@ -162,7 +165,7 @@ void gameScreen::keyPressEvent(QKeyEvent *e)
     {
         //REM
         //dPressed = true;
-        sock->write("2 2 ");
+        sock->write("2 2");
         qDebug() << "D";
         //REM
     }
@@ -206,7 +209,7 @@ void gameScreen::keyReleaseEvent(QKeyEvent *e)
     {
         //REM
         //wPressed = false;
-        sock->write("3 1 ");
+        sock->write("3 1");
         qDebug() << "~W";
         //REM
     }
@@ -214,7 +217,7 @@ void gameScreen::keyReleaseEvent(QKeyEvent *e)
     {
         //REM
         //aPressed = false;
-        sock->write("3 4 ");
+        sock->write("3 4");
         qDebug() << "~A";
         //REM
     }
@@ -222,7 +225,7 @@ void gameScreen::keyReleaseEvent(QKeyEvent *e)
     {
         //REM
         //sPressed = false;
-        sock->write("3 3 ");
+        sock->write("3 3");
         qDebug() << "~S";
         //REM
     }
@@ -230,7 +233,7 @@ void gameScreen::keyReleaseEvent(QKeyEvent *e)
     {
         //REM
         //dPressed = false;
-        sock->write("3 2 ");
+        sock->write("3 2");
         qDebug() << "~D";
         //REM
     }
@@ -273,7 +276,7 @@ void gameScreen::keyReleaseEvent(QKeyEvent *e)
 void gameScreen::onTimerHit()
 {
     //rem, once you're sure new stuff works
-/*    //qDebug() << "Tick";
+    /*    //qDebug() << "Tick";
     if(wPressed && !aPressed && !sPressed && !dPressed)
     {
         hero->move(hero->x(), hero->y()-4);
@@ -445,11 +448,15 @@ void gameScreen::readCommand()
     while(sock->canReadLine())
     {
         QString str = sock->readLine();
+        /*
         std::stringstream strm(str.toStdString());
         int entv, pHealth, x, y, id, state, team, type;
         QString playername;
         std::string temp;
-        while(strm.str() != "")
+        int verifier;
+        strm>>verifier;
+        /*DEBUGqDebug()<<verifier;
+        while(strm.str() != "" && strm.str() != " " && strm.str() != "  ")
         {
             entv = 0;
             pHealth = 0;
@@ -542,8 +549,179 @@ void gameScreen::readCommand()
                 break;
 
             default:
-                qDebug() << "Error code AAUGH: Unidentified Case: " << entv;
+                //qDebug() << "Error code AAUGH: Unidentified Case: " << entv;
                 break;
+
+            }
+        }*/
+        QStringList List = str.split(" ", QString::SkipEmptyParts);
+        int iterate = 0;
+        int verifier = List.at(iterate).toInt();
+        ++iterate;
+        if (verifier == 97179)
+        {
+            int entv, pHealth, x, y, id, state, team, type;
+            QString playername;
+            for(; iterate < List.size();)
+            {
+                entv = 0;
+                pHealth = 0;
+                x = 0;
+                y = 0;
+                id = 0;
+                state = 0;
+                team = 0;
+                playername = "";
+                entv = List.at(iterate).toInt();
+                ++iterate;
+                //strm>>entv;
+                type = entv/10;
+                switch (entv)
+                {
+                //create
+                case 11: //core
+                case 21: //tower
+                case 31: //minion
+                case 41: //player
+                    /*strm >> id >> team >> pHealth >> state >> x >> y;
+                    temp = strm.str();
+                    playername = temp.c_str();*/
+                    id = List.at(iterate).toInt();
+                    ++iterate;
+                    team = List.at(iterate).toInt();
+                    ++iterate;
+                    pHealth = List.at(iterate).toInt();
+                    ++iterate;
+                    state = List.at(iterate).toInt();
+                    ++iterate;
+                    x = List.at(iterate).toInt();
+                    ++iterate;
+                    y = List.at(iterate).toInt();
+                    ++iterate;
+                    playername = List.at(iterate);
+                    ++iterate;
+                    createEntity(type, id, team, pHealth, state, x, y, playername);
+                    break;
+
+                    //position change
+                case 32: //minion
+                case 42: //player
+                    //strm >> id >> x >> y;
+                    id = List.at(iterate).toInt();
+                    ++iterate;
+                    x = List.at(iterate).toInt();
+                    ++iterate;
+                    y = List.at(iterate).toInt();
+                    ++iterate;
+                    moveEntity(id, x, y);
+                    break;
+
+                    //state change
+                case 23: //tower
+                case 33: //minion
+                case 43: //player
+                    //strm >> id >> state;
+                    id = List.at(iterate).toInt();
+                    ++iterate;
+                    state = List.at(iterate).toInt();
+                    ++iterate;
+                    changeEntityState(id, state);
+                    break;
+
+                    //state and position change
+                case 34: //minion
+                case 44: //player
+                    //strm >> id >> state >> x >> y;
+                    id = List.at(iterate).toInt();
+                    ++iterate;
+                    state = List.at(iterate).toInt();
+                    ++iterate;
+                    x = List.at(iterate).toInt();
+                    ++iterate;
+                    y = List.at(iterate).toInt();
+                    ++iterate;
+                    changeEntityState(id, state);
+                    moveEntity(id, x, y);
+                    break;
+
+                    //health change
+                case 15: //core
+                case 25: //tower
+                case 35: //minion
+                case 45: //player
+                    //strm >> id >> pHealth;
+                    id = List.at(iterate).toInt();
+                    ++iterate;
+                    pHealth = List.at(iterate).toInt();
+                    ++iterate;
+                    changeEntityHealth(id, pHealth);
+                    break;
+
+                    //health and position change
+                case 36: //minion
+                case 46: //player
+                    //strm >> id >> pHealth >> x >> y;
+                    id = List.at(iterate).toInt();
+                    ++iterate;
+                    pHealth = List.at(iterate).toInt();
+                    ++iterate;
+                    x = List.at(iterate).toInt();
+                    ++iterate;
+                    y = List.at(iterate).toInt();
+                    ++iterate;
+                    changeEntityHealth(id, pHealth);
+                    moveEntity(id, x, y);
+                    break;
+
+                    //health and state change
+                case 27: //tower
+                case 37: //minion
+                case 47: //player
+                    //strm >> id >> pHealth >> state;
+                    id = List.at(iterate).toInt();
+                    ++iterate;
+                    pHealth = List.at(iterate).toInt();
+                    ++iterate;
+                    state = List.at(iterate).toInt();
+                    ++iterate;
+                    changeEntityHealth(id, pHealth);
+                    changeEntityState(id, state);
+                    break;
+
+                    //heath state and position change
+                case 38: //minion
+                case 48: //player
+                    //strm >> id >> pHealth >> state >> x >> y;
+                    id = List.at(iterate).toInt();
+                    ++iterate;
+                    pHealth = List.at(iterate).toInt();
+                    ++iterate;
+                    state = List.at(iterate).toInt();
+                    ++iterate;
+                    x = List.at(iterate).toInt();
+                    ++iterate;
+                    y = List.at(iterate).toInt();
+                    ++iterate;
+                    changeEntityHealth(id, pHealth);
+                    changeEntityState(id, state);
+                    moveEntity(id, x, y);
+                    break;
+
+                    //death
+                case 19: //core
+                case 29: //tower
+                case 39: //minion
+                case 49: //player
+                    //strm >> id;
+                    id = List.at(iterate).toInt();
+                    ++iterate;
+                    exterminate(id);
+                    break;
+
+                default:
+                    qDebug() << "Error code AAUGH: Unidentified Case: " << entv;
+                    break;
+                }
 
             }
         }
@@ -552,7 +730,7 @@ void gameScreen::readCommand()
 
 void gameScreen::serverDisconnected()
 {
-    //
+    this->close();
 }
 
 

@@ -60,20 +60,17 @@ void serverWindow::clientDisconnected()
 
 void serverWindow::dataReceived()
 {
-
-
-    //Test code
     QTcpSocket *sock = dynamic_cast<QTcpSocket*>(sender());
-
+    /*
     while (sock->canReadLine()) {
         QString str = sock->readLine();
-        qDebug() << str;
         QString message("41 7 2 21 8 300 2350 ");
         message += str;
         sock->write(message.toAscii());
         sock->write(str.toAscii());
 
     }
+    */
     if(game == NULL)
     {
         QString str = sock->readLine();
@@ -84,11 +81,8 @@ void serverWindow::dataReceived()
                 if(!unUsers.at(i)->checkInstanceVars())
                 {
                     stringstream strm(str.toStdString());
-                    //qDebug()<<str;
                     int team;
                     strm>>team;
-                    qDebug()<<team;
-                    qDebug()<<strm.str().c_str();
                     std::string username = strm.str();
                     unUsers.at(i)->setTeam(team);
                     unUsers.at(i)->setUsername(username);
@@ -99,7 +93,6 @@ void serverWindow::dataReceived()
                     if(!timerGo)
                     {
                         timerGo = true;
-                        //qDebug()<<"Timer Started";
                         timerHit();
                     }
                 }
@@ -108,10 +101,11 @@ void serverWindow::dataReceived()
     }
     else
     {
-        for(uint i = 0; i < unUsers.size()-1; i++)
+        for(uint i = 0; i < unUsers.size(); i++)
         {
             if(sock == unUsers.at(i)->getSock())
             {
+                qDebug()<<"Command received";
                  QString str = sock->readLine();
                  unUsers.at(i)->command(str.toStdString());
                  break;
@@ -141,10 +135,12 @@ void serverWindow::timerHit()
     else
     {
         QString message = game->onTick().c_str();
-        //qDebug()<<message;
-        for(uint i = 0; i < unUsers.size(); ++i)
+        if(message != "" && message != "97179")
         {
-            unUsers.at(i)->getSock()->write(message.toAscii());
+            for(uint i = 0; i < unUsers.size(); ++i)
+            {
+                unUsers.at(i)->getSock()->write(message.toAscii());
+            }
         }
     }
 }

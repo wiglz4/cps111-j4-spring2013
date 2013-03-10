@@ -118,9 +118,6 @@ void PlCh::cheatMode()
 
 void PlCh::onTick()
 {
-    //REM
-    //qDebug()<<x<<" "<<y;
-    //REM
     double distance = 0;
     double theta;
     double delta;
@@ -134,46 +131,54 @@ void PlCh::onTick()
             if(w && !a && !s && !d)
             {
                 y -= speed;
-                state = 1;
+                currentState = 1;
+                positionChange = true;
             }
             if(w && a && !s && !d)
             {
                 y -= (3 * speed) / 4;
                 x -= (3 * speed) / 4;
-                state = 8;
+                currentState = 8;
+                positionChange = true;
             }
             if(!w && a && !s && !d)
             {
                 x -= speed;
-                state = 7;
+                currentState = 7;
+                positionChange = true;
             }
             if(!w && a && s && !d)
             {
                 y += (3 * speed) / 4;
                 x -= (3 * speed) / 4;
-                state = 6;
+                currentState = 6;
+                positionChange = true;
             }
             if(!w && !a && s && !d)
             {
                 y += speed;
-                state = 5;
+                currentState = 5;
+                positionChange = true;
             }
             if(!w && !a && s && d)
             {
                 y += (3 * speed) / 4;
                 x += (3 * speed) / 4;
-                state = 4;
+                currentState = 4;
+                positionChange = true;
             }
             if(!w && !a && !s && d)
             {
                 x += speed;
-                state = 3;
+                currentState = 3;
+                positionChange = true;
             }
             if(w && !a && !s && d)
             {
                 y -= (3 * speed) / 4;
                 x += (3 * speed) / 4;
-                state = 2;
+                currentState = 2;
+                positionChange = true;
             }
         }
         //}
@@ -181,9 +186,6 @@ void PlCh::onTick()
         {
             if(target != NULL)
             {
-                //REM
-                //qDebug()<<1;
-                //REM
                 distance = sqrt(pow(target->getY()-y, 2) + pow(target->getX() - x, 2));
                 if(distance < detRange)
                 {
@@ -192,9 +194,6 @@ void PlCh::onTick()
 
                         if(count->Check())
                         {
-                            //STATE Calculations here
-                            //QDEBUG HERE
-                            qDebug()<<"ATTACKING";
                             if(Attack())
                             {
                                 target = NULL;
@@ -204,7 +203,6 @@ void PlCh::onTick()
                     }
                     else
                     {
-                        //qDebug()<<12;
                         theta = asin((y-target->getY())/distance);
                         delta = acos((x-target->getX())/distance);
                         if(target->getY() > y)
@@ -228,12 +226,12 @@ void PlCh::onTick()
                             //STATE Calculations here
                             x = tempX;
                             y = tempY;
+                            positionChange = true;
                         }
                     }
                 }
                 else
                 {
-                    //qDebug()<<2;
                     Entity *ent = map->getNAE(x,y,team, distance);
                     if (ent != NULL)
                     {
@@ -246,8 +244,6 @@ void PlCh::onTick()
                                 if(count->Check())
                                 {
                                     //State Calculations here
-                                    //QDEBUG HERE
-                                    qDebug()<<"ATTACKING";
                                     if(Attack())
                                     {
                                         target = NULL;
@@ -257,7 +253,6 @@ void PlCh::onTick()
                             }
                             else
                             {
-                                //qDebug()<<21;
                                 theta = asin((y-target->getY())/distance);
                                 delta = acos((x-target->getX())/distance);
                                 if(target->getY() > y)
@@ -282,6 +277,7 @@ void PlCh::onTick()
                                     x = tempX;
                                     y = tempY;
                                     //MESS WITH OOL
+                                    positionChange = true;
                                 }
                             }
                         }
@@ -290,12 +286,9 @@ void PlCh::onTick()
             }
             else
             {
-                //qDebug()<<3;
                 Entity *ent = map->getNAE(x,y,team, distance);
-                //qDebug()<<distance;
                 if (ent != NULL)
                 {
-                    //qDebug()<<9;
                     if(distance < detRange)
                     {
                         target = ent;
@@ -305,8 +298,6 @@ void PlCh::onTick()
                             if(count->Check())
                             {
                                 //SET STATE HERE
-                                //QDEBUG HERE
-                                qDebug()<<"ATTACKING";
                                 if(Attack())
                                 {
                                     target = NULL;
@@ -316,7 +307,6 @@ void PlCh::onTick()
                         }
                         else
                         {
-                            //qDebug()<<4;
                             theta = asin((y-target->getY())/distance);
                             delta = acos((x-target->getX())/distance);
                             if(target->getY() > y)
@@ -340,16 +330,21 @@ void PlCh::onTick()
                                 //SET STATE HERE
                                 x = tempX;
                                 y = tempY;
+                                positionChange = true;
                             }
                         }
                     }
                 }
             }
         }
+        if(currentState != state)
+        {
+            state = currentState;
+            stateChange = true;
+        }
     }
     else
     {
-        //qDebug()<<5;
         if(count->Check())
         {
             Alive = true;
@@ -413,10 +408,6 @@ Entity* PlCh::load()
 
 string PlCh::displayString()
 {
-    //REM
-    //qDebug()<<debugCount;
-    //debugCount++;
-    //REM
     stringstream strm;
     if(Alive)
     {
@@ -431,7 +422,7 @@ string PlCh::displayString()
         else if(!healthChange && !stateChange && positionChange)
         {
             strm<<" "<<(type * 10 + 2)<<" "<<absoluteID<<" "<<x<<" "<<y;
-            //positionChange = false;
+            positionChange = false;
         }
         else if(!healthChange && stateChange && !positionChange)
         {
