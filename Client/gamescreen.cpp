@@ -730,7 +730,7 @@ void gameScreen::readCommand()
 
 void gameScreen::serverDisconnected()
 {
-    this->close();
+    w->close();
 }
 
 
