@@ -56,7 +56,7 @@ private:
 public:
     World(vector<User *> *vect);
 
-    //returns a pointer to the nearest available enemy, All parameters come from the attacker
+    //returns aPressedpointer to the nearest available enemy, All parameters come from the attacker
     Entity* getNAE(int x, int y, int team, double &distance);
 
     //performs bounds check against all walls, towers, and cores, returns false if outside of movable space

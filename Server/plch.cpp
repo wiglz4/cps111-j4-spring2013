@@ -48,10 +48,10 @@ PlCh::PlCh(int cTeam, int newX, int newY, World *newMap, string pName)
     canCheatMode = true;
     cheatCounter = new Counter(3000);
 
-    a = false;
-    w = false;
-    d = false;
-    s = false;
+    aPressed= false;
+    wPressed= false;
+    dPressed = false;
+    sPressed= false;
 
 
     debug = true;
@@ -77,26 +77,19 @@ void PlCh::command(string cmdString)
     {
         if(number == 1)
         {
-            w = true;
-            qDebug()<<w;
+            wPressed= true;
         }
         else if (number == 4)
         {
-            a = true;
-            qDebug()<<a;
+            aPressed= true;
         }
         else if (number == 3)
         {
-            s = true;
-            qDebug()<<s;
-           // y += speed;
-            //qDebug()<<"MOVING";
-            //positionChange = true;
+            sPressed= true;
         }
         else
         {
-            d = true;
-            qDebug()<<d;
+            dPressed = true;
         }
         target = NULL;
     }
@@ -104,23 +97,19 @@ void PlCh::command(string cmdString)
     {
         if(number == 1)
         {
-            w = false;
-            qDebug()<<w;
+            wPressed= false;
         }
-        else if (number == 2)
+        else if (number == 4)
         {
-            a = false;
-            qDebug()<<a;
+            aPressed= false;
         }
         else if (number == 3)
         {
-            s = false;
-            qDebug()<<s;
+            sPressed= false;
         }
         else
         {
-            d = false;
-            qDebug()<<d;
+            dPressed = false;
         }
     }
 }
@@ -140,77 +129,73 @@ void PlCh::onTick()
     int currentState = state;
     if(Alive)
     {
-        if (w || a || s || d)
+        if (wPressed || aPressed|| sPressed|| dPressed)
         {
-            //qDebug()<<"MOVING";
-            //qDebug()<<"W "<<w;
-            //qDebug()<<"A "<<a;
-            //qDebug()<<"S "<<s;
-            //qDebug()<<"D "<<d;
-            if(w && !a && !s && !d)
+            //qDebug()<<"W "<<wPressed<<" A "<<aPressed<<" S "<<sPressed<<" D "<<dPressed;
+            if(wPressed && !aPressed && !sPressed && !dPressed)
             {
+                //qDebug()<<"ONLY W";
                 y -= speed;
-               // qDebug()<<"MOVING";
                 currentState = 1;
                 positionChange = true;
             }
-            if(w && a && !s && !d)
+            if(wPressed && aPressed&& !sPressed && !dPressed)
             {
+                //qDebug()<<"W AND A";
                 y -= (3 * speed) / 4;
                 x -= (3 * speed) / 4;
-                //qDebug()<<"MOVING";
                 currentState = 8;
                 positionChange = true;
             }
-            if(!w && a && !s && !d)
+            if(!wPressed && aPressed&& !sPressed && !dPressed)
             {
+                //qDebug()<<"ONLY A";
                 x -= speed;
-                //qDebug()<<"MOVING";
                 currentState = 7;
                 positionChange = true;
             }
-            if(!w && a && s && !d)
+            if(!wPressed && aPressed&& sPressed&& !dPressed)
             {
+                //qDebug()<<"A AND S";
                 y += (3 * speed) / 4;
                 x -= (3 * speed) / 4;
-                //qDebug()<<"MOVING";
                 currentState = 6;
                 positionChange = true;
             }
-            if(!w && !a && s && !d)
+            if(!wPressed && !aPressed && sPressed&& !dPressed)
             {
-                y += speed;
-                //qDebug()<<"MOVING";
+                //qDebug()<<"ONLY S";
+                y = y + speed;
                 currentState = 5;
                 positionChange = true;
             }
-            if(!w && !a && s && d)
+            if(!wPressed && !aPressed && sPressed&& dPressed)
             {
+                //qDebug()<<"S AND D";
                 y += (3 * speed) / 4;
                 x += (3 * speed) / 4;
-                //qDebug()<<"MOVING";
                 currentState = 4;
                 positionChange = true;
             }
-            if(!w && !a && !s && d)
+            if(!wPressed && !aPressed && !sPressed && dPressed)
             {
+                //qDebug()<<"ONLY D";
                 x += speed;
-                //qDebug()<<"MOVING";
                 currentState = 3;
                 positionChange = true;
             }
-            if(w && !a && !s && d)
+            if(wPressed && !aPressed && !sPressed && dPressed)
             {
+                //qDebug()<<"D AND W";
                 y -= (3 * speed) / 4;
                 x += (3 * speed) / 4;
-                qDebug()<<"MOVING";
                 currentState = 2;
                 positionChange = true;
             }
         }
         //}
         else
-        {/*
+        {
             if(target != NULL)
             {
                 distance = sqrt(pow(target->getY()-y, 2) + pow(target->getX() - x, 2));
@@ -221,6 +206,7 @@ void PlCh::onTick()
 
                         if(count->Check())
                         {
+                            qDebug()<<"Attacking";
                             if(Attack())
                             {
                                 target = NULL;
@@ -270,6 +256,7 @@ void PlCh::onTick()
 
                                 if(count->Check())
                                 {
+                                    qDebug()<<"Attacking";
                                     //State Calculations here
                                     if(Attack())
                                     {
@@ -324,6 +311,7 @@ void PlCh::onTick()
 
                             if(count->Check())
                             {
+                                qDebug()<<"Attacking";
                                 //SET STATE HERE
                                 if(Attack())
                                 {
@@ -362,7 +350,7 @@ void PlCh::onTick()
                         }
                     }
                 }
-            }*/
+            }
         }
         if(currentState != state)
         {
@@ -449,11 +437,8 @@ string PlCh::displayString()
         }
         else if(!healthChange && !stateChange && positionChange)
         {
-            if (debug) {
                 strm<<" "<<(type * 10 + 2)<<" "<<absoluteID<<" "<<x<<" "<<y;
                 positionChange = false;
-                debug = false;
-            }
 
         }
         else if(!healthChange && stateChange && !positionChange)

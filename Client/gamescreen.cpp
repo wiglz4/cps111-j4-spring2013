@@ -276,50 +276,50 @@ void gameScreen::onTimerHit()
     if(upPressed && !rightPressed && !downPressed && !leftPressed)
     {
         //1
-        //wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() + 6);
-        wdgtGame->scroll(0,6);
+        wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() + 6);
+        //wdgtGame->scroll(0,6);
     }
     if(upPressed && rightPressed && !downPressed && !leftPressed)
     {
         //2
-        //wdgtPicture->move(wdgtPicture->x() - 4, wdgtPicture->y() + 4);
-        wdgtGame->scroll(-4,+4);
+        wdgtPicture->move(wdgtPicture->x() - 4, wdgtPicture->y() + 4);
+        //wdgtGame->scroll(-4,+4);
     }
     if(!upPressed && rightPressed && !downPressed && !leftPressed)
     {
         //3
-        //wdgtPicture->move(wdgtPicture->x() -6 , wdgtPicture->y());
-        wdgtGame->scroll(-6,0);
+        wdgtPicture->move(wdgtPicture->x() -6 , wdgtPicture->y());
+        //wdgtGame->scroll(-6,0);
     }
     if(!upPressed && rightPressed && downPressed && !leftPressed)
     {
         //4
-        //wdgtPicture->move(wdgtPicture->x()-4, wdgtPicture->y() - 4);
-        wdgtGame->scroll(-4,-4);
+        wdgtPicture->move(wdgtPicture->x()-4, wdgtPicture->y() - 4);
+        //wdgtGame->scroll(-4,-4);
     }
     if(!upPressed && !rightPressed && downPressed && !leftPressed)
     {
         //5
-        //wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() - 6);
-        wdgtGame->scroll(0,-6);
+        wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() - 6);
+        //wdgtGame->scroll(0,-6);
     }
     if(!upPressed && !rightPressed && downPressed && leftPressed)
     {
         //6
-        //wdgtPicture->move(wdgtPicture->x() + 4, wdgtPicture->y() - 4);
-        wdgtGame->scroll(4,-4);
+        wdgtPicture->move(wdgtPicture->x() + 4, wdgtPicture->y() - 4);
+        //wdgtGame->scroll(4,-4);
     }
     if(!upPressed && !rightPressed && !downPressed && leftPressed)
     {
         //7
-        //wdgtPicture->move(wdgtPicture->x() + 6, wdgtPicture->y());
-        wdgtGame->scroll(6,0);
+        wdgtPicture->move(wdgtPicture->x() + 6, wdgtPicture->y());
+        //wdgtGame->scroll(6,0);
     }
     if(upPressed && !rightPressed && !downPressed && leftPressed)
     {
         //8
-        //wdgtPicture->move(wdgtPicture->x() + 4, wdgtPicture->y() + 4);
-        wdgtGame->scroll(4, 4);
+        wdgtPicture->move(wdgtPicture->x() + 4, wdgtPicture->y() + 4);
+        //wdgtGame->scroll(4, 4);
     }
 
 }
@@ -413,6 +413,7 @@ void gameScreen::readCommand()
                         playername = List.at(iterate);
                         ++iterate;
                         createEntity(type, id, team, pHealth, state, x, y, playername);
+                        showLbl(id);
                         qDebug() << "created " << id;
                         break;
 
@@ -428,6 +429,7 @@ void gameScreen::readCommand()
                         ++iterate;
                         moveEntity(id, x, y);
                         animate(id);
+                        showLbl(id);
                         break;
 
                         //state change
@@ -441,6 +443,7 @@ void gameScreen::readCommand()
                         ++iterate;
                         changeEntityState(id, state);
                         animate(id);
+                        showLbl(id);
                         break;
 
                         //state and position change
@@ -462,6 +465,7 @@ void gameScreen::readCommand()
                         qDebug()<<"Moved entity";
                         animate(id);
                         qDebug()<<"NOT HERE";
+                        showLbl(id);
                         break;
 
                         //health change
@@ -475,6 +479,7 @@ void gameScreen::readCommand()
                         pHealth = List.at(iterate).toInt();
                         ++iterate;
                         changeEntityHealth(id, pHealth);
+                        showLbl(id);
                         break;
 
                         //health and position change
@@ -492,6 +497,7 @@ void gameScreen::readCommand()
                         changeEntityHealth(id, pHealth);
                         moveEntity(id, x, y);
                         animate(id);
+                        showLbl(id);
                         break;
 
                         //health and state change
@@ -508,6 +514,7 @@ void gameScreen::readCommand()
                         changeEntityHealth(id, pHealth);
                         changeEntityState(id, state);
                         animate(id);
+                        showLbl(id);
                         break;
 
                         //heath state and position change
@@ -528,6 +535,7 @@ void gameScreen::readCommand()
                         changeEntityState(id, state);
                         moveEntity(id, x, y);
                         animate(id);
+                        showLbl(id);
                         break;
 
                         //death
@@ -561,7 +569,7 @@ void gameScreen::serverDisconnected()
 
 
 void gameScreen::createEntity(int type, int id, int team, int health, int state, int posX, int posY, QString name){
-    EntityLabel *thing = new EntityLabel(id, type, team, posX, posY, health, state, name, wdgtGame);
+    EntityLabel *thing = new EntityLabel(id, type, team, posX, posY, health, state, name, wdgtPicture);
 
     //if on screen
     thing->show();
@@ -570,8 +578,12 @@ void gameScreen::createEntity(int type, int id, int team, int health, int state,
 
 
 void gameScreen::moveEntity(int id, int x, int y){
+<<<<<<< HEAD
     qDebug()<< "move entity begin";
     EntityLabel *thing = objects.at(id--);
+=======
+    EntityLabel *thing = gameScreen::getByID(id);
+>>>>>>> 672ab8b446f7a69cd94c3807468c9af7fd2cdfa2
     thing->move(x, y);
     //thing->setCounter(1);
     thing->nextFrame();
@@ -579,18 +591,24 @@ void gameScreen::moveEntity(int id, int x, int y){
 }
 
 void gameScreen::changeEntityHealth(int id, int healthPercent){
-    EntityLabel *thing = objects.at(id--);
+    EntityLabel *thing = gameScreen::getByID(id);
     thing->setHealth(healthPercent);
 }
 
 void gameScreen::changeEntityState(int id, int state){
-    EntityLabel *thing = objects.at(id--);
+   EntityLabel *thing = gameScreen::getByID(id);
     thing->setState(state);
 }
 
 void gameScreen::exterminate(int id){
-    EntityLabel *thing = objects.at(id--);
+    EntityLabel *thing = gameScreen::getByID(id);
     thing->die();
+}
+
+void gameScreen::showLbl(int id)
+{
+    EntityLabel *thing = gameScreen::getByID(id);
+    thing->show();
 }
 
 EntityLabel* gameScreen::getByID(int id)
@@ -605,8 +623,12 @@ EntityLabel* gameScreen::getByID(int id)
 }
 
 void gameScreen::animate(int id){
+<<<<<<< HEAD
     qDebug() << "animate begin";
     EntityLabel *thing = objects.at(id--);
+=======
+    EntityLabel *thing = gameScreen::getByID(id);
+>>>>>>> 672ab8b446f7a69cd94c3807468c9af7fd2cdfa2
     thing->updateStyleSheet();
     qDebug() << "animate end";
 }

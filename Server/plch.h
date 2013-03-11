@@ -17,10 +17,10 @@ protected:
     bool canCheatMode;
     Counter *cheatCounter;
 
-    bool w;
-    bool a;
-    bool s;
-    bool d;
+    bool wPressed;
+    bool aPressed;
+    bool sPressed;
+    bool dPressed;
 
     //int level;
     //int experience;
