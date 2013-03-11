@@ -70,6 +70,7 @@ void Widget::on_btnLocal_clicked()
     g->show();
     g->grabKeyboard();
     g->passSocket(mySocket);
+    //g->passMouse();
     this->hide();
 }
 

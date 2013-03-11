@@ -5,7 +5,6 @@ EntityLabel::EntityLabel(int id, int type, int initTeam, int posX, int posY, int
     : QLabel(parent), ID(id), team(initTeam), type(type), percentHealth(pHealth), state(nState),
       playerName(pName), counter(1)
 {
-    int width, height;
     if(type == 1){
         width = 960;
         height = 540;
@@ -21,6 +20,8 @@ EntityLabel::EntityLabel(int id, int type, int initTeam, int posX, int posY, int
     }
     this->setGeometry(posX,posY,width,height);
     updateStyleSheet();
+
+    setMouseTracking(true);
     //qDebug() << this->styleSheet();
 }
 
@@ -42,6 +43,24 @@ void EntityLabel::die()
 
 }
 
+/*void EntityLabel::mouseMoveEvent(QMouseEvent *ev)
+{
+    qDebug() << "hovering over id " << ID;
+}
+
+void EntityLabel::mousePressEvent(QMouseEvent *ev)
+{
+
+}
+
+void EntityLabel::mouseReleaseEvent(QMouseEvent *ev)
+{
+    if (ev->button() == Qt::LeftButton){
+        qDebug() << "clicked entity " << ID;
+        emit clicked(ID);
+    }
+}
+*/
 void EntityLabel::nextFrame(){
     if(type == 3 || type == 4){
         if(counter == 19){

@@ -23,12 +23,14 @@ class Observer{
 public:
     virtual void pauseGame() = 0;
     virtual void unpauseGame() = 0;
+    virtual int getTime() = 0;
 };
 
 class serverWindow : public QMainWindow, public Observer
 {
     Q_OBJECT
     QTimer *timer;
+    int ticks;
     QTcpServer server;
     vector<User *> unUsers;
     vector<QTcpSocket *> unSocks;
@@ -44,6 +46,7 @@ public:
     void pauseGame(){qDebug();
         timer->stop();}
     void unpauseGame(){timer->start();}
+    int getTime(){return ticks;}
 
 private slots:
     void clientConnected();

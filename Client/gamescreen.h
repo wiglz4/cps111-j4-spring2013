@@ -3,6 +3,7 @@
 
 class gameScreen;
 
+
 #include <QWidget>
 #include "widget.h"
 #include <QKeyEvent>
@@ -24,6 +25,15 @@ class gameScreen;
 #include <QTimer>
 //REM
 
+/*class GameWidget : public QWidget
+{
+    Q_OBJECT
+public:
+    explicit GameWidget(QWidget *parent = 0){setMouseTracking(true);}
+protected:
+    void mousePressEvent(QMouseEvent *);
+};
+*/
 class ScoreObject
 {
 private:
@@ -32,6 +42,8 @@ private:
     int minionKills;
     int towerKills;
     int playerTeam;
+    int playerKills;
+    int totalScore;
 
 public:
     void setDeaths(int i){playerDeaths = i;}
@@ -39,14 +51,17 @@ public:
     void setTKills(int i){towerKills = i;}
     void setTeam(int i){playerTeam = i;}
     void setUsername(QString &s){user = s;}
+    void setPKills(int i){playerKills = i;}
+    void calculate();
 
     int deaths(){return playerDeaths;}
     int mKills(){return minionKills;}
+    int pKills(){return playerKills;}
     int tKills(){return towerKills;}
     int team(){return playerTeam;}
     QString username(){return user;}
+    int score(){return totalScore;}
 };
-
 
 class gameScreen : public QWidget
 {
@@ -69,6 +84,7 @@ public:
     void showLbl(int id);
 
 
+
     EntityLabel* getByID(int id);
 
 private slots:
@@ -78,6 +94,7 @@ private slots:
     void unPause();
     void readCommand();
     void lblClicked();
+    void entityClicked(int id);
     
 private:
     Ui::gameScreen *gsui;
@@ -97,11 +114,14 @@ private:
      void updatePlayer(QStringList player);
      void updatePos(EntityLabel *lblToUpdate, int x, int y, int width, int height);
 
+public:
+     //void passMouse(){wdgtPicture->grabMouse();}
 protected:
     void keyPressEvent(QKeyEvent * e);
     void keyReleaseEvent(QKeyEvent *e);
     void closeEvent(QCloseEvent *);
     void resizeEvent ( QResizeEvent * event );
+    void mousePressEvent(QMouseEvent *);
 
     QTimer *timer;
 
@@ -112,5 +132,6 @@ protected:
     bool downPressed;
     bool leftPressed;
 };
+
 
 #endif // GAMESCREEN_H

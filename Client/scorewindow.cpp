@@ -84,30 +84,52 @@ void ScoreWindow::addScore(ScoreObject *s){
     }
     QLabel *label = new QLabel(ui->frScore);
     label->setGeometry(4, nextY, 20, 20);
-    if(s->team() == 1){
+    if(s->team() == 2){
         label->setStyleSheet("background:#44707b");
-    }else if (s->team() == 2){
+    }else if (s->team() == 1){
         label->setStyleSheet("background:#a23a1d");
     }
     label->show();
+
     label = new QLabel(ui->frScore);
     label->setGeometry(32, nextY, 122, 20);
     label->setText(s->username());
+    label->setStyleSheet("color:#333333");
     label->show();
+
     label = new QLabel(ui->frScore);
     label->setGeometry(162, nextY, 66, 20);
     label->setAlignment(Qt::AlignRight);
     label->setText(QString::number(s->deaths()));
+    label->setStyleSheet("color:#333333");
     label->show();
+
     label = new QLabel(ui->frScore);
     label->setGeometry(236, nextY, 66, 20);
     label->setAlignment(Qt::AlignRight);
     label->setText(QString::number(s->tKills()));
+    label->setStyleSheet("color:#333333");
     label->show();
+
     label = new QLabel(ui->frScore);
-    label->setGeometry(310, nextY, 78, 20);
+    label->setGeometry(310, nextY, 66, 20);
     label->setAlignment(Qt::AlignRight);
     label->setText(QString::number(s->mKills()));
+    label->setStyleSheet("color:#333333");
+    label->show();
+
+    label = new QLabel(ui->frScore);
+    label->setGeometry(384, nextY, 66, 20);
+    label->setAlignment(Qt::AlignRight);
+    label->setText(QString::number(s->pKills()));
+    label->setStyleSheet("color:#333333");
+    label->show();
+
+    label = new QLabel(ui->frScore);
+    label->setGeometry(458, nextY, 66, 20);
+    label->setAlignment(Qt::AlignRight);
+    label->setText(QString::number(s->score()));
+    label->setStyleSheet("color:#333333");
     label->show();
     nextY += 26;
 }
@@ -148,11 +170,17 @@ void ScoreWindow::makeEndGame(){
     ui->line_7->setFrameShadow(QFrame::Plain);
     ui->line_8->setFrameShadow(QFrame::Plain);
     ui->line_9->setFrameShadow(QFrame::Plain);
+    ui->line_10->setFrameShadow((QFrame::Plain));
+    ui->line_11->setFrameShadow(QFrame::Plain);
 
     ui->lblTName->setText("Name");
     ui->lblTDeaths->setText("Deaths");
     ui->lblTTKills->setText("Towers");
     ui->lblTMKills->setText("Minions");
+    ui->lblTPKills->setText("Players");
+    ui->lblTScore->setText("Score");
+
+    ui->lblTitle->setStyleSheet("background: url(:/images/game over.png) no-repeat top left; background-color:rgba(0,0,0,0);");
 
     isEndgame = true;
 }
