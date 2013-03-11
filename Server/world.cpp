@@ -98,16 +98,18 @@ World::World(vector<User *> *vect)
     PlCh* aPlCh;
     for(int i = 0; i < vect->size();++i)
     {
-        qDebug()<<vect->at(i)->getTeam();
+        //qDebug()<<vect->at(i)->getTeam();
         if(vect->at(i)->getTeam() == 1)
         {
             aPlCh = new PlCh(1,100,1300 + redMod * 100, this, vect->at(i)->getName());
+            vect->at(i)->setCharacter(aPlCh);
             allEntities.push_back(aPlCh);
             redEntities.push_back(aPlCh);
         }
         else
         {
             aPlCh = new PlCh(2,200,1300 + blueMod * 100, this, vect->at(i)->getName());
+            vect->at(i)->setCharacter(aPlCh);
             allEntities.push_back(aPlCh);
             blueEntities.push_back(aPlCh);
         }
@@ -227,6 +229,7 @@ string World::Display()
             allMinions.erase(allMinions.begin() + i);
         }
     }
+    strm<<"\n";
     return strm.str();
 }
 

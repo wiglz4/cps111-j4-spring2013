@@ -52,6 +52,9 @@ PlCh::PlCh(int cTeam, int newX, int newY, World *newMap, string pName)
     w = false;
     d = false;
     s = false;
+
+
+    debug = true;
 }
 
 void PlCh::command(string cmdString)
@@ -75,21 +78,25 @@ void PlCh::command(string cmdString)
         if(number == 1)
         {
             w = true;
+            qDebug()<<w;
         }
         else if (number == 4)
         {
             a = true;
+            qDebug()<<a;
         }
         else if (number == 3)
         {
             s = true;
-            y += speed;
-            qDebug()<<"MOVING";
-            positionChange = true;
+            qDebug()<<s;
+           // y += speed;
+            //qDebug()<<"MOVING";
+            //positionChange = true;
         }
         else
         {
             d = true;
+            qDebug()<<d;
         }
         target = NULL;
     }
@@ -98,18 +105,22 @@ void PlCh::command(string cmdString)
         if(number == 1)
         {
             w = false;
+            qDebug()<<w;
         }
         else if (number == 2)
         {
             a = false;
+            qDebug()<<a;
         }
         else if (number == 3)
         {
             s = false;
+            qDebug()<<s;
         }
         else
         {
             d = false;
+            qDebug()<<d;
         }
     }
 }
@@ -131,11 +142,15 @@ void PlCh::onTick()
     {
         if (w || a || s || d)
         {
-            qDebug()<<"MOVING";
+            //qDebug()<<"MOVING";
+            //qDebug()<<"W "<<w;
+            //qDebug()<<"A "<<a;
+            //qDebug()<<"S "<<s;
+            //qDebug()<<"D "<<d;
             if(w && !a && !s && !d)
             {
                 y -= speed;
-                qDebug()<<"MOVING";
+               // qDebug()<<"MOVING";
                 currentState = 1;
                 positionChange = true;
             }
@@ -143,14 +158,14 @@ void PlCh::onTick()
             {
                 y -= (3 * speed) / 4;
                 x -= (3 * speed) / 4;
-                qDebug()<<"MOVING";
+                //qDebug()<<"MOVING";
                 currentState = 8;
                 positionChange = true;
             }
             if(!w && a && !s && !d)
             {
                 x -= speed;
-                qDebug()<<"MOVING";
+                //qDebug()<<"MOVING";
                 currentState = 7;
                 positionChange = true;
             }
@@ -158,14 +173,14 @@ void PlCh::onTick()
             {
                 y += (3 * speed) / 4;
                 x -= (3 * speed) / 4;
-                qDebug()<<"MOVING";
+                //qDebug()<<"MOVING";
                 currentState = 6;
                 positionChange = true;
             }
             if(!w && !a && s && !d)
             {
                 y += speed;
-                qDebug()<<"MOVING";
+                //qDebug()<<"MOVING";
                 currentState = 5;
                 positionChange = true;
             }
@@ -173,14 +188,14 @@ void PlCh::onTick()
             {
                 y += (3 * speed) / 4;
                 x += (3 * speed) / 4;
-                qDebug()<<"MOVING";
+                //qDebug()<<"MOVING";
                 currentState = 4;
                 positionChange = true;
             }
             if(!w && !a && !s && d)
             {
                 x += speed;
-                qDebug()<<"MOVING";
+                //qDebug()<<"MOVING";
                 currentState = 3;
                 positionChange = true;
             }
@@ -434,8 +449,12 @@ string PlCh::displayString()
         }
         else if(!healthChange && !stateChange && positionChange)
         {
-            strm<<" "<<(type * 10 + 2)<<" "<<absoluteID<<" "<<x<<" "<<y;
-            positionChange = false;
+            if (debug) {
+                strm<<" "<<(type * 10 + 2)<<" "<<absoluteID<<" "<<x<<" "<<y;
+                positionChange = false;
+                debug = false;
+            }
+
         }
         else if(!healthChange && stateChange && !positionChange)
         {

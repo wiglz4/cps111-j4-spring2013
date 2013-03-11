@@ -47,7 +47,7 @@ public:
     void exterminate(int id);
 
 
-    EntityLabel getByID(int id);
+    EntityLabel* getByID(int id);
 
 private slots:
     void onTimerHit();
