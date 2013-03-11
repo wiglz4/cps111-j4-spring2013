@@ -45,6 +45,7 @@ public:
     void changeEntityHealth(int id, int healthPercent);
     void animate(int id);
     void exterminate(int id);
+    void showLbl(int id);
 
 
     EntityLabel* getByID(int id);

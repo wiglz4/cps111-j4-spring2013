@@ -44,7 +44,7 @@ void EntityLabel::die()
 void EntityLabel::nextFrame(){
     if(type == 3 || type == 4){
         if(counter == 19){
-            counter == 1;
+            counter = 1;
         } else {
             counter++;
         }
@@ -55,6 +55,7 @@ void EntityLabel::nextFrame(){
             counter++;
         }
     }
+    qDebug() << counter;
 }
 
 //static constants
