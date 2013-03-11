@@ -23,11 +23,11 @@ PlCh::PlCh(int cTeam, int newX, int newY, World *newMap, string pName)
     size = 150; //radius
     type = 4;
 
-    atkDamage = 2000;//incomplete
+    atkDamage = 0;//incomplete
     atkSpeed = 1;
     armor = 20;
-    atkRange = 999;//incomplete
-    detRange = 999;//incomplete
+    atkRange = 10;//incomplete
+    detRange = 900;//incomplete
     canAttack = true;
     Alive = true;
     newDead = false;
@@ -175,6 +175,20 @@ int PlCh::moveManual(){
         currentState = 2;
         positionChange = true;
     }
+    if (wPressed && !aPressed && sPressed && !dPressed)
+    {
+        y = y;
+        x = x;
+        currentState = 1;
+        positionChange = true;
+    }
+    if (!wPressed && aPressed && !sPressed && dPressed)
+    {
+        y = y;
+        x = x;
+        currentState = 3;
+        positionChange = true;
+    }
     return currentState;
 }
 
@@ -191,7 +205,7 @@ void PlCh::onTick()
     {
         if (wPressed || aPressed|| sPressed|| dPressed) //and if a key is pressed
         {
-           currentState = moveManual(); //move him
+            currentState = moveManual(); //move him
         }
         else
         {
@@ -358,6 +372,7 @@ void PlCh::onTick()
             }
         }
         if(currentState != state) //if player is alive and state changes
+
         {
             state = currentState; //update state
             stateChange = true;   //tell someone about it
@@ -381,11 +396,10 @@ void PlCh::onTick()
             else
             {
                 x = 250;
-                y = 2700;
+                y = 2600;
             }
             count->reset(50/atkSpeed); //do something.... Not sure what
         }
-
     }
 }
 
@@ -396,12 +410,12 @@ bool PlCh::damage(int value)
 
     if(Alive)
     {
-    curHealth = (double)curHealth - (double) value * (double) armor / 100;
-    if(curHealth < 0)
-    {
-        die();
-        return true;
-    }
+        curHealth = (double)curHealth - (double) value * (double) armor / 100;
+        if(curHealth < 0)
+        {
+            die();
+            return true;
+        }
     }
     return false;
 }
@@ -425,15 +439,15 @@ bool PlCh::Attack()
 {
     //qDebug() << target->getAttackable();
     int t = target->getType();
-    if(t ==1)
+    if(t == 1)
     {
         qDebug()<<"Core";
     }
-    else if (t ==2)
+    else if (t == 2)
     {
         qDebug()<<"Tower";
     }
-    else if (t ==3)
+    else if (t == 3)
     {
         qDebug()<<"Minion";
     }
@@ -477,9 +491,8 @@ string PlCh::displayString()
         }
         else if(!healthChange && !stateChange && positionChange)
         {
-                strm<<" "<<(type * 10 + 2)<<" "<<absoluteID<<" "<<x<<" "<<y;
-                positionChange = false;
-
+            strm<<" "<<(type * 10 + 2)<<" "<<absoluteID<<" "<<x<<" "<<y;
+            positionChange = false;
         }
         else if(!healthChange && stateChange && !positionChange)
         {

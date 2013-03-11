@@ -4,6 +4,7 @@
 class World;
 class Entity;
 class Unit;
+class Counter;
 
 class Minion : public Unit
 {

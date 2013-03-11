@@ -47,6 +47,8 @@ private:
 
     vector<TowerShots *> shots;
 
+    int tick;
+
     bool isNewGame;
 
     Game *game;
@@ -72,10 +74,15 @@ public:
 
     void load(string loadString);
 
+    void incTick(){tick++;}
+
     string Display();
 
     //Team denotes the losing side
     void endGame(int team);
+
+    Entity *bob;
+    Minion *aMinion;
 };
 
 #endif // WORLD_H

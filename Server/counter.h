@@ -3,14 +3,15 @@
 
 class Counter
 {
-    int current;
-    int endint;
+
 
 public:
     Counter(int end);
     bool Check();
     void reset(int newEnd);
     void reset();
+    int current;
+    int endint;
 };
 
 #endif // COUNTER_H

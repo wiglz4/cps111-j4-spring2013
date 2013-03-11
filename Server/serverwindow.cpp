@@ -109,7 +109,6 @@ void serverWindow::dataReceived()
             if(sock == unUsers.at(i)->getSock())
             {
                 QString str = sock->readLine();
-                qDebug()<<str;
                 unUsers.at(i)->command(str.toStdString());
                 break;
             }
@@ -144,7 +143,7 @@ void serverWindow::timerHit()
             {
                 for(uint i = 0; i < unUsers.size(); ++i)
                 {
-                    qDebug()<<message;
+
                     unUsers.at(i)->getSock()->write(message.toAscii());
                 }
             }

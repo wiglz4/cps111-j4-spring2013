@@ -27,8 +27,8 @@ Tower::Tower(int cTeam, int newX, int newY, World *newMap)
     atkDamage = 0;
     atkSpeed = 1;
     armor = 20;
-    atkRange = 999;
-    detRange = 999;
+    atkRange = 500;
+    detRange = 500;
     canAttack = true;
     Alive = true;
     newDead = false;

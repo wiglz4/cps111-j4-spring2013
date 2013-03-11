@@ -287,6 +287,7 @@ void gameScreen::readCommand()
     while(sock->canReadLine())
     {
         QString str = sock->readLine();
+        qDebug() << str;
         str.remove("\n");
         if(str != "")
         {
@@ -367,6 +368,7 @@ void gameScreen::readCommand()
                         //state and position change
                     case 34: //minion
                     case 44: //player
+
                         id = List.at(iterate).toInt();
                         ++iterate;
                         state = List.at(iterate).toInt();

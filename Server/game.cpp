@@ -22,6 +22,8 @@ std::string Game::onTick()
     if(!over && !newOver)
     {
     gmap->onTick();
+    //string test = gmap->Display();
+    //qDebug() << test.c_str();
     return gmap->Display();
     }
     else if(newOver)

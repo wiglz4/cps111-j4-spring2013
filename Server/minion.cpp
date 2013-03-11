@@ -23,10 +23,10 @@ Minion::Minion(int cTeam, int newX, int newY, World *newMap)
     size = 150; //radius
     type = 3;
 
-    atkDamage = 200;
+    atkDamage = 2;
     atkSpeed = 1.2;
     armor = 20;
-    atkRange = 999;
+    atkRange = 100;
     detRange = 999;
     canAttack = true;
     Alive = true;
@@ -53,7 +53,7 @@ Minion::Minion(int cTeam, int newX, int newY, World *newMap)
 //Fix this (split it up into methods)
 void Minion::onTick()
 {
-    /*
+
     double distance = 0;
     double theta;
     double delta;
@@ -256,9 +256,13 @@ void Minion::onTick()
                     }
                     else
                     {
+                        qDebug() << "Reached Joels Weird Math.";
                         distance = sqrt(pow(cpY-y, 2) + pow(cpX - x, 2));
+
                         theta = asin((y-cpY)/distance);
+                        qDebug() << theta;
                         delta = acos((x-cpX)/distance);
+                        qDebug() << delta;
                         if(cpY > y)
                         {
                             tempY = y + abs(speed * sin(theta));
@@ -287,7 +291,7 @@ void Minion::onTick()
             }
         }
     }
-    */
+
 }
 
 bool Minion::damage(int value)
@@ -339,14 +343,14 @@ string Minion::displayString()
         {
             strm<<" "<<(type * 10 + 1)<<" "<<absoluteID<<" "<<team<<" "<<((curHealth * 100) / maxHealth)<<" "<<state<<" "<<x<<" "<<y<<" "<<"NOT";
             isNew = false;
-            positionChange = false;
+            //positionChange = false;
             healthChange = false;
             stateChange = false;
         }
         else if (!healthChange && !stateChange && positionChange)
         {
             strm<<" "<<(type *10 + 2)<<" "<<absoluteID<<" "<<x<<" "<<y;
-            positionChange = false;
+            //positionChange = false;
         }
         else if (!healthChange && stateChange && !positionChange)
         {
@@ -357,7 +361,7 @@ string Minion::displayString()
         {
             strm<<" "<<(type * 10 + 4)<<" "<<absoluteID<<" "<<state<<" "<<x<<" "<<y;
             stateChange = false;
-            positionChange = false;
+            //positionChange = false;
         }
         else if (healthChange && !stateChange && !positionChange)
         {
@@ -368,7 +372,7 @@ string Minion::displayString()
         {
             strm<<" "<<(type * 10 + 6)<<" "<<absoluteID<<" "<<((curHealth * 100) / maxHealth)<<" "<<x<<" "<<y;
             healthChange = false;
-            positionChange = false;
+            //positionChange = false;
         }
         else if (healthChange && stateChange && !positionChange)
         {
@@ -381,8 +385,10 @@ string Minion::displayString()
             strm<<" "<<(type * 10 + 8)<<" "<<absoluteID<<" "<<((curHealth * 100) / maxHealth)<<" "<<state<<" "<<x<<" "<<y;
             healthChange = false;
             stateChange = false;
-            positionChange = false;
+            //positionChange = false;
         }
+
+
         return strm.str();
     }
     else
@@ -394,6 +400,4 @@ string Minion::displayString()
             return strm.str();
         }
     }
-    return strm.str();
 }
-
