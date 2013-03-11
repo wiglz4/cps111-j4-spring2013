@@ -30,6 +30,8 @@ protected:
     int debugCount;
     //REM
 
+    bool debug;
+
 public:
     PlCh(int cTeam, int newX, int newY, World *newMap, string pName);
     void command(string cmdString);

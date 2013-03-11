@@ -138,7 +138,7 @@ void serverWindow::timerHit()
     else
     {
         QString message = game->onTick().c_str();
-        if(message != "" && message != "97179")
+        if(message != "" && message != "97179\n")
         {
             for(uint i = 0; i < unUsers.size(); ++i)
             {
