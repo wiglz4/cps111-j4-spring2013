@@ -27,6 +27,21 @@ void EntityLabel::die()
     }
 }
 
+void EntityLabel::nextFrame(){
+    if(type == 3 || type == 4){
+        if(counter == 19){
+            counter == 1;
+        } else {
+            counter++;
+        }
+    } else if (type == 1){
+        if (counter == 30){
+            counter = 1;
+        } else {
+            counter++;
+        }
+    }
+}
 
 //static constants
 
