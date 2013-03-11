@@ -12,25 +12,18 @@ protected:
     static const QString STYLE_BEGIN, STYLE_END;
 
 public:
-<<<<<<< HEAD
-    EntityLabel(int id, int type, int posX, int posY, int pHealth, int nState, QString pName, QWidget *parent = 0);
-=======
     EntityLabel(int id, int initTeam, int type, int posX, int posY, int pHealth, int nState, QString pName, QWidget *parent = 0);
->>>>>>> 0f4bc453af2bd4f84ca91483dbc06aa961822193
     void mousePressEvent(QMouseEvent *ev);
     void setID(int newID);
     void setCounter(int newCounter){ counter = counter + newCounter;}
     int getID(){return ID;}
     int getCounter(){return counter;}
     void setHealth(int pHealth){percentHealth = pHealth;}
-<<<<<<< HEAD
     //void set
-=======
     void setState(int initState){state = initState;}
     void updateStyleSheet();
     void nextFrame();
     void die();
->>>>>>> 0f4bc453af2bd4f84ca91483dbc06aa961822193
 
 };
 

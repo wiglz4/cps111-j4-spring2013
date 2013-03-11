@@ -5,7 +5,21 @@ EntityLabel::EntityLabel(int id, int type, int initTeam, int posX, int posY, int
     : QLabel(parent), ID(id), team(initTeam), type(type), percentHealth(pHealth), state(nState),
       playerName(pName), counter(1)
 {
-    this->setGeometry(posX,posY,110,110);
+    int width, height;
+    if(type == 1){
+        width = 960;
+        height = 540;
+    } else if (type == 2){
+        width = 480;
+        height = 360;
+    } else if (type == 3){
+        width = 110;
+        height = 110;
+    } else if (type == 4){
+        width = 110;
+        height = 110;
+    }
+    this->setGeometry(posX,posY,width,height);
     updateStyleSheet();
     qDebug() << this->styleSheet();
 }

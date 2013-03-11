@@ -10,14 +10,6 @@
         <file>images/WASD.png</file>
         <file>images/ARROWKEYS.png</file>
         <file>images/hep.png</file>
-        <file>images/1/2/1.png</file>
-        <file>images/1/2/2.png</file>
-        <file>images/1/2/3.png</file>
-        <file>images/1/2/4.png</file>
-        <file>images/1/2/5.png</file>
-        <file>images/1/2/6.png</file>
-        <file>images/1/2/7.png</file>
-        <file>images/1/2/8.png</file>
         <file>images/1/3/1/1.png</file>
         <file>images/1/3/1/2.png</file>
         <file>images/1/3/1/3.png</file>
@@ -170,13 +162,6 @@
         <file>images/1/3/8/17.png</file>
         <file>images/1/3/8/18.png</file>
         <file>images/1/3/8/19.png</file>
-        <file>images/2/2/1.png</file>
-        <file>images/2/2/2.png</file>
-        <file>images/2/2/4.png</file>
-        <file>images/2/2/5.png</file>
-        <file>images/2/2/6.png</file>
-        <file>images/2/2/7.png</file>
-        <file>images/2/2/8.png</file>
         <file>images/2/3/1/1.png</file>
         <file>images/2/3/1/2.png</file>
         <file>images/2/3/1/3.png</file>
@@ -510,5 +495,81 @@
         <file>images/directions 1.png</file>
         <file>images/directions 2.png</file>
         <file>images/WASD2.png</file>
+        <file>images/1/1/0/1.png</file>
+        <file>images/1/1/0/2.png</file>
+        <file>images/1/1/0/3.png</file>
+        <file>images/1/1/0/4.png</file>
+        <file>images/1/1/0/5.png</file>
+        <file>images/1/1/0/6.png</file>
+        <file>images/1/1/0/7.png</file>
+        <file>images/1/1/0/8.png</file>
+        <file>images/1/1/0/9.png</file>
+        <file>images/1/1/0/10.png</file>
+        <file>images/1/1/0/11.png</file>
+        <file>images/1/1/0/12.png</file>
+        <file>images/1/1/0/13.png</file>
+        <file>images/1/1/0/14.png</file>
+        <file>images/1/1/0/15.png</file>
+        <file>images/1/1/0/16.png</file>
+        <file>images/1/1/0/17.png</file>
+        <file>images/1/1/0/18.png</file>
+        <file>images/1/1/0/19.png</file>
+        <file>images/1/1/0/20.png</file>
+        <file>images/1/1/0/21.png</file>
+        <file>images/1/1/0/22.png</file>
+        <file>images/1/1/0/23.png</file>
+        <file>images/1/1/0/24.png</file>
+        <file>images/1/1/0/25.png</file>
+        <file>images/1/1/0/26.png</file>
+        <file>images/1/1/0/27.png</file>
+        <file>images/1/1/0/28.png</file>
+        <file>images/1/1/0/29.png</file>
+        <file>images/1/1/0/30.png</file>
+        <file>images/2/1/0/1.png</file>
+        <file>images/2/1/0/2.png</file>
+        <file>images/2/1/0/3.png</file>
+        <file>images/2/1/0/4.png</file>
+        <file>images/2/1/0/5.png</file>
+        <file>images/2/1/0/6.png</file>
+        <file>images/2/1/0/7.png</file>
+        <file>images/2/1/0/8.png</file>
+        <file>images/2/1/0/9.png</file>
+        <file>images/2/1/0/10.png</file>
+        <file>images/2/1/0/11.png</file>
+        <file>images/2/1/0/12.png</file>
+        <file>images/2/1/0/13.png</file>
+        <file>images/2/1/0/14.png</file>
+        <file>images/2/1/0/15.png</file>
+        <file>images/2/1/0/16.png</file>
+        <file>images/2/1/0/17.png</file>
+        <file>images/2/1/0/18.png</file>
+        <file>images/2/1/0/19.png</file>
+        <file>images/2/1/0/20.png</file>
+        <file>images/2/1/0/21.png</file>
+        <file>images/2/1/0/22.png</file>
+        <file>images/2/1/0/23.png</file>
+        <file>images/2/1/0/24.png</file>
+        <file>images/2/1/0/25.png</file>
+        <file>images/2/1/0/26.png</file>
+        <file>images/2/1/0/27.png</file>
+        <file>images/2/1/0/28.png</file>
+        <file>images/2/1/0/29.png</file>
+        <file>images/2/1/0/30.png</file>
+        <file>images/1/2/1/1.png</file>
+        <file>images/1/2/2/1.png</file>
+        <file>images/1/2/3/1.png</file>
+        <file>images/1/2/4/1.png</file>
+        <file>images/1/2/5/1.png</file>
+        <file>images/1/2/6/1.png</file>
+        <file>images/1/2/7/1.png</file>
+        <file>images/1/2/8/1.png</file>
+        <file>images/2/2/1/1.png</file>
+        <file>images/2/2/2/1.png</file>
+        <file>images/2/2/3/1.png</file>
+        <file>images/2/2/4/1.png</file>
+        <file>images/2/2/5/1.png</file>
+        <file>images/2/2/6/1.png</file>
+        <file>images/2/2/7/1.png</file>
+        <file>images/2/2/8/1.png</file>
     </qresource>
 </RCC>
