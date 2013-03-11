@@ -572,7 +572,7 @@ void gameScreen::createEntity(int type, int id, int team, int health, int state,
 void gameScreen::moveEntity(int id, int x, int y){
     EntityLabel *thing = objects.at(id--);
     thing->move(x, y);
-    thing->setCounter(1);
+    //thing->setCounter(1);
     thing->nextFrame();
 }
 
