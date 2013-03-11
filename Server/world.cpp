@@ -20,7 +20,7 @@ World::World(vector<User *> *vect, Game* gam)
     game = gam;
     tick = 0;
 
-    /*Core *aCore = new Core(1, 3230, 165,this);
+    Core *aCore = new Core(1, 3230, 165,this);
     allEntities.push_back(aCore);
     redEntities.push_back(aCore);
 
@@ -28,15 +28,9 @@ World::World(vector<User *> *vect, Game* gam)
     allEntities.push_back(aCore);
     blueEntities.push_back(aCore);
 
-
-
-    aMinion = new Minion(1,1840,895,this);
-    allEntities.push_back(aMinion);
-    redEntities.push_back(aMinion);
-*/
     Tower *aTower = new Tower(1, 1840, 895,this);
     allEntities.push_back(aTower);
-    redEntities.push_back(aTower);/*
+    redEntities.push_back(aTower);
     aTower = new Tower(1, 2630, 805, this);
     allEntities.push_back(aTower);
     redEntities.push_back(aTower);
@@ -60,11 +54,7 @@ World::World(vector<User *> *vect, Game* gam)
     aTower = new Tower(2,480,2395,this);
     allEntities.push_back(aTower);
     blueEntities.push_back(aTower);
-*/
 
-    Minion *aMinion = new Minion(1, 1840, 895,this);
-    allEntities.push_back(aMinion);
-    redEntities.push_back(aMinion);
 
 
 
@@ -135,7 +125,8 @@ Entity *World::getNAE(int x, int y, int team, double &distance)
 
 bool World::boundsCheck(int x, int y)
 {
-    //needs coding
+    if(x < 0 || x > 4000 || y < 0 || y > 3028)
+        return false;
     return true;
 }
 
@@ -165,6 +156,14 @@ void World::onTick()
     {
         shots.at(i)->onTick();
     }
+    if (tick == 1000)
+    for(int i = 0; i < 1; ++i)
+    {
+        createRedMinion();
+        setTick(0);
+    }
+    incTick();
+    //qDebug() << tick;
 }
 
 
@@ -181,6 +180,20 @@ void World::load(string loadString)
     //Needs coding
 }
 
+void World::createRedMinion()
+{
+    aMinion = new Minion(1, 3230, 165,this);
+    allEntities.push_back(aMinion);
+    redEntities.push_back(aMinion);
+}
+
+void World::createBlueMinion()
+{
+    aMinion = new Minion(2, 240, 2400,this);
+    allEntities.push_back(aMinion);
+    blueEntities.push_back(aMinion);
+}
+
 
 string World::Display()
 {
@@ -188,20 +201,26 @@ string World::Display()
     strm<<"97179";
     for(int i = 0; i < allEntities.size(); ++i)
     {
-        strm << allEntities.at(i)->displayString();
+        if(allEntities.at(i) != NULL)
+        {
+            qDebug()<<allEntities.at(i)->getType();
+            strm << allEntities.at(i)->displayString();
+        }
     }
     for(int i = 0; i < shots.size(); ++i)
     {
         strm << shots.at(i)->DispShot();
     }
-    /*for(int i = 0; i <allMinions.size(); ++i)
+    /*
+    for(int i = 0; i <allMinions.size(); ++i)
     {
         if(!allMinions.at(i)->getAlive())
         {
             delete allMinions.at(i);
             allMinions.erase(allMinions.begin() + i);
         }
-    }*/
+    }
+    */
     strm<<"\n";
 
     return strm.str();

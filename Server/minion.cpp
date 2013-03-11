@@ -23,10 +23,10 @@ Minion::Minion(int cTeam, int newX, int newY, World *newMap)
     size = 150; //radius
     type = 3;
 
-    atkDamage = 2;
+    atkDamage = 400;
     atkSpeed = 1.2;
     armor = 20;
-    atkRange = 100;
+    atkRange = 35;
     detRange = 999;
     canAttack = true;
     Alive = true;
@@ -42,8 +42,8 @@ Minion::Minion(int cTeam, int newX, int newY, World *newMap)
     positionChange = true;
 
     //CHANGE WITH IFS
-    cpX = 999;
-    cpY = 999;
+    cpX = 220;
+    cpY = 2395;
     OOL = false;
     laneX = 999;
     laneY = 999;
@@ -62,7 +62,7 @@ void Minion::onTick()
     int currentState = state;
     if(Alive)
     {
-        if(target != NULL)
+        if(target != NULL && target->getAttackable())
         {
             distance = sqrt(pow(target->getY()-y, 2) + pow(target->getX() - x, 2));
             if(distance < detRange)
@@ -256,13 +256,13 @@ void Minion::onTick()
                     }
                     else
                     {
-                        qDebug() << "Reached Joels Weird Math.";
+                        //qDebug() << "Reached Joels Weird Math.";
                         distance = sqrt(pow(cpY-y, 2) + pow(cpX - x, 2));
 
                         theta = asin((y-cpY)/distance);
-                        qDebug() << theta;
+                        //qDebug() << theta;
                         delta = acos((x-cpX)/distance);
-                        qDebug() << delta;
+                        //qDebug() << delta;
                         if(cpY > y)
                         {
                             tempY = y + abs(speed * sin(theta));

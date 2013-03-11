@@ -53,7 +53,7 @@ void Tower::onTick()
 
     double distance;
     int currentState = state;
-    if(target != NULL)
+    if(target != NULL && target->getAttackable())
     {
         distance = sqrt(pow(target->getY()-y, 2) + pow(target->getX() - x, 2));
         if(distance < atkRange)
@@ -114,6 +114,7 @@ void Tower::die()
     state = 99;
     stateChange = true;
     healthChange = true;
+    attackable = false;
 }
 
 bool Tower::damage(int value)
