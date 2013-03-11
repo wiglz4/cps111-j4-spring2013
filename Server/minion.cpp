@@ -21,7 +21,7 @@ Minion::Minion(int cTeam, int newX, int newY, World *newMap)
     targetable = true;
     attackable = true;
     size = 150; //radius
-    type = 1;
+    type = 3;
 
     atkDamage = 200;
     atkSpeed = 1.2;

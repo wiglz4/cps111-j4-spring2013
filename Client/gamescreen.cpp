@@ -137,7 +137,7 @@ void gameScreen::keyPressEvent(QKeyEvent *e)
     {
         //REM
         //wPressed = true;
-        sock->write("2 1");
+        sock->write("2 1 ");
         qDebug() << "W";
         //REM
     }
@@ -145,7 +145,7 @@ void gameScreen::keyPressEvent(QKeyEvent *e)
     {
         //REM
         //aPressed = true;
-        sock->write("2 4");
+        sock->write("2 4 ");
         qDebug() << "A";
         //REM
     }
@@ -153,7 +153,7 @@ void gameScreen::keyPressEvent(QKeyEvent *e)
     {
         //REM
         //sPressed = true;
-        sock->write("2 3");
+        sock->write("2 3 ");
         qDebug() << "S";
         //REM
     }
@@ -161,7 +161,7 @@ void gameScreen::keyPressEvent(QKeyEvent *e)
     {
         //REM
         //dPressed = true;
-        sock->write("2 2");
+        sock->write("2 2 ");
         qDebug() << "D";
         //REM
     }
@@ -205,7 +205,7 @@ void gameScreen::keyReleaseEvent(QKeyEvent *e)
     {
         //REM
         //wPressed = false;
-        sock->write("3 1");
+        sock->write("3 1 ");
         qDebug() << "~W";
         //REM
     }
@@ -213,7 +213,7 @@ void gameScreen::keyReleaseEvent(QKeyEvent *e)
     {
         //REM
         //aPressed = false;
-        sock->write("3 4");
+        sock->write("3 4 ");
         qDebug() << "~A";
         //REM
     }
@@ -221,7 +221,7 @@ void gameScreen::keyReleaseEvent(QKeyEvent *e)
     {
         //REM
         //sPressed = false;
-        sock->write("3 3");
+        sock->write("3 3 ");
         qDebug() << "~S";
         //REM
     }
@@ -229,7 +229,7 @@ void gameScreen::keyReleaseEvent(QKeyEvent *e)
     {
         //REM
         //dPressed = false;
-        sock->write("3 2");
+        sock->write("3 2 ");
         qDebug() << "~D";
         //REM
     }
@@ -738,7 +738,7 @@ void gameScreen::serverDisconnected()
 
 
 void gameScreen::createEntity(int type, int id, int team, int health, int state, int posX, int posY, QString name){
-    EntityLabel *thing = new EntityLabel(id, team, type, posX, posY, health, state, name, wdgtGame);
+    EntityLabel *thing = new EntityLabel(id, type, team, posX, posY, health, state, name, wdgtGame);
 
     //if on screen
     thing->show();

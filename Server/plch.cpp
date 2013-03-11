@@ -21,7 +21,7 @@ PlCh::PlCh(int cTeam, int newX, int newY, World *newMap, string pName)
     targetable = true;
     attackable = true;
     size = 150; //radius
-    type = 1;
+    type = 4;
 
     atkDamage = 200;
     atkSpeed = 1;
@@ -83,6 +83,9 @@ void PlCh::command(string cmdString)
         else if (number == 3)
         {
             s = true;
+            y += speed;
+            qDebug()<<"MOVING";
+            positionChange = true;
         }
         else
         {
@@ -128,9 +131,11 @@ void PlCh::onTick()
     {
         if (w || a || s || d)
         {
+            qDebug()<<"MOVING";
             if(w && !a && !s && !d)
             {
                 y -= speed;
+                qDebug()<<"MOVING";
                 currentState = 1;
                 positionChange = true;
             }
@@ -138,12 +143,14 @@ void PlCh::onTick()
             {
                 y -= (3 * speed) / 4;
                 x -= (3 * speed) / 4;
+                qDebug()<<"MOVING";
                 currentState = 8;
                 positionChange = true;
             }
             if(!w && a && !s && !d)
             {
                 x -= speed;
+                qDebug()<<"MOVING";
                 currentState = 7;
                 positionChange = true;
             }
@@ -151,12 +158,14 @@ void PlCh::onTick()
             {
                 y += (3 * speed) / 4;
                 x -= (3 * speed) / 4;
+                qDebug()<<"MOVING";
                 currentState = 6;
                 positionChange = true;
             }
             if(!w && !a && s && !d)
             {
                 y += speed;
+                qDebug()<<"MOVING";
                 currentState = 5;
                 positionChange = true;
             }
@@ -164,12 +173,14 @@ void PlCh::onTick()
             {
                 y += (3 * speed) / 4;
                 x += (3 * speed) / 4;
+                qDebug()<<"MOVING";
                 currentState = 4;
                 positionChange = true;
             }
             if(!w && !a && !s && d)
             {
                 x += speed;
+                qDebug()<<"MOVING";
                 currentState = 3;
                 positionChange = true;
             }
@@ -177,13 +188,14 @@ void PlCh::onTick()
             {
                 y -= (3 * speed) / 4;
                 x += (3 * speed) / 4;
+                qDebug()<<"MOVING";
                 currentState = 2;
                 positionChange = true;
             }
         }
         //}
         else
-        {
+        {/*
             if(target != NULL)
             {
                 distance = sqrt(pow(target->getY()-y, 2) + pow(target->getX() - x, 2));
@@ -335,7 +347,7 @@ void PlCh::onTick()
                         }
                     }
                 }
-            }
+            }*/
         }
         if(currentState != state)
         {
@@ -411,6 +423,7 @@ string PlCh::displayString()
     stringstream strm;
     if(Alive)
     {
+
         if(isNew)
         {
             strm<<" "<<(type * 10 + 1)<<" "<<absoluteID<<" "<<team<<" "<<((curHealth * 100)/maxHealth)<<" "<<state<<" "<<x<<" "<<y<<" "<<plName;

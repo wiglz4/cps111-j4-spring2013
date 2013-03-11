@@ -43,7 +43,7 @@ void Widget::on_btnLocal_clicked()
             return;
     }
 
-    QString message = "BobJonesIII\n";
+    QString message = "2 BobJonesIII\n";
     mySocket->write(message.toAscii());
     g->show();
     g->grabKeyboard();

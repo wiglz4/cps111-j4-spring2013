@@ -98,6 +98,7 @@ World::World(vector<User *> *vect)
     PlCh* aPlCh;
     for(int i = 0; i < vect->size();++i)
     {
+        qDebug()<<vect->at(i)->getTeam();
         if(vect->at(i)->getTeam() == 1)
         {
             aPlCh = new PlCh(1,100,1300 + redMod * 100, this, vect->at(i)->getName());
@@ -106,7 +107,7 @@ World::World(vector<User *> *vect)
         }
         else
         {
-            aPlCh = new PlCh(1,200,1300 + blueMod * 100, this, vect->at(i)->getName());
+            aPlCh = new PlCh(2,200,1300 + blueMod * 100, this, vect->at(i)->getName());
             allEntities.push_back(aPlCh);
             blueEntities.push_back(aPlCh);
         }
