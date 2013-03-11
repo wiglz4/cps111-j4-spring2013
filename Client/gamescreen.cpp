@@ -29,8 +29,6 @@ gameScreen::gameScreen(QWidget *parent) :
     wdgtPicture->setGeometry(0,0,4000,3000);
     wdgtPicture->setStyleSheet("background-image:url(:/images/map4.png)");
 
-    //wdgtGame->grabKeyboard();
-
     gameFrame = new QFrame(this);
     gameFrame->setFrameShape(QFrame::Box);
     gameFrame->setLineWidth(10);
@@ -77,8 +75,6 @@ gameScreen::gameScreen(QWidget *parent) :
     bar->setGeometry(700,265,21,100);
     bar->setStyleSheet("background:url(:/images/bar.png) no-repeat top left;");
     bar->hide();
-
-    this->grabKeyboard();
 
 }
 
@@ -455,7 +451,7 @@ void gameScreen::readCommand()
         std::string temp;
         int verifier;
         strm>>verifier;
-        /*DEBUGqDebug()<<verifier;
+        qDebug()<<verifier;
         while(strm.str() != "" && strm.str() != " " && strm.str() != "  ")
         {
             entv = 0;
@@ -601,6 +597,7 @@ void gameScreen::readCommand()
                     playername = List.at(iterate);
                     ++iterate;
                     createEntity(type, id, team, pHealth, state, x, y, playername);
+                    qDebug() << "created " << id;
                     break;
 
                     //position change
@@ -614,6 +611,7 @@ void gameScreen::readCommand()
                     y = List.at(iterate).toInt();
                     ++iterate;
                     moveEntity(id, x, y);
+                    animate(id);
                     break;
 
                     //state change
@@ -626,6 +624,7 @@ void gameScreen::readCommand()
                     state = List.at(iterate).toInt();
                     ++iterate;
                     changeEntityState(id, state);
+                    animate(id);
                     break;
 
                     //state and position change
@@ -642,6 +641,7 @@ void gameScreen::readCommand()
                     ++iterate;
                     changeEntityState(id, state);
                     moveEntity(id, x, y);
+                    animate(id);
                     break;
 
                     //health change
@@ -671,6 +671,7 @@ void gameScreen::readCommand()
                     ++iterate;
                     changeEntityHealth(id, pHealth);
                     moveEntity(id, x, y);
+                    animate(id);
                     break;
 
                     //health and state change
@@ -686,6 +687,7 @@ void gameScreen::readCommand()
                     ++iterate;
                     changeEntityHealth(id, pHealth);
                     changeEntityState(id, state);
+                    animate(id);
                     break;
 
                     //heath state and position change
@@ -705,6 +707,7 @@ void gameScreen::readCommand()
                     changeEntityHealth(id, pHealth);
                     changeEntityState(id, state);
                     moveEntity(id, x, y);
+                    animate(id);
                     break;
 
                     //death
@@ -747,13 +750,7 @@ void gameScreen::moveEntity(int id, int x, int y){
     EntityLabel *thing = objects.at(id--);
     thing->move(x, y);
     thing->setCounter(1);
-    //move to EntityLabel Class
-    int counter = thing->getCounter();
-    if (counter > 19) {
-        counter = 1;
-    }
-    hero->setStyleSheet("background:url(:/images/2/4/8/" + QString("%1").arg(counter) + ".png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
-    //end
+    thing->nextFrame();
 }
 
 void gameScreen::changeEntityHealth(int id, int healthPercent){
@@ -769,4 +766,9 @@ void gameScreen::changeEntityState(int id, int state){
 void gameScreen::exterminate(int id){
     EntityLabel *thing = objects.at(id--);
     thing->die();
+}
+
+void gameScreen::animate(int id){
+    EntityLabel *thing = objects.at(id--);
+    thing->updateStyleSheet();
 }

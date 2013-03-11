@@ -20,6 +20,8 @@ public:
     int getCounter(){return counter;}
     void setHealth(int pHealth){percentHealth = pHealth;}
     void setState(int initState){state = initState;}
+    void updateStyleSheet();
+    void nextFrame(){counter++;}
     void die();
 
 };

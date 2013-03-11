@@ -43,6 +43,7 @@ public:
     void moveEntity(int id, int x, int y);
     void changeEntityState(int id, int state);
     void changeEntityHealth(int id, int healthPercent);
+    void animate(int id);
     void exterminate(int id);
 
 

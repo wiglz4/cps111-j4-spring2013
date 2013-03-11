@@ -1,12 +1,13 @@
 #include "entitylabel.h"
+#include <QDebug>
 
 EntityLabel::EntityLabel(int id, int type, int initTeam, int posX, int posY, int pHealth, int nState, QString pName, QWidget *parent)
     : QLabel(parent), ID(id), team(initTeam), type(type), percentHealth(pHealth), state(nState),
       playerName(pName), counter(1)
 {
     this->setGeometry(posX,posY,110,110);
-    this->setStyleSheet(STYLE_BEGIN + QString("%1").arg(team) + "/" + QString("%1").arg(type) + "/" +
-                        QString("%1").arg(state) + "/" + QString("%1").arg(counter) + STYLE_END);
+    updateStyleSheet();
+    qDebug() << this->styleSheet();
 }
 
 void EntityLabel::mousePressEvent(QMouseEvent *ev)
@@ -14,6 +15,10 @@ void EntityLabel::mousePressEvent(QMouseEvent *ev)
 
 }
 
+void EntityLabel::updateStyleSheet(){
+    this->setStyleSheet(STYLE_BEGIN + QString("%1").arg(team) + "/" + QString("%1").arg(type) + "/" +
+                        QString("%1").arg(state) + "/" + QString("%1").arg(counter) + STYLE_END);
+}
 
 void EntityLabel::die()
 {
