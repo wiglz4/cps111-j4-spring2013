@@ -610,6 +610,7 @@ void gameScreen::readCommand()
                     ++iterate;
                     y = List.at(iterate).toInt();
                     ++iterate;
+                    qDebug() << id << ", " << x << ", " << y;
                     moveEntity(id, x, y);
                     animate(id);
                     break;
@@ -747,10 +748,12 @@ void gameScreen::createEntity(int type, int id, int team, int health, int state,
 
 
 void gameScreen::moveEntity(int id, int x, int y){
+    qDebug()<< "move entity begin";
     EntityLabel *thing = objects.at(id--);
     thing->move(x, y);
     //thing->setCounter(1);
     thing->nextFrame();
+    qDebug() << "move entity end";
 }
 
 void gameScreen::changeEntityHealth(int id, int healthPercent){
@@ -769,6 +772,8 @@ void gameScreen::exterminate(int id){
 }
 
 void gameScreen::animate(int id){
+    qDebug() << "animate begin";
     EntityLabel *thing = objects.at(id--);
     thing->updateStyleSheet();
+    qDebug() << "animate end";
 }
