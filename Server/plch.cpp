@@ -12,8 +12,8 @@ PlCh::PlCh(int cTeam, int newX, int newY, World *newMap, string pName)
     map = newMap;
     x = newX;
     y = newY;
-    curHealth = 999;
-    maxHealth = 999;
+    curHealth = 999;//incomplete
+    maxHealth = 999;//incomplete
     healthChange = true;
     isNew = true;
     team = cTeam;
@@ -23,11 +23,11 @@ PlCh::PlCh(int cTeam, int newX, int newY, World *newMap, string pName)
     size = 150; //radius
     type = 4;
 
-    atkDamage = 200;
+    atkDamage = 0;//incomplete
     atkSpeed = 1;
     armor = 20;
-    atkRange = 999;
-    detRange = 999;
+    atkRange = 999;//incomplete
+    detRange = 999;//incomplete
     canAttack = true;
     Alive = true;
     newDead = false;

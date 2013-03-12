@@ -123,7 +123,6 @@ void gameScreen::unPause()
 
 void gameScreen::keyPressEvent(QKeyEvent *e)
 {
-    qDebug()<<"Key pressed";
     if(e->key() == Qt::Key_P && !e->isAutoRepeat())
     {
 
@@ -182,7 +181,6 @@ void gameScreen::keyPressEvent(QKeyEvent *e)
         //gsui->wdgtPicture->scroll(0, -10);
         //wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y()+20);
         upPressed = true;
-        qDebug()<<"UP";
         //gsui->wdgtPicture->repaint();
     }
     if(e->key() == Qt::Key_Left)
@@ -190,7 +188,6 @@ void gameScreen::keyPressEvent(QKeyEvent *e)
         //wdgtPicture->move(wdgtPicture->x()+20, wdgtPicture->y());
         //gsui->wdgtPicture->scroll(10, 0);
         leftPressed = true;
-        qDebug()<<"LEFT";
         //gsui->wdgtPicture->repaint();
     }
     if(e->key() == Qt::Key_Down)
@@ -198,7 +195,6 @@ void gameScreen::keyPressEvent(QKeyEvent *e)
         //wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y()-20);
         //gsui->wdgtPicture->scroll(0, 10);
         downPressed = true;
-        qDebug()<<"DOWN";
         //gsui->wdgtPicture->repaint();
     }
     if(e->key() == Qt::Key_Right)
@@ -206,7 +202,6 @@ void gameScreen::keyPressEvent(QKeyEvent *e)
         //wdgtPicture->move(wdgtPicture->x()-20, wdgtPicture->y());
         //gsui->wdgtPicture->scroll(-10, 0);
         rightPressed = true;
-        qDebug()<<"RIGHT";
         //gsui->wdgtPicture->repaint();
     }
 }
@@ -250,7 +245,6 @@ void gameScreen::keyReleaseEvent(QKeyEvent *e)
         //gsui->wdgtPicture->scroll(0, -10);
         //wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y()+20);
         upPressed = false;
-        qDebug()<<"~UP";
         //gsui->wdgtPicture->repaint();
     }
     if(e->key() == Qt::Key_Left)
@@ -258,7 +252,6 @@ void gameScreen::keyReleaseEvent(QKeyEvent *e)
         //wdgtPicture->move(wdgtPicture->x()+20, wdgtPicture->y());
         //gsui->wdgtPicture->scroll(10, 0);
         leftPressed = false;
-        qDebug()<<"~LEFT";
         //gsui->wdgtPicture->repaint();
     }
     if(e->key() == Qt::Key_Down)
@@ -266,7 +259,6 @@ void gameScreen::keyReleaseEvent(QKeyEvent *e)
         //wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y()-20);
         //gsui->wdgtPicture->scroll(0, 10);
         downPressed = false;
-        qDebug()<<"~DOWN";
         //gsui->wdgtPicture->repaint();
     }
     if(e->key() == Qt::Key_Right)
@@ -274,7 +266,6 @@ void gameScreen::keyReleaseEvent(QKeyEvent *e)
         //wdgtPicture->move(wdgtPicture->x()-20, wdgtPicture->y());
         //gsui->wdgtPicture->scroll(-10, 0);
         rightPressed = false;
-        qDebug()<<"~RIGHT";
         //gsui->wdgtPicture->repaint();
     }
 
@@ -340,7 +331,6 @@ void gameScreen::onTimerHit()
 void gameScreen::closeEvent(QCloseEvent *)
 {
     timer->stop();
-    qDebug()<<"Timer stopped";
 }
 
 void gameScreen::resizeEvent(QResizeEvent *event)
@@ -377,7 +367,6 @@ void gameScreen::readCommand()
         str.remove("\n");
         if(str != "")
         {
-            qDebug()<<str;
             QStringList List = str.split(" ", QString::SkipEmptyParts);
             int iterate = 0;
             int verifier = List.at(iterate).toInt();
@@ -470,13 +459,9 @@ void gameScreen::readCommand()
                         ++iterate;
                         y = List.at(iterate).toInt();
                         ++iterate;
-                        qDebug()<<"Parsed info";
                         changeEntityState(id, state);
-                        qDebug()<<"Changed state";
                         moveEntity(id, x, y);
-                        qDebug()<<"Moved entity";
                         animate(id);
-                        qDebug()<<"NOT HERE";
                         showLbl(id);
                         break;
 
@@ -569,7 +554,19 @@ void gameScreen::readCommand()
             }
         }
     }
-    qDebug()<<"REACHED END OF PARSING";
+}
+
+void gameScreen::lblClicked()
+{
+    qDebug()<<"ENTITY CLICKED";
+    EntityLabel *lbl = dynamic_cast<EntityLabel*>(sender());
+    if(lbl != NULL)
+    {
+        QString message = "1 ";
+        message += lbl->getID();
+        message += " ";
+        sock->write(message.toAscii());
+    }
 }
 
 void gameScreen::serverDisconnected()
@@ -584,6 +581,7 @@ void gameScreen::createEntity(int type, int id, int team, int health, int state,
     EntityLabel *thing = new EntityLabel(id, type, team, posX, posY, health, state, name, wdgtPicture);
 
     //if on screen
+    connect(thing, SIGNAL(linkActivated(QString)),this, SLOT(lblClicked()));
     thing->show();
     objects.push_back(thing);
 }
