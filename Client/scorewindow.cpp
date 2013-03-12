@@ -48,7 +48,7 @@ ScoreWindow::ScoreWindow(QWidget *parent) :
     move(x, y);
     setFixedSize(windowSize.width(), windowSize.height());
 
-    setWindowFlags(Qt::FramelessWindowHint);
+    //setWindowFlags(Qt::FramelessWindowHint);
 }
 
 ScoreWindow::~ScoreWindow()
