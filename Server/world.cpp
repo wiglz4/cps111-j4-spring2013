@@ -16,15 +16,6 @@ World::World(vector<User *> *vect)
 {
     //NEEDS CODING
 
-    int numRed = 0;
-    for(int i = 0; i < vect->size(); ++i)
-    {
-        if(vect->at(i)->getTeam() ==1)
-        {
-            ++numRed;
-        }
-    }
-
     Core *aCore = new Core(1, 100, 100,this);
     allEntities.push_back(aCore);
     redEntities.push_back(aCore);
@@ -93,6 +84,7 @@ World::World(vector<User *> *vect)
     allMinions.push_back(aMinion);
     blueEntities.push_back(aMinion);
 
+
     int blueMod= 1;
     int redMod=1;
     PlCh* aPlCh;
@@ -107,7 +99,7 @@ World::World(vector<User *> *vect)
         }
         else
         {
-            aPlCh = new PlCh(2,200,1300 + blueMod * 100, this, vect->at(i)->getName());
+            aPlCh = new PlCh(2,250,2600 + blueMod * 100, this, vect->at(i)->getName());
             vect->at(i)->setCharacter(aPlCh);
             allEntities.push_back(aPlCh);
             blueEntities.push_back(aPlCh);

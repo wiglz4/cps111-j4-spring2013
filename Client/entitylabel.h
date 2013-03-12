@@ -13,7 +13,6 @@ protected:
 
 public:
     EntityLabel(int id, int initTeam, int type, int posX, int posY, int pHealth, int nState, QString pName, QWidget *parent = 0);
-    void mousePressEvent(QMouseEvent *ev);
     void setID(int newID);
     void setCounter(int newCounter){ counter = counter + newCounter;}
     int getID(){return ID;}

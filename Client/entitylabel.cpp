@@ -24,11 +24,6 @@ EntityLabel::EntityLabel(int id, int type, int initTeam, int posX, int posY, int
     qDebug() << this->styleSheet();
 }
 
-void EntityLabel::mousePressEvent(QMouseEvent *ev)
-{
-
-}
-
 void EntityLabel::updateStyleSheet(){
     this->setStyleSheet(STYLE_BEGIN + QString("%1").arg(team) + "/" + QString("%1").arg(type) + "/" +
                         QString("%1").arg(state) + "/" + QString("%1").arg(counter) + STYLE_END);

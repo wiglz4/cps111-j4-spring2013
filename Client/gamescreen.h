@@ -56,6 +56,7 @@ private slots:
     void serverDisconnected();
     void unPause();
     void readCommand();
+    void lblClicked();
     
 private:
     Ui::gameScreen *gsui;
