@@ -3,6 +3,8 @@
 #include "ui_gamescreen.h"
 #include "scorewindow.h"
 #include "ui_scorewindow.h"
+#include <QDesktopWidget>
+#include <QSize>
 
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
@@ -15,7 +17,27 @@ Widget::Widget(QWidget *parent) :
 
     mySocket = new QTcpSocket(this);
 
+    QDesktopWidget *desktop = QApplication::desktop();
+    int screenWidth, width;
+    int screenHeight, height;
+    int x, y;
+    QSize windowSize;
 
+    screenWidth = desktop->width();
+    screenHeight = desktop->height();
+
+    windowSize = size();
+    width = windowSize.width();
+    height = windowSize.height();
+
+    x = (screenWidth - width)/2;
+    y = (screenHeight - height)/2;
+    y -= 50;
+
+    move(x, y);
+    setFixedSize(windowSize.width(), windowSize.height());
+
+    setWindowFlags(Qt::FramelessWindowHint);
 }
 
 Widget::~Widget()

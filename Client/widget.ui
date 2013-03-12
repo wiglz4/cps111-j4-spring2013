@@ -19,6 +19,9 @@
     <height>375</height>
    </size>
   </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::DefaultContextMenu</enum>
+  </property>
   <property name="windowTitle">
    <string>Gate = Down</string>
   </property>

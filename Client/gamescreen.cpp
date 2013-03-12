@@ -11,6 +11,8 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <QDesktopWidget>
+#include <QSize>
 
 gameScreen::gameScreen(QWidget *parent) :
     QWidget(parent),
@@ -39,21 +41,12 @@ gameScreen::gameScreen(QWidget *parent) :
     pause->setGeometry(0, 0, 4000, 3000);
     pause->setStyleSheet("background-color:rgba(0, 0, 0, 100);");
     pause->hide();
-    /*
-    wPressed = false;
-    aPressed = false;
-    sPressed = false;
-    dPressed = false;*/
     pPressed = false;
 
     upPressed = false;
     rightPressed = false;
     downPressed = false;
     leftPressed = false;
-
-    //counter = 1;
-
-
 
     menu = new QPushButton(gameFrame);
     menu->setGeometry(588,310,121,31);
@@ -75,6 +68,25 @@ gameScreen::gameScreen(QWidget *parent) :
     bar->setGeometry(700,265,21,100);
     bar->setStyleSheet("background:url(:/images/bar.png) no-repeat top left;");
     bar->hide();
+
+    QDesktopWidget *desktop = QApplication::desktop();
+    int screenWidth, width;
+    int screenHeight, height;
+    int x, y;
+    QSize windowSize;
+
+    screenWidth = desktop->width();
+    screenHeight = desktop->height();
+
+    windowSize = size();
+    width = windowSize.width();
+    height = windowSize.height();
+
+    x = (screenWidth - width)/2;
+    y = (screenHeight - height)/2;
+    y -= 50;
+
+    move(x, y);
 
 }
 
@@ -578,12 +590,7 @@ void gameScreen::createEntity(int type, int id, int team, int health, int state,
 
 
 void gameScreen::moveEntity(int id, int x, int y){
-<<<<<<< HEAD
-    qDebug()<< "move entity begin";
-    EntityLabel *thing = objects.at(id--);
-=======
     EntityLabel *thing = gameScreen::getByID(id);
->>>>>>> 672ab8b446f7a69cd94c3807468c9af7fd2cdfa2
     thing->move(x, y);
     //thing->setCounter(1);
     thing->nextFrame();
@@ -623,12 +630,8 @@ EntityLabel* gameScreen::getByID(int id)
 }
 
 void gameScreen::animate(int id){
-<<<<<<< HEAD
     qDebug() << "animate begin";
-    EntityLabel *thing = objects.at(id--);
-=======
     EntityLabel *thing = gameScreen::getByID(id);
->>>>>>> 672ab8b446f7a69cd94c3807468c9af7fd2cdfa2
     thing->updateStyleSheet();
     qDebug() << "animate end";
 }
