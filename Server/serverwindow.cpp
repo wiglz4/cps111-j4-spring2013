@@ -108,10 +108,10 @@ void serverWindow::dataReceived()
         {
             if(sock == unUsers.at(i)->getSock())
             {
-                 QString str = sock->readLine();
-                 qDebug()<<str;
-                 unUsers.at(i)->command(str.toStdString());
-                 break;
+                QString str = sock->readLine();
+                qDebug()<<str;
+                unUsers.at(i)->command(str.toStdString());
+                break;
             }
         }
     }
@@ -132,19 +132,26 @@ void serverWindow::timerHit()
     if(timerGo)
     {
         timerGo = false;
-        game = new Game(&unUsers);
+        game = new Game(this, &unUsers);
         timer->start();
     }
     else
     {
-        QString message = game->onTick().c_str();
-        if(message != "" && message != "97179\n")
+        if(!game->getOver())
         {
-            for(uint i = 0; i < unUsers.size(); ++i)
+            QString message = game->onTick().c_str();
+            if(message != "" && message != "97179\n")
             {
-                //qDebug()<<message;
-                unUsers.at(i)->getSock()->write(message.toAscii());
+                for(uint i = 0; i < unUsers.size(); ++i)
+                {
+                    qDebug()<<message;
+                    unUsers.at(i)->getSock()->write(message.toAscii());
+                }
             }
+        }
+        else
+        {
+            timer->stop();
         }
     }
 }

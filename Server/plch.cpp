@@ -23,7 +23,7 @@ PlCh::PlCh(int cTeam, int newX, int newY, World *newMap, string pName)
     size = 150; //radius
     type = 4;
 
-    atkDamage = 0;//incomplete
+    atkDamage = 2;//incomplete
     atkSpeed = 1;
     armor = 20;
     atkRange = 999;//incomplete
@@ -119,6 +119,65 @@ void PlCh::cheatMode()
     //NEEDS CODING
 }
 
+//Moves player based on keypress, returns new state
+int PlCh::moveManual(){
+    int currentState = 0;
+    //Move (Joel's Magic Mathy Stuff)
+    if(wPressed && !aPressed && !sPressed && !dPressed)
+    {
+        y -= speed;
+        currentState = 1;
+        positionChange = true;
+    }
+    if(wPressed && aPressed&& !sPressed && !dPressed)
+    {
+        y -= (3 * speed) / 4;
+        x -= (3 * speed) / 4;
+        currentState = 8;
+        positionChange = true;
+    }
+    if(!wPressed && aPressed&& !sPressed && !dPressed)
+    {
+        x -= speed;
+        currentState = 7;
+        positionChange = true;
+    }
+    if(!wPressed && aPressed&& sPressed&& !dPressed)
+    {
+        y += (3 * speed) / 4;
+        x -= (3 * speed) / 4;
+        currentState = 6;
+        positionChange = true;
+    }
+    if(!wPressed && !aPressed && sPressed&& !dPressed)
+    {
+        y = y + speed;
+        currentState = 5;
+        positionChange = true;
+    }
+    if(!wPressed && !aPressed && sPressed&& dPressed)
+    {
+        y += (3 * speed) / 4;
+        x += (3 * speed) / 4;
+        currentState = 4;
+        positionChange = true;
+    }
+    if(!wPressed && !aPressed && !sPressed && dPressed)
+    {
+        x += speed;
+        currentState = 3;
+        positionChange = true;
+    }
+    if(wPressed && !aPressed && !sPressed && dPressed)
+    {
+        y -= (3 * speed) / 4;
+        x += (3 * speed) / 4;
+        currentState = 2;
+        positionChange = true;
+    }
+    return currentState;
+}
+
 void PlCh::onTick()
 {
     double distance = 0;
@@ -127,94 +186,39 @@ void PlCh::onTick()
     int tempX;
     int tempY;
     int currentState = state;
-    if(Alive)
+
+    if(Alive) //if player is alive
     {
-        if (wPressed || aPressed|| sPressed|| dPressed)
+        if (wPressed || aPressed|| sPressed|| dPressed) //and if a key is pressed
         {
-            //qDebug()<<"W "<<wPressed<<" A "<<aPressed<<" S "<<sPressed<<" D "<<dPressed;
-            if(wPressed && !aPressed && !sPressed && !dPressed)
-            {
-                //qDebug()<<"ONLY W";
-                y -= speed;
-                currentState = 1;
-                positionChange = true;
-            }
-            if(wPressed && aPressed&& !sPressed && !dPressed)
-            {
-                //qDebug()<<"W AND A";
-                y -= (3 * speed) / 4;
-                x -= (3 * speed) / 4;
-                currentState = 8;
-                positionChange = true;
-            }
-            if(!wPressed && aPressed&& !sPressed && !dPressed)
-            {
-                //qDebug()<<"ONLY A";
-                x -= speed;
-                currentState = 7;
-                positionChange = true;
-            }
-            if(!wPressed && aPressed&& sPressed&& !dPressed)
-            {
-                //qDebug()<<"A AND S";
-                y += (3 * speed) / 4;
-                x -= (3 * speed) / 4;
-                currentState = 6;
-                positionChange = true;
-            }
-            if(!wPressed && !aPressed && sPressed&& !dPressed)
-            {
-                //qDebug()<<"ONLY S";
-                y = y + speed;
-                currentState = 5;
-                positionChange = true;
-            }
-            if(!wPressed && !aPressed && sPressed&& dPressed)
-            {
-                //qDebug()<<"S AND D";
-                y += (3 * speed) / 4;
-                x += (3 * speed) / 4;
-                currentState = 4;
-                positionChange = true;
-            }
-            if(!wPressed && !aPressed && !sPressed && dPressed)
-            {
-                //qDebug()<<"ONLY D";
-                x += speed;
-                currentState = 3;
-                positionChange = true;
-            }
-            if(wPressed && !aPressed && !sPressed && dPressed)
-            {
-                //qDebug()<<"D AND W";
-                y -= (3 * speed) / 4;
-                x += (3 * speed) / 4;
-                currentState = 2;
-                positionChange = true;
-            }
+           currentState = moveManual(); //move him
         }
-        //}
         else
         {
-            if(target != NULL)
+            if(target != NULL) //if player is alive and not moving and the target is not null
             {
+                //calculate distance to target
                 distance = sqrt(pow(target->getY()-y, 2) + pow(target->getX() - x, 2));
-                if(distance < detRange)
+                if(distance < detRange) //if target is within detection range
                 {
-                    if(distance < atkRange)
+                    if(distance < atkRange) //if target is also within attack range
                     {
 
-                        if(count->Check())
+                        if(count->Check()) //Who knows
                         {
-                            qDebug()<<"Attacking";
-                            if(Attack())
+
+                            if(target->getAttackable()) //check if can be attacked
                             {
+                                Attack(); //attack
+                                qDebug()<<"Attacking"; //see if attacked: REM
+
+                            } else { //if you can't attack it, set it to null
                                 target = NULL;
                             }
                         }
 
                     }
-                    else
+                    else //if target is not in detect range but not in attack range, move within attack range
                     {
                         theta = asin((y-target->getY())/distance);
                         delta = acos((x-target->getX())/distance);
@@ -243,30 +247,31 @@ void PlCh::onTick()
                         }
                     }
                 }
-                else
+                else //if target is not within attack or detect range
                 {
-                    Entity *ent = map->getNAE(x,y,team, distance);
-                    if (ent != NULL)
+                    Entity *ent = map->getNAE(x,y,team, distance); //What on earth does this do?
+                    if (ent != NULL) // if entity is not null
                     {
-                        if(distance < detRange)
+                        if(distance < detRange) //and if entity is within detection range
                         {
-                            target = ent;
-                            if (distance < atkRange)
+                            target = ent; //set target to entity
+                            if (distance < atkRange)  //and if entity is within attack range
                             {
 
-                                if(count->Check())
+                                if(count->Check()) //still not sure what this does...
                                 {
-                                    qDebug()<<"Attacking";
+                                    qDebug()<<"Attacking2";
                                     //State Calculations here
-                                    if(Attack())
+                                    if(Attack()) //prolly set up wrong
                                     {
-                                        target = NULL;
+                                        target = NULL; //set target to null
                                     }
                                 }
 
                             }
-                            else
+                            else //if entity is within detection range but not attack range
                             {
+                                //Magical Math that Moves!
                                 theta = asin((y-target->getY())/distance);
                                 delta = acos((x-target->getX())/distance);
                                 if(target->getY() > y)
@@ -297,8 +302,8 @@ void PlCh::onTick()
                         }
                     }
                 }
-            }
-            else
+            }else //if player is alive, not moving, and the target is null.
+                //This looks suspiciously like repititon, Joel!
             {
                 Entity *ent = map->getNAE(x,y,team, distance);
                 if (ent != NULL)
@@ -311,7 +316,7 @@ void PlCh::onTick()
 
                             if(count->Check())
                             {
-                                qDebug()<<"Attacking";
+                                qDebug()<<"Attacking3";
                                 //SET STATE HERE
                                 if(Attack())
                                 {
@@ -352,28 +357,33 @@ void PlCh::onTick()
                 }
             }
         }
-        if(currentState != state)
+        if(currentState != state) //if player is alive and state changes
         {
-            state = currentState;
-            stateChange = true;
+            state = currentState; //update state
+            stateChange = true;   //tell someone about it
         }
     }
-    else
+    else //if player is not alive
     {
-        if(count->Check())
+        if(count->Check()) //STILL not sure what this does...
         {
-            Alive = true;
-            if(team == 1)
+            Alive = true; //Bring him to life!!!
+            positionChange = true;
+            stateChange = true;
+            healthChange = true;
+            curHealth = maxHealth;
+            state = 5;
+            if(team == 1) //Move him, based on team
             {
-                x = 999;
-                y = 999;
+                x = 250;
+                y = 2700;
             }
             else
             {
-                x = 999;
-                y = 999;
+                x = 250;
+                y = 2700;
             }
-            count->reset(50/atkSpeed);
+            count->reset(50/atkSpeed); //do something.... Not sure what
         }
 
     }
@@ -383,6 +393,7 @@ string PlCh::getStats(){return points->toString();}
 
 bool PlCh::damage(int value)
 {
+
     if(Alive)
     {
     curHealth = (double)curHealth - (double) value * (double) armor / 100;
@@ -401,12 +412,41 @@ void PlCh::die()
     //NEEDS CODING
     Alive = false;
     newDead = true;
-    count->reset(1500);
+    curHealth = maxHealth;
+    count->reset(250);
+}
+
+void PlCh::respawn()
+{
+
 }
 
 bool PlCh::Attack()
 {
-    return target->damage(atkDamage);
+    //qDebug() << target->getAttackable();
+    int t = target->getType();
+    if(t ==1)
+    {
+        qDebug()<<"Core";
+    }
+    else if (t ==2)
+    {
+        qDebug()<<"Tower";
+    }
+    else if (t ==3)
+    {
+        qDebug()<<"Minion";
+    }
+    else
+    {
+        qDebug()<<".....We didn't code this yet......";
+    }
+    if (target->getAttackable() == true)
+    {
+        return target->damage(atkDamage);
+    }
+    return false;
+
 }
 
 

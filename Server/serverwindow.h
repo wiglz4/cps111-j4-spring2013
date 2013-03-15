@@ -1,6 +1,8 @@
 #ifndef SERVERWINDOW_H
 #define SERVERWINDOW_H
 
+class Game;
+
 //NEEDS BUNCHES OF WORK
 #include <vector>
 #include <QTcpSocket>
@@ -17,7 +19,13 @@ namespace Ui {
 class serverWindow;
 }
 
-class serverWindow : public QMainWindow
+class Observer{
+public:
+    virtual void pauseGame() = 0;
+    virtual void unpauseGame() = 0;
+};
+
+class serverWindow : public QMainWindow, public Observer
 {
     Q_OBJECT
     QTimer *timer;
@@ -33,6 +41,9 @@ class serverWindow : public QMainWindow
 public:
     explicit serverWindow(QWidget *parent = 0);
     ~serverWindow();
+    void pauseGame(){qDebug();
+        timer->stop();}
+    void unpauseGame(){timer->start();}
 
 private slots:
     void clientConnected();

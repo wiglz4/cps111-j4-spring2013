@@ -4,6 +4,7 @@
 //NEEDS BUNCHES OF WORK
 
 #include <string>
+#include "stats.h"
 
 class PlCh;
 class QTcpSocket;
@@ -14,6 +15,7 @@ class User
     int team;
     QTcpSocket *sock;
     PlCh *character;
+
 
 
 public:

@@ -4,7 +4,7 @@
 #include "counter.h"
 #include "minion.h"
 #include <sstream>
-
+#include <QDebug>
 //999 is an arbitrary, placeholder value
 
 Minion::Minion(int cTeam, int newX, int newY, World *newMap)
@@ -298,6 +298,7 @@ bool Minion::damage(int value)
         if(curHealth < 0)
         {
             die();
+            qDebug() << "died";
             return true;
         }
     }
@@ -306,6 +307,7 @@ bool Minion::damage(int value)
 
 void Minion::die()
 {
+    attackable = false;
     Alive = false;
     newDead = true;
 }

@@ -54,7 +54,7 @@ private:
     Counter *count;
 
 public:
-    World(vector<User *> *vect);
+    World(vector<User *> *vect, Game* gam);
 
     //returns aPressedpointer to the nearest available enemy, All parameters come from the attacker
     Entity* getNAE(int x, int y, int team, double &distance);

@@ -44,7 +44,14 @@ public:
     virtual Entity* load();
     virtual string displayString();
     virtual void die();
+    virtual void respawn();
     virtual bool Attack();
+
+    //moves player character based on key press, returns new state
+    virtual int moveManual();
+
+    //moves player character based on target, returns new state
+    //virtual int moveAutomatic() = 0;
 };
 
 #endif // PLCH_H

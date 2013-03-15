@@ -99,7 +99,7 @@ void gameScreen::updatePlayer(QStringList player)
 {
     bool ok;
     if(player.at(0).toInt(&ok, 10) == 41) {
-        //    hero = new EntityLabel(wdgtGame);
+        //hero = new EntityLabel(wdgtGame);
         hero->setGeometry(player.at(5).toInt(&ok,10),player.at(6).toInt(&ok,10),110,110);
         hero->setStyleSheet("background:url(:/images/2/4/3/1.png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
         hero->show();
@@ -123,6 +123,7 @@ void gameScreen::unPause()
 
 void gameScreen::keyPressEvent(QKeyEvent *e)
 {
+    //qDebug() << "button";
     if(e->key() == Qt::Key_P && !e->isAutoRepeat())
     {
 
@@ -149,7 +150,7 @@ void gameScreen::keyPressEvent(QKeyEvent *e)
         //REM
         //wPressed = true;
         sock->write("2 1 ");
-        qDebug() << "W";
+        //qDebug() << "W";
         //REM
     }
     if(e->key() == Qt::Key_A && !e->isAutoRepeat())
@@ -157,7 +158,7 @@ void gameScreen::keyPressEvent(QKeyEvent *e)
         //REM
         //aPressed = true;
         sock->write("2 4 ");
-        qDebug() << "A";
+        //qDebug() << "A";
         //REM
     }
     if(e->key() == Qt::Key_S && !e->isAutoRepeat())
@@ -165,7 +166,7 @@ void gameScreen::keyPressEvent(QKeyEvent *e)
         //REM
         //sPressed = true;
         sock->write("2 3 ");
-        qDebug() << "S";
+        //qDebug() << "S";
         //REM
     }
     if(e->key() == Qt::Key_D && !e->isAutoRepeat())
@@ -173,7 +174,7 @@ void gameScreen::keyPressEvent(QKeyEvent *e)
         //REM
         //dPressed = true;
         sock->write("2 2 ");
-        qDebug() << "D";
+        //qDebug() << "D";
         //REM
     }
     if(e->key() == Qt::Key_Up)
@@ -213,7 +214,7 @@ void gameScreen::keyReleaseEvent(QKeyEvent *e)
         //REM
         //wPressed = false;
         sock->write("3 1 ");
-        qDebug() << "~W";
+        //qDebug() << "~W";
         //REM
     }
     if(e->key() == Qt::Key_A && !e->isAutoRepeat())
@@ -221,7 +222,7 @@ void gameScreen::keyReleaseEvent(QKeyEvent *e)
         //REM
         //aPressed = false;
         sock->write("3 4 ");
-        qDebug() << "~A";
+        //qDebug() << "~A";
         //REM
     }
     if(e->key() == Qt::Key_S && !e->isAutoRepeat())
@@ -229,7 +230,7 @@ void gameScreen::keyReleaseEvent(QKeyEvent *e)
         //REM
         //sPressed = false;
         sock->write("3 3 ");
-        qDebug() << "~S";
+        //qDebug() << "~S";
         //REM
     }
     if(e->key() == Qt::Key_D && !e->isAutoRepeat())
@@ -237,7 +238,7 @@ void gameScreen::keyReleaseEvent(QKeyEvent *e)
         //REM
         //dPressed = false;
         sock->write("3 2 ");
-        qDebug() << "~D";
+        //qDebug() << "~D";
         //REM
     }
     if(e->key() == Qt::Key_Up)
@@ -543,7 +544,11 @@ void gameScreen::readCommand()
                         //strm >> id;
                         id = List.at(iterate).toInt();
                         ++iterate;
+                        qDebug() << "DIED";
                         exterminate(id);
+                        break;
+                    case 50:
+                        qDebug() << "case 50";
                         break;
 
                     default:
@@ -592,7 +597,7 @@ void gameScreen::moveEntity(int id, int x, int y){
     thing->move(x, y);
     //thing->setCounter(1);
     thing->nextFrame();
-    qDebug() << "move entity end";
+   //qDebug() << "move entity end";
 }
 
 void gameScreen::changeEntityHealth(int id, int healthPercent){
@@ -607,6 +612,8 @@ void gameScreen::changeEntityState(int id, int state){
 
 void gameScreen::exterminate(int id){
     EntityLabel *thing = gameScreen::getByID(id);
+   //qDebug() << thing;
+    qDebug() << "DEAD THING";
     thing->die();
 }
 
@@ -628,8 +635,8 @@ EntityLabel* gameScreen::getByID(int id)
 }
 
 void gameScreen::animate(int id){
-    qDebug() << "animate begin";
+    //qDebug() << "animate begin";
     EntityLabel *thing = gameScreen::getByID(id);
     thing->updateStyleSheet();
-    qDebug() << "animate end";
+    //qDebug() << "animate end";
 }

@@ -4,6 +4,7 @@
 
 #include <string>
 #include <sstream>
+#include <QDebug>
 
 Core::Core(int cTeam, int newX, int newY, World *newMap)
 {
@@ -31,6 +32,7 @@ void Core::endGame()
 bool Core::damage(int value)
 {
     curHealth = curHealth - value;
+    qDebug() << curHealth;
     if(curHealth < 0)
     {
         endGame();

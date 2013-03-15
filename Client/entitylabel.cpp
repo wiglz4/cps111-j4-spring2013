@@ -21,7 +21,7 @@ EntityLabel::EntityLabel(int id, int type, int initTeam, int posX, int posY, int
     }
     this->setGeometry(posX,posY,width,height);
     updateStyleSheet();
-    qDebug() << this->styleSheet();
+    //qDebug() << this->styleSheet();
 }
 
 void EntityLabel::updateStyleSheet(){
@@ -31,9 +31,16 @@ void EntityLabel::updateStyleSheet(){
 
 void EntityLabel::die()
 {
-    if(ID == 3){
-        hide();
-    }
+   qDebug() << this->type;
+   if (this->type == 3){
+        qDebug() << "Should hide";
+        this->deleteLater();
+   } else if (this->type == 4){
+       qDebug() << "Respawn";
+       this->hide();
+      //gameScreen::pause->show();
+   }
+
 }
 
 void EntityLabel::nextFrame(){
@@ -50,7 +57,7 @@ void EntityLabel::nextFrame(){
             counter++;
         }
     }
-    qDebug() << counter;
+    //qDebug() << counter;
 }
 
 //static constants

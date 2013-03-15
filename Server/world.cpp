@@ -12,9 +12,10 @@
 
 #include <QDebug>
 
-World::World(vector<User *> *vect)
+World::World(vector<User *> *vect, Game* gam)
 {
     //NEEDS CODING
+    game = gam;
 
     Core *aCore = new Core(1, 100, 100,this);
     allEntities.push_back(aCore);
@@ -36,6 +37,12 @@ World::World(vector<User *> *vect)
     aTower = new Tower(1, 100, 900, this);
     allEntities.push_back(aTower);
     redEntities.push_back(aTower);
+
+    //Debugging//
+    aTower = new Tower(1, 1000, 2000, this);
+    allEntities.push_back(aTower);
+    redEntities.push_back(aTower);
+    //Debugging//
 
     aTower = new Tower(2, 200, 300, this);
     allEntities.push_back(aTower);
@@ -212,14 +219,14 @@ string World::Display()
     {
         strm<<shots.at(i)->DispShot();
     }
-    for(int i = 0; i <allMinions.size(); ++i)
+    /*for(int i = 0; i <allMinions.size(); ++i)
     {
         if(!allMinions.at(i)->getAlive())
         {
             delete allMinions.at(i);
             allMinions.erase(allMinions.begin() + i);
         }
-    }
+    }*/
     strm<<"\n";
     return strm.str();
 }

@@ -3,6 +3,7 @@
 #include <QWidget>
 #include <QLabel>
 
+
 class EntityLabel : public QLabel
 {
     Q_OBJECT
