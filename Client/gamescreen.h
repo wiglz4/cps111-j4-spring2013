@@ -24,7 +24,28 @@ class gameScreen;
 #include <QTimer>
 //REM
 
+class ScoreObject
+{
+private:
+    QString user;
+    int playerDeaths;
+    int minionKills;
+    int towerKills;
+    int playerTeam;
 
+public:
+    void setDeaths(int i){playerDeaths = i;}
+    void setMKills(int i){minionKills = i;}
+    void setTKills(int i){towerKills = i;}
+    void setTeam(int i){playerTeam = i;}
+    void setUsername(QString &s){user = s;}
+
+    int deaths(){return playerDeaths;}
+    int mKills(){return minionKills;}
+    int tKills(){return towerKills;}
+    int team(){return playerTeam;}
+    QString username(){return user;}
+};
 
 
 class gameScreen : public QWidget
