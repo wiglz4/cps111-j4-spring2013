@@ -24,7 +24,7 @@ Tower::Tower(int cTeam, int newX, int newY, World *newMap)
     size = 150; //radius
     type = 2;
 
-    atkDamage = 2000;
+    atkDamage = 0;
     atkSpeed = 1;
     armor = 20;
     atkRange = 999;

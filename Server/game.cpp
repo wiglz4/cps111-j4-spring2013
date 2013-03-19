@@ -26,7 +26,7 @@ std::string Game::onTick()
     }
     else if(newOver)
     {
-        QString packet = "97179 50 P BobJonesIII 1 4 20 3 200\n";
+        QString packet = "97179 50 P BobJonesIII 1 2 20 3 P DrStephenJones 2 4 35 2 2000050\n";
         qDebug()<<"Packet made";
         qDebug() << packet;
         //should pull stats from players and place them in this order:

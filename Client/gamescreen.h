@@ -103,22 +103,14 @@ protected:
     void closeEvent(QCloseEvent *);
     void resizeEvent ( QResizeEvent * event );
 
-    //REM
-    QTimer *timer;/*
-    bool wPressed;
-    bool aPressed;
-    bool sPressed;
-    bool dPressed;*/
+    QTimer *timer;
+
     bool pPressed;
-    //REM
 
     bool upPressed;
     bool rightPressed;
     bool downPressed;
     bool leftPressed;
-
-
-    //int counter;
 };
 
 #endif // GAMESCREEN_H

@@ -38,7 +38,6 @@ void EntityLabel::die()
    } else if (this->type == 4){
        qDebug() << "Respawn";
        this->hide();
-      //gameScreen::pause->show();
    }
 
 }

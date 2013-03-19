@@ -1,6 +1,7 @@
 #include "gamescreen.h"
 #include "ui_gamescreen.h"
 #include "entitylabel.h"
+#include "scorewindow.h"
 #include <QPixmap>
 #include <QString>
 #include <QByteArray>
@@ -147,63 +148,35 @@ void gameScreen::keyPressEvent(QKeyEvent *e)
     }
     if(e->key() == Qt::Key_W && !e->isAutoRepeat())
     {
-        //REM
-        //wPressed = true;
         sock->write("2 1 ");
-        //qDebug() << "W";
-        //REM
     }
     if(e->key() == Qt::Key_A && !e->isAutoRepeat())
     {
-        //REM
-        //aPressed = true;
         sock->write("2 4 ");
-        //qDebug() << "A";
-        //REM
     }
     if(e->key() == Qt::Key_S && !e->isAutoRepeat())
     {
-        //REM
-        //sPressed = true;
         sock->write("2 3 ");
-        //qDebug() << "S";
-        //REM
     }
     if(e->key() == Qt::Key_D && !e->isAutoRepeat())
     {
-        //REM
-        //dPressed = true;
         sock->write("2 2 ");
-        //qDebug() << "D";
-        //REM
     }
     if(e->key() == Qt::Key_Up)
     {
-        //gsui->wdgtPicture->scroll(0, -10);
-        //wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y()+20);
         upPressed = true;
-        //gsui->wdgtPicture->repaint();
     }
     if(e->key() == Qt::Key_Left)
     {
-        //wdgtPicture->move(wdgtPicture->x()+20, wdgtPicture->y());
-        //gsui->wdgtPicture->scroll(10, 0);
         leftPressed = true;
-        //gsui->wdgtPicture->repaint();
     }
     if(e->key() == Qt::Key_Down)
     {
-        //wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y()-20);
-        //gsui->wdgtPicture->scroll(0, 10);
         downPressed = true;
-        //gsui->wdgtPicture->repaint();
     }
     if(e->key() == Qt::Key_Right)
     {
-        //wdgtPicture->move(wdgtPicture->x()-20, wdgtPicture->y());
-        //gsui->wdgtPicture->scroll(-10, 0);
         rightPressed = true;
-        //gsui->wdgtPicture->repaint();
     }
 }
 
@@ -211,68 +184,39 @@ void gameScreen::keyReleaseEvent(QKeyEvent *e)
 {
     if(e->key() == Qt::Key_W && !e->isAutoRepeat())
     {
-        //REM
-        //wPressed = false;
         sock->write("3 1 ");
-        //qDebug() << "~W";
-        //REM
     }
     if(e->key() == Qt::Key_A && !e->isAutoRepeat())
     {
-        //REM
-        //aPressed = false;
         sock->write("3 4 ");
-        //qDebug() << "~A";
-        //REM
     }
     if(e->key() == Qt::Key_S && !e->isAutoRepeat())
     {
-        //REM
-        //sPressed = false;
         sock->write("3 3 ");
-        //qDebug() << "~S";
-        //REM
     }
     if(e->key() == Qt::Key_D && !e->isAutoRepeat())
     {
-        //REM
-        //dPressed = false;
         sock->write("3 2 ");
-        //qDebug() << "~D";
-        //REM
     }
     if(e->key() == Qt::Key_Up)
     {
-        //gsui->wdgtPicture->scroll(0, -10);
-        //wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y()+20);
         upPressed = false;
-        //gsui->wdgtPicture->repaint();
     }
     if(e->key() == Qt::Key_Left)
     {
-        //wdgtPicture->move(wdgtPicture->x()+20, wdgtPicture->y());
-        //gsui->wdgtPicture->scroll(10, 0);
         leftPressed = false;
-        //gsui->wdgtPicture->repaint();
     }
     if(e->key() == Qt::Key_Down)
     {
-        //wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y()-20);
-        //gsui->wdgtPicture->scroll(0, 10);
         downPressed = false;
-        //gsui->wdgtPicture->repaint();
     }
     if(e->key() == Qt::Key_Right)
     {
-        //wdgtPicture->move(wdgtPicture->x()-20, wdgtPicture->y());
-        //gsui->wdgtPicture->scroll(-10, 0);
         rightPressed = false;
-        //gsui->wdgtPicture->repaint();
     }
 
 }
 
-//REM
 void gameScreen::onTimerHit()
 {
 
@@ -281,49 +225,41 @@ void gameScreen::onTimerHit()
     {
         //1
         wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() + 6);
-        //wdgtGame->scroll(0,6);
     }
     if(upPressed && rightPressed && !downPressed && !leftPressed)
     {
         //2
         wdgtPicture->move(wdgtPicture->x() - 4, wdgtPicture->y() + 4);
-        //wdgtGame->scroll(-4,+4);
     }
     if(!upPressed && rightPressed && !downPressed && !leftPressed)
     {
         //3
         wdgtPicture->move(wdgtPicture->x() -6 , wdgtPicture->y());
-        //wdgtGame->scroll(-6,0);
     }
     if(!upPressed && rightPressed && downPressed && !leftPressed)
     {
         //4
         wdgtPicture->move(wdgtPicture->x()-4, wdgtPicture->y() - 4);
-        //wdgtGame->scroll(-4,-4);
     }
     if(!upPressed && !rightPressed && downPressed && !leftPressed)
     {
         //5
         wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() - 6);
-        //wdgtGame->scroll(0,-6);
     }
     if(!upPressed && !rightPressed && downPressed && leftPressed)
     {
         //6
         wdgtPicture->move(wdgtPicture->x() + 4, wdgtPicture->y() - 4);
-        //wdgtGame->scroll(4,-4);
     }
     if(!upPressed && !rightPressed && !downPressed && leftPressed)
     {
         //7
         wdgtPicture->move(wdgtPicture->x() + 6, wdgtPicture->y());
-        //wdgtGame->scroll(6,0);
     }
     if(upPressed && !rightPressed && !downPressed && leftPressed)
     {
         //8
         wdgtPicture->move(wdgtPicture->x() + 4, wdgtPicture->y() + 4);
-        //wdgtGame->scroll(4, 4);
     }
 
 }
@@ -348,20 +284,6 @@ void gameScreen::return_to_menu(){
 
 void gameScreen::readCommand()
 {
-    /*
-    while (sock->canReadLine()) {
-        QString str = sock->readLine();
-        qDebug() << str;
-        QStringList tempList = str.split(" ", QString::SkipEmptyParts);
-        bool ok;
-        int command = tempList.at(0).toInt(&ok, 10);
-        int type = command/10;
-        if(ok){
-
-        }
-    }*/
-
-
     while(sock->canReadLine())
     {
         QString str = sock->readLine();
@@ -388,7 +310,6 @@ void gameScreen::readCommand()
                     playername = "";
                     entv = List.at(iterate).toInt();
                     ++iterate;
-                    //strm>>entv;
                     type = entv/10;
                     switch (entv)
                     {
@@ -397,9 +318,6 @@ void gameScreen::readCommand()
                     case 21: //tower
                     case 31: //minion
                     case 41: //player
-                        /*strm >> id >> team >> pHealth >> state >> x >> y;
-                    temp = strm.str();
-                    playername = temp.c_str();*/
                         id = List.at(iterate).toInt();
                         ++iterate;
                         team = List.at(iterate).toInt();
@@ -422,7 +340,6 @@ void gameScreen::readCommand()
                         //position change
                     case 32: //minion
                     case 42: //player
-                        //strm >> id >> x >> y;
                         id = List.at(iterate).toInt();
                         ++iterate;
                         x = List.at(iterate).toInt();
@@ -438,7 +355,6 @@ void gameScreen::readCommand()
                     case 23: //tower
                     case 33: //minion
                     case 43: //player
-                        //strm >> id >> state;
                         id = List.at(iterate).toInt();
                         ++iterate;
                         state = List.at(iterate).toInt();
@@ -451,7 +367,6 @@ void gameScreen::readCommand()
                         //state and position change
                     case 34: //minion
                     case 44: //player
-                        //strm >> id >> state >> x >> y;
                         id = List.at(iterate).toInt();
                         ++iterate;
                         state = List.at(iterate).toInt();
@@ -471,7 +386,6 @@ void gameScreen::readCommand()
                     case 25: //tower
                     case 35: //minion
                     case 45: //player
-                        //strm >> id >> pHealth;
                         id = List.at(iterate).toInt();
                         ++iterate;
                         pHealth = List.at(iterate).toInt();
@@ -483,7 +397,6 @@ void gameScreen::readCommand()
                         //health and position change
                     case 36: //minion
                     case 46: //player
-                        //strm >> id >> pHealth >> x >> y;
                         id = List.at(iterate).toInt();
                         ++iterate;
                         pHealth = List.at(iterate).toInt();
@@ -502,7 +415,6 @@ void gameScreen::readCommand()
                     case 27: //tower
                     case 37: //minion
                     case 47: //player
-                        //strm >> id >> pHealth >> state;
                         id = List.at(iterate).toInt();
                         ++iterate;
                         pHealth = List.at(iterate).toInt();
@@ -518,7 +430,6 @@ void gameScreen::readCommand()
                         //heath state and position change
                     case 38: //minion
                     case 48: //player
-                        //strm >> id >> pHealth >> state >> x >> y;
                         id = List.at(iterate).toInt();
                         ++iterate;
                         pHealth = List.at(iterate).toInt();
@@ -541,19 +452,52 @@ void gameScreen::readCommand()
                     case 29: //tower
                     case 39: //minion
                     case 49: //player
-                        //strm >> id;
                         id = List.at(iterate).toInt();
                         ++iterate;
                         qDebug() << "DIED";
                         exterminate(id);
                         break;
+
+                        //endgame
                     case 50:
                         qDebug() << "case 50";
+                        ScoreWindow *s = new ScoreWindow;
+                        s->connectWidget(w);
+                        int deaths;
+                        int mKills;
+                        int tKills;
+                        int team;
+                        QString name;
+                        while(List.at(iterate).toStdString() == "P"){
+                            ++iterate;
+                            ScoreObject *score = new ScoreObject;
+                            name = List.at(iterate);
+                            ++iterate;
+                            team = List.at(iterate).toInt();
+                            ++iterate;
+                            tKills = List.at(iterate).toInt();
+                            ++iterate;
+                            mKills = List.at(iterate).toInt();
+                            ++iterate;
+                            deaths = List.at(iterate).toInt();
+                            ++iterate;
+                            score->setDeaths(deaths);
+                            score->setMKills(mKills);
+                            score->setTeam(team);
+                            score->setTKills(tKills);
+                            score->setUsername(name);
+                            s->addScore(score);
+                        }
+                        int time;
+                        time = List.at(iterate).toInt();
+                        s->addTime(time);
+                        this->hide();
+                        s->show();
                         break;
 
-                    default:
+                    /*default:
                         qDebug() << "Error code AAUGH: Unidentified Case: " << entv;
-                        break;
+                        break;*/
                     }
                 }
             }
@@ -595,9 +539,7 @@ void gameScreen::createEntity(int type, int id, int team, int health, int state,
 void gameScreen::moveEntity(int id, int x, int y){
     EntityLabel *thing = gameScreen::getByID(id);
     thing->move(x, y);
-    //thing->setCounter(1);
     thing->nextFrame();
-   //qDebug() << "move entity end";
 }
 
 void gameScreen::changeEntityHealth(int id, int healthPercent){
@@ -612,7 +554,6 @@ void gameScreen::changeEntityState(int id, int state){
 
 void gameScreen::exterminate(int id){
     EntityLabel *thing = gameScreen::getByID(id);
-   //qDebug() << thing;
     qDebug() << "DEAD THING";
     thing->die();
 }
@@ -635,8 +576,6 @@ EntityLabel* gameScreen::getByID(int id)
 }
 
 void gameScreen::animate(int id){
-    //qDebug() << "animate begin";
     EntityLabel *thing = gameScreen::getByID(id);
     thing->updateStyleSheet();
-    //qDebug() << "animate end";
 }

@@ -3,14 +3,18 @@
 #include "ui_scorewindow.h"
 #include "gamescreen.h"
 #include "ui_widget.h"
+#include "gamescreen.h"
 #include <QDebug>
 #include <QPushButton>
 #include <QDesktopWidget>
 #include <QSize>
+#include <QFrame>
+
 
 ScoreWindow::ScoreWindow(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::ScoreWindow)
+    ui(new Ui::ScoreWindow),
+    isEndgame(false), nextY(34)
 {
     ui->setupUi(this);
     main = new QPushButton(this);
@@ -71,4 +75,84 @@ void ScoreWindow::on_btnExit2_clicked()
 void ScoreWindow::connectWidget(Widget *w){
     this->w = w;
     connect(this->btnExit2, SIGNAL(clicked()), this, SLOT(on_btnExit2_clicked()));
+}
+
+void ScoreWindow::addScore(ScoreObject *s){
+    qDebug() << "added score";
+    if(!isEndgame){
+        makeEndGame();
+    }
+    QLabel *label = new QLabel(ui->frScore);
+    label->setGeometry(4, nextY, 20, 20);
+    if(s->team() == 1){
+        label->setStyleSheet("background:#44707b");
+    }else if (s->team() == 2){
+        label->setStyleSheet("background:#a23a1d");
+    }
+    label->show();
+    label = new QLabel(ui->frScore);
+    label->setGeometry(32, nextY, 122, 20);
+    label->setText(s->username());
+    label->show();
+    label = new QLabel(ui->frScore);
+    label->setGeometry(162, nextY, 66, 20);
+    label->setAlignment(Qt::AlignRight);
+    label->setText(QString::number(s->deaths()));
+    label->show();
+    label = new QLabel(ui->frScore);
+    label->setGeometry(236, nextY, 66, 20);
+    label->setAlignment(Qt::AlignRight);
+    label->setText(QString::number(s->tKills()));
+    label->show();
+    label = new QLabel(ui->frScore);
+    label->setGeometry(310, nextY, 78, 20);
+    label->setAlignment(Qt::AlignRight);
+    label->setText(QString::number(s->mKills()));
+    label->show();
+    nextY += 26;
+}
+
+void ScoreWindow::addTime(int t){
+    qDebug() << "added time";
+    ui->lblTTime->setText("Game Time:");
+    int tenth;
+    int seconds;
+    int minutes;
+    int hours;
+    int temp;
+    tenth = t/100;
+    temp = t % 100;
+    if (temp >= 50){
+        tenth++;
+    }
+    seconds = tenth/10;
+    tenth = tenth % 10;
+    minutes = seconds/60;
+    seconds = seconds % 60;
+    hours = minutes/60;
+    minutes = minutes % 60;
+    ui->lblTime->setText(QString::number(hours) + ":" + QString::number(minutes) + ":" +
+                         QString::number(seconds) + "." + QString::number(tenth));
+}
+
+
+void ScoreWindow::makeEndGame(){
+    ui->frScore->setFrameShape(QFrame::Box);
+    ui->frScore->setStyleSheet("background:rgb(100,100,100);");
+    ui->line->setFrameShadow(QFrame::Plain);
+    ui->line_2->setFrameShadow(QFrame::Plain);
+    ui->line_3->setFrameShadow(QFrame::Plain);
+    ui->line_4->setFrameShadow(QFrame::Plain);
+    ui->line_5->setFrameShadow(QFrame::Plain);
+    ui->line_6->setFrameShadow(QFrame::Plain);
+    ui->line_7->setFrameShadow(QFrame::Plain);
+    ui->line_8->setFrameShadow(QFrame::Plain);
+    ui->line_9->setFrameShadow(QFrame::Plain);
+
+    ui->lblTName->setText("Name");
+    ui->lblTDeaths->setText("Deaths");
+    ui->lblTTKills->setText("Towers");
+    ui->lblTMKills->setText("Minions");
+
+    isEndgame = true;
 }

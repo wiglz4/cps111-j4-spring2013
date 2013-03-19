@@ -2,11 +2,13 @@
 #define SCOREWINDOW_H
 
 class ScoreWindow;
+class ScoreObject;
 
 #include <QDialog>
 #include "ui_scorewindow.h"
 #include "ui_widget.h"
 #include "widget.h"
+#include "gamescreen.h"
 #include <QPushButton>
 
 class ScoreWindow : public QDialog
@@ -16,6 +18,9 @@ class ScoreWindow : public QDialog
 public:
     explicit ScoreWindow(QWidget *parent = 0);
     void connectWidget(Widget *w);
+    void addScore(ScoreObject *);
+    void addTime(int t);
+    void makeEndGame();
     ~ScoreWindow();
 
     
@@ -28,6 +33,8 @@ private:
     Widget *w;
     QPushButton* main;
     QPushButton* btnExit2;
+    bool isEndgame;
+    int nextY;
 
 signals:
     void start_main();
