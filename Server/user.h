@@ -29,6 +29,7 @@ public:
     QTcpSocket* getSock(){return sock;}
     int getTeam(){return team;}
     std::string getName(){return userName;}
+    QString score();
     //void command(std::basic_string<char, std::char_traits<char>, std::allocator<char> >);
 };
 

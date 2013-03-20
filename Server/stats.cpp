@@ -7,8 +7,17 @@ int Stats::deathPoints = -10;
 string Stats::toString()
 {
     stringstream strm;
-    strm << "6" <<" " << mKills << " " << mKills * minionPoints << " " << tKills << " " << tKills * towerPoints << " " << deaths << " " << deaths * deathPoints << " " << mKills * minionPoints + tKills * towerPoints + deaths * deathPoints << " " << username;
+    strm << tKills << " " << mKills << " " << pKills << " " << deaths;
     return strm.str();
+}
+
+Stats::Stats(string name):
+    username(name),
+    mKills(0),
+    pKills(0),
+    tKills(0),
+    deaths(0)
+{
 }
 
 bool Stats::runTests()
@@ -18,6 +27,7 @@ bool Stats::runTests()
     mKills = 0;
     tKills = 0;
     deaths = 0;
+    pKills = 0;
 
     assert (mKills == 0);
     assert (tKills == 0);

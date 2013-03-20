@@ -13,7 +13,8 @@
 //NEEDS BUNCHES OF WORK
 serverWindow::serverWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::serverWindow)
+    ui(new Ui::serverWindow),
+    ticks(0)
 {
     ui->setupUi(this);
 
@@ -119,6 +120,7 @@ void serverWindow::dataReceived()
 
 void serverWindow::timerHit()
 {
+    ticks += 20;
     /*
     if(game != NULL)
     {

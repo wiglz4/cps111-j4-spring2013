@@ -70,7 +70,7 @@
     <rect>
      <x>25</x>
      <y>141</y>
-     <width>392</width>
+     <width>531</width>
      <height>161</height>
     </rect>
    </property>
@@ -381,12 +381,100 @@
      <string/>
     </property>
    </widget>
+   <widget class="Line" name="line_10">
+    <property name="geometry">
+     <rect>
+      <x>378</x>
+      <y>-31</y>
+      <width>6</width>
+      <height>261</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background:rgba(0,0,0,0);</string>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <property name="lineWidth">
+     <number>0</number>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="Line" name="line_11">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>-38</y>
+      <width>6</width>
+      <height>261</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background:rgba(0,0,0,0);</string>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <property name="lineWidth">
+     <number>0</number>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblTPKills">
+    <property name="geometry">
+     <rect>
+      <x>386</x>
+      <y>8</y>
+      <width>67</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblTScore">
+    <property name="geometry">
+     <rect>
+      <x>458</x>
+      <y>8</y>
+      <width>67</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
   </widget>
   <widget class="QLabel" name="lblTTime">
    <property name="geometry">
     <rect>
-     <x>469</x>
-     <y>296</y>
+     <x>488</x>
+     <y>322</y>
      <width>80</width>
      <height>17</height>
     </rect>
@@ -407,8 +495,8 @@
   <widget class="QLabel" name="lblTime">
    <property name="geometry">
     <rect>
-     <x>551</x>
-     <y>251</y>
+     <x>570</x>
+     <y>274</y>
      <width>199</width>
      <height>70</height>
     </rect>

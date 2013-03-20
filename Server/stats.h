@@ -22,11 +22,12 @@ private:
     int mKills;
     int tKills;
     int deaths;
+    int pKills;
 
     bool tests;
 
 public:
-    Stats(string name):username(name){}
+    Stats(string name);
     void incMKills(){++mKills;}
     void incTKills(){++tKills;}
     void incDeaths(){++deaths;}

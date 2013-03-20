@@ -467,6 +467,7 @@ void gameScreen::readCommand()
                         int mKills;
                         int tKills;
                         int team;
+                        int pKills;
                         QString name;
                         while(List.at(iterate).toStdString() == "P"){
                             ++iterate;
@@ -479,6 +480,8 @@ void gameScreen::readCommand()
                             ++iterate;
                             mKills = List.at(iterate).toInt();
                             ++iterate;
+                            pKills = List.at(iterate).toInt();
+                            ++iterate;
                             deaths = List.at(iterate).toInt();
                             ++iterate;
                             score->setDeaths(deaths);
@@ -486,6 +489,8 @@ void gameScreen::readCommand()
                             score->setTeam(team);
                             score->setTKills(tKills);
                             score->setUsername(name);
+                            score->setPKills(pKills);
+                            score->calculate();
                             s->addScore(score);
                         }
                         int time;
@@ -578,4 +583,8 @@ EntityLabel* gameScreen::getByID(int id)
 void gameScreen::animate(int id){
     EntityLabel *thing = gameScreen::getByID(id);
     thing->updateStyleSheet();
+}
+
+void ScoreObject::calculate(){
+    totalScore = (minionKills * 5) + (playerKills * 60) + (playerDeaths * -10) + (towerKills * 50);
 }

@@ -26,11 +26,17 @@ std::string Game::onTick()
     }
     else if(newOver)
     {
-        QString packet = "97179 50 P BobJonesIII 1 2 20 3 P DrStephenJones 2 4 35 2 2000050\n";
+        QString packet = "97179 50 "; //P BobJonesIII 1 2 20 2 3 P DrStephenJones 2 4 35 3 2 2000050\n";
         qDebug()<<"Packet made";
+        for(int i = 0; i < users->size(); i++){
+            User *u = users->at(i);
+            packet = packet + "P " + u->score() + " ";
+        }
+        packet = packet + QString::number(obs->getTime()) + "\n";
+
         qDebug() << packet;
         //should pull stats from players and place them in this order:
-        //PLAYERINDICATOR PLAYERNAME TEAM TOWERKILLS MINIONKILLS PLAYERDEATHS
+        //PLAYERINDICATOR PLAYERNAME TEAM TOWERKILLS MINIONKILLS PLAYERKILLS PLAYERDEATHS
         //this should be repeated until there are no more players to process then the time in seconds should be added to the last slot
         //packet += QString("%1").arg(team);
         newOver = false;

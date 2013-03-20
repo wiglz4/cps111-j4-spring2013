@@ -32,6 +32,8 @@ private:
     int minionKills;
     int towerKills;
     int playerTeam;
+    int playerKills;
+    int totalScore;
 
 public:
     void setDeaths(int i){playerDeaths = i;}
@@ -39,12 +41,16 @@ public:
     void setTKills(int i){towerKills = i;}
     void setTeam(int i){playerTeam = i;}
     void setUsername(QString &s){user = s;}
+    void setPKills(int i){playerKills = i;}
+    void calculate();
 
     int deaths(){return playerDeaths;}
     int mKills(){return minionKills;}
+    int pKills(){return playerKills;}
     int tKills(){return towerKills;}
     int team(){return playerTeam;}
     QString username(){return user;}
+    int score(){return totalScore;}
 };
 
 
