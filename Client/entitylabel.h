@@ -2,13 +2,14 @@
 #define ENTITYLABEL_H
 #include <QWidget>
 #include <QLabel>
-
+#include <QMouseEvent>
 
 class EntityLabel : public QLabel
 {
     Q_OBJECT
 protected:
     int ID, type, team, counter, percentHealth, state;
+    int width, height;
     QString playerName;
     static const QString STYLE_BEGIN, STYLE_END;
 
@@ -24,6 +25,15 @@ public:
     void updateStyleSheet();
     void nextFrame();
     void die();
+
+protected:
+    /*void mouseMoveEvent(QMouseEvent *ev);
+
+    void mousePressEvent(QMouseEvent *ev);
+    void mouseReleaseEvent(QMouseEvent *ev);
+*/
+signals:
+    void clicked(int id);
 
 };
 

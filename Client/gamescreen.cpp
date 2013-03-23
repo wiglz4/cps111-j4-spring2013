@@ -32,6 +32,7 @@ gameScreen::gameScreen(QWidget *parent) :
     wdgtPicture->setGeometry(0,0,4000,3000);
     wdgtPicture->setStyleSheet("background-image:url(:/images/map4.png)");
 
+
     gameFrame = new QFrame(this);
     gameFrame->setFrameShape(QFrame::Box);
     gameFrame->setLineWidth(10);
@@ -89,6 +90,7 @@ gameScreen::gameScreen(QWidget *parent) :
 
     move(x, y);
 
+    setMouseTracking(true);
 }
 
 gameScreen::~gameScreen()
@@ -273,6 +275,24 @@ void gameScreen::closeEvent(QCloseEvent *)
 void gameScreen::resizeEvent(QResizeEvent *event)
 {
     gameFrame->resize(event->size());
+}
+
+
+void gameScreen::mousePressEvent(QMouseEvent *e)
+{
+    qDebug() <<"mouse clicked";
+    if(e->button() == Qt::LeftButton){
+        qDebug() << "was left mouse button";
+        QWidget *l = wdgtPicture->childAt(e->x() + abs(wdgtGame->x()) - wdgtPicture->x(), e->y() + abs(wdgtGame->y()) - wdgtPicture->y());
+        qDebug() << l;
+        EntityLabel *thing = dynamic_cast<EntityLabel*>(l);
+        if(thing){
+            qDebug() << "clicked object with id " << thing->getID();
+            QString msg = "1 " + QString::number(thing->getID()) +"\n";
+            sock->write(msg.toAscii());
+        }
+
+    }
 }
 
 void gameScreen::return_to_menu(){
@@ -535,11 +555,14 @@ void gameScreen::createEntity(int type, int id, int team, int health, int state,
     EntityLabel *thing = new EntityLabel(id, type, team, posX, posY, health, state, name, wdgtPicture);
 
     //if on screen
-    connect(thing, SIGNAL(linkActivated(QString)),this, SLOT(lblClicked()));
+    //connect(thing, SIGNAL(clicked(int)),this, SLOT(entityClicked(int)));
     thing->show();
     objects.push_back(thing);
 }
 
+void gameScreen::entityClicked(int id){
+    qDebug() << "cliked entity with id " << id;
+}
 
 void gameScreen::moveEntity(int id, int x, int y){
     EntityLabel *thing = gameScreen::getByID(id);

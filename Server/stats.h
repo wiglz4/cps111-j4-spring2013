@@ -31,6 +31,7 @@ public:
     void incMKills(){++mKills;}
     void incTKills(){++tKills;}
     void incDeaths(){++deaths;}
+    void incPKills(){++pKills;}
     bool runTests();
 
     string toString();

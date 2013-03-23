@@ -414,6 +414,7 @@ void PlCh::die()
     newDead = true;
     curHealth = maxHealth;
     count->reset(250);
+    points->incDeaths();
 }
 
 void PlCh::respawn()
@@ -425,25 +426,34 @@ bool PlCh::Attack()
 {
     //qDebug() << target->getAttackable();
     int t = target->getType();
-    if(t ==1)
+    if (target->getAttackable())
     {
-        qDebug()<<"Core";
-    }
-    else if (t ==2)
-    {
-        qDebug()<<"Tower";
-    }
-    else if (t ==3)
-    {
-        qDebug()<<"Minion";
-    }
-    else
-    {
-        qDebug()<<".....We didn't code this yet......";
-    }
-    if (target->getAttackable() == true)
-    {
-        return target->damage(atkDamage);
+        bool b(target->damage(atkDamage));
+        if(b){
+            if(t ==1)
+            {
+                qDebug()<<"Core";
+            }
+            else if (t ==2)
+            {
+                qDebug()<<"Tower";
+                points->incTKills();
+            }
+            else if (t ==3)
+            {
+                qDebug()<<"Minion";
+                points->incMKills();
+            } else if (t == 4)
+            {
+                qDebug() << "Player";
+                points->incPKills();
+            }
+            else
+            {
+                qDebug()<<".....We didn't code this yet......";
+            }
+        }
+        return b;
     }
     return false;
 
