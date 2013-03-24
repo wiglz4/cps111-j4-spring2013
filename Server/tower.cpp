@@ -127,6 +127,7 @@ bool Tower::damage(int value)
         return true;
     }
     }
+    healthChange = true;
     return false;
 }
 

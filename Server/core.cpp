@@ -37,6 +37,7 @@ bool Core::damage(int value)
     {
         endGame();
     }
+    healthChange = true;
     return false;
 }
 void Core::onTick()

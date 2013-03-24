@@ -23,7 +23,7 @@ Minion::Minion(int cTeam, int newX, int newY, World *newMap)
     size = 150; //radius
     type = 3;
 
-    atkDamage = 2;
+    atkDamage = 200;
     atkSpeed = 1.2;
     armor = 20;
     atkRange = 100;
@@ -305,6 +305,7 @@ bool Minion::damage(int value)
             qDebug() << "died";
             return true;
         }
+        healthChange = true;
     }
     return false;
 }

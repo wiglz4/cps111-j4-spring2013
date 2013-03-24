@@ -23,7 +23,7 @@ PlCh::PlCh(int cTeam, int newX, int newY, World *newMap, string pName)
     size = 150; //radius
     type = 4;
 
-    atkDamage = 0;//incomplete
+    atkDamage = 300;//incomplete
     atkSpeed = 1;
     armor = 20;
     atkRange = 10;//incomplete
@@ -410,12 +410,15 @@ bool PlCh::damage(int value)
 
     if(Alive)
     {
-        curHealth = (double)curHealth - (double) value * (double) armor / 100;
+        curHealth = (double)curHealth - ((double) value * (double) armor / 100);
+        qDebug()<< ((double) value * (double) armor / 100);
+        qDebug()<<curHealth;
         if(curHealth < 0)
         {
             die();
             return true;
         }
+        healthChange = true;
     }
     return false;
 }

@@ -20,18 +20,20 @@ gameScreen::gameScreen(QWidget *parent) :
     gsui(new Ui::gameScreen)
 {
     gsui->setupUi(this);
-    //REM
-    timer = new QTimer(this);
-    timer->setInterval(20);
-    connect(timer, SIGNAL(timeout()), this, SLOT(onTimerHit()));
-    timer->start();
-    //REM
+
+    playerHealthPercent = 100;
+    targetHealthPercent = 100;
+
     wdgtGame = new QWidget(this);
     wdgtGame->setGeometry(-100, -2150, 4000, 3000);
     wdgtPicture = new QWidget(wdgtGame);
     wdgtPicture->setGeometry(0,0,4000,3000);
     wdgtPicture->setStyleSheet("background-image:url(:/images/map4.png)");
 
+    hud = new QLabel(this);
+    hud->setGeometry(0, -10, 800, 600);
+    hud->setStyleSheet("background:url(:/images/hud.png) no-repeat bottom left; background-color: rgba(0,0,0,0);");
+    hud->show();
 
     gameFrame = new QFrame(this);
     gameFrame->setFrameShape(QFrame::Box);
@@ -71,6 +73,26 @@ gameScreen::gameScreen(QWidget *parent) :
     bar->setStyleSheet("background:url(:/images/bar.png) no-repeat top left;");
     bar->hide();
 
+    playerIcon = new QLabel(this);
+    playerIcon->setGeometry(24, 461, 110, 110);
+    playerIcon->setStyleSheet("background-color:#ff0000;");
+    playerIcon->show();
+
+    playerHealth = new QLabel(this);
+    playerHealth->setGeometry(29, 556, playerHealthPercent, 10);
+    playerHealth->setStyleSheet("background-color:#00ff00;");
+    playerHealth->show();
+
+    targetIcon = new QLabel(this);
+    targetIcon->setGeometry(629, 461, 110, 110);
+    targetIcon->setStyleSheet("background-color:#0000ff;");
+    targetIcon->show();
+
+    targetHealth = new QLabel(this);
+    targetHealth->setGeometry(634, 466, 100, 10);
+    targetHealth->setStyleSheet("background-color:#00ff00;");
+    targetHealth->show();
+
     QDesktopWidget *desktop = QApplication::desktop();
     int screenWidth, width;
     int screenHeight, height;
@@ -91,6 +113,20 @@ gameScreen::gameScreen(QWidget *parent) :
     move(x, y);
 
     setMouseTracking(true);
+
+    playerId = 0;
+    targetId = 0;
+
+    playername = "BobJonesIII";
+
+    targetChanged = false;
+
+    //REM
+    timer = new QTimer(this);
+    timer->setInterval(20);
+    connect(timer, SIGNAL(timeout()), this, SLOT(onTimerHit()));
+    timer->start();
+    //REM
 }
 
 gameScreen::~gameScreen()
@@ -221,7 +257,25 @@ void gameScreen::keyReleaseEvent(QKeyEvent *e)
 
 void gameScreen::onTimerHit()
 {
+    if(playerId == 0){
+        playerId = getIdByName(playername);
+        if(playerId != 0){
+            qDebug() << "playerId = " << playerId;
+        }
+    } else {
+        EntityLabel *e = getByID(playerId);
+        playerHealthPercent = e->getHealth();
+    }
 
+    if(targetId != 0){
+        EntityLabel *e = getByID(targetId);
+        targetHealthPercent = e->getHealth();
+        targetIcon->show();
+        targetHealth->show();
+    } else {
+        targetIcon->hide();
+        targetHealth->hide();
+    }
 
     if(upPressed && !rightPressed && !downPressed && !leftPressed)
     {
@@ -263,6 +317,8 @@ void gameScreen::onTimerHit()
         //8
         wdgtPicture->move(wdgtPicture->x() + 4, wdgtPicture->y() + 4);
     }
+    playerHealth->setGeometry(29, this->height() - 44, playerHealthPercent, 10);
+    targetHealth->setGeometry(634, this->height() - 134, targetHealthPercent, 10);
 
 }
 
@@ -275,6 +331,16 @@ void gameScreen::closeEvent(QCloseEvent *)
 void gameScreen::resizeEvent(QResizeEvent *event)
 {
     gameFrame->resize(event->size());
+    wdgtGame->setGeometry(-100, this->height() - 2750, 4000, 3000);
+    hud->setGeometry(0, 0, 800, this->height() - 10);
+
+    playerIcon->setGeometry(24, this->height() - 139, 110, 110);
+    playerHealth->setGeometry(29, this->height() - 44, playerHealthPercent, 10);
+
+
+    targetIcon->setGeometry(629, this->height() - 139, 110, 110);
+    targetHealth->setGeometry(634, this->height() - 134, targetHealthPercent, 10);
+
 }
 
 
@@ -290,8 +356,11 @@ void gameScreen::mousePressEvent(QMouseEvent *e)
             qDebug() << "clicked object with id " << thing->getID();
             QString msg = "1 " + QString::number(thing->getID()) +"\n";
             sock->write(msg.toAscii());
+            targetId = thing->getID();
+            if (targetId == playerId){
+                targetId = 0;
+            }
         }
-
     }
 }
 
@@ -307,7 +376,7 @@ void gameScreen::readCommand()
     while(sock->canReadLine())
     {
         QString str = sock->readLine();
-        qDebug() << str;
+        //qDebug() << str;
         str.remove("\n");
         if(str != "")
         {
@@ -573,8 +642,10 @@ void gameScreen::moveEntity(int id, int x, int y){
 }
 
 void gameScreen::changeEntityHealth(int id, int healthPercent){
+    qDebug() << healthPercent;
     EntityLabel *thing = gameScreen::getByID(id);
     thing->setHealth(healthPercent);
+    qDebug() << thing->getHealth();
 }
 
 void gameScreen::changeEntityState(int id, int state){
@@ -603,6 +674,18 @@ EntityLabel* gameScreen::getByID(int id)
             return objects.at(i);
         }
     }
+}
+
+int gameScreen::getIdByName(QString &name)
+{
+    for(uint i = 0; i < objects.size(); ++i)
+    {
+        if(name == objects.at(i)->getName())
+        {
+            return objects.at(i)->getID();
+        }
+    }
+    return 0;
 }
 
 void gameScreen::animate(int id){

@@ -86,6 +86,7 @@ public:
 
 
     EntityLabel* getByID(int id);
+    int getIdByName(QString&);
 
 private slots:
     void onTimerHit();
@@ -105,9 +106,22 @@ private:
     QPushButton *menu;
     QPushButton *btnPause;
     QLabel *bar;
+    QLabel *hud;
     Widget *w;
     QTcpSocket *sock;
     std::vector<EntityLabel*> objects;
+
+    QString playername;
+    int playerId;
+    int playerHealthPercent;
+    int targetId;
+    int targetHealthPercent;
+    bool targetChanged;
+
+    QLabel *playerIcon;
+    QLabel *playerHealth;
+    QLabel *targetIcon;
+    QLabel *targetHealth;
 
     //update methods called from server
 

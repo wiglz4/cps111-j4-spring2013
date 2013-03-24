@@ -25,13 +25,9 @@ public:
     void updateStyleSheet();
     void nextFrame();
     void die();
+    QString getName(){return playerName;}
+    int getHealth(){return percentHealth;}
 
-protected:
-    /*void mouseMoveEvent(QMouseEvent *ev);
-
-    void mousePressEvent(QMouseEvent *ev);
-    void mouseReleaseEvent(QMouseEvent *ev);
-*/
 signals:
     void clicked(int id);
 
