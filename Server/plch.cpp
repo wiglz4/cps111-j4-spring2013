@@ -497,7 +497,9 @@ bool PlCh::Attack()
 
 string PlCh::save()
 {
-    //NEEDS CODING
+    stringstream save;
+    save << type << " " << team << " " << x << " " << y << " " << curHealth << " ";
+    return save.str();
 }
 
 Entity* PlCh::load()

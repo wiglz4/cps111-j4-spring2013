@@ -292,7 +292,6 @@ void Minion::onTick()
             }
         }
     }
-
 }
 
 bool Minion::damage(int value)
@@ -329,8 +328,9 @@ bool Minion::Attack()
 
 string Minion::save()
 {
-    //NEED CODING
-    return NULL;
+    stringstream save;
+    save << type << " " << team << " " << x << " " << y << " " << curHealth << " ";
+    return save.str();
 }
 
 Entity* Minion::load()

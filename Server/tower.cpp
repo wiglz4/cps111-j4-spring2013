@@ -138,7 +138,9 @@ bool Tower::damage(int value)
 
 string Tower::save()
 {
-    //NEEDS CODING
+    stringstream save;
+    save << type << " " << team << " " << x << " " << y << " " << curHealth << " ";
+    return save.str();
 }
 
 Entity* Tower::load()

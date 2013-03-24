@@ -47,7 +47,9 @@ void Core::onTick()
 
 string Core::save()
 {
-//NEEDS CODING
+    stringstream save;
+    save << type << " " << team << " " << x << " " << y << " " << curHealth << " ";
+    return save.str();
 }
 
 Entity* Core::load()
