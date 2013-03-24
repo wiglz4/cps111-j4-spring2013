@@ -55,6 +55,7 @@ private:
 
     Counter *count;
 
+    Minion *aMinion;
 public:
     World(vector<User *> *vect, Game* gam);
 
@@ -75,6 +76,10 @@ public:
     void load(string loadString);
 
     void incTick(){tick++;}
+    void setTick(int i){tick = i;}
+
+    void createRedMinion();
+    void createBlueMinion();
 
     string Display();
 
@@ -82,7 +87,7 @@ public:
     void endGame(int team);
 
     Entity *bob;
-    Minion *aMinion;
+
 };
 
 #endif // WORLD_H

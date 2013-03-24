@@ -26,7 +26,7 @@ PlCh::PlCh(int cTeam, int newX, int newY, World *newMap, string pName)
     atkDamage = 300;//incomplete
     atkSpeed = 1;
     armor = 20;
-    atkRange = 10;//incomplete
+    atkRange = 600;//incomplete
     detRange = 900;//incomplete
     canAttack = true;
     Alive = true;
@@ -123,72 +123,85 @@ void PlCh::cheatMode()
 int PlCh::moveManual(){
     int currentState = 0;
     //Move (Joel's Magic Mathy Stuff)
+    int tempX;
+    int tempY;
     if(wPressed && !aPressed && !sPressed && !dPressed)
     {
-        y -= speed;
-        currentState = 1;
-        positionChange = true;
+        tempY = y - speed;
+        if(map->boundsCheck(x, tempY))
+        {
+            y =tempY;
+            currentState = 1;
+            positionChange = true;
+        }
     }
-    if(wPressed && aPressed&& !sPressed && !dPressed)
+    else if(wPressed && aPressed&& !sPressed && !dPressed)
     {
         y -= (3 * speed) / 4;
         x -= (3 * speed) / 4;
         currentState = 8;
         positionChange = true;
     }
-    if(!wPressed && aPressed&& !sPressed && !dPressed)
+    else if(!wPressed && aPressed&& !sPressed && !dPressed)
     {
         x -= speed;
         currentState = 7;
         positionChange = true;
     }
-    if(!wPressed && aPressed&& sPressed&& !dPressed)
+    else if(!wPressed && aPressed&& sPressed&& !dPressed)
     {
         y += (3 * speed) / 4;
         x -= (3 * speed) / 4;
         currentState = 6;
         positionChange = true;
     }
-    if(!wPressed && !aPressed && sPressed&& !dPressed)
+    else if(!wPressed && !aPressed && sPressed&& !dPressed)
     {
         y = y + speed;
         currentState = 5;
         positionChange = true;
     }
-    if(!wPressed && !aPressed && sPressed&& dPressed)
+    else if(!wPressed && !aPressed && sPressed&& dPressed)
     {
         y += (3 * speed) / 4;
         x += (3 * speed) / 4;
         currentState = 4;
         positionChange = true;
     }
-    if(!wPressed && !aPressed && !sPressed && dPressed)
+    else if(!wPressed && !aPressed && !sPressed && dPressed)
     {
         x += speed;
         currentState = 3;
         positionChange = true;
     }
-    if(wPressed && !aPressed && !sPressed && dPressed)
+    else if(wPressed && !aPressed && !sPressed && dPressed)
     {
         y -= (3 * speed) / 4;
         x += (3 * speed) / 4;
         currentState = 2;
         positionChange = true;
     }
-    if (wPressed && !aPressed && sPressed && !dPressed)
+    else if (wPressed && !aPressed && sPressed && !dPressed)
     {
         y = y;
         x = x;
         currentState = 1;
-        positionChange = true;
+
     }
-    if (!wPressed && aPressed && !sPressed && dPressed)
+    else if (!wPressed && aPressed && !sPressed && dPressed)
     {
         y = y;
         x = x;
         currentState = 3;
-        positionChange = true;
+
     }
+    else {
+        y = y;
+        x = x;
+        currentState = 3;
+
+    }
+
     return currentState;
 }
 
@@ -209,7 +222,7 @@ void PlCh::onTick()
         }
         else
         {
-            if(target != NULL) //if player is alive and not moving and the target is not null
+            if(target != NULL && target->getAttackable()) //if player is alive and not moving and the target is not null
             {
                 //calculate distance to target
                 distance = sqrt(pow(target->getY()-y, 2) + pow(target->getX() - x, 2));
@@ -398,7 +411,7 @@ void PlCh::onTick()
                 x = 250;
                 y = 2600;
             }
-            count->reset(50/atkSpeed); //do something.... Not sure what
+            count->reset(50); //do something.... Not sure what
         }
     }
 }
@@ -427,8 +440,12 @@ void PlCh::die()
 {
 
     //NEEDS CODING
+    positionChange = false;
+    stateChange = false;
+    healthChange = false;
     Alive = false;
     newDead = true;
+    attackable = false;
     curHealth = maxHealth;
     count->reset(250);
     points->incDeaths();
