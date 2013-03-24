@@ -572,11 +572,6 @@
         <file>images/2/2/7/1.png</file>
         <file>images/2/2/8/1.png</file>
         <file>images/game over.png</file>
-<<<<<<< HEAD
-        <file>images/HUD.png</file>
         <file>images/hud.png</file>
-=======
-        <file>images/hero.png</file>
->>>>>>> 2fc86dd2643c673ae7ac2590ce9379630f34b015
     </qresource>
 </RCC>

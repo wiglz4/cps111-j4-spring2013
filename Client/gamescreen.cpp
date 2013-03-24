@@ -267,12 +267,12 @@ void gameScreen::onTimerHit()
         playerHealthPercent = e->getHealth();
     }
 
-    if(targetId != 0){
+    if(targetId != 0 && targetHealth != 0){
         EntityLabel *e = getByID(targetId);
         targetHealthPercent = e->getHealth();
         targetIcon->show();
         targetHealth->show();
-    } else {
+    } else if(targetHealth <= 0 || targetId == 0) {
         targetIcon->hide();
         targetHealth->hide();
     }
@@ -643,9 +643,9 @@ void gameScreen::moveEntity(int id, int x, int y){
 
 void gameScreen::changeEntityHealth(int id, int healthPercent){
     qDebug() << healthPercent;
-    EntityLabel *thing = gameScreen::getByID(id);
-    thing->setHealth(healthPercent);
-    qDebug() << thing->getHealth();
+        EntityLabel *thing = gameScreen::getByID(id);
+        thing->setHealth(healthPercent);
+        qDebug() << thing->getHealth();
 }
 
 void gameScreen::changeEntityState(int id, int state){
@@ -657,6 +657,12 @@ void gameScreen::exterminate(int id){
     EntityLabel *thing = gameScreen::getByID(id);
     qDebug() << "DEAD THING";
     thing->die();
+    if(id == targetId){
+        targetHealth->hide();
+        targetIcon->hide();
+        targetId = 0;
+        targetHealth = 0;
+    }
 }
 
 void gameScreen::showLbl(int id)

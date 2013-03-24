@@ -112,9 +112,12 @@ void Tower::onTick()
 void Tower::die()
 {
     state = 99;
-    stateChange = true;
-    healthChange = true;
+    stateChange = false;
+    healthChange = false;
     attackable = false;
+    Alive = false;
+    newDead = true;
+
 }
 
 bool Tower::damage(int value)

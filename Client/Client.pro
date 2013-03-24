@@ -31,5 +31,4 @@ FORMS    += widget.ui \
     scorewindow.ui \
     helpwindow.ui
 
-RESOURCES += \
-    resources.qrc
+RESOURCES += resources.qrc
