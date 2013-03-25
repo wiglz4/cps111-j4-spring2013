@@ -24,11 +24,8 @@ Tower::Tower(int cTeam, int newX, int newY, World *newMap)
     size = 150; //radius
     type = 2;
 
-<<<<<<< HEAD
+
     atkDamage = 200;
-=======
-    atkDamage = 800;
->>>>>>> 6d276b44cfef0a83c99ecf3e3f6ea024207025c5
     atkSpeed = 1;
     armor = 20;
     atkRange = 500;
@@ -60,6 +57,7 @@ void Tower::onTick()
     }
     double distance;
     int currentState = state;
+
     if(target != NULL && target->getAttackable())
     {
         distance = sqrt(pow(target->getY()-y, 2) + pow(target->getX() - x, 2));
@@ -100,7 +98,7 @@ void Tower::onTick()
         Entity* ent = map->getNAE(x,y,team, distance);
         if (distance < atkRange)
         {
-            //SET STATE HERE
+            state = 5;
 
             target = ent;
             if(count->Check())
@@ -126,8 +124,7 @@ void Tower::die()
     Alive = false;
     newDead = true;
     curHealth = 0;
-    x = -50;
-    y = -50;
+
 
 }
 

@@ -403,8 +403,8 @@ void PlCh::onTick()
             state = 5;
             if(team == 1) //Move him, based on team
             {
-                x = 250;
-                y = 2700;
+                x = 3200;
+                y = 395;
             }
             else
             {

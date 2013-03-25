@@ -25,6 +25,7 @@ public:
     virtual string displayString();
     virtual void die();
     virtual bool Attack();
+    virtual void getState();
 };
 
 #endif // MINION_H
