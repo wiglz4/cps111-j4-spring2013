@@ -153,14 +153,14 @@ void GameStartWidget::on_btnStart_clicked()
     }
 
     if (lnedUsername->displayText() == "" || lnedUsername->displayText() == "PlayerName"){
-        qDebug() << lnedUsername->displayText();
+        //qDebug() << lnedUsername->displayText();
         QMessageBox::critical(this, "Error", "Please enter a username");
         return;
     }
 
     sock->connectToHost(lnedHost->text(),5000);
     if (!sock->waitForConnected()){
-        qDebug() << lnedHost->text();
+        //qDebug() << lnedHost->text();
         sock->disconnect();
         QMessageBox::critical(this, "Error", "Unable to connect to host:\n" + lnedHost->text());
         return;

@@ -156,10 +156,11 @@ void World::onTick()
     {
         shots.at(i)->onTick();
     }
-    if (tick == 1000)
+    if (tick == 3000)
     for(int i = 0; i < 1; ++i)
     {
         createRedMinion();
+        createBlueMinion();
         setTick(0);
     }
     incTick();

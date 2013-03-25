@@ -146,6 +146,8 @@ protected:
     bool rightPressed;
     bool downPressed;
     bool leftPressed;
+
+    bool spacePressed;
 };
 
 

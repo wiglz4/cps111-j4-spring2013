@@ -24,7 +24,7 @@ Tower::Tower(int cTeam, int newX, int newY, World *newMap)
     size = 150; //radius
     type = 2;
 
-    atkDamage = 0;
+    atkDamage = 800;
     atkSpeed = 1;
     armor = 20;
     atkRange = 500;
@@ -50,7 +50,10 @@ bool Tower::Attack()
 
 void Tower::onTick()
 {
-
+    if(!Alive)
+    {
+        return;
+    }
     double distance;
     int currentState = state;
     if(target != NULL && target->getAttackable())

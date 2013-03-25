@@ -62,7 +62,7 @@ ScoreWindow::~ScoreWindow()
 
 
 void ScoreWindow::main_window(){
-    qDebug() << "pressed";
+    //qDebug() << "pressed";
     this->hide();
     w->show();
 }
@@ -78,7 +78,7 @@ void ScoreWindow::connectWidget(Widget *w){
 }
 
 void ScoreWindow::addScore(ScoreObject *s){
-    qDebug() << "added score";
+    //qDebug() << "added score";
     if(!isEndgame){
         makeEndGame();
     }
@@ -135,7 +135,7 @@ void ScoreWindow::addScore(ScoreObject *s){
 }
 
 void ScoreWindow::addTime(int t){
-    qDebug() << "added time";
+    //qDebug() << "added time";
     ui->lblTTime->setText("Game Time:");
     int tenth;
     int seconds;

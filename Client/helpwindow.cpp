@@ -60,7 +60,7 @@ HelpWindow::~HelpWindow()
 }
 
 void HelpWindow::main_window(){
-    qDebug() << "pressed";
+    //qDebug() << "pressed";
     this->hide();
     w->show();
 }
