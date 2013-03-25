@@ -6,6 +6,7 @@
 #include <QDesktopWidget>
 #include "widget.h"
 #include "gamescreen.h"
+#include "QKeySequence"
 
 class GameStartWidget;
 
@@ -172,7 +173,7 @@ void GameStartWidget::on_btnStart_clicked()
     g->show();
     g->grabKeyboard();
     g->passSocket(sock);
-    g->grabMouse();
+   // g->grabMouse();
     this->hide();
 }
 

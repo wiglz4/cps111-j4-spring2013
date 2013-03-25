@@ -47,6 +47,11 @@ gameScreen::gameScreen(QWidget *parent) :
     pause->hide();
     pPressed = false;
 
+    map = new QLabel(pause);
+    map->setGeometry(100, 100, 410, 310);
+    map->setStyleSheet("background: url(:/images/background3.png) no-repeat top left");
+    map->hide();
+
     upPressed = false;
     rightPressed = false;
     downPressed = false;
@@ -85,7 +90,7 @@ gameScreen::gameScreen(QWidget *parent) :
 
     targetIcon = new QLabel(this);
     targetIcon->setGeometry(629, 461, 110, 110);
-    targetIcon->setStyleSheet("background-color:#0000ff;");
+    targetIcon->setStyleSheet("background-color:#000000;");
     //targetIcon->show();
 
     targetHealth = new QLabel(this);
@@ -156,12 +161,13 @@ void gameScreen::unPause()
     menu->hide();
     pause->hide();
     bar->hide();
+    map->hide();
 }
 
 void gameScreen::keyPressEvent(QKeyEvent *e)
 {
     //qDebug() << "button";
-    if(e->key() == Qt::Key_P && !e->isAutoRepeat())
+    if((e->key() == Qt::Key_P && !e->isAutoRepeat() || (e->key() == Qt::Key_Escape && !e->isAutoRepeat())))
     {
 
         if (pPressed == false) {
@@ -171,6 +177,7 @@ void gameScreen::keyPressEvent(QKeyEvent *e)
             btnPause->show();
             menu->show();
             bar->show();
+            map->show();
         } else {
             timer->start();
             pPressed = false;
@@ -178,6 +185,7 @@ void gameScreen::keyPressEvent(QKeyEvent *e)
             menu->hide();
             pause->hide();
             bar->hide();
+            map->hide();
         }
         qDebug() << "P";
 
@@ -269,6 +277,8 @@ void gameScreen::onTimerHit()
         qDebug() << "targetID=" << targetId;
         EntityLabel *e = getByID(targetId);
         targetHealthPercent = e->getHealth();
+
+        updateTargetLabel(e->getType(), e->getTeam());
 
         targetIcon->show();
         targetHealth->show();
@@ -362,6 +372,41 @@ void gameScreen::mousePressEvent(QMouseEvent *e)
             if (targetId == playerId){
                 targetId = 0;
             }
+        }
+    }
+}
+
+void gameScreen::updateTargetLabel(int targetType, int team)
+{
+    if(team == 1){
+        switch(targetType){
+        case 1:
+            targetIcon->setStyleSheet("background:url(:/images/1/1/0/1.png) no-repeat top right");
+            break;
+        case 2:
+            targetIcon->setStyleSheet("background:url(:/images/1/2/5/1.png) no-repeat top right");
+            break;
+        case 3:
+            targetIcon->setStyleSheet("background:url(:/images/1/3/5/8.png) no-repeat top right");
+            break;
+        case 4:
+            targetIcon->setStyleSheet("background:url(:/images/1/4/5/8.png) no-repeat top right");
+            break;
+        }
+    } else if (team == 2) {
+        switch(targetType){
+        case 1:
+            targetIcon->setStyleSheet("background:url(:/images/2/1/0/1.png) no-repeat top right");
+            break;
+        case 2:
+            targetIcon->setStyleSheet("background:url(:/images/2/2/5/1.png) no-repeat top right");
+            break;
+        case 3:
+            targetIcon->setStyleSheet("background:url(:/images/1/3/5/8.png) no-repeat top right");
+            break;
+        case 4:
+            targetIcon->setStyleSheet("background:url(:/images/hero.png) no-repeat top right");
+            break;
         }
     }
 }

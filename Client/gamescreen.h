@@ -104,6 +104,7 @@ private:
     QWidget *wdgtPicture;
     QFrame *gameFrame;
     QFrame *pause;
+    QLabel *map;
     QPushButton *menu;
     QPushButton *btnPause;
     QLabel *bar;
@@ -130,13 +131,14 @@ private:
      void updatePos(EntityLabel *lblToUpdate, int x, int y, int width, int height);
 
 public:
-     //void passMouse(){wdgtPicture->grabMouse();}
+
 protected:
     void keyPressEvent(QKeyEvent * e);
     void keyReleaseEvent(QKeyEvent *e);
     void closeEvent(QCloseEvent *);
     void resizeEvent ( QResizeEvent * event );
     void mousePressEvent(QMouseEvent *);
+    void updateTargetLabel(int targetType, int team);
 
     QTimer *timer;
 
