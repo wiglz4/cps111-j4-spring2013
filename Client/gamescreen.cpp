@@ -32,13 +32,14 @@ GameScreen::GameScreen(QWidget *parent) :
     wdgtPicture->setStyleSheet("background-image:url(:/images/map4.png)");
 
     hud = new QLabel(this);
-    hud->setGeometry(0, -10, 800, 600);
+    hud->setGeometry(0, 0, 800, 600);
     hud->setStyleSheet("background:url(:/images/hud.png) no-repeat bottom left; background-color: rgba(0,0,0,0);");
     hud->show();
 
     gameFrame = new QFrame(this);
     gameFrame->setFrameShape(QFrame::Box);
     gameFrame->setLineWidth(10);
+    gameFrame->setStyleSheet("color:rgba(0,0,0,212);");
     gameFrame->setGeometry(0, 0, 800, 600);
     gameFrame->show();
 
@@ -82,24 +83,20 @@ GameScreen::GameScreen(QWidget *parent) :
     bar->hide();
 
     playerIcon = new QLabel(this);
-    playerIcon->setGeometry(24, 461, 110, 110);
-    playerIcon->setStyleSheet("background:url(:/images/hero.png) no-repeat top right; background-color: rgba(0,0,0,0);");
-    playerIcon->show();
+    playerIcon->setGeometry(34, 461, 110, 110);
 
     playerHealth = new QLabel(this);
-    playerHealth->setGeometry(29, 556, playerHealthPercent, 10);
+    playerHealth->setGeometry(49, 556, playerHealthPercent, 10);
     playerHealth->setStyleSheet("background-color:#00ff00;");
     playerHealth->show();
 
     targetIcon = new QLabel(this);
-    targetIcon->setGeometry(629, 461, 110, 110);
+    targetIcon->setGeometry(639, 461, 110, 110);
     targetIcon->setStyleSheet("background-color:#000000;");
-    //targetIcon->show();
 
     targetHealth = new QLabel(this);
-    targetHealth->setGeometry(634, 466, 100, 10);
+    targetHealth->setGeometry(654, 466, 100, 10);
     targetHealth->setStyleSheet("background-color:#00ff00;");
-    //targetHealth->show();
 
     QDesktopWidget *desktop = QApplication::desktop();
     int screenWidth, width;
@@ -127,12 +124,10 @@ GameScreen::GameScreen(QWidget *parent) :
 
     targetChanged = false;
 
-    //REM
     timer = new QTimer(this);
     timer->setInterval(20);
     connect(timer, SIGNAL(timeout()), this, SLOT(onTimerHit()));
     timer->start();
-    //REM
 }
 
 GameScreen::~GameScreen()
@@ -258,10 +253,21 @@ void GameScreen::keyReleaseEvent(QKeyEvent *e)
 
 void GameScreen::onTimerHit()
 {
-    if(playerId == 0){
+    if(playerId == 0)
+    {
         playerId = getIdByName(playername);
-        if(playerId != 0){
-            //qDebug() << "playerId = " << playerId;
+        if(playerId != 0)
+        {
+            EntityLabel *e = getByID(playerId);
+            if(e->getTeam() == 1)
+            {
+                playerIcon->setStyleSheet("background:url(:/images/icons/redhero.png) no-repeat top right; background-color: rgba(0,0,0,0);");
+            }
+            else
+            {
+                playerIcon->setStyleSheet("background:url(:/images/icons/bluehero.png) no-repeat top right; background-color: rgba(0,0,0,0);");
+            }
+            playerIcon->show();
         }
     } else {
         EntityLabel *e = getByID(playerId);
@@ -287,7 +293,6 @@ void GameScreen::onTimerHit()
         int hy = hero->y();
         int ww = this->width();
         int wh = this->height();
-        //wdgtPicture->move(hx, hy);
         int gw = wdgtPicture->width();
         int gh = wdgtPicture->height();
         wdgtPicture->move(0-hx+ww/2, gh-hy-wh);
@@ -367,9 +372,9 @@ void GameScreen::onTimerHit()
             }
         }
     }
-    playerHealth->setGeometry(29, this->height() - 44, playerHealthPercent, 10);
+    playerHealth->setGeometry(39, this->height() - 44, playerHealthPercent, 10);
     if(targetId != 0){
-        targetHealth->setGeometry(634, this->height() - 134, targetHealthPercent, 10);
+        targetHealth->setGeometry(644, this->height() - 134, targetHealthPercent, 10);
     }
 
 }
@@ -384,14 +389,14 @@ void GameScreen::resizeEvent(QResizeEvent *event)
 {
     gameFrame->resize(event->size());
     wdgtGame->setGeometry(-100, this->height() - 2750, 4000, 3000);
-    hud->setGeometry(0, 0, 800, this->height() - 10);
+    hud->setGeometry(10, 0, 800, this->height() - 10);
 
-    playerIcon->setGeometry(24, this->height() - 139, 110, 110);
-    playerHealth->setGeometry(29, this->height() - 44, playerHealthPercent, 10);
+    playerIcon->setGeometry(34, this->height() - 139, 110, 110);
+    playerHealth->setGeometry(49, this->height() - 44, playerHealthPercent, 10);
 
 
-    targetIcon->setGeometry(629, this->height() - 139, 110, 110);
-    targetHealth->setGeometry(634, this->height() - 134, targetHealthPercent, 10);
+    targetIcon->setGeometry(639, this->height() - 139, 110, 110);
+    targetHealth->setGeometry(654, this->height() - 134, targetHealthPercent, 10);
 
 }
 
@@ -421,31 +426,31 @@ void GameScreen::updateTargetLabel(int targetType, int team)
     if(team == 1){
         switch(targetType){
         case 1:
-            targetIcon->setStyleSheet("background:url(:/images/1/1/0/1.png) no-repeat top right");
+            targetIcon->setStyleSheet("background:url(:/images/icons/redcore.png) no-repeat top right");
             break;
         case 2:
-            targetIcon->setStyleSheet("background:url(:/images/1/2/5/1.png) no-repeat top right");
+            targetIcon->setStyleSheet("background:url(:/images/icons/redturret.png) no-repeat top right");
             break;
         case 3:
-            targetIcon->setStyleSheet("background:url(:/images/1/3/5/8.png) no-repeat top right");
+            targetIcon->setStyleSheet("background:url(:/images/icons/redbot.png) no-repeat top right");
             break;
         case 4:
-            targetIcon->setStyleSheet("background:url(:/images/1/4/5/8.png) no-repeat top right");
+            targetIcon->setStyleSheet("background:url(:/images/icons/redhero.png) no-repeat top right");
             break;
         }
     } else if (team == 2) {
         switch(targetType){
         case 1:
-            targetIcon->setStyleSheet("background:url(:/images/2/1/0/1.png) no-repeat top right");
+            targetIcon->setStyleSheet("background:url(:/images/icons/bluecore.png) no-repeat top right");
             break;
         case 2:
-            targetIcon->setStyleSheet("background:url(:/images/2/2/5/1.png) no-repeat top right");
+            targetIcon->setStyleSheet("background:url(:/images/icons/blueturret.png) no-repeat top right");
             break;
         case 3:
-            targetIcon->setStyleSheet("background:url(:/images/1/3/5/8.png) no-repeat top right");
+            targetIcon->setStyleSheet("background:url(:/images/icons/bluebot.png) no-repeat top right");
             break;
         case 4:
-            targetIcon->setStyleSheet("background:url(:/images/hero.png) no-repeat top right");
+            targetIcon->setStyleSheet("background:url(:/images/icons/bluehero.png) no-repeat top right");
             break;
         }
     }
@@ -716,11 +721,10 @@ void GameScreen::moveEntity(int id, int x, int y){
     thing->nextFrame();
 }
 
-void GameScreen::changeEntityHealth(int id, int healthPercent){
-    //qDebug() << healthPercent;
+void GameScreen::changeEntityHealth(int id, int healthPercent)
+{
     EntityLabel *thing = GameScreen::getByID(id);
     thing->setHealth(healthPercent);
-    //qDebug() << thing->getHealth();
 }
 
 void GameScreen::changeEntityState(int id, int state){

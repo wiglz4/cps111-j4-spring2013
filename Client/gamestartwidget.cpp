@@ -16,17 +16,17 @@ GameStartWidget::GameStartWidget(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    img = new QLabel(this);
-    img->setGeometry(0,0,775,375);
-    img->setStyleSheet("background:url(:/images/backgrounde) no-repeat right top;");
-    img->show();
+    lblImg = new QLabel(this);
+    lblImg->setGeometry(0,0,775,375);
+    lblImg->setStyleSheet("background:url(:/images/backgrounde) no-repeat right top;");
+    lblImg->show();
 
-    main = new QPushButton(this);
-    main->setGeometry(570,161,121,31);
-    main->setFlat(true);
-    main->setFocusPolicy(Qt::NoFocus);
-    main->setStyleSheet("QPushButton { background:url(:/images/buttonmm) no-repeat right top; } QPushButton:hover{ background:url(:/images/buttonmm2.png) no-repeat right top; } QPushButton:pressed { background:url(:/images/buttonmm.png) no-repeat right top; border: 0px solid grey; }");
-    connect(this->main, SIGNAL(clicked()), this, SLOT(main_window()));
+    btnMain = new QPushButton(this);
+    btnMain->setGeometry(570,161,121,31);
+    btnMain->setFlat(true);
+    btnMain->setFocusPolicy(Qt::NoFocus);
+    btnMain->setStyleSheet("QPushButton { background:url(:/images/buttonmm) no-repeat right top; } QPushButton:hover{ background:url(:/images/buttonmm2.png) no-repeat right top; } QPushButton:pressed { background:url(:/images/buttonmm.png) no-repeat right top; border: 0px solid grey; }");
+    connect(this->btnMain, SIGNAL(clicked()), this, SLOT(onMainWindowClicked()));
 
     btnExit2 = new QPushButton(this);
     btnExit2->setGeometry(604,209,121,31);
@@ -34,7 +34,7 @@ GameStartWidget::GameStartWidget(QWidget *parent) :
     btnExit2->setFocusPolicy(Qt::NoFocus);
     btnExit2->setStyleSheet("QPushButton { background:url(:/images/buttonex) no-repeat right top; } QPushButton:hover{ background:url(:/images/buttonex2.png) no-repeat right top; } QPushButton:pressed { background:url(:/images/buttonex.png) no-repeat right top; border: 0px solid grey; }");
     btnExit2->show();
-    connect(this->btnExit2, SIGNAL(clicked()), this, SLOT(on_btnExit2_clicked()));
+    connect(this->btnExit2, SIGNAL(clicked()), this, SLOT(onBtnExitClicked()));
 
     btnStart = new QPushButton(this);
     btnStart->setGeometry(572,185,121,31);
@@ -42,7 +42,7 @@ GameStartWidget::GameStartWidget(QWidget *parent) :
     btnStart->setFocusPolicy(Qt::NoFocus);
     btnStart->setStyleSheet("QPushButton { background:url(:/images/buttonsg) no-repeat right top; } QPushButton:hover{ background:url(:/images/buttonsg2.png) no-repeat right top; } QPushButton:pressed { background:url(:/images/buttonsg.png) no-repeat right top; border: 0px solid grey; }");
     btnStart->show();
-    connect(this->btnStart, SIGNAL(clicked()), this, SLOT(on_btnStart_clicked()));
+    connect(this->btnStart, SIGNAL(clicked()), this, SLOT(onBtnStartClicked()));
 
     lnedSave = new QLineEdit(this);
     lnedSave->setGeometry(80, 60, 211, 27);
@@ -79,23 +79,23 @@ GameStartWidget::GameStartWidget(QWidget *parent) :
     lblHost->show();
 
 
-    this->red = new QPushButton(this);
-    this->red->setGeometry(100, 230, 20, 20);
-    this->red->setFlat(true);
-    this->red->setStyleSheet("QPushButton {background-color:#ff0000;} QPushButton:flat {background-color:#ff0000;}");
-    this->red->setCheckable(true);
-    this->red->setChecked(false);
-    connect(this->red, SIGNAL(clicked()), this, SLOT(on_red_clicked()));
-    this->red->show();
+    this->btnRed = new QPushButton(this);
+    this->btnRed->setGeometry(100, 230, 20, 20);
+    this->btnRed->setFlat(true);
+    this->btnRed->setStyleSheet("QPushButton {background-color:#ff0000;} QPushButton:flat {background-color:#ff0000;}");
+    this->btnRed->setCheckable(true);
+    this->btnRed->setChecked(false);
+    connect(this->btnRed, SIGNAL(clicked()), this, SLOT(onRedClicked()));
+    this->btnRed->show();
 
-    this->blue = new QPushButton(this);
-    this->blue->setGeometry(130, 230, 20, 20);
-    this->blue->setFlat(true);
-    this->blue->setStyleSheet("background-color:#0000ff;alternate-background-color:#0000ff;");
-    this->blue->setCheckable(true);
-    this->blue->setChecked(true);
-    connect(this->blue, SIGNAL(clicked()), this, SLOT(on_blue_clicked()));
-    this->blue->show();
+    this->btnBlue = new QPushButton(this);
+    this->btnBlue->setGeometry(130, 230, 20, 20);
+    this->btnBlue->setFlat(true);
+    this->btnBlue->setStyleSheet("background-color:#0000ff;alternate-background-color:#0000ff;");
+    this->btnBlue->setCheckable(true);
+    this->btnBlue->setChecked(true);
+    connect(this->btnBlue, SIGNAL(clicked()), this, SLOT(onBlueClicked()));
+    this->btnBlue->show();
 
     QDesktopWidget *desktop = QApplication::desktop();
     int screenWidth, width;
@@ -118,9 +118,10 @@ GameStartWidget::GameStartWidget(QWidget *parent) :
     setFixedSize(windowSize.width(), windowSize.height());
 
     loading = false;
+    setWindowFlags(Qt::SplashScreen);
 }
 
-void GameStartWidget::ConnectStuff(Widget *wdgt, QTcpSocket *s, GameScreen *gmscr)
+void GameStartWidget::connectStuff(Widget *wdgt, QTcpSocket *s, GameScreen *gmscr)
 {
     g = gmscr;
     w = wdgt;
@@ -133,7 +134,7 @@ void GameStartWidget::hideHost()
     lnedHost->hide();
 }
 
-void GameStartWidget::showHost()
+void GameStartWidget::dislpayHost()
 {
     lblHost->show();
     lnedHost->show();
@@ -143,8 +144,8 @@ void GameStartWidget::displayLoad()
 {
     lnedSave->show();
     lblSave->show();
-    red->setEnabled(false);
-    blue->setEnabled(false);
+    btnRed->setEnabled(false);
+    btnBlue->setEnabled(false);
     loading = true;
 }
 
@@ -152,8 +153,8 @@ void GameStartWidget::hideLoad()
 {
     lnedSave->hide();
     lblSave->hide();
-    red->setEnabled(true);
-    blue->setEnabled(true);
+    btnRed->setEnabled(true);
+    btnBlue->setEnabled(true);
     loading = false;
 }
 
@@ -162,27 +163,27 @@ GameStartWidget::~GameStartWidget()
     delete ui;
 }
 
-void GameStartWidget::main_window()
+void GameStartWidget::onMainWindowClicked()
 {
     this->hide();
     w->show();
 }
 
-void GameStartWidget::on_btnExit2_clicked()
+void GameStartWidget::onBtnExitClicked()
 {
-    this->close();
+    QApplication::quit();
 
 }
 
-void GameStartWidget::on_btnStart_clicked()
+void GameStartWidget::onBtnStartClicked()
 {
     int num;
     QString message;
     QString filename = "";
     if(!loading){
-        if(this->red->isChecked()){
+        if(this->btnRed->isChecked()){
             num = 1;
-        }else if(this->blue->isChecked()){
+        }else if(this->btnBlue->isChecked()){
             num = 2;
         }
     }else{
@@ -223,14 +224,14 @@ void GameStartWidget::on_btnStart_clicked()
     this->hide();
 }
 
-void GameStartWidget::on_red_clicked()
+void GameStartWidget::onRedClicked()
 {
-    this->blue->setChecked(false);
-    this->red->setChecked(true);
+    this->btnBlue->setChecked(false);
+    this->btnRed->setChecked(true);
 }
 
-void GameStartWidget::on_blue_clicked()
+void GameStartWidget::onBlueClicked()
 {
-    this->red->setChecked(false);
-    this->blue->setChecked(true);
+    this->btnRed->setChecked(false);
+    this->btnBlue->setChecked(true);
 }

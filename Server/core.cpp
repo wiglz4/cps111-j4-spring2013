@@ -39,6 +39,7 @@ bool Core::damage(int value)
     healthChange = true;
     return false;
 }
+
 void Core::onTick()
 {
 //FINE AS IS

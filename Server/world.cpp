@@ -408,8 +408,9 @@ void World::onTick()
         {
             createRedMinion();
             createBlueMinion();
-            setTick(0);
         }
+        setTick(0);
+
     }
     incTick();
 }
@@ -482,7 +483,6 @@ string World::Display()
         strm << shots.at(i)->DispShot();
     }
 
-
     for(int i = 0; i <allMinions.size(); ++i)
     {
         if(!allMinions.at(i)->getAlive())
@@ -493,7 +493,6 @@ string World::Display()
     }
 
     strm<<"\n";
-
     return strm.str();
 }
 
