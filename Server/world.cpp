@@ -71,7 +71,7 @@ World::World(vector<User *> *vect, Game* gam)
     {
         if(vect->at(i)->getTeam() == 1)
         {
-            aPlCh = new PlCh(1,250 ,2500 + redMod * 100, this, vect->at(i)->getName());
+            aPlCh = new PlCh(1, 3230 ,165 + redMod * 100, this, vect->at(i)->getName());
             vect->at(i)->setCharacter(aPlCh);
             allEntities.push_back(aPlCh);
             redEntities.push_back(aPlCh);
@@ -161,12 +161,13 @@ void World::onTick()
     {
         shots.at(i)->onTick();
     }
-    if (tick == 3000)
+    if (tick == 1000)
     for(int i = 0; i < 1; ++i)
     {
         createRedMinion();
         createBlueMinion();
         setTick(0);
+        //save();
     }
 
     incTick();
@@ -200,13 +201,12 @@ World* World::load(vector<User *> *vect, Game *gam)
     indata.open("test.txt");
     if (!indata){
     }
-
-    indata >> num;
     while (!indata.eof()){
         load << indata.getline(test, 5000);
     }
     qDebug() << "LOADED";
     load<<"\n";
+    qDebug() << load;
     return load.str();
     */
 }

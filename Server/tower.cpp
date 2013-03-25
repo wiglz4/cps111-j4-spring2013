@@ -55,6 +55,7 @@ void Tower::onTick()
     }
     double distance;
     int currentState = state;
+
     if(target != NULL && target->getAttackable())
     {
         distance = sqrt(pow(target->getY()-y, 2) + pow(target->getX() - x, 2));
@@ -95,7 +96,7 @@ void Tower::onTick()
         Entity* ent = map->getNAE(x,y,team, distance);
         if (distance < atkRange)
         {
-            //SET STATE HERE
+            state = 5;
 
             target = ent;
             if(count->Check())
@@ -121,8 +122,7 @@ void Tower::die()
     Alive = false;
     newDead = true;
     curHealth = 0;
-    x = -50;
-    y = -50;
+
 
 }
 

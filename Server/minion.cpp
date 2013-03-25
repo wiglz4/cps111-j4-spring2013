@@ -44,12 +44,12 @@ Minion::Minion(int cTeam, int newX, int newY, World *newMap)
     //CHANGE WITH IFS
     if(team == 1)
     {
-    cpX = 220;
-    cpY = 2395;
+        cpX = 220;
+        cpY = 2395;
     }
     else
     {
-        cpX = 2220;
+        cpX = 3220;
         cpY = 395;
     }
     OOL = false;
@@ -326,13 +326,16 @@ void Minion::die()
     Alive = false;
     newDead = true;
     curHealth = 0;
-    x = -50;
-    y = -50;
+
 }
 
 bool Minion::Attack()
 {
     return target->damage(atkDamage);
+}
+
+void Minion::getState()
+{
 }
 
 string Minion::save()
