@@ -82,6 +82,7 @@ public:
     void animate(int id);
     void exterminate(int id);
     void showLbl(int id);
+    void setPlayername(QString p){playername = p;}
 
 
 

@@ -117,6 +117,7 @@ void Tower::die()
     attackable = false;
     Alive = false;
     newDead = true;
+    curHealth = 0;
 
 }
 

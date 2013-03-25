@@ -18,17 +18,20 @@ SOURCES += main.cpp\
     gamescreen.cpp \
     entitylabel.cpp \
     scorewindow.cpp \
-    helpwindow.cpp
+    helpwindow.cpp \
+    gamestartwidget.cpp
 
 HEADERS  += widget.h \
     gamescreen.h \
     entitylabel.h \
     scorewindow.h \
-    helpwindow.h
+    helpwindow.h \
+    gamestartwidget.h
 
 FORMS    += widget.ui \
     gamescreen.ui \
     scorewindow.ui \
-    helpwindow.ui
+    helpwindow.ui \
+    gamestartwidget.ui
 
 RESOURCES += resources.qrc

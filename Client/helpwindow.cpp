@@ -70,3 +70,8 @@ void HelpWindow::on_btnExit2_clicked()
     this->close();
 }
 
+
+void HelpWindow::on_btnNetwork_clicked()
+{
+
+}

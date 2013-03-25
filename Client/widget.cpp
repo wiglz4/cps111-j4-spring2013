@@ -3,6 +3,8 @@
 #include "ui_gamescreen.h"
 #include "scorewindow.h"
 #include "ui_scorewindow.h"
+#include "gamestartwidget.h"
+#include "ui_gamestartwidget.h"
 #include <QDesktopWidget>
 #include <QSize>
 
@@ -11,7 +13,8 @@ Widget::Widget(QWidget *parent) :
     ui(new Ui::Widget),
     gsui(new Ui::gameScreen),
     scui(new Ui::ScoreWindow),
-    hsui(new Ui::HelpWindow)
+    hsui(new Ui::HelpWindow),
+    gswui(new Ui::GameStartWidget)
 {
     ui->setupUi(this);
 
@@ -58,19 +61,14 @@ void Widget::connectGame(gameScreen *g)
 
 void Widget::on_btnLocal_clicked()
 {
-    mySocket->connectToHost("localhost",5000);
+    gsw->hideHost();
+    gsw->show();
+    this->hide();
+}
 
-    if (!mySocket->waitForConnected())  {
-            qDebug() << "Unable to connect to server.";
-            return;
-    }
-
-    QString message = "2 BobJonesIII\n";
-    mySocket->write(message.toAscii());
-    g->show();
-    g->grabKeyboard();
-    g->passSocket(mySocket);
-    //g->passMouse();
+void Widget::on_btnNetwork_clicked(){
+    gsw->showHost();
+    gsw->show();
     this->hide();
 }
 
@@ -98,6 +96,13 @@ void Widget::connectHelp(HelpWindow *h)
     this->h = h;
     hsui->setupUi(h);
     h->connectWidget(this);
+}
+
+void Widget::connectStart(GameStartWidget *gsw)
+{
+    this->gsw = gsw;
+    gswui->setupUi(gsw);
+    gsw->ConnectStuff(this, mySocket, g);
 }
 
 void Widget::on_btnHelp_clicked()

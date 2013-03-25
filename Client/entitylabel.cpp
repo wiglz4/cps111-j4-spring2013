@@ -21,8 +21,6 @@ EntityLabel::EntityLabel(int id, int type, int initTeam, int posX, int posY, int
     this->setGeometry(posX,posY,width,height);
     updateStyleSheet();
 
-    setMouseTracking(true);
-    //qDebug() << this->styleSheet();
 }
 
 void EntityLabel::updateStyleSheet(){
@@ -35,7 +33,7 @@ void EntityLabel::die()
    qDebug() << this->type;
    if (this->type == 3){
         qDebug() << "Should hide";
-        this->deleteLater();
+        this->hide();
    } else if (this->type == 4){
        qDebug() << "Respawn";
        this->hide();
@@ -43,24 +41,7 @@ void EntityLabel::die()
 
 }
 
-/*void EntityLabel::mouseMoveEvent(QMouseEvent *ev)
-{
-    qDebug() << "hovering over id " << ID;
-}
 
-void EntityLabel::mousePressEvent(QMouseEvent *ev)
-{
-
-}
-
-void EntityLabel::mouseReleaseEvent(QMouseEvent *ev)
-{
-    if (ev->button() == Qt::LeftButton){
-        qDebug() << "clicked entity " << ID;
-        emit clicked(ID);
-    }
-}
-*/
 void EntityLabel::nextFrame(){
     if(type == 3 || type == 4){
         if(counter == 19){

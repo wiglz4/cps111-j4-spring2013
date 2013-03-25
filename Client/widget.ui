@@ -88,7 +88,7 @@ QPushButton:pressed
   </widget>
   <widget class="QPushButton" name="btnNetwork">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>

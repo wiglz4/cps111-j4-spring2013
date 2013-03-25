@@ -573,5 +573,8 @@
         <file>images/2/2/8/1.png</file>
         <file>images/game over.png</file>
         <file>images/hud.png</file>
+        <file>images/hero.png</file>
+        <file>images/buttonsg.png</file>
+        <file>images/buttonsg2.png</file>
     </qresource>
 </RCC>

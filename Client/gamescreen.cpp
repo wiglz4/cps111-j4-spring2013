@@ -75,7 +75,7 @@ gameScreen::gameScreen(QWidget *parent) :
 
     playerIcon = new QLabel(this);
     playerIcon->setGeometry(24, 461, 110, 110);
-    playerIcon->setStyleSheet("background-color:#ff0000;");
+    playerIcon->setStyleSheet("background:url(:/images/hero.png) no-repeat top right; background-color: rgba(0,0,0,0);");
     playerIcon->show();
 
     playerHealth = new QLabel(this);
@@ -86,12 +86,12 @@ gameScreen::gameScreen(QWidget *parent) :
     targetIcon = new QLabel(this);
     targetIcon->setGeometry(629, 461, 110, 110);
     targetIcon->setStyleSheet("background-color:#0000ff;");
-    targetIcon->show();
+    //targetIcon->show();
 
     targetHealth = new QLabel(this);
     targetHealth->setGeometry(634, 466, 100, 10);
     targetHealth->setStyleSheet("background-color:#00ff00;");
-    targetHealth->show();
+    //targetHealth->show();
 
     QDesktopWidget *desktop = QApplication::desktop();
     int screenWidth, width;
@@ -116,8 +116,6 @@ gameScreen::gameScreen(QWidget *parent) :
 
     playerId = 0;
     targetId = 0;
-
-    playername = "BobJonesIII";
 
     targetChanged = false;
 
@@ -267,12 +265,14 @@ void gameScreen::onTimerHit()
         playerHealthPercent = e->getHealth();
     }
 
-    if(targetId != 0 && targetHealth != 0){
+    if(targetId > 0){
+        qDebug() << "targetID=" << targetId;
         EntityLabel *e = getByID(targetId);
         targetHealthPercent = e->getHealth();
+
         targetIcon->show();
         targetHealth->show();
-    } else if(targetHealth <= 0 || targetId == 0) {
+    } else {
         targetIcon->hide();
         targetHealth->hide();
     }
@@ -318,7 +318,9 @@ void gameScreen::onTimerHit()
         wdgtPicture->move(wdgtPicture->x() + 4, wdgtPicture->y() + 4);
     }
     playerHealth->setGeometry(29, this->height() - 44, playerHealthPercent, 10);
-    targetHealth->setGeometry(634, this->height() - 134, targetHealthPercent, 10);
+    if(targetId != 0){
+        targetHealth->setGeometry(634, this->height() - 134, targetHealthPercent, 10);
+    }
 
 }
 
@@ -346,14 +348,14 @@ void gameScreen::resizeEvent(QResizeEvent *event)
 
 void gameScreen::mousePressEvent(QMouseEvent *e)
 {
-    qDebug() <<"mouse clicked";
+    //qDebug() <<"mouse clicked";
     if(e->button() == Qt::LeftButton){
-        qDebug() << "was left mouse button";
+        //qDebug() << "was left mouse button";
         QWidget *l = wdgtPicture->childAt(e->x() + abs(wdgtGame->x()) - wdgtPicture->x(), e->y() + abs(wdgtGame->y()) - wdgtPicture->y());
-        qDebug() << l;
+        //qDebug() << l;
         EntityLabel *thing = dynamic_cast<EntityLabel*>(l);
         if(thing){
-            qDebug() << "clicked object with id " << thing->getID();
+            //qDebug() << "clicked object with id " << thing->getID();
             QString msg = "1 " + QString::number(thing->getID()) +"\n";
             sock->write(msg.toAscii());
             targetId = thing->getID();
@@ -367,6 +369,7 @@ void gameScreen::mousePressEvent(QMouseEvent *e)
 void gameScreen::return_to_menu(){
     this->hide();
     wdgtGame->releaseKeyboard();
+    this->releaseMouse();
     w->show();
 }
 
@@ -376,7 +379,7 @@ void gameScreen::readCommand()
     while(sock->canReadLine())
     {
         QString str = sock->readLine();
-        //qDebug() << str;
+        qDebug() << str;
         str.remove("\n");
         if(str != "")
         {
@@ -642,10 +645,10 @@ void gameScreen::moveEntity(int id, int x, int y){
 }
 
 void gameScreen::changeEntityHealth(int id, int healthPercent){
-    qDebug() << healthPercent;
-        EntityLabel *thing = gameScreen::getByID(id);
-        thing->setHealth(healthPercent);
-        qDebug() << thing->getHealth();
+    //qDebug() << healthPercent;
+    EntityLabel *thing = gameScreen::getByID(id);
+    thing->setHealth(healthPercent);
+    //qDebug() << thing->getHealth();
 }
 
 void gameScreen::changeEntityState(int id, int state){
@@ -661,7 +664,6 @@ void gameScreen::exterminate(int id){
         targetHealth->hide();
         targetIcon->hide();
         targetId = 0;
-        targetHealth = 0;
     }
 }
 
@@ -682,7 +684,7 @@ EntityLabel* gameScreen::getByID(int id)
     }
 }
 
-int gameScreen::getIdByName(QString &name)
+int gameScreen::getIdByName(QString& name)
 {
     for(uint i = 0; i < objects.size(); ++i)
     {

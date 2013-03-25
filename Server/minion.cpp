@@ -313,9 +313,13 @@ bool Minion::damage(int value)
 
 void Minion::die()
 {
+    positionChange = false;
+    stateChange = false;
+    healthChange = false;
     attackable = false;
     Alive = false;
     newDead = true;
+    curHealth = 0;
 }
 
 bool Minion::Attack()
