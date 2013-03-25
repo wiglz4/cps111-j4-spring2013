@@ -88,7 +88,7 @@ Entity *World::getNAE(int x, int y, int team, double &distance)
     double dist2 = 0;
     distance = 50000;
     int entNum = -1;
-    if( team == 1)//red
+    if(team == 1)//red
     {
         for(unsigned int i = 0; i < blueEntities.size(); ++i)
         {
@@ -104,7 +104,7 @@ Entity *World::getNAE(int x, int y, int team, double &distance)
             return blueEntities.at(entNum);
         }
     }
-    if ( team == 2)//blue
+    if (team == 2)//blue
     {
         for(unsigned int i = 0; i < redEntities.size(); ++i)
         {
@@ -123,6 +123,251 @@ Entity *World::getNAE(int x, int y, int team, double &distance)
     return NULL;
 }
 
+int World::determineState(Entity *source, Entity *target)
+{
+    int sourcex = source->getX();
+    int sourcey = source->getY();
+    int targetx = target->getX();
+    int targety = target->getY();
+    double a;
+    double b;
+    double c;
+    double theta;
+    bool isUnder;
+    int state;
+    if(targety < sourcey)
+    {
+        isUnder = true;
+    }
+    else
+    {
+        isUnder = false;
+    }
+    a = sourcex - targetx;
+    b = sourcey - targety;
+    c = sqrt(pow(a,2)+pow(b,2));
+    theta = acos(a/c);
+    if(isUnder)
+    {
+        theta += 180;
+    }
+    if(112.5 >= theta && theta >= 67.5)
+    {
+        state = 8;
+    }
+    if(67.5 >= theta && theta >= 22.5)
+    {
+        state = 7;
+    }
+    if(22.5 >=theta || theta >=337.5)
+    {
+        state = 6;
+    }
+    if(337.5 >= theta && theta >= 292.5)
+    {
+        state = 5;
+    }
+    if(292.5 >= theta && theta >= 247.5)
+    {
+        state = 4;
+    }
+    if(247.5 >= theta && theta >= 202.5)
+    {
+        state = 3;
+    }
+    if(202.5 >= theta && theta >= 157.5)
+    {
+        state = 2;
+    }
+    if(157.5 >= theta && theta >= 112.5)
+    {
+        state = 1;
+    }
+    return state;
+}
+
+int World::determineState(Entity *source, int cpX, int cpY)
+{
+    int sourcex = source->getX();
+    int sourcey = source->getY();
+    int targetx = cpX;
+    int targety = cpY;
+    double a;
+    double b;
+    double c;
+    double theta;
+    bool isUnder;
+    int state;
+    if(targety < sourcey)
+    {
+        isUnder = true;
+    }
+    else
+    {
+        isUnder = false;
+    }
+    a = sourcex - targetx;
+    b = sourcey - targety;
+    c = sqrt(pow(a,2)+pow(b,2));
+    theta = acos(a/c);
+    if(isUnder)
+    {
+        theta += 180;
+    }
+    if(112.5 >= theta && theta >= 67.5)
+    {
+        state = 8;
+    }
+    if(67.5 >= theta && theta >= 22.5)
+    {
+        state = 7;
+    }
+    if(22.5 >=theta || theta >=337.5)
+    {
+        state = 6;
+    }
+    if(337.5 >= theta && theta >= 292.5)
+    {
+        state = 5;
+    }
+    if(292.5 >= theta && theta >= 247.5)
+    {
+        state = 4;
+    }
+    if(247.5 >= theta && theta >= 202.5)
+    {
+        state = 3;
+    }
+    if(202.5 >= theta && theta >= 157.5)
+    {
+        state = 2;
+    }
+    if(157.5 >= theta && theta >= 112.5)
+    {
+        state = 1;
+    }
+    return state;
+}
+
+int World::determineState(int sourcex, int sourcey, Entity *target)
+{
+    int targetx = target->getX();
+    int targety = target->getY();
+    double a;
+    double b;
+    double c;
+    double theta;
+    bool isUnder;
+    int state;
+    if(targety < sourcey)
+    {
+        isUnder = true;
+    }
+    else
+    {
+        isUnder = false;
+    }
+    a = sourcex - targetx;
+    b = sourcey - targety;
+    c = sqrt(pow(a,2)+pow(b,2));
+    theta = acos(a/c);
+    if(isUnder)
+    {
+        theta += 180;
+    }
+    if(112.5 >= theta && theta >= 67.5)
+    {
+        state = 8;
+    }
+    if(67.5 >= theta && theta >= 22.5)
+    {
+        state = 7;
+    }
+    if(22.5 >=theta || theta >=337.5)
+    {
+        state = 6;
+    }
+    if(337.5 >= theta && theta >= 292.5)
+    {
+        state = 5;
+    }
+    if(292.5 >= theta && theta >= 247.5)
+    {
+        state = 4;
+    }
+    if(247.5 >= theta && theta >= 202.5)
+    {
+        state = 3;
+    }
+    if(202.5 >= theta && theta >= 157.5)
+    {
+        state = 2;
+    }
+    if(157.5 >= theta && theta >= 112.5)
+    {
+        state = 1;
+    }
+    return state;
+}
+
+int World::determineState(int sourcex, int sourcey, int targetx, int targety)
+{
+    double a;
+    double b;
+    double c;
+    double theta;
+    bool isUnder;
+    int state;
+    if(targety < sourcey)
+    {
+        isUnder = true;
+    }
+    else
+    {
+        isUnder = false;
+    }
+    a = sourcex - targetx;
+    b = sourcey - targety;
+    c = sqrt(pow(a,2)+pow(b,2));
+    theta = acos(a/c);
+    if(isUnder)
+    {
+        theta += 180;
+    }
+    if(112.5 >= theta && theta >= 67.5)
+    {
+        state = 8;
+    }
+    if(67.5 >= theta && theta >= 22.5)
+    {
+        state = 7;
+    }
+    if(22.5 >=theta || theta >=337.5)
+    {
+        state = 6;
+    }
+    if(337.5 >= theta && theta >= 292.5)
+    {
+        state = 5;
+    }
+    if(292.5 >= theta && theta >= 247.5)
+    {
+        state = 4;
+    }
+    if(247.5 >= theta && theta >= 202.5)
+    {
+        state = 3;
+    }
+    if(202.5 >= theta && theta >= 157.5)
+    {
+        state = 2;
+    }
+    if(157.5 >= theta && theta >= 112.5)
+    {
+        state = 1;
+    }
+    return state;
+}
 
 bool World::boundsCheck(int x, int y)
 {
@@ -159,19 +404,12 @@ void World::onTick()
 
     if (tick == 1000)
     {
-<<<<<<< HEAD
-        createRedMinion();
-        createBlueMinion();
-        setTick(0);
-        //save();
-=======
         for(int i = 0; i < 1; ++i)
         {
             createRedMinion();
             createBlueMinion();
             setTick(0);
         }
->>>>>>> 6bfbc0dca94f752d2fb9cdeeae0a0765f6599654
     }
     incTick();
 }
@@ -243,7 +481,7 @@ string World::Display()
     {
         strm << shots.at(i)->DispShot();
     }
-<<<<<<< HEAD
+
 
     for(int i = 0; i <allMinions.size(); ++i)
     {
@@ -254,8 +492,6 @@ string World::Display()
         }
     }
 
-=======
->>>>>>> 6bfbc0dca94f752d2fb9cdeeae0a0765f6599654
     strm<<"\n";
 
     return strm.str();

@@ -12,8 +12,8 @@ PlCh::PlCh(int cTeam, int newX, int newY, World *newMap, string pName)
     map = newMap;
     x = newX;
     y = newY;
-    curHealth = 999;
-    maxHealth = 999;
+    curHealth = 999;//incomplete
+    maxHealth = 999;//incomplete
     healthChange = true;
     isNew = true;
     team = cTeam;
@@ -23,11 +23,11 @@ PlCh::PlCh(int cTeam, int newX, int newY, World *newMap, string pName)
     size = 150; //radius
     type = 4;
 
-    atkDamage = 600;
+    atkDamage = 600;//incomplete
     atkSpeed = 1;
     armor = 20;
-    atkRange = 600;
-    detRange = 900;
+    atkRange = 600;//incomplete
+    detRange = 900;//incomplete
     canAttack = true;
     Alive = true;
     newDead = false;
@@ -52,6 +52,7 @@ PlCh::PlCh(int cTeam, int newX, int newY, World *newMap, string pName)
     wPressed= false;
     dPressed = false;
     sPressed= false;
+
 
     debug = true;
 }
@@ -129,88 +130,56 @@ int PlCh::moveManual(){
         tempY = y - speed;
         if(map->boundsCheck(x, tempY))
         {
-            y = tempY;
+            y =tempY;
             currentState = 1;
             positionChange = true;
         }
     }
-    else if(wPressed && aPressed && !sPressed && !dPressed)
+    else if(wPressed && aPressed&& !sPressed && !dPressed)
     {
-        tempY = y - (3 * speed) / 4;
-        tempX = x - (3 * speed) / 4;
-        if(map->boundsCheck(tempX, tempY))
-        {
-        y = tempY;
-        x = tempX;
+        y -= (3 * speed) / 4;
+        x -= (3 * speed) / 4;
         currentState = 8;
         positionChange = true;
-        }
     }
     else if(!wPressed && aPressed&& !sPressed && !dPressed)
     {
-        tempX = x - speed;
-        if(map->boundsCheck(tempX, y))
-        {
-        x = tempX;
+        x -= speed;
         currentState = 7;
         positionChange = true;
-        }
     }
     else if(!wPressed && aPressed&& sPressed&& !dPressed)
     {
-        tempY = y + (3 * speed) / 4;
-        tempX = x - (3 * speed) / 4;
-        if(map->boundsCheck(tempX, tempX))
-        {
-        y = tempY;
-        x = tempX;
+        y += (3 * speed) / 4;
+        x -= (3 * speed) / 4;
         currentState = 6;
         positionChange = true;
-        }
     }
     else if(!wPressed && !aPressed && sPressed&& !dPressed)
     {
-        tempY = y + speed;
-        if(map->boundsCheck(x, tempY))
-        {
-        y = tempY;
+        y = y + speed;
         currentState = 5;
         positionChange = true;
-        }
     }
     else if(!wPressed && !aPressed && sPressed&& dPressed)
     {
-        tempY = y + (3 * speed) / 4;
-        tempX = x + (3 * speed) / 4;
-        if(map->boundsCheck(tempX, tempY))
-        {
-        y = tempY;
-        x = tempX;
+        y += (3 * speed) / 4;
+        x += (3 * speed) / 4;
         currentState = 4;
         positionChange = true;
-        }
     }
     else if(!wPressed && !aPressed && !sPressed && dPressed)
     {
-        tempX = x + speed;
-        if(map->boundsCheck(tempX, y))
-        {
-        x = tempX;
+        x += speed;
         currentState = 3;
         positionChange = true;
-        }
     }
     else if(wPressed && !aPressed && !sPressed && dPressed)
     {
-        tempX = x + (3 * speed) / 4;
-        tempY = y - (3 * speed) / 4;
-        if(map->boundsCheck(tempX, tempY))
-        {
-        y = tempY;
-        x = tempX;
+        y -= (3 * speed) / 4;
+        x += (3 * speed) / 4;
         currentState = 2;
         positionChange = true;
-        }
     }
     else if (wPressed && !aPressed && sPressed && !dPressed)
     {
@@ -226,11 +195,11 @@ int PlCh::moveManual(){
         currentState = state;
 
     }
-    else
-    {
+    else {
         y = y;
         x = x;
         currentState = state;
+
     }
 
     return currentState;
@@ -269,14 +238,14 @@ void PlCh::onTick()
                             {
                                 Attack(); //attack
                                 qDebug()<<"Attacking"; //see if attacked: REM
-
+                                currentState = world->determineState(x,y, target);
                             } else { //if you can't attack it, set it to null
                                 target = NULL;
                             }
                         }
 
                     }
-                    else //if target is not in detect range but not in attack range, move within attack range
+                    else //if target is in detect range but not in attack range, move within attack range
                     {
                         theta = asin((y-target->getY())/distance);
                         delta = acos((x-target->getX())/distance);
@@ -302,6 +271,7 @@ void PlCh::onTick()
                             x = tempX;
                             y = tempY;
                             positionChange = true;
+                            currentState = world->determineState(x,y, tempX, tempY);
                         }
                     }
                 }
@@ -324,6 +294,7 @@ void PlCh::onTick()
                                     {
                                         target = NULL; //set target to null
                                     }
+                                    currentState = world->determineState(x,y, target);
                                 }
 
                             }
@@ -350,6 +321,7 @@ void PlCh::onTick()
                                 }
                                 if(map->boundsCheck(tempX, tempY))
                                 {
+                                    currentState = world->determineState(x,y, tempX, tempY);
                                     //SET STATE HERE
                                     x = tempX;
                                     y = tempY;
@@ -380,6 +352,7 @@ void PlCh::onTick()
                                 {
                                     target = NULL;
                                 }
+                                currentState = world->determineState(x,y, target);
                             }
 
                         }
@@ -409,6 +382,7 @@ void PlCh::onTick()
                                 x = tempX;
                                 y = tempY;
                                 positionChange = true;
+                                currentState = world->determineState(x,y, tempX, tempY);
                             }
                         }
                     }
@@ -416,11 +390,11 @@ void PlCh::onTick()
             }
         }
         if(currentState != state) //if player is alive and state changes
-
         {
             state = currentState; //update state
             stateChange = true;   //tell someone about it
         }
+         state = currentState;
     }
     else //if player is not alive
     {
@@ -442,7 +416,7 @@ void PlCh::onTick()
                 x = 250;
                 y = 2600;
             }
-            count->reset(50/atkSpeed); //do something.... Not sure what
+            count->reset(50); //do something.... Not sure what
         }
     }
 }
@@ -455,6 +429,8 @@ bool PlCh::damage(int value)
     if(Alive)
     {
         curHealth = (double)curHealth - ((double) value * (double) armor / 100);
+        qDebug()<< ((double) value * (double) armor / 100);
+        qDebug()<<curHealth;
         if(curHealth < 0)
         {
             die();
@@ -467,6 +443,8 @@ bool PlCh::damage(int value)
 
 void PlCh::die()
 {
+
+    //NEEDS CODING
     positionChange = false;
     stateChange = false;
     healthChange = false;
@@ -476,8 +454,6 @@ void PlCh::die()
     curHealth = maxHealth;
     count->reset(250);
     points->incDeaths();
-    x = 9000;
-    y = 9000;
 }
 
 void PlCh::respawn()
@@ -495,7 +471,7 @@ bool PlCh::Attack()
         if(b){
             if(t ==1)
             {
-                qDebug()<<"Core";//THIS WILL NEVER HIT...
+                qDebug()<<"Core";
             }
             else if (t ==2)
             {

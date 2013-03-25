@@ -40,6 +40,8 @@ public:
     virtual bool Attack();
 
     virtual void getState();
+
+    World* world;
 };
 
 #endif // MINION_H

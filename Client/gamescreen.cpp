@@ -300,7 +300,7 @@ void GameScreen::onTimerHit()
             if(wdgtPicture->y() + 10 < 2152)
             {
                 wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() + 10);
-                qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+                //qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
             }
         }
         if(upPressed && rightPressed && !downPressed && !leftPressed)
@@ -309,7 +309,7 @@ void GameScreen::onTimerHit()
             if(wdgtPicture->x() - 8 > -3098 && wdgtPicture->y() + 8 < 2152 && !(wdgtPicture->x() - 8 < -3098))
             {
                 wdgtPicture->move(wdgtPicture->x() - 8, wdgtPicture->y() + 8);
-                qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+                //qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
             }
         }
         if(!upPressed && rightPressed && !downPressed && !leftPressed)
@@ -318,7 +318,7 @@ void GameScreen::onTimerHit()
             if(wdgtPicture->x() - 10 > -3098 && !(wdgtPicture->x() - 10 < -3098));
             {
                 wdgtPicture->move(wdgtPicture->x() - 10 , wdgtPicture->y());
-                qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+               // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
             }
         }
         if(!upPressed && rightPressed && downPressed && !leftPressed)
@@ -327,7 +327,7 @@ void GameScreen::onTimerHit()
             if(wdgtPicture->x() - 8 > -3098 && wdgtPicture->y() - 8 > -260 && !(wdgtPicture->x() - 8 < -3098))
             {
                 wdgtPicture->move(wdgtPicture->x()-8, wdgtPicture->y() - 8);
-                qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+               // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
             }
         }
         if(!upPressed && !rightPressed && downPressed && !leftPressed)
@@ -336,7 +336,7 @@ void GameScreen::onTimerHit()
             if(wdgtPicture->y() - 10 > -260)
             {
                 wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() - 10);
-                qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+               // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
             }
         }
         if(!upPressed && !rightPressed && downPressed && leftPressed)
@@ -345,7 +345,7 @@ void GameScreen::onTimerHit()
             if(wdgtPicture->x() + 8 < 110 && wdgtPicture->y() - 8 > -260)
             {
                 wdgtPicture->move(wdgtPicture->x() + 8, wdgtPicture->y() - 8);
-                qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+               // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
             }
         }
         if(!upPressed && !rightPressed && !downPressed && leftPressed)
@@ -354,7 +354,7 @@ void GameScreen::onTimerHit()
             if(wdgtPicture->x() + 10 < 110)
             {
                 wdgtPicture->move(wdgtPicture->x() + 10, wdgtPicture->y());
-                qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+                //qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
             }
         }
         if(upPressed && !rightPressed && !downPressed && leftPressed)
@@ -363,7 +363,7 @@ void GameScreen::onTimerHit()
             if(wdgtPicture->x() + 8 < 110 && wdgtPicture->y() + 8 < 2152)
             {
                 wdgtPicture->move(wdgtPicture->x() + 8, wdgtPicture->y() + 8);
-                qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+               // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
             }
         }
     }
@@ -726,6 +726,7 @@ void GameScreen::changeEntityHealth(int id, int healthPercent){
 void GameScreen::changeEntityState(int id, int state){
     EntityLabel *thing = GameScreen::getByID(id);
     thing->setState(state);
+    qDebug() << state;
 }
 
 void GameScreen::exterminate(int id){

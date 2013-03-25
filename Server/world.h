@@ -92,6 +92,11 @@ public:
     //Team denotes the losing side
     void endGame(int team);
 
+    int determineState(Entity*, Entity*);
+    int determineState(Entity*, int, int);
+    int determineState(int, int, Entity*);
+    int determineState(int, int, int, int);
+
     Entity *bob;
 
 };

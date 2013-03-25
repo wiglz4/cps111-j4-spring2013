@@ -62,6 +62,7 @@ public:
 
     //moves player character based on target, returns new state
     //virtual int moveAutomatic() = 0;
+    World* world;
 };
 
 #endif // PLCH_H
