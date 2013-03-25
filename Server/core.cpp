@@ -48,7 +48,7 @@ void Core::onTick()
 string Core::save()
 {
     stringstream save;
-    save << type << " " << team << " " << x << " " << y << " " << curHealth << " ";
+    save<<" "<<(type * 10 + 1)<<" "<<absoluteID<<" "<<team<<" "<<((curHealth * 100) / maxHealth)<<" "<<0<< " "<<x<<" "<<y<<" "<<"NOT";
     return save.str();
 }
 

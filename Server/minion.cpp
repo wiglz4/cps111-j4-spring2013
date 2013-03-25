@@ -12,8 +12,8 @@ Minion::Minion(int cTeam, int newX, int newY, World *newMap)
     map = newMap;
     x = newX;
     y = newY;
-    curHealth = 999;
-    maxHealth = 999;
+    curHealth = 500;
+    maxHealth = 500;
     healthChange = true;
     isNew = true;
     team = cTeam;
@@ -23,8 +23,7 @@ Minion::Minion(int cTeam, int newX, int newY, World *newMap)
     size = 150; //radius
     type = 3;
 
-    atkDamage = 400;
-
+    atkDamage = 4000;
     atkSpeed = 1.2;
     armor = 20;
     atkRange = 35;
@@ -319,6 +318,8 @@ void Minion::die()
     Alive = false;
     newDead = true;
     curHealth = 0;
+    x = -50;
+    y = -50;
 }
 
 bool Minion::Attack()
@@ -329,7 +330,7 @@ bool Minion::Attack()
 string Minion::save()
 {
     stringstream save;
-    save << type << " " << team << " " << x << " " << y << " " << curHealth << " ";
+    save<<" "<<(type * 10 + 1)<<" "<<absoluteID<<" "<<team<<" "<<((curHealth * 100) / maxHealth)<<" "<<state<< " "<<x<<" "<<y<<" "<<"NOT";
     return save.str();
 }
 

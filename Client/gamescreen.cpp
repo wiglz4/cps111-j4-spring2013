@@ -406,7 +406,8 @@ void gameScreen::readCommand()
                     type = entv/10;
                     switch (entv)
                     {
-                    //create
+
+                    //create and load
                     case 11: //core
                     case 21: //tower
                     case 31: //minion

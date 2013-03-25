@@ -5,6 +5,8 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
+#include <fstream>
 
 class Game;
 class Entity;
@@ -71,9 +73,9 @@ public:
 
     void spawn();
 
-    string save();
+    void save();
 
-    void load(string loadString);
+    string load(string);
 
     void incTick(){tick++;}
     void setTick(int i){tick = i;}

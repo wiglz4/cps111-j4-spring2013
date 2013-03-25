@@ -66,7 +66,7 @@ World::World(vector<User *> *vect, Game* gam)
     {
         if(vect->at(i)->getTeam() == 1)
         {
-            aPlCh = new PlCh(1,100,1300 + redMod * 100, this, vect->at(i)->getName());
+            aPlCh = new PlCh(1,250 ,2500 + redMod * 100, this, vect->at(i)->getName());
             vect->at(i)->setCharacter(aPlCh);
             allEntities.push_back(aPlCh);
             redEntities.push_back(aPlCh);
@@ -162,22 +162,45 @@ void World::onTick()
         createRedMinion();
         setTick(0);
     }
+
     incTick();
     //qDebug() << tick;
 }
 
 
-string World::save()
+void World::save()
 {
+    ofstream saveFile;
     stringstream save;
-
-    return save.str();
+    for (int i = 0; i < allEntities.size(); i++){
+        save << allEntities.at(i)->save();
+    }
+    saveFile.open ("test.txt");
+    saveFile << save.str();
+    saveFile.close();
+    qDebug() << "file made.";
 }
 
 
-void World::load(string loadString)
+string World::load(string loadString)
 {
-    //Needs coding
+    ifstream indata;
+    int num;
+    char test[5000];
+    stringstream load;
+    load << "97179";
+
+    indata.open("test.txt");
+    if (!indata){
+    }
+
+    indata >> num;
+    while (!indata.eof()){
+        load << indata.getline(test, 5000);
+    }
+    qDebug() << "LOADED";
+    load<<"\n";
+    return load.str();
 }
 
 void World::createRedMinion()
@@ -203,7 +226,7 @@ string World::Display()
     {
         if(allEntities.at(i) != NULL)
         {
-            qDebug()<<allEntities.at(i)->getType();
+            //qDebug()<<allEntities.at(i)->getType();
             strm << allEntities.at(i)->displayString();
         }
     }

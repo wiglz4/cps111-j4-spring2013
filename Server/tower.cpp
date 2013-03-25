@@ -13,8 +13,8 @@ Tower::Tower(int cTeam, int newX, int newY, World *newMap)
     map = newMap;
     x = newX;
     y = newY;
-    curHealth = 999;
-    maxHealth = 999;
+    curHealth = 2000;
+    maxHealth = 2000;
     healthChange = false;
     isNew = true;
     team = cTeam;
@@ -24,7 +24,7 @@ Tower::Tower(int cTeam, int newX, int newY, World *newMap)
     size = 150; //radius
     type = 2;
 
-    atkDamage = 0;
+    atkDamage = 200;
     atkSpeed = 1;
     armor = 20;
     atkRange = 500;
@@ -111,13 +111,16 @@ void Tower::onTick()
 
 void Tower::die()
 {
-    state = 99;
+    //state = 99;
+    positionChange = false;
     stateChange = false;
     healthChange = false;
     attackable = false;
     Alive = false;
     newDead = true;
     curHealth = 0;
+    x = -50;
+    y = -50;
 
 }
 
@@ -139,7 +142,7 @@ bool Tower::damage(int value)
 string Tower::save()
 {
     stringstream save;
-    save << type << " " << team << " " << x << " " << y << " " << curHealth << " ";
+    save<<" "<<(type * 10 + 1)<<" "<<absoluteID<<" "<<team<<" "<<((curHealth * 100) / maxHealth)<<" "<<state<< " "<<x<<" "<<y<<" "<<"NOT";
     return save.str();
 }
 

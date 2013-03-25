@@ -498,7 +498,7 @@ bool PlCh::Attack()
 string PlCh::save()
 {
     stringstream save;
-    save << type << " " << team << " " << x << " " << y << " " << curHealth << " ";
+    save<<" "<<(type * 10 + 1)<<" "<<absoluteID<<" "<<team<<" "<<((curHealth * 100) / maxHealth)<<" "<<state<< " "<<x<<" "<<y<<" "<<plName;
     return save.str();
 }
 
