@@ -6,6 +6,7 @@
 #include <QDesktopWidget>
 #include "widget.h"
 #include "gamescreen.h"
+#include "QKeySequence"
 
 class GameStartWidget;
 
@@ -43,13 +44,13 @@ GameStartWidget::GameStartWidget(QWidget *parent) :
     btnStart->show();
     connect(this->btnStart, SIGNAL(clicked()), this, SLOT(on_btnStart_clicked()));
 
-    lnedHost = new QLineEdit(this);
-    lnedHost->setGeometry(80, 190, 211, 27);
-    lnedHost->setFrame(false);
-    lnedHost->setStyleSheet("background-color:rgba(0,0,0,100);\ncolor:#fff;\nselection-background-color: rgba(0, 0, 0, 50);");
-    lnedHost->setText("localhost");
-    lnedHost->setEchoMode(QLineEdit::Normal);
-    lnedHost->show();
+    lnedSave = new QLineEdit(this);
+    lnedSave->setGeometry(80, 60, 211, 27);
+    lnedSave->setFrame(false);
+    lnedSave->setStyleSheet("background-color:rgba(0,0,0,100);\ncolor:#fff;\nselection-background-color: rgba(0, 0, 0, 50);");
+    lnedSave->setEchoMode(QLineEdit::Normal);
+    lnedSave->setText("filename");
+    lnedSave->hide();
 
     lnedUsername = new QLineEdit(this);
     lnedUsername->setGeometry(80, 120, 211, 27);
@@ -59,10 +60,24 @@ GameStartWidget::GameStartWidget(QWidget *parent) :
     lnedUsername->setEchoMode(QLineEdit::Normal);
     lnedUsername->show();
 
+    lnedHost = new QLineEdit(this);
+    lnedHost->setGeometry(80, 190, 211, 27);
+    lnedHost->setFrame(false);
+    lnedHost->setStyleSheet("background-color:rgba(0,0,0,100);\ncolor:#fff;\nselection-background-color: rgba(0, 0, 0, 50);");
+    lnedHost->setText("localhost");
+    lnedHost->setEchoMode(QLineEdit::Normal);
+    lnedHost->show();
+
+    lblSave = new QLabel(this);
+    lblSave->setGeometry(80, 40, 67, 19);
+    lblSave->setText("Load:");
+    lblSave->hide();
+
     lblHost = new QLabel(this);
     lblHost->setGeometry(80, 170, 67, 19);
     lblHost->setText("Server:");
     lblHost->show();
+
 
     this->red = new QPushButton(this);
     this->red->setGeometry(100, 230, 20, 20);
@@ -101,6 +116,8 @@ GameStartWidget::GameStartWidget(QWidget *parent) :
 
     move(x, y);
     setFixedSize(windowSize.width(), windowSize.height());
+
+    loading = false;
 }
 
 void GameStartWidget::ConnectStuff(Widget *wdgt, QTcpSocket *s, gameScreen *gmscr)
@@ -122,6 +139,24 @@ void GameStartWidget::showHost()
     lnedHost->show();
 }
 
+void GameStartWidget::displayLoad()
+{
+    lnedSave->show();
+    lblSave->show();
+    red->setEnabled(false);
+    blue->setEnabled(false);
+    loading = true;
+}
+
+void GameStartWidget::hideLoad()
+{
+    lnedSave->hide();
+    lblSave->hide();
+    red->setEnabled(true);
+    blue->setEnabled(true);
+    loading = false;
+}
+
 GameStartWidget::~GameStartWidget()
 {
     delete ui;
@@ -136,24 +171,35 @@ void GameStartWidget::main_window()
 void GameStartWidget::on_btnExit2_clicked()
 {
     this->close();
+
 }
 
 void GameStartWidget::on_btnStart_clicked()
 {
     int num;
-    if(this->red->isChecked()){
-        num = 1;
-    }else if(this->blue->isChecked()){
-        num = 2;
+    QString message;
+    QString filename = "";
+    if(!loading){
+        if(this->red->isChecked()){
+            num = 1;
+        }else if(this->blue->isChecked()){
+            num = 2;
+        }
+    }else{
+        num = 5;
+        if(lnedSave->text() == "" || lnedSave->text() == "filename"){
+            QMessageBox::critical(this, "Error", "Please enter a valid filename");
+            return;
+        }
+        filename = lnedSave->text() + " ";
     }
     if (lnedHost->text() == "")  {
-        sock->disconnect();
         QMessageBox::critical(this, "Error", "Unable to connect to host:\n" + lnedHost->text());
         return;
     }
 
+
     if (lnedUsername->displayText() == "" || lnedUsername->displayText() == "PlayerName"){
-        //qDebug() << lnedUsername->displayText();
         QMessageBox::critical(this, "Error", "Please enter a username");
         return;
     }
@@ -166,13 +212,14 @@ void GameStartWidget::on_btnStart_clicked()
         return;
     }
 
-    QString message = QString::number(num) + " " + lnedUsername->displayText();
+    message = QString::number(num) + " " + filename + lnedUsername->displayText();
+    qDebug() << message;
     sock->write(message.toAscii());
     g->setPlayername(lnedUsername->text());
     g->show();
     g->grabKeyboard();
     g->passSocket(sock);
-    g->grabMouse();
+
     this->hide();
 }
 
