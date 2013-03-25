@@ -51,6 +51,8 @@ private slots:
     void on_btnExit_clicked();
 
 
+    void on_btnLoad_clicked();
+
 signals:
     void startLocal();
 
