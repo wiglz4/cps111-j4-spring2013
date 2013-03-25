@@ -58,6 +58,8 @@ private:
     Counter *count;
 
     Minion *aMinion;
+
+    World();
 public:
     World(vector<User *> *vect, Game* gam);
 
@@ -75,7 +77,7 @@ public:
 
     void save();
 
-    string load(string);
+    static World* load(vector<User *> *vect, Game* gam);
 
     void incTick(){tick++;}
     void setTick(int i){tick = i;}

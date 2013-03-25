@@ -6,6 +6,7 @@ class Entity;
 
 class Core : public Entity
 {
+    Core();
 public:
     Core(int cTeam, int cX, int cY, World *newMap);
     void endGame();

@@ -21,7 +21,6 @@ Core::Core(int cTeam, int newX, int newY, World *newMap)
     attackable = true;
     size = 200; //radius
     type = 1;
-
 }
 
 void Core::endGame()

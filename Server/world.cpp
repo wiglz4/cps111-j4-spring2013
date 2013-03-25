@@ -14,6 +14,11 @@
 
 #include <QDebug>
 
+World::World()
+{
+
+}
+
 World::World(vector<User *> *vect, Game* gam)
 {
     //NEEDS CODING
@@ -183,8 +188,9 @@ void World::save()
 }
 
 
-string World::load(string loadString)
+World* World::load(vector<User *> *vect, Game *gam)
 {
+    /*
     ifstream indata;
     int num;
     char test[5000];
@@ -202,6 +208,7 @@ string World::load(string loadString)
     qDebug() << "LOADED";
     load<<"\n";
     return load.str();
+    */
 }
 
 void World::createRedMinion()

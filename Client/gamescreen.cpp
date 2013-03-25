@@ -323,7 +323,7 @@ void gameScreen::onTimerHit()
         if(upPressed && rightPressed && !downPressed && !leftPressed)
         {
             //2
-            if(wdgtPicture->x() - 8 > -3098 && wdgtPicture->y() + 8 < 2152)
+            if(wdgtPicture->x() - 8 > -3098 && wdgtPicture->y() + 8 < 2152 && !(wdgtPicture->x() - 8 < -3098))
             {
                 wdgtPicture->move(wdgtPicture->x() - 8, wdgtPicture->y() + 8);
                 qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
@@ -332,7 +332,7 @@ void gameScreen::onTimerHit()
         if(!upPressed && rightPressed && !downPressed && !leftPressed)
         {
             //3
-            if(wdgtPicture->x() - 10 > -3098);
+            if(wdgtPicture->x() - 10 > -3098 && !(wdgtPicture->x() - 10 < -3098));
             {
                 wdgtPicture->move(wdgtPicture->x() - 10 , wdgtPicture->y());
                 qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
@@ -341,7 +341,7 @@ void gameScreen::onTimerHit()
         if(!upPressed && rightPressed && downPressed && !leftPressed)
         {
             //4
-            if(wdgtPicture->x() - 8 > -3098 && wdgtPicture->y() - 8 > -270)
+            if(wdgtPicture->x() - 8 > -3098 && wdgtPicture->y() - 8 > -260 && !(wdgtPicture->x() - 8 < -3098))
             {
                 wdgtPicture->move(wdgtPicture->x()-8, wdgtPicture->y() - 8);
                 qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
@@ -350,7 +350,7 @@ void gameScreen::onTimerHit()
         if(!upPressed && !rightPressed && downPressed && !leftPressed)
         {
             //5
-            if(wdgtPicture->y() - 10 > -270)
+            if(wdgtPicture->y() - 10 > -260)
             {
                 wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() - 10);
                 qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
@@ -359,7 +359,7 @@ void gameScreen::onTimerHit()
         if(!upPressed && !rightPressed && downPressed && leftPressed)
         {
             //6
-            if(wdgtPicture->x() + 8 < 110 && wdgtPicture->y() - 8 > -270)
+            if(wdgtPicture->x() + 8 < 110 && wdgtPicture->y() - 8 > -260)
             {
                 wdgtPicture->move(wdgtPicture->x() + 8, wdgtPicture->y() - 8);
                 qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();

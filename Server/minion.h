@@ -8,6 +8,7 @@ class Counter;
 
 class Minion : public Unit
 {
+    Minion();
 protected:
     int cpX;
     int cpY;
