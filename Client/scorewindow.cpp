@@ -9,7 +9,11 @@
 #include <QDesktopWidget>
 #include <QSize>
 #include <QFrame>
+#include <fstream>
+#include <iostream>
+#include <sstream>
 
+using namespace std;
 
 ScoreWindow::ScoreWindow(QWidget *parent) :
     QDialog(parent),
@@ -52,7 +56,7 @@ ScoreWindow::ScoreWindow(QWidget *parent) :
     move(x, y);
     setFixedSize(windowSize.width(), windowSize.height());
 
-    //setWindowFlags(Qt::FramelessWindowHint);
+    //scores = this->populateScores();
 }
 
 ScoreWindow::~ScoreWindow()
@@ -183,4 +187,25 @@ void ScoreWindow::makeEndGame(){
     ui->lblTitle->setStyleSheet("background: url(:/images/game over.png) no-repeat top left; background-color:rgba(0,0,0,0);");
 
     isEndgame = true;
+}
+
+QList<ScoreObject> ScoreWindow::populateScores()
+{
+    std::stringstream s;
+    ifstream scorefile;
+    char line[5000];
+    scorefile.open("scores.scs");
+    scorefile.getline(line, 5000);
+    for(int i = 0; i < 5000; ++i)
+    {
+        s<<line[i];
+    }
+    QString fun(s.str().c_str());
+    QStringList rawData = fun.split(" ",QString::SkipEmptyParts);
+    QList<ScoreObject*> scores;
+    ScoreObject* temp;
+    for(int i = 0; i < rawData.size(); ++i)
+    {
+        temp = new ScoreObject();
+    }
 }
