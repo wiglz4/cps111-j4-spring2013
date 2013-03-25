@@ -19,12 +19,15 @@ public:
     void setCounter(int newCounter){ counter = counter + newCounter;}
     int getID(){return ID;}
     int getCounter(){return counter;}
+    int getTeam(){return team;}
     void setHealth(int pHealth){percentHealth = pHealth;}
     //void set
     void setState(int initState){state = initState;}
     void updateStyleSheet();
     void nextFrame();
     void die();
+    int getType() { return type; }
+
     QString getName(){return playerName;}
     int getHealth(){return percentHealth;}
 

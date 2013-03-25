@@ -23,7 +23,7 @@ PlCh::PlCh(int cTeam, int newX, int newY, World *newMap, string pName)
     size = 150; //radius
     type = 4;
 
-    atkDamage = 300;//incomplete
+    atkDamage = 600;//incomplete
     atkSpeed = 1;
     armor = 20;
     atkRange = 600;//incomplete

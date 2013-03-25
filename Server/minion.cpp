@@ -42,11 +42,17 @@ Minion::Minion(int cTeam, int newX, int newY, World *newMap)
     positionChange = true;
 
     //CHANGE WITH IFS
+    if(team == 1)
+    {
     cpX = 220;
     cpY = 2395;
+    }
+    else
+    {
+        cpX = 2220;
+        cpY = 395;
+    }
     OOL = false;
-    laneX = 999;
-    laneY = 999;
 }
 
 
@@ -201,7 +207,7 @@ void Minion::onTick()
         else
         {
             Entity *ent = map->getNAE(x,y,team, distance);
-            if (ent != NULL)
+            if (ent != NULL && ent->getAttackable())
             {
                 if(distance < detRange)
                 {
@@ -248,50 +254,52 @@ void Minion::onTick()
                         }
                     }
                 }
+            }
+            else
+            {
+                if(OOL)
+                {
+                    //SPECIAL OOL LOGIC
+                }
                 else
                 {
-                    if(OOL)
+                    //qDebug() << "Reached Joels Weird Math.";
+                    distance = sqrt(pow(cpY-y, 2) + pow(cpX - x, 2));
+
+                    theta = asin((y-cpY)/distance);
+                    //qDebug() << theta;
+                    delta = acos((x-cpX)/distance);
+                    //qDebug() << delta;
+                    if(cpY > y)
                     {
-                        //SPECIAL OOL LOGIC
+                        tempY = y + abs(speed * sin(theta));
                     }
                     else
                     {
-                        //qDebug() << "Reached Joels Weird Math.";
-                        distance = sqrt(pow(cpY-y, 2) + pow(cpX - x, 2));
-
-                        theta = asin((y-cpY)/distance);
-                        //qDebug() << theta;
-                        delta = acos((x-cpX)/distance);
-                        //qDebug() << delta;
-                        if(cpY > y)
-                        {
-                            tempY = y + abs(speed * sin(theta));
-                        }
-                        else
-                        {
-                            tempY = y - abs(speed * sin(theta));
-                        }
-                        if(cpX > x)
-                        {
-                            tempX = x + abs(speed * cos(theta));
-                        }
-                        else
-                        {
-                            tempX = x - abs(speed * cos(theta));
-                        }
-                        if(map->boundsCheck(tempX, tempY))
-                        {
-                            //SET STATE HERE
-                            x = tempX;
-                            y = tempY;
-                            //MESS WITH OOL
-                        }
+                        tempY = y - abs(speed * sin(theta));
+                    }
+                    if(cpX > x)
+                    {
+                        tempX = x + abs(speed * cos(theta));
+                    }
+                    else
+                    {
+                        tempX = x - abs(speed * cos(theta));
+                    }
+                    if(map->boundsCheck(tempX, tempY))
+                    {
+                        //SET STATE HERE
+                        x = tempX;
+                        y = tempY;
+                        //MESS WITH OOL
                     }
                 }
             }
         }
     }
 }
+
+
 
 bool Minion::damage(int value)
 {
@@ -395,11 +403,11 @@ string Minion::displayString()
             //positionChange = false;
         }
     } else if(newDead)
-        {
-            strm<<" "<<(type * 10 + 9)<<" "<<absoluteID;
-            newDead = false;
-        }
+    {
+        strm<<" "<<(type * 10 + 9)<<" "<<absoluteID;
+        newDead = false;
+    }
 
-        return strm.str();
+    return strm.str();
 }
 

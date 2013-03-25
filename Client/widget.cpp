@@ -61,12 +61,14 @@ void Widget::connectGame(gameScreen *g)
 
 void Widget::on_btnLocal_clicked()
 {
+    gsw->hideLoad();
     gsw->hideHost();
     gsw->show();
     this->hide();
 }
 
 void Widget::on_btnNetwork_clicked(){
+    gsw->hideLoad();
     gsw->showHost();
     gsw->show();
     this->hide();
@@ -116,3 +118,11 @@ void Widget::on_btnExit_clicked()
     this->close();
 }
 
+
+void Widget::on_btnLoad_clicked()
+{
+    gsw->showHost();
+    gsw->displayLoad();
+    gsw->show();
+    this->hide();
+}

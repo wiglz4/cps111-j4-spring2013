@@ -30,12 +30,12 @@ void EntityLabel::updateStyleSheet(){
 
 void EntityLabel::die()
 {
-   qDebug() << this->type;
+   //qDebug() << this->type;
    if (this->type == 3){
-        qDebug() << "Should hide";
+        //qDebug() << "Should hide";
         this->hide();
    } else if (this->type == 4){
-       qDebug() << "Respawn";
+       //qDebug() << "Respawn";
        this->hide();
    }
 

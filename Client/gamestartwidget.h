@@ -24,6 +24,8 @@ public:
     void ConnectStuff(Widget*, QTcpSocket*, gameScreen*);
     void hideHost();
     void showHost();
+    void displayLoad();
+    void hideLoad();
     ~GameStartWidget();
     
 private slots:
@@ -44,6 +46,8 @@ private:
     QLineEdit *lnedHost;
     QLabel *lblHost;
     QLineEdit *lnedUsername;
+    QLineEdit *lnedSave;
+    QLabel *lblSave;
 
     Widget *w;
     gameScreen *g;
@@ -51,6 +55,8 @@ private:
 
     QPushButton *red;
     QPushButton *blue;
+
+    bool loading;
 
 };
 
