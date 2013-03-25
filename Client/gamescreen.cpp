@@ -765,6 +765,7 @@ void gameScreen::changeEntityState(int id, int state){
 void gameScreen::exterminate(int id){
     EntityLabel *thing = gameScreen::getByID(id);
     qDebug() << "DEAD THING";
+    qDebug() << id;
     thing->die();
     if(id == targetId){
         targetHealth->hide();
