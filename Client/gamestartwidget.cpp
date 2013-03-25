@@ -39,7 +39,7 @@ GameStartWidget::GameStartWidget(QWidget *parent) :
     btnStart->setGeometry(572,185,121,31);
     btnStart->setFlat(true);
     btnStart->setFocusPolicy(Qt::NoFocus);
-    btnStart->setStyleSheet("QPushButton { background:url(:/images/buttonsg) no-repeat right top; } QPushButton:hover{ background:url(:/images/buttonsg2.png) no-repeat right top; } QPushButton:pressed { background:url(:/images/buttonex.png) no-repeat right top; border: 0px solid grey; }");
+    btnStart->setStyleSheet("QPushButton { background:url(:/images/buttonsg) no-repeat right top; } QPushButton:hover{ background:url(:/images/buttonsg2.png) no-repeat right top; } QPushButton:pressed { background:url(:/images/buttonsg.png) no-repeat right top; border: 0px solid grey; }");
     btnStart->show();
     connect(this->btnStart, SIGNAL(clicked()), this, SLOT(on_btnStart_clicked()));
 
@@ -63,6 +63,24 @@ GameStartWidget::GameStartWidget(QWidget *parent) :
     lblHost->setGeometry(80, 170, 67, 19);
     lblHost->setText("Server:");
     lblHost->show();
+
+    this->red = new QPushButton(this);
+    this->red->setGeometry(100, 230, 20, 20);
+    this->red->setFlat(true);
+    this->red->setStyleSheet("QPushButton {background-color:#ff0000;} QPushButton:flat {background-color:#ff0000;}");
+    this->red->setCheckable(true);
+    this->red->setChecked(true);
+    connect(this->red, SIGNAL(clicked()), this, SLOT(on_red_clicked()));
+    this->red->show();
+
+    this->blue = new QPushButton(this);
+    this->blue->setGeometry(130, 230, 20, 20);
+    this->blue->setFlat(true);
+    this->blue->setStyleSheet("background-color:#0000ff;alternate-background-color:#0000ff;");
+    this->blue->setCheckable(true);
+    this->blue->setChecked(false);
+    connect(this->blue, SIGNAL(clicked()), this, SLOT(on_blue_clicked()));
+    this->blue->show();
 
     QDesktopWidget *desktop = QApplication::desktop();
     int screenWidth, width;
@@ -122,6 +140,12 @@ void GameStartWidget::on_btnExit2_clicked()
 
 void GameStartWidget::on_btnStart_clicked()
 {
+    int num;
+    if(this->red->isChecked()){
+        num = 1;
+    }else if(this->blue->isChecked()){
+        num = 2;
+    }
     if (lnedHost->text() == "")  {
         sock->disconnect();
         QMessageBox::critical(this, "Error", "Unable to connect to host:\n" + lnedHost->text());
@@ -142,7 +166,7 @@ void GameStartWidget::on_btnStart_clicked()
         return;
     }
 
-    QString message = "2 " + lnedUsername->displayText() + "\n";
+    QString message = QString::number(num) + " " + lnedUsername->displayText();
     sock->write(message.toAscii());
     g->setPlayername(lnedUsername->text());
     g->show();
@@ -150,4 +174,16 @@ void GameStartWidget::on_btnStart_clicked()
     g->passSocket(sock);
     g->grabMouse();
     this->hide();
+}
+
+void GameStartWidget::on_red_clicked()
+{
+    this->blue->setChecked(false);
+    this->red->setChecked(true);
+}
+
+void GameStartWidget::on_blue_clicked()
+{
+    this->red->setChecked(false);
+    this->blue->setChecked(true);
 }

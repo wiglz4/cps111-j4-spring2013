@@ -555,7 +555,7 @@ void gameScreen::readCommand()
                         //endgame
                     case 50:
                         qDebug() << "case 50";
-                        ScoreWindow *s = new ScoreWindow;
+                        ScoreWindow *s = new ScoreWindow(w);
                         s->connectWidget(w);
                         int deaths;
                         int mKills;

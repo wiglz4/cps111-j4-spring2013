@@ -393,17 +393,12 @@ string Minion::displayString()
             stateChange = false;
             //positionChange = false;
         }
-
-
-        return strm.str();
-    }
-    else
-    {
-        if(newDead)
+    } else if(newDead)
         {
             strm<<" "<<(type * 10 + 9)<<" "<<absoluteID;
             newDead = false;
-            return strm.str();
         }
-    }
+
+        return strm.str();
 }
+

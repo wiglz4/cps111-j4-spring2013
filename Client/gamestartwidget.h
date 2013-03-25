@@ -30,6 +30,8 @@ private slots:
     void main_window();
     void on_btnExit2_clicked();
     void on_btnStart_clicked();
+    void on_red_clicked();
+    void on_blue_clicked();
 
 private:
     Ui::GameStartWidget *ui;
@@ -46,6 +48,9 @@ private:
     Widget *w;
     gameScreen *g;
     QTcpSocket *sock;
+
+    QPushButton *red;
+    QPushButton *blue;
 
 };
 

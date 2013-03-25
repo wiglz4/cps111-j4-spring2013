@@ -29,7 +29,7 @@ bool User::checkInstanceVars()
 QString User::score()
 {
     QString s = QString::fromStdString(userName);
-    s.remove(s.length() - 2);
+    s.remove(s.size() - 3);
     s = s + " " + QString::number(team) + " ";
     string stats = character->getStats();
     s = s + QString::fromStdString(stats);
