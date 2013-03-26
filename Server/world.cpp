@@ -165,7 +165,7 @@ void World::onTick()
     for(int i = 0; i < 1; ++i)
     {
         createRedMinion();
-        //createBlueMinion();
+        createBlueMinion();
         setTick(0);
         //save();
     }
