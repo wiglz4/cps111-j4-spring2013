@@ -10,6 +10,7 @@ class ScoreObject;
 #include "widget.h"
 #include "gamescreen.h"
 #include <QPushButton>
+#include <QList>
 
 class ScoreWindow : public QDialog
 {
@@ -21,6 +22,8 @@ public:
     void addScore(ScoreObject *);
     void addTime(int t);
     void makeEndGame();
+    QList<ScoreObject> populateScores();
+    void addScoreToScores(ScoreObject *);
     ~ScoreWindow();
 
     
@@ -33,6 +36,7 @@ private:
     Widget *w;
     QPushButton* main;
     QPushButton* btnExit2;
+    QList<ScoreObject> *scores;
     bool isEndgame;
     int nextY;
 
