@@ -206,7 +206,7 @@ void GameStartWidget::on_btnStart_clicked()
 
     sock->connectToHost(lnedHost->text(),5000);
     if (!sock->waitForConnected()){
-        qDebug() << lnedHost->text();
+        //qDebug() << lnedHost->text();
         sock->disconnect();
         QMessageBox::critical(this, "Error", "Unable to connect to host:\n" + lnedHost->text());
         return;

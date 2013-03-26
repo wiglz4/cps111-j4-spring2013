@@ -5,6 +5,8 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
+#include <fstream>
 
 class Game;
 class Entity;
@@ -56,6 +58,8 @@ private:
     Counter *count;
 
     Minion *aMinion;
+
+    World();
 public:
     World(vector<User *> *vect, Game* gam);
 
@@ -71,9 +75,9 @@ public:
 
     void spawn();
 
-    string save();
+    void save();
 
-    void load(string loadString);
+    static World* load(vector<User *> *vect, Game* gam);
 
     void incTick(){tick++;}
     void setTick(int i){tick = i;}

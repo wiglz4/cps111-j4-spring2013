@@ -57,6 +57,8 @@ gameScreen::gameScreen(QWidget *parent) :
     downPressed = false;
     leftPressed = false;
 
+    spacePressed = false;
+
     menu = new QPushButton(gameFrame);
     menu->setGeometry(588,310,121,31);
     menu->setFlat(true);
@@ -137,6 +139,7 @@ gameScreen::~gameScreen()
     delete gsui;
 }
 
+/*
 void gameScreen::updatePlayer(QStringList player)
 {
     bool ok;
@@ -147,6 +150,7 @@ void gameScreen::updatePlayer(QStringList player)
         hero->show();
     }
 }
+*/
 
 void gameScreen::updatePos(EntityLabel *lblToUpdate, int x, int y, int width, int height)
 {
@@ -187,7 +191,7 @@ void gameScreen::keyPressEvent(QKeyEvent *e)
             bar->hide();
             map->hide();
         }
-        qDebug() << "P";
+        //qDebug() << "P";
 
     }
     if(e->key() == Qt::Key_W && !e->isAutoRepeat())
@@ -221,6 +225,10 @@ void gameScreen::keyPressEvent(QKeyEvent *e)
     if(e->key() == Qt::Key_Right)
     {
         rightPressed = true;
+    }
+    if(e->key() == Qt::Key_Space)
+    {
+        spacePressed = true;
     }
 }
 
@@ -258,6 +266,10 @@ void gameScreen::keyReleaseEvent(QKeyEvent *e)
     {
         rightPressed = false;
     }
+    if(e->key() == Qt::Key_Space)
+    {
+        spacePressed = false;
+    }
 
 }
 
@@ -266,7 +278,7 @@ void gameScreen::onTimerHit()
     if(playerId == 0){
         playerId = getIdByName(playername);
         if(playerId != 0){
-            qDebug() << "playerId = " << playerId;
+            //qDebug() << "playerId = " << playerId;
         }
     } else {
         EntityLabel *e = getByID(playerId);
@@ -274,7 +286,7 @@ void gameScreen::onTimerHit()
     }
 
     if(targetId > 0){
-        qDebug() << "targetID=" << targetId;
+        //qDebug() << "targetID=" << targetId;
         EntityLabel *e = getByID(targetId);
         targetHealthPercent = e->getHealth();
 
@@ -286,46 +298,91 @@ void gameScreen::onTimerHit()
         targetIcon->hide();
         targetHealth->hide();
     }
-
-    if(upPressed && !rightPressed && !downPressed && !leftPressed)
+    if(spacePressed)
     {
-        //1
-        wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() + 6);
+        int hx = hero->x();
+        int hy = hero->y();
+        int ww = this->width();
+        int wh = this->height();
+        //wdgtPicture->move(hx, hy);
+        int gw = wdgtPicture->width();
+        int gh = wdgtPicture->height();
+        wdgtPicture->move(0-hx+ww/2, gh-hy-wh);
     }
-    if(upPressed && rightPressed && !downPressed && !leftPressed)
+    else
     {
-        //2
-        wdgtPicture->move(wdgtPicture->x() - 4, wdgtPicture->y() + 4);
-    }
-    if(!upPressed && rightPressed && !downPressed && !leftPressed)
-    {
-        //3
-        wdgtPicture->move(wdgtPicture->x() -6 , wdgtPicture->y());
-    }
-    if(!upPressed && rightPressed && downPressed && !leftPressed)
-    {
-        //4
-        wdgtPicture->move(wdgtPicture->x()-4, wdgtPicture->y() - 4);
-    }
-    if(!upPressed && !rightPressed && downPressed && !leftPressed)
-    {
-        //5
-        wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() - 6);
-    }
-    if(!upPressed && !rightPressed && downPressed && leftPressed)
-    {
-        //6
-        wdgtPicture->move(wdgtPicture->x() + 4, wdgtPicture->y() - 4);
-    }
-    if(!upPressed && !rightPressed && !downPressed && leftPressed)
-    {
-        //7
-        wdgtPicture->move(wdgtPicture->x() + 6, wdgtPicture->y());
-    }
-    if(upPressed && !rightPressed && !downPressed && leftPressed)
-    {
-        //8
-        wdgtPicture->move(wdgtPicture->x() + 4, wdgtPicture->y() + 4);
+        if(upPressed && !rightPressed && !downPressed && !leftPressed)
+        {
+            //1
+            if(wdgtPicture->y() + 10 < 2152)
+            {
+                wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() + 10);
+                qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+            }
+        }
+        if(upPressed && rightPressed && !downPressed && !leftPressed)
+        {
+            //2
+            if(wdgtPicture->x() - 8 > -3098 && wdgtPicture->y() + 8 < 2152 && !(wdgtPicture->x() - 8 < -3098))
+            {
+                wdgtPicture->move(wdgtPicture->x() - 8, wdgtPicture->y() + 8);
+                qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+            }
+        }
+        if(!upPressed && rightPressed && !downPressed && !leftPressed)
+        {
+            //3
+            if(wdgtPicture->x() - 10 > -3098 && !(wdgtPicture->x() - 10 < -3098));
+            {
+                wdgtPicture->move(wdgtPicture->x() - 10 , wdgtPicture->y());
+                qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+            }
+        }
+        if(!upPressed && rightPressed && downPressed && !leftPressed)
+        {
+            //4
+            if(wdgtPicture->x() - 8 > -3098 && wdgtPicture->y() - 8 > -260 && !(wdgtPicture->x() - 8 < -3098))
+            {
+                wdgtPicture->move(wdgtPicture->x()-8, wdgtPicture->y() - 8);
+                qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+            }
+        }
+        if(!upPressed && !rightPressed && downPressed && !leftPressed)
+        {
+            //5
+            if(wdgtPicture->y() - 10 > -260)
+            {
+                wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() - 10);
+                qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+            }
+        }
+        if(!upPressed && !rightPressed && downPressed && leftPressed)
+        {
+            //6
+            if(wdgtPicture->x() + 8 < 110 && wdgtPicture->y() - 8 > -260)
+            {
+                wdgtPicture->move(wdgtPicture->x() + 8, wdgtPicture->y() - 8);
+                qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+            }
+        }
+        if(!upPressed && !rightPressed && !downPressed && leftPressed)
+        {
+            //7
+            if(wdgtPicture->x() + 10 < 110)
+            {
+                wdgtPicture->move(wdgtPicture->x() + 10, wdgtPicture->y());
+                qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+            }
+        }
+        if(upPressed && !rightPressed && !downPressed && leftPressed)
+        {
+            //8
+            if(wdgtPicture->x() + 8 < 110 && wdgtPicture->y() + 8 < 2152)
+            {
+                wdgtPicture->move(wdgtPicture->x() + 8, wdgtPicture->y() + 8);
+                qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+            }
+        }
     }
     playerHealth->setGeometry(29, this->height() - 44, playerHealthPercent, 10);
     if(targetId != 0){
@@ -358,7 +415,7 @@ void gameScreen::resizeEvent(QResizeEvent *event)
 
 void gameScreen::mousePressEvent(QMouseEvent *e)
 {
-    //qDebug() <<"mouse clicked";
+    ////qDebug() <<"mouse clicked";
     if(e->button() == Qt::LeftButton){
         //qDebug() << "was left mouse button";
         QWidget *l = wdgtPicture->childAt(e->x() + abs(wdgtGame->x()) - wdgtPicture->x(), e->y() + abs(wdgtGame->y()) - wdgtPicture->y());
@@ -424,7 +481,7 @@ void gameScreen::readCommand()
     while(sock->canReadLine())
     {
         QString str = sock->readLine();
-        qDebug() << str;
+        //qDebug() << str;
         str.remove("\n");
         if(str != "")
         {
@@ -451,7 +508,8 @@ void gameScreen::readCommand()
                     type = entv/10;
                     switch (entv)
                     {
-                    //create
+
+                    //create and load
                     case 11: //core
                     case 21: //tower
                     case 31: //minion
@@ -472,7 +530,7 @@ void gameScreen::readCommand()
                         ++iterate;
                         createEntity(type, id, team, pHealth, state, x, y, playername);
                         showLbl(id);
-                        qDebug() << "created " << id;
+                        //qDebug() << "created " << id;
                         break;
 
                         //position change
@@ -593,13 +651,13 @@ void gameScreen::readCommand()
                     case 49: //player
                         id = List.at(iterate).toInt();
                         ++iterate;
-                        qDebug() << "DIED";
+                        //qDebug() << "DIED";
                         exterminate(id);
                         break;
 
                         //endgame
                     case 50:
-                        qDebug() << "case 50";
+                        //qDebug() << "case 50";
                         ScoreWindow *s = new ScoreWindow(w);
                         s->connectWidget(w);
                         int deaths;
@@ -639,8 +697,8 @@ void gameScreen::readCommand()
                         s->show();
                         break;
 
-                    /*default:
-                        qDebug() << "Error code AAUGH: Unidentified Case: " << entv;
+                        /*default:
+                        //qDebug() << "Error code AAUGH: Unidentified Case: " << entv;
                         break;*/
                     }
                 }
@@ -651,7 +709,7 @@ void gameScreen::readCommand()
 
 void gameScreen::lblClicked()
 {
-    qDebug()<<"ENTITY CLICKED";
+    //qDebug()<<"ENTITY CLICKED";
     EntityLabel *lbl = dynamic_cast<EntityLabel*>(sender());
     if(lbl != NULL)
     {
@@ -672,7 +730,10 @@ void gameScreen::serverDisconnected()
 
 void gameScreen::createEntity(int type, int id, int team, int health, int state, int posX, int posY, QString name){
     EntityLabel *thing = new EntityLabel(id, type, team, posX, posY, health, state, name, wdgtPicture);
-
+    if(name == playername)
+    {
+        hero = thing;
+    }
     //if on screen
     //connect(thing, SIGNAL(clicked(int)),this, SLOT(entityClicked(int)));
     thing->show();
@@ -680,7 +741,7 @@ void gameScreen::createEntity(int type, int id, int team, int health, int state,
 }
 
 void gameScreen::entityClicked(int id){
-    qDebug() << "cliked entity with id " << id;
+    //qDebug() << "cliked entity with id " << id;
 }
 
 void gameScreen::moveEntity(int id, int x, int y){
@@ -697,7 +758,7 @@ void gameScreen::changeEntityHealth(int id, int healthPercent){
 }
 
 void gameScreen::changeEntityState(int id, int state){
-   EntityLabel *thing = gameScreen::getByID(id);
+    EntityLabel *thing = gameScreen::getByID(id);
     thing->setState(state);
 }
 

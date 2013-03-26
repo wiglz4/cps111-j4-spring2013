@@ -8,6 +8,7 @@ class Counter;
 
 class Minion : public Unit
 {
+    Minion();
 protected:
     int cpX;
     int cpY;
@@ -25,6 +26,7 @@ public:
     virtual string displayString();
     virtual void die();
     virtual bool Attack();
+    virtual void getState();
 };
 
 #endif // MINION_H

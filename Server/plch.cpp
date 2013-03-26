@@ -23,7 +23,7 @@ PlCh::PlCh(int cTeam, int newX, int newY, World *newMap, string pName)
     size = 150; //radius
     type = 4;
 
-    atkDamage = 300;//incomplete
+    atkDamage = 600;//incomplete
     atkSpeed = 1;
     armor = 20;
     atkRange = 600;//incomplete
@@ -403,8 +403,8 @@ void PlCh::onTick()
             state = 5;
             if(team == 1) //Move him, based on team
             {
-                x = 250;
-                y = 2700;
+                x = 3200;
+                y = 395;
             }
             else
             {
@@ -497,7 +497,9 @@ bool PlCh::Attack()
 
 string PlCh::save()
 {
-    //NEEDS CODING
+    stringstream save;
+    save<<" "<<(type * 10 + 1)<<" "<<absoluteID<<" "<<team<<" "<<((curHealth * 100) / maxHealth)<<" "<<state<< " "<<x<<" "<<y<<" "<<plName;
+    return save.str();
 }
 
 Entity* PlCh::load()

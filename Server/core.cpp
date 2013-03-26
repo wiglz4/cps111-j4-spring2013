@@ -21,7 +21,6 @@ Core::Core(int cTeam, int newX, int newY, World *newMap)
     attackable = true;
     size = 200; //radius
     type = 1;
-
 }
 
 void Core::endGame()
@@ -47,7 +46,9 @@ void Core::onTick()
 
 string Core::save()
 {
-//NEEDS CODING
+    stringstream save;
+    save<<" "<<(type * 10 + 1)<<" "<<absoluteID<<" "<<team<<" "<<((curHealth * 100) / maxHealth)<<" "<<0<< " "<<x<<" "<<y<<" "<<"NOT";
+    return save.str();
 }
 
 Entity* Core::load()

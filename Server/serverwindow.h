@@ -38,6 +38,8 @@ class serverWindow : public QMainWindow, public Observer
     bool timerGo;
     //Counter *count;
     bool debug;
+    int GetUserTeam();
+    std::string GetLoadUsername();
 
 
 public:

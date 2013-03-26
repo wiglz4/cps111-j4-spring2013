@@ -17,6 +17,8 @@ protected:
     bool canCheatMode;
     Counter *cheatCounter;
 
+    PlCh();
+
     bool wPressed;
     bool aPressed;
     bool sPressed;

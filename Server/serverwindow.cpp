@@ -82,22 +82,32 @@ void serverWindow::dataReceived()
                 if(!unUsers.at(i)->checkInstanceVars())
                 {
                     QStringList List = str.split(" ",QString::SkipEmptyParts);
-                    int team;
-                    team = List.at(0).toInt();
-                    std::string username = List.at(1).toStdString();
-                    unUsers.at(i)->setTeam(team);
-                    //qDebug() << team;
-                    //unUsers.at(i)->setTeam(2);
-                    unUsers.at(i)->setUsername(username);
-                    //qDebug() << QString(username.c_str());
-                    QString message("Hello ");
-                    QString uname(username.c_str());
-                    message += uname + "!;";
-                    //sock->write(message.toAscii());
-                    if(!timerGo)
+                    if(List.at(0) == "5")
                     {
-                        timerGo = true;
-                        timerHit();
+                        unUsers.at(i)->setTeam(GetUserTeam());
+                        unUsers.at(i)->setUsername(GetLoadUsername());
+                        game = Game::Load(this, &unUsers);
+                        timer->start();
+                    }
+                    else
+                    {
+                        int team;
+                        team = List.at(0).toInt();
+                        std::string username = List.at(1).toStdString();
+                        unUsers.at(i)->setTeam(team);
+                        //qDebug() << team;
+                        //unUsers.at(i)->setTeam(2);
+                        unUsers.at(i)->setUsername(username);
+                        //qDebug() << QString(username.c_str());
+                        QString message("Hello ");
+                        QString uname(username.c_str());
+                        message += uname + "!;";
+                        //sock->write(message.toAscii());
+                        if(!timerGo)
+                        {
+                            timerGo = true;
+                            timerHit();
+                        }
                     }
                 }
             }
@@ -155,4 +165,13 @@ void serverWindow::timerHit()
             timer->stop();
         }
     }
+}
+
+
+int serverWindow::GetUserTeam()
+{
+}
+
+string serverWindow::GetLoadUsername()
+{
 }

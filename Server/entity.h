@@ -31,6 +31,7 @@ public:
     virtual std::string save() = 0;
     virtual Entity* load() = 0;
     virtual std::string displayString() = 0;
+    //virtual void getState() = 0;
 
     int getCHealth(){return curHealth;}
     int getMHealth(){return maxHealth;}

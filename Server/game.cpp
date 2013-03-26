@@ -17,6 +17,7 @@ Game::Game(Observer *o, std::vector<User *> *unUsers)
 }
 
 
+
 std::string Game::onTick()
 {
     if(!over && !newOver)
@@ -59,4 +60,20 @@ void Game::endGame(int team)
     //this should be repeated until there are no more players to process then the time in seconds should be added to the last slot
     //packet += QString("%1").arg(team);
     newOver = true;
+}
+
+Game* Game::Load(Observer *o, std::vector<User *> *unUsers)
+{
+    Game* gam = new Game();
+    gam->users = unUsers;
+    gam->obs = o;
+    gam->gmap = World::load(unUsers,gam);
+    return gam;
+}
+
+
+Game::Game()
+{
+    over = false;
+    newOver = false;
 }

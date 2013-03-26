@@ -7,6 +7,7 @@ class Unit;
 
 class Tower : public Unit
 {
+    Tower();
 public:
     Tower(int cTeam, int newX, int newY, World* newMap);
     virtual bool damage(int value);
