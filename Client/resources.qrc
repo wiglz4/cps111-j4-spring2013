@@ -1,15 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>images/button.png</file>
-        <file>images/hero1.png</file>
-        <file>images/mapsm.png</file>
-        <file>images/mobatitlewindow.png</file>
-        <file>images/title.png</file>
-        <file>images/helpbutton.png</file>
-        <file>images/highscores.png</file>
-        <file>images/WASD.png</file>
-        <file>images/ARROWKEYS.png</file>
-        <file>images/hep.png</file>
         <file>images/1/3/1/1.png</file>
         <file>images/1/3/1/2.png</file>
         <file>images/1/3/1/3.png</file>
@@ -484,9 +474,6 @@
         <file>images/controls.png</file>
         <file>images/game title.png</file>
         <file>images/high scores.png</file>
-        <file>images/background.png</file>
-        <file>images/backgroundc.png</file>
-        <file>images/backgroundd.png</file>
         <file>images/backgrounde.png</file>
         <file>images/buttonex2.png</file>
         <file>images/buttonpa2.png</file>
@@ -573,7 +560,6 @@
         <file>images/2/2/8/1.png</file>
         <file>images/game over.png</file>
         <file>images/hud.png</file>
-        <file>images/hero.png</file>
         <file>images/buttonsg.png</file>
         <file>images/buttonsg2.png</file>
         <file>images/1/4/1/1.png</file>
@@ -729,5 +715,13 @@
         <file>images/1/4/8/18.png</file>
         <file>images/1/4/8/19.png</file>
         <file>images/background3.png</file>
+        <file>images/icons/bluebot.png</file>
+        <file>images/icons/bluecore.png</file>
+        <file>images/icons/bluehero.png</file>
+        <file>images/icons/blueturret.png</file>
+        <file>images/icons/redbot.png</file>
+        <file>images/icons/redcore.png</file>
+        <file>images/icons/redhero.png</file>
+        <file>images/icons/redturret.png</file>
     </qresource>
 </RCC>

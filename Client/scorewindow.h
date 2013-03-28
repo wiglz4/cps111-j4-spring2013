@@ -29,7 +29,7 @@ public:
     
 private slots:
     void main_window();
-    void on_btnExit2_clicked();
+    void onBtnExit2Clicked();
 
 private:
     Ui::ScoreWindow *ui;

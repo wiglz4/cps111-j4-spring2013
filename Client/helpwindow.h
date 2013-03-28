@@ -28,8 +28,8 @@ private:
 
 private slots:
     void main_window();
-    void on_btnExit2_clicked();
-    void on_btnNetwork_clicked();
+    void onBtnExit2Clicked();
+    void onBtnNetworkClicked();
 };
 
 #endif // HELPWINDOW_H

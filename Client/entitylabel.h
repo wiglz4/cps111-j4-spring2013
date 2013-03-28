@@ -50,10 +50,12 @@ public:
 
     //Sets the label to its "dead" state.
     void die();
+
     //Increments counter based on the label's type.
     //  If it reaches the end of the animation loop
     //  it will reset the counter to 0.
     void nextFrame();
+
     //Updates the object's stylesheet based on the
     //  current values of its instance variables.
     void updateStyleSheet();

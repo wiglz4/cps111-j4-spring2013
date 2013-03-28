@@ -29,7 +29,7 @@ HelpWindow::HelpWindow(QWidget *parent) :
     btnExit2->setFocusPolicy(Qt::NoFocus);
     btnExit2->setStyleSheet("QPushButton { background:url(:/images/buttonex) no-repeat right top; } QPushButton:hover{ background:url(:/images/buttonex2.png) no-repeat right top; } QPushButton:pressed { background:url(:/images/buttonex.png) no-repeat right top; border: 0px solid grey; }");
     btnExit2->show();
-    connect(this->btnExit2, SIGNAL(clicked()), this, SLOT(on_btnExit2_clicked()));
+    connect(this->btnExit2, SIGNAL(clicked()), this, SLOT(onBtnExit2Clicked()));
 
     QDesktopWidget *desktop = QApplication::desktop();
     int screenWidth, width;
@@ -51,7 +51,7 @@ HelpWindow::HelpWindow(QWidget *parent) :
     move(x, y);
     setFixedSize(windowSize.width(), windowSize.height());
 
-    //setWindowFlags(Qt::FramelessWindowHint);
+    setWindowFlags(Qt::SplashScreen);
 }
 
 HelpWindow::~HelpWindow()
@@ -65,13 +65,13 @@ void HelpWindow::main_window(){
     w->show();
 }
 
-void HelpWindow::on_btnExit2_clicked()
+void HelpWindow::onBtnExit2Clicked()
 {
-    this->close();
+    QApplication::quit();
 }
 
 
-void HelpWindow::on_btnNetwork_clicked()
+void HelpWindow::onBtnNetworkClicked()
 {
 
 }

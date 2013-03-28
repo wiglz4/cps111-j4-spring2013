@@ -18,45 +18,68 @@ class GameStartWidget;
 class GameStartWidget : public QWidget
 {
     Q_OBJECT
-    
-public:
-    explicit GameStartWidget(QWidget *parent = 0);
-    void ConnectStuff(Widget*, QTcpSocket*, GameScreen*);
-    void hideHost();
-    void showHost();
-    void displayLoad();
-    void hideLoad();
-    ~GameStartWidget();
-    
-private slots:
-    void main_window();
-    void on_btnExit2_clicked();
-    void on_btnStart_clicked();
-    void on_red_clicked();
-    void on_blue_clicked();
 
-private:
+    //Instance Variables
+    bool loading;
+
+    GameScreen *g;
+
     Ui::GameStartWidget *ui;
-    QLabel *img;
 
-    QPushButton *main;
-    QPushButton *btnExit2;
-    QPushButton *btnStart;
-
-    QLineEdit *lnedHost;
+    QLabel *lblImg;
     QLabel *lblHost;
-    QLineEdit *lnedUsername;
-    QLineEdit *lnedSave;
     QLabel *lblSave;
 
-    Widget *w;
-    GameScreen *g;
+    QLineEdit *lnedHost;
+    QLineEdit *lnedSave;
+    QLineEdit *lnedUsername;
+
+    QPushButton *btnBlue;
+    QPushButton *btnExit2;
+    QPushButton *btnMain;
+    QPushButton *btnRed;
+    QPushButton *btnStart;
+
     QTcpSocket *sock;
 
-    QPushButton *red;
-    QPushButton *blue;
+    Widget *w;
 
-    bool loading;
+public:
+    //Constructor
+    explicit GameStartWidget(QWidget *parent = 0);
+
+    //Destructor
+    ~GameStartWidget();
+
+    //Setter Methods
+    //------------//
+
+    //Sets <w>, <sock>, and <g>
+    void connectStuff(Widget*, QTcpSocket*, GameScreen*);
+
+    //Display Methods
+    //-------------//
+
+    //Show objects necessary for multiplayer
+    void dislpayHost();
+
+    //Show objects necessary for loading
+    void displayLoad();
+
+    //Hide objects necessary for multiplayer
+    void hideHost();
+
+    //Hide objects necessary for loading
+    void hideLoad();
+
+private slots:
+    void onMainWindowClicked();
+    void onBtnExitClicked();
+    void onBtnStartClicked();
+    void onRedClicked();
+    void onBlueClicked();
+
+private:
 
 };
 

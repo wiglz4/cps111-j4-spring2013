@@ -56,7 +56,7 @@ ScoreWindow::ScoreWindow(QWidget *parent) :
     move(x, y);
     setFixedSize(windowSize.width(), windowSize.height());
 
-    //scores = this->populateScores();
+    setWindowFlags(Qt::SplashScreen);
 }
 
 ScoreWindow::~ScoreWindow()
@@ -71,14 +71,14 @@ void ScoreWindow::main_window(){
     w->show();
 }
 
-void ScoreWindow::on_btnExit2_clicked()
+void ScoreWindow::onBtnExit2Clicked()
 {
-    this->close();
+    QApplication::quit();
 }
 
 void ScoreWindow::connectWidget(Widget *w){
     this->w = w;
-    connect(this->btnExit2, SIGNAL(clicked()), this, SLOT(on_btnExit2_clicked()));
+    connect(this->btnExit2, SIGNAL(clicked()), this, SLOT(onBtnExit2Clicked()));
 }
 
 void ScoreWindow::addScore(ScoreObject *s){

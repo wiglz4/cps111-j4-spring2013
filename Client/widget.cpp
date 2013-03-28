@@ -40,7 +40,7 @@ Widget::Widget(QWidget *parent) :
     move(x, y);
     setFixedSize(windowSize.width(), windowSize.height());
 
-    //setWindowFlags(Qt::FramelessWindowHint);
+    setWindowFlags(Qt::SplashScreen);
 }
 
 Widget::~Widget()
@@ -69,7 +69,7 @@ void Widget::on_btnLocal_clicked()
 
 void Widget::on_btnNetwork_clicked(){
     gsw->hideLoad();
-    gsw->showHost();
+    gsw->dislpayHost();
     gsw->show();
     this->hide();
 }
@@ -104,7 +104,7 @@ void Widget::connectStart(GameStartWidget *gsw)
 {
     this->gsw = gsw;
     gswui->setupUi(gsw);
-    gsw->ConnectStuff(this, mySocket, g);
+    gsw->connectStuff(this, mySocket, g);
 }
 
 void Widget::on_btnHelp_clicked()
@@ -115,13 +115,13 @@ void Widget::on_btnHelp_clicked()
 
 void Widget::on_btnExit_clicked()
 {
-    this->close();
+    QApplication::quit();
 }
 
 
 void Widget::on_btnLoad_clicked()
 {
-    gsw->showHost();
+    gsw->dislpayHost();
     gsw->displayLoad();
     gsw->show();
     this->hide();
