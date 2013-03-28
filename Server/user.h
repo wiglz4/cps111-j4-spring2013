@@ -25,12 +25,15 @@ public:
     void setUsername(std::string user){userName = user;}
     void setTeam(int nTeam){team = nTeam;}
     void command(std::string cmdString);
+
+    //checks to see whether this user has specified their name and team
     bool checkInstanceVars();
     QTcpSocket* getSock(){return sock;}
     int getTeam(){return team;}
     std::string getName(){return userName;}
+
+    //returns this user's score
     QString score();
-    //void command(std::basic_string<char, std::char_traits<char>, std::allocator<char> >);
 };
 
 #endif // USER_H

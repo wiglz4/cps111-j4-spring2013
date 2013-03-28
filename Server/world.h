@@ -63,7 +63,7 @@ private:
 public:
     World(vector<User *> *vect, Game* gam);
 
-    //returns aPressedpointer to the nearest available enemy, All parameters come from the attacker
+    //returns a pointer to the nearest available enemy, All parameters come from the attacker
     Entity* getNAE(int x, int y, int team, double &distance);
 
     //performs bounds check against all walls, towers, and cores, returns false if outside of movable space
@@ -73,8 +73,6 @@ public:
 
     void onTick();
 
-    void spawn();
-
     void save();
 
     static World* load(vector<User *> *vect, Game* gam);
@@ -82,9 +80,13 @@ public:
     void incTick(){tick++;}
     void setTick(int i){tick = i;}
 
+    //creates a red minion at the red base
     void createRedMinion();
+
+    //creates a blue minion at the blue base
     void createBlueMinion();
 
+    //returns all necessary display information for the world at the present tick
     string Display();
 
     //Team denotes the losing side

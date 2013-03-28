@@ -36,10 +36,18 @@ protected:
 
 public:
     PlCh(int cTeam, int newX, int newY, World *newMap, string pName);
+
+    //changes button-pressed booleans based upon <cmdString>
     void command(string cmdString);
+
+    //returns the necessary stats information
     string getStats();
+
+    //changes various characterstics to render the character invincible
     void cheatMode();
+
     void setName(string newName){plName = newName;}
+
     virtual bool damage(int value);
     virtual void onTick();
     virtual string save();

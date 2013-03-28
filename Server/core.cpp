@@ -62,12 +62,14 @@ string Core::displayString()
     stringstream strm;
     if(isNew)
     {
+        //if the entity is newly created
         strm<<" "<<(type * 10 + 1)<<" "<<absoluteID<<" "<<team<<" "<<((curHealth * 100) / maxHealth)<<" "<<0<<" "<<x<<" "<<y<<" "<<"NOT";
         isNew = false;
         healthChange = false;
     }
     else if(!isNew && healthChange)
     {
+        //if the entity's health is changed
         strm<<" "<<(type * 10 + 5)<<" "<<absoluteID<<" "<<((curHealth * 100) / maxHealth);
         healthChange = false;
     }
