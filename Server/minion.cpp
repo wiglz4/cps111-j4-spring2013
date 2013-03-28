@@ -23,11 +23,11 @@ Minion::Minion(int cTeam, int newX, int newY, World *newMap)
     size = 150; //radius
     type = 3;
 
-    atkDamage = 4000;
+    atkDamage = 400;
     atkSpeed = 1.2;
     armor = 20;
     atkRange = 35;
-    detRange = 999;
+    detRange = 600;
     canAttack = true;
     Alive = true;
     newDead = false;
@@ -40,19 +40,20 @@ Minion::Minion(int cTeam, int newX, int newY, World *newMap)
     speed = 4;
     canMove = true;
     positionChange = true;
+    OOL = false;
 
     //CHANGE WITH IFS
     if(team == 1)
     {
-        cpX = 220;
-        cpY = 2395;
+        cpX = 330;
+        cpY = 2545;
     }
     else
     {
-        cpX = 3220;
-        cpY = 395;
+        cpX = 3345;
+        cpY = 385;
     }
-    OOL = false;
+
 }
 
 
@@ -206,15 +207,14 @@ void Minion::onTick()
         }
         else
         {
-            Entity *ent = map->getNAE(x,y,team, distance);
-            if (ent != NULL && ent->getAttackable())
+            Entity *ent = map->getNAE(x,y, team, distance);
+            if (ent != NULL && ent->getAttackable() && ent->getTeam() != this->team)
             {
                 if(distance < detRange)
                 {
                     target = ent;
                     if (distance < atkRange)
-                    {
-
+                    {                     
                         if(count->Check())
                         {
                             //SET STATE HERE
@@ -250,10 +250,40 @@ void Minion::onTick()
                             //SET STATE HERE
                             x = tempX;
                             y = tempY;
-                            //MESS WITH OOL
+                            //OOL = false;
                         }
                     }
+                } else
+                {
+                    distance = sqrt(pow(cpY-y, 2) + pow(cpX - x, 2));
+
+                    theta = asin((y-cpY)/distance);
+                    delta = acos((x-cpX)/distance);
+                    if(cpY > y)
+                    {
+                        tempY = y + abs(speed * sin(theta));
+                    }
+                    else
+                    {
+                        tempY = y - abs(speed * sin(theta));
+                    }
+                    if(cpX > x)
+                    {
+                        tempX = x + abs(speed * cos(theta));
+                    }
+                    else
+                    {
+                        tempX = x - abs(speed * cos(theta));
+                    }
+                    if(map->boundsCheck(tempX, tempY))
+                    {
+                        //SET STATE HERE
+                        x = tempX;
+                        y = tempY;
+                        //MESS WITH OOL
+                    }
                 }
+
             }
             else
             {
@@ -263,13 +293,10 @@ void Minion::onTick()
                 }
                 else
                 {
-                    //qDebug() << "Reached Joels Weird Math.";
                     distance = sqrt(pow(cpY-y, 2) + pow(cpX - x, 2));
 
                     theta = asin((y-cpY)/distance);
-                    //qDebug() << theta;
                     delta = acos((x-cpX)/distance);
-                    //qDebug() << delta;
                     if(cpY > y)
                     {
                         tempY = y + abs(speed * sin(theta));
@@ -334,10 +361,6 @@ bool Minion::Attack()
     return target->damage(atkDamage);
 }
 
-void Minion::getState()
-{
-}
-
 string Minion::save()
 {
     stringstream save;
@@ -345,7 +368,7 @@ string Minion::save()
     return save.str();
 }
 
-Entity* Minion::load()
+Entity* Minion::load()//Needs redesigning
 {
     //NEEDS CODING
     return NULL;
@@ -354,7 +377,6 @@ Entity* Minion::load()
 string Minion::displayString()
 {
     stringstream strm;
-    //bools: isNew, positionChange, healthChange, stateChange, doneDie;
     if(Alive)
     {
         if(isNew)

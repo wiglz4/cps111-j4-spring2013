@@ -86,7 +86,7 @@ World::World(vector<User *> *vect, Game* gam)
 Entity *World::getNAE(int x, int y, int team, double &distance)
 {
     double dist2 = 0;
-    distance = 400000;
+    distance = 50000;
     int entNum = -1;
     if( team == 1)//red
     {
@@ -104,7 +104,7 @@ Entity *World::getNAE(int x, int y, int team, double &distance)
             return blueEntities.at(entNum);
         }
     }
-    else//blue
+    if ( team == 2)//blue
     {
         for(unsigned int i = 0; i < redEntities.size(); ++i)
         {
@@ -163,8 +163,8 @@ void World::onTick()
         {
             createRedMinion();
             createBlueMinion();
-            setTick(0);
         }
+        setTick(0);
     }
     incTick();
 }
@@ -208,14 +208,14 @@ World* World::load(vector<User *> *vect, Game *gam)
 
 void World::createRedMinion()
 {
-    aMinion = new Minion(1, 3230, 165,this);
+    aMinion = new Minion(1, 3345, 385,this);
     allEntities.push_back(aMinion);
     redEntities.push_back(aMinion);
 }
 
 void World::createBlueMinion()
 {
-    aMinion = new Minion(2, 240, 2400,this);
+    aMinion = new Minion(2, 330, 2545,this);
     allEntities.push_back(aMinion);
     blueEntities.push_back(aMinion);
 }
@@ -236,8 +236,15 @@ string World::Display()
     {
         strm << shots.at(i)->DispShot();
     }
+    for(int i = 0; i <allMinions.size(); ++i)
+    {
+        if(!allMinions.at(i)->getAlive())
+        {
+            delete allMinions.at(i);
+            allMinions.erase(allMinions.begin() + i);
+        }
+    }
     strm<<"\n";
-
     return strm.str();
 }
 
