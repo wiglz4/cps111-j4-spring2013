@@ -11,7 +11,7 @@
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Widget),
-    gsui(new Ui::gameScreen),
+    gsui(new Ui::GameScreen),
     scui(new Ui::ScoreWindow),
     hsui(new Ui::HelpWindow),
     gswui(new Ui::GameStartWidget)
@@ -74,11 +74,11 @@ void Widget::on_btnNetwork_clicked(){
     this->hide();
 }
 
-void Widget::close_dialog()
+/*void Widget::close_dialog()
 {
     this->show();
     s->hide();
-}
+}*/
 
 void Widget::connectScores(ScoreWindow *s)
 {

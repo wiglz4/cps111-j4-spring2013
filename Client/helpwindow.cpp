@@ -11,17 +11,17 @@ HelpWindow::HelpWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    img = new QLabel(this);
-    img->setGeometry(0,0,775,375);
-    img->setStyleSheet("background:url(:/images/backgrounde) no-repeat right top;");
-    img->show();
+    lblImg = new QLabel(this);
+    lblImg->setGeometry(0,0,775,375);
+    lblImg->setStyleSheet("background:url(:/images/backgrounde) no-repeat right top;");
+    lblImg->show();
 
-    main = new QPushButton(this);
-    main->setGeometry(570,161,121,31);
-    main->setFlat(true);
-    main->setFocusPolicy(Qt::NoFocus);
-    main->setStyleSheet("QPushButton { background:url(:/images/buttonmm) no-repeat right top; } QPushButton:hover{ background:url(:/images/buttonmm2.png) no-repeat right top; } QPushButton:pressed { background:url(:/images/buttonmm.png) no-repeat right top; border: 0px solid grey; }");
-    connect(this->main, SIGNAL(clicked()), this, SLOT(main_window()));
+    btnMain = new QPushButton(this);
+    btnMain->setGeometry(570,161,121,31);
+    btnMain->setFlat(true);
+    btnMain->setFocusPolicy(Qt::NoFocus);
+    btnMain->setStyleSheet("QPushButton { background:url(:/images/buttonmm) no-repeat right top; } QPushButton:hover{ background:url(:/images/buttonmm2.png) no-repeat right top; } QPushButton:pressed { background:url(:/images/buttonmm.png) no-repeat right top; border: 0px solid grey; }");
+    connect(this->btnMain, SIGNAL(clicked()), this, SLOT(onMainWindowClicked()));
 
     btnExit2 = new QPushButton(this);
     btnExit2->setGeometry(604,185,121,31);
@@ -59,7 +59,7 @@ HelpWindow::~HelpWindow()
     delete ui;
 }
 
-void HelpWindow::main_window(){
+void HelpWindow::onMainWindowClicked(){
     //qDebug() << "pressed";
     this->hide();
     w->show();

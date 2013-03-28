@@ -21,13 +21,13 @@ ScoreWindow::ScoreWindow(QWidget *parent) :
     isEndgame(false), nextY(34)
 {
     ui->setupUi(this);
-    main = new QPushButton(this);
-    main->setGeometry(570,161,121,31);
-    main->setFlat(true);
-    main->setFocusPolicy(Qt::NoFocus);
-    main->setStyleSheet("QPushButton { background:url(:/images/buttonmm) no-repeat right top; } QPushButton:hover{ background:url(:/images/buttonmm2.png) no-repeat right top; } QPushButton:pressed { background:url(:/images/buttonmm.png) no-repeat right top; border: 0px solid grey; }");
-    main->show();
-    connect(this->main, SIGNAL(clicked()), this, SLOT(main_window()));
+    btnMain = new QPushButton(this);
+    btnMain->setGeometry(570,161,121,31);
+    btnMain->setFlat(true);
+    btnMain->setFocusPolicy(Qt::NoFocus);
+    btnMain->setStyleSheet("QPushButton { background:url(:/images/buttonmm) no-repeat right top; } QPushButton:hover{ background:url(:/images/buttonmm2.png) no-repeat right top; } QPushButton:pressed { background:url(:/images/buttonmm.png) no-repeat right top; border: 0px solid grey; }");
+    btnMain->show();
+    connect(this->btnMain, SIGNAL(clicked()), this, SLOT(onMainWindowClicked()));
 
     btnExit2 = new QPushButton(this);
     btnExit2->setGeometry(604,185,121,31);
@@ -65,7 +65,7 @@ ScoreWindow::~ScoreWindow()
 }
 
 
-void ScoreWindow::main_window(){
+void ScoreWindow::onMainWindowClicked(){
     //qDebug() << "pressed";
     this->hide();
     w->show();

@@ -86,20 +86,20 @@ class GameScreen : public QWidget
 
     EntityLabel *hero;
 
-    Ui::gameScreen *gsui;
+    Ui::GameScreen *gsui;
     
-    QFrame *gameFrame;
-    QFrame *pause;
+    QFrame *frGame;
+    QFrame *frPause;
 
-    QLabel *bar;
-    QLabel *hud;
-    QLabel *map;
-    QLabel *playerHealth;
-    QLabel *playerIcon;
-    QLabel *targetHealth;
-    QLabel *targetIcon;
+    QLabel *lblBar;
+    QLabel *lblHud;
+    QLabel *lblMap;
+    QLabel *lblPlayerHealth;
+    QLabel *lblPlayerIcon;
+    QLabel *lblTargetHealth;
+    QLabel *lblTargetIcon;
 
-    QPushButton *menu;
+    QPushButton *btnMenu;
     QPushButton *btnPause;
 
     QString playername;
@@ -123,17 +123,26 @@ public:
     ~GameScreen();
 
     //Setter Methods
+    //------------//
+
+    //Sets <w> to <newW>
     void connectWidget(Widget *newW){w = newW;}
+
+    //Sets <sock> to <s>
     void passSocket(QTcpSocket *s) {sock = s;}
+
+    //Sets <playername> to <p>
     void setPlayername(QString p){playername = p;}
 
     //Getter Methods
     //(Technically just used to find an EntityLabel in <objects>)
+    //------------//
 
     EntityLabel* getByID(int id);
     int getIdByName(QString&);
 
     //Other methods
+    //-----------//
 
     //Updates stylesheet of EntityLabel with <id>
     void animate(int id);
@@ -164,7 +173,7 @@ private slots:
     void onTimerHit();
 
     //MainMenu Button pressed
-    void return_to_menu();
+    void returnToMenu();
 
     //On Server Disconnect
     void serverDisconnected();

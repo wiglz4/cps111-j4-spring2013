@@ -47,6 +47,7 @@ public:
     QString getName(){return playerName;}
 
     //Other Methods
+    //-----------//
 
     //Sets the label to its "dead" state.
     void die();

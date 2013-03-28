@@ -13,21 +13,35 @@ class HelpWindow : public QWidget
 {
     Q_OBJECT
     
-public:
-    explicit HelpWindow(QWidget *parent = 0);
-    void connectWidget(Widget *w){this->w = w;}
-    ~HelpWindow();
-    
-private:
+    //Instance Variables
     Ui::HelpWindow *ui;
-    Widget *w;
-    QPushButton* main;
+
+    QPushButton* btnMain;
     QPushButton* btnExit2;
-    QLabel* img;
+
+    QLabel* lblImg;
+
     QWidget *arrows;
 
+    Widget *w;
+
+public:
+    //Constructor
+    explicit HelpWindow(QWidget *parent = 0);
+
+    //Destructor
+    ~HelpWindow();
+
+    //Setter Methods
+    //------------//
+
+    //Sets <this->w> to <w>
+    void connectWidget(Widget *w){this->w = w;}
+
 private slots:
-    void main_window();
+
+    //Button Clicks
+    void onMainWindowClicked();
     void onBtnExit2Clicked();
     void onBtnNetworkClicked();
 };
