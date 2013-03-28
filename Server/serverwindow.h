@@ -45,8 +45,10 @@ class ServerWindow : public QMainWindow, public Observer
 public:
     explicit ServerWindow(QWidget *parent = 0);
     ~ServerWindow();
-    void pauseGame(){qDebug();
-        timer->stop();}
+    void pauseGame()
+    {
+        timer->stop();
+    }
     void unpauseGame(){timer->start();}
     int getTime(){return ticks;}
 

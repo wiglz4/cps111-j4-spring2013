@@ -361,10 +361,6 @@ bool Minion::Attack()
     return target->damage(atkDamage);
 }
 
-void Minion::getState()
-{
-}
-
 string Minion::save()
 {
     stringstream save;
@@ -372,7 +368,7 @@ string Minion::save()
     return save.str();
 }
 
-Entity* Minion::load()
+Entity* Minion::load()//Needs redesigning
 {
     //NEEDS CODING
     return NULL;
@@ -381,7 +377,6 @@ Entity* Minion::load()
 string Minion::displayString()
 {
     stringstream strm;
-    //bools: isNew, positionChange, healthChange, stateChange, doneDie;
     if(Alive)
     {
         if(isNew)

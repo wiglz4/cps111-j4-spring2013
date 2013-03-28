@@ -716,11 +716,10 @@ void GameScreen::moveEntity(int id, int x, int y){
     thing->nextFrame();
 }
 
-void GameScreen::changeEntityHealth(int id, int healthPercent){
-    //qDebug() << healthPercent;
+void GameScreen::changeEntityHealth(int id, int healthPercent)
+{
     EntityLabel *thing = GameScreen::getByID(id);
     thing->setHealth(healthPercent);
-    //qDebug() << thing->getHealth();
 }
 
 void GameScreen::changeEntityState(int id, int state){

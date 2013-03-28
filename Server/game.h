@@ -15,7 +15,7 @@ class Game
     bool over;
     bool newOver;
     std::vector<User *> *users;
-    QUdpSocket *sock;
+    //QUdpSocket *sock;     //Would be used for multiple games
     Observer *obs;
     void setMap(World* loadedWorld);
     Game();
@@ -24,9 +24,8 @@ public:
     Game(Observer *o, std::vector<User *> *unUsers);
     void endGame(int team);
 
-    //performs all time-based actions on the map
-    std::string onTick();
-
+    //performs time based ai operations as well as returns the display information for the map
+    std::string onTick();//change this to return void if implementing multiple games, have it speak directly with all clients connected to this game
     bool getOver(){return over;}
 
     //loads an old game

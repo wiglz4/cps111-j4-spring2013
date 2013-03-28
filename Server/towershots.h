@@ -1,7 +1,7 @@
 #ifndef TOWERSHOTS_H
 #define TOWERSHOTS_H
 #include <string>
-
+//NOT IMPLEMENTED
 class Entity;
 
 class TowerShots

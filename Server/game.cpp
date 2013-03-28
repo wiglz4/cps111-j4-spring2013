@@ -9,7 +9,7 @@ Game::Game(Observer *o, std::vector<User *> *unUsers)
 {
     users = unUsers;
     gmap = new World(users, this);
-    sock = new QUdpSocket();
+    //sock = new QUdpSocket();
     over = false;
     newOver = false;
     obs = o;

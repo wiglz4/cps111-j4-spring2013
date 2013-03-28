@@ -159,19 +159,12 @@ void World::onTick()
 
     if (tick == 1000)
     {
-<<<<<<< HEAD
-        createRedMinion();
-        createBlueMinion();
-        setTick(0);
-        //save();
-=======
         for(int i = 0; i < 1; ++i)
         {
             createRedMinion();
             createBlueMinion();
-            setTick(0);
         }
->>>>>>> 6bfbc0dca94f752d2fb9cdeeae0a0765f6599654
+        setTick(0);
     }
     incTick();
 }
@@ -243,8 +236,6 @@ string World::Display()
     {
         strm << shots.at(i)->DispShot();
     }
-<<<<<<< HEAD
-
     for(int i = 0; i <allMinions.size(); ++i)
     {
         if(!allMinions.at(i)->getAlive())
@@ -253,11 +244,7 @@ string World::Display()
             allMinions.erase(allMinions.begin() + i);
         }
     }
-
-=======
->>>>>>> 6bfbc0dca94f752d2fb9cdeeae0a0765f6599654
     strm<<"\n";
-
     return strm.str();
 }
 
