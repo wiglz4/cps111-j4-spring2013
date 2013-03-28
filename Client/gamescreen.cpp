@@ -2,6 +2,7 @@
 #include "ui_gamescreen.h"
 #include "entitylabel.h"
 #include "scorewindow.h"
+
 #include <QPixmap>
 #include <QString>
 #include <QByteArray>
@@ -15,7 +16,7 @@
 #include <QDesktopWidget>
 #include <QSize>
 
-gameScreen::gameScreen(QWidget *parent) :
+GameScreen::GameScreen(QWidget *parent) :
     QWidget(parent),
     gsui(new Ui::gameScreen)
 {
@@ -134,30 +135,12 @@ gameScreen::gameScreen(QWidget *parent) :
     //REM
 }
 
-gameScreen::~gameScreen()
+GameScreen::~GameScreen()
 {
     delete gsui;
 }
 
-/*
-void gameScreen::updatePlayer(QStringList player)
-{
-    bool ok;
-    if(player.at(0).toInt(&ok, 10) == 41) {
-        //hero = new EntityLabel(wdgtGame);
-        hero->setGeometry(player.at(5).toInt(&ok,10),player.at(6).toInt(&ok,10),110,110);
-        hero->setStyleSheet("background:url(:/images/2/4/3/1.png) no-repeat top left;background-color:rgba(0, 0, 0, 0);");
-        hero->show();
-    }
-}
-*/
-
-void gameScreen::updatePos(EntityLabel *lblToUpdate, int x, int y, int width, int height)
-{
-    lblToUpdate->setGeometry(x,y,width,height);
-}
-
-void gameScreen::unPause()
+void GameScreen::unPause()
 {
     timer->start();
     pPressed = false;
@@ -168,7 +151,7 @@ void gameScreen::unPause()
     map->hide();
 }
 
-void gameScreen::keyPressEvent(QKeyEvent *e)
+void GameScreen::keyPressEvent(QKeyEvent *e)
 {
     //qDebug() << "button";
     if((e->key() == Qt::Key_P && !e->isAutoRepeat() || (e->key() == Qt::Key_Escape && !e->isAutoRepeat())))
@@ -232,7 +215,7 @@ void gameScreen::keyPressEvent(QKeyEvent *e)
     }
 }
 
-void gameScreen::keyReleaseEvent(QKeyEvent *e)
+void GameScreen::keyReleaseEvent(QKeyEvent *e)
 {
     if(e->key() == Qt::Key_W && !e->isAutoRepeat())
     {
@@ -273,7 +256,7 @@ void gameScreen::keyReleaseEvent(QKeyEvent *e)
 
 }
 
-void gameScreen::onTimerHit()
+void GameScreen::onTimerHit()
 {
     if(playerId == 0){
         playerId = getIdByName(playername);
@@ -392,12 +375,12 @@ void gameScreen::onTimerHit()
 }
 
 
-void gameScreen::closeEvent(QCloseEvent *)
+void GameScreen::closeEvent(QCloseEvent *)
 {
     timer->stop();
 }
 
-void gameScreen::resizeEvent(QResizeEvent *event)
+void GameScreen::resizeEvent(QResizeEvent *event)
 {
     gameFrame->resize(event->size());
     wdgtGame->setGeometry(-100, this->height() - 2750, 4000, 3000);
@@ -413,7 +396,7 @@ void gameScreen::resizeEvent(QResizeEvent *event)
 }
 
 
-void gameScreen::mousePressEvent(QMouseEvent *e)
+void GameScreen::mousePressEvent(QMouseEvent *e)
 {
     ////qDebug() <<"mouse clicked";
     if(e->button() == Qt::LeftButton){
@@ -433,7 +416,7 @@ void gameScreen::mousePressEvent(QMouseEvent *e)
     }
 }
 
-void gameScreen::updateTargetLabel(int targetType, int team)
+void GameScreen::updateTargetLabel(int targetType, int team)
 {
     if(team == 1){
         switch(targetType){
@@ -468,7 +451,7 @@ void gameScreen::updateTargetLabel(int targetType, int team)
     }
 }
 
-void gameScreen::return_to_menu(){
+void GameScreen::return_to_menu(){
     this->hide();
     wdgtGame->releaseKeyboard();
     this->releaseMouse();
@@ -476,7 +459,7 @@ void gameScreen::return_to_menu(){
 }
 
 
-void gameScreen::readCommand()
+void GameScreen::readCommand()
 {
     while(sock->canReadLine())
     {
@@ -707,20 +690,7 @@ void gameScreen::readCommand()
     }
 }
 
-void gameScreen::lblClicked()
-{
-    //qDebug()<<"ENTITY CLICKED";
-    EntityLabel *lbl = dynamic_cast<EntityLabel*>(sender());
-    if(lbl != NULL)
-    {
-        QString message = "1 ";
-        message += lbl->getID();
-        message += " ";
-        sock->write(message.toAscii());
-    }
-}
-
-void gameScreen::serverDisconnected()
+void GameScreen::serverDisconnected()
 {
     w->close();
 }
@@ -728,7 +698,7 @@ void gameScreen::serverDisconnected()
 
 
 
-void gameScreen::createEntity(int type, int id, int team, int health, int state, int posX, int posY, QString name){
+void GameScreen::createEntity(int type, int id, int team, int health, int state, int posX, int posY, QString name){
     EntityLabel *thing = new EntityLabel(id, type, team, posX, posY, health, state, name, wdgtPicture);
     if(name == playername)
     {
@@ -740,31 +710,28 @@ void gameScreen::createEntity(int type, int id, int team, int health, int state,
     objects.push_back(thing);
 }
 
-void gameScreen::entityClicked(int id){
-    //qDebug() << "cliked entity with id " << id;
-}
-
-void gameScreen::moveEntity(int id, int x, int y){
-    EntityLabel *thing = gameScreen::getByID(id);
+void GameScreen::moveEntity(int id, int x, int y){
+    EntityLabel *thing = GameScreen::getByID(id);
     thing->move(x, y);
     thing->nextFrame();
 }
 
-void gameScreen::changeEntityHealth(int id, int healthPercent){
+void GameScreen::changeEntityHealth(int id, int healthPercent){
     //qDebug() << healthPercent;
-    EntityLabel *thing = gameScreen::getByID(id);
+    EntityLabel *thing = GameScreen::getByID(id);
     thing->setHealth(healthPercent);
     //qDebug() << thing->getHealth();
 }
 
-void gameScreen::changeEntityState(int id, int state){
-    EntityLabel *thing = gameScreen::getByID(id);
+void GameScreen::changeEntityState(int id, int state){
+    EntityLabel *thing = GameScreen::getByID(id);
     thing->setState(state);
 }
 
-void gameScreen::exterminate(int id){
-    EntityLabel *thing = gameScreen::getByID(id);
+void GameScreen::exterminate(int id){
+    EntityLabel *thing = GameScreen::getByID(id);
     qDebug() << "DEAD THING";
+    qDebug() << id;
     thing->die();
     if(id == targetId){
         targetHealth->hide();
@@ -773,13 +740,13 @@ void gameScreen::exterminate(int id){
     }
 }
 
-void gameScreen::showLbl(int id)
+void GameScreen::showLbl(int id)
 {
-    EntityLabel *thing = gameScreen::getByID(id);
+    EntityLabel *thing = GameScreen::getByID(id);
     thing->show();
 }
 
-EntityLabel* gameScreen::getByID(int id)
+EntityLabel* GameScreen::getByID(int id)
 {
     for(uint i = 0; i < objects.size(); ++i)
     {
@@ -790,7 +757,7 @@ EntityLabel* gameScreen::getByID(int id)
     }
 }
 
-int gameScreen::getIdByName(QString& name)
+int GameScreen::getIdByName(QString& name)
 {
     for(uint i = 0; i < objects.size(); ++i)
     {
@@ -802,8 +769,8 @@ int gameScreen::getIdByName(QString& name)
     return 0;
 }
 
-void gameScreen::animate(int id){
-    EntityLabel *thing = gameScreen::getByID(id);
+void GameScreen::animate(int id){
+    EntityLabel *thing = GameScreen::getByID(id);
     thing->updateStyleSheet();
 }
 

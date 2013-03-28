@@ -25,6 +25,7 @@ protected:
     int type;
 
 public:
+
     Entity() {}
     virtual bool damage(int value) = 0;
     virtual void onTick() = 0;
