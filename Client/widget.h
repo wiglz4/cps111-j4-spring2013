@@ -32,7 +32,7 @@ public:
     explicit Widget(QWidget *parent = 0);
     ~Widget();
     
-    void connectGame(gameScreen *g);
+    void connectGame(GameScreen *g);
     void connectScores(ScoreWindow *s);
     void connectHelp(HelpWindow *h);
     void connectStart(GameStartWidget *gsw);
@@ -62,7 +62,7 @@ private:
     Ui::ScoreWindow *scui;
     Ui::HelpWindow *hsui;
     Ui::GameStartWidget *gswui;
-    gameScreen *g;
+    GameScreen *g;
     ScoreWindow *s;
     HelpWindow *h;
     GameStartWidget *gsw;

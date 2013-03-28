@@ -120,7 +120,7 @@ GameStartWidget::GameStartWidget(QWidget *parent) :
     loading = false;
 }
 
-void GameStartWidget::ConnectStuff(Widget *wdgt, QTcpSocket *s, gameScreen *gmscr)
+void GameStartWidget::ConnectStuff(Widget *wdgt, QTcpSocket *s, GameScreen *gmscr)
 {
     g = gmscr;
     w = wdgt;

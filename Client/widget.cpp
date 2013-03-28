@@ -50,7 +50,7 @@ Widget::~Widget()
 
 
 
-void Widget::connectGame(gameScreen *g)
+void Widget::connectGame(GameScreen *g)
 {
     this->g = g;
     gsui->setupUi(g);

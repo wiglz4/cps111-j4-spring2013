@@ -21,7 +21,7 @@ class GameStartWidget : public QWidget
     
 public:
     explicit GameStartWidget(QWidget *parent = 0);
-    void ConnectStuff(Widget*, QTcpSocket*, gameScreen*);
+    void ConnectStuff(Widget*, QTcpSocket*, GameScreen*);
     void hideHost();
     void showHost();
     void displayLoad();
@@ -50,7 +50,7 @@ private:
     QLabel *lblSave;
 
     Widget *w;
-    gameScreen *g;
+    GameScreen *g;
     QTcpSocket *sock;
 
     QPushButton *red;
