@@ -16,7 +16,7 @@ class Game;
 using namespace std;
 
 namespace Ui {
-class serverWindow;
+class ServerWindow;
 }
 
 class Observer{
@@ -26,7 +26,7 @@ public:
     virtual int getTime() = 0;
 };
 
-class serverWindow : public QMainWindow, public Observer
+class ServerWindow : public QMainWindow, public Observer
 {
     Q_OBJECT
     QTimer *timer;
@@ -43,8 +43,8 @@ class serverWindow : public QMainWindow, public Observer
 
 
 public:
-    explicit serverWindow(QWidget *parent = 0);
-    ~serverWindow();
+    explicit ServerWindow(QWidget *parent = 0);
+    ~ServerWindow();
     void pauseGame(){qDebug();
         timer->stop();}
     void unpauseGame(){timer->start();}
@@ -58,7 +58,7 @@ private slots:
     void timerHit();
 
 private:
-    Ui::serverWindow *ui;
+    Ui::ServerWindow *ui;
     int connectCount;
     int gameCount;
 };

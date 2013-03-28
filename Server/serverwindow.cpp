@@ -11,9 +11,9 @@
 #include <QDebug>
 
 //NEEDS BUNCHES OF WORK
-serverWindow::serverWindow(QWidget *parent) :
+ServerWindow::ServerWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::serverWindow),
+    ui(new Ui::ServerWindow),
     ticks(0)
 {
     ui->setupUi(this);
@@ -33,12 +33,12 @@ serverWindow::serverWindow(QWidget *parent) :
     //timer->start();
 }
 
-serverWindow::~serverWindow()
+ServerWindow::~ServerWindow()
 {
     delete ui;
 }
 
-void serverWindow::clientConnected()
+void ServerWindow::clientConnected()
 {
     ui->label->setText("connected");
     User *user = new User();
@@ -49,13 +49,13 @@ void serverWindow::clientConnected()
     unUsers.push_back(user);
 }
 
-void serverWindow::clientDisconnected()
+void ServerWindow::clientDisconnected()
 {
     QTcpSocket *sock = dynamic_cast<QTcpSocket*>(sender());
     sock->deleteLater();
 }
 
-void serverWindow::dataReceived()
+void ServerWindow::dataReceived()
 {
     QTcpSocket *sock = dynamic_cast<QTcpSocket*>(sender());
     if(game == NULL)
@@ -106,7 +106,7 @@ void serverWindow::dataReceived()
     }
 }
 
-void serverWindow::timerHit()
+void ServerWindow::timerHit()
 {
     ticks += 20;
     if(timerGo)
@@ -137,10 +137,10 @@ void serverWindow::timerHit()
 }
 
 
-int serverWindow::GetUserTeam()
+int ServerWindow::GetUserTeam()
 {
 }
 
-string serverWindow::GetLoadUsername()
+string ServerWindow::GetLoadUsername()
 {
 }
