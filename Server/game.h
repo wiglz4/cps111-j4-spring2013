@@ -23,8 +23,13 @@ class Game
 public:
     Game(Observer *o, std::vector<User *> *unUsers);
     void endGame(int team);
+
+    //performs all time-based actions on the map
     std::string onTick();
+
     bool getOver(){return over;}
+
+    //loads an old game
     static Game* Load(Observer *o, std::vector<User *> *unUsers);
 
 private:

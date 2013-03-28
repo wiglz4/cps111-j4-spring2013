@@ -84,7 +84,7 @@ GameStartWidget::GameStartWidget(QWidget *parent) :
     this->red->setFlat(true);
     this->red->setStyleSheet("QPushButton {background-color:#ff0000;} QPushButton:flat {background-color:#ff0000;}");
     this->red->setCheckable(true);
-    this->red->setChecked(true);
+    this->red->setChecked(false);
     connect(this->red, SIGNAL(clicked()), this, SLOT(on_red_clicked()));
     this->red->show();
 
@@ -93,7 +93,7 @@ GameStartWidget::GameStartWidget(QWidget *parent) :
     this->blue->setFlat(true);
     this->blue->setStyleSheet("background-color:#0000ff;alternate-background-color:#0000ff;");
     this->blue->setCheckable(true);
-    this->blue->setChecked(false);
+    this->blue->setChecked(true);
     connect(this->blue, SIGNAL(clicked()), this, SLOT(on_blue_clicked()));
     this->blue->show();
 
