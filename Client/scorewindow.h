@@ -16,32 +16,61 @@ class ScoreWindow : public QDialog
 {
     Q_OBJECT
     
+    //Instance Variables
+    bool isEndgame;
+
+    int nextY;
+
+    QList<ScoreObject> *scores;
+
+    QPushButton* btnExit2;
+    QPushButton* btnMain;
+
+    Ui::ScoreWindow *ui;
+
+    Widget *w;
+
 public:
+    //Constructor
     explicit ScoreWindow(QWidget *parent = 0);
+
+    //Destructor
+    ~ScoreWindow();
+
+    //Setter Methods
+    //------------//
+
+    //Sets <this->w> to <w>
     void connectWidget(Widget *w);
-    void addScore(ScoreObject *);
+
+    //Sets text of <ui->lblTTIme>
     void addTime(int t);
+
+    //Display Methods
+    //-------------//
+
+    //Sets up display for enndgame
     void makeEndGame();
+
+    //Other Methods
+    //-----------//
+
+    //Adds a score to interface
+    void addScore(ScoreObject *);
+
+    //Unimplemented methods that don't work
+    //-----------------------------------//
     QList<ScoreObject> populateScores();
     void addScoreToScores(ScoreObject *);
-    ~ScoreWindow();
 
     
 private slots:
-    void main_window();
+    //Button Clicks
     void onBtnExit2Clicked();
-
-private:
-    Ui::ScoreWindow *ui;
-    Widget *w;
-    QPushButton* main;
-    QPushButton* btnExit2;
-    QList<ScoreObject> *scores;
-    bool isEndgame;
-    int nextY;
+    void onMainWindowClicked();
 
 signals:
-    void start_main();
+    void startMain();
 };
 
 #endif // SCOREWINDOW_H

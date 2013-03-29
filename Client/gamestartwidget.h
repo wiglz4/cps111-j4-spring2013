@@ -73,6 +73,7 @@ public:
     void hideLoad();
 
 private slots:
+    //Button Clicks
     void onMainWindowClicked();
     void onBtnExitClicked();
     void onBtnStartClicked();

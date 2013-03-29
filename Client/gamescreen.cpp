@@ -18,7 +18,7 @@
 
 GameScreen::GameScreen(QWidget *parent) :
     QWidget(parent),
-    gsui(new Ui::gameScreen)
+    gsui(new Ui::GameScreen)
 {
     gsui->setupUi(this);
 
@@ -31,28 +31,28 @@ GameScreen::GameScreen(QWidget *parent) :
     wdgtPicture->setGeometry(0,0,4000,3000);
     wdgtPicture->setStyleSheet("background-image:url(:/images/map4.png)");
 
-    hud = new QLabel(this);
-    hud->setGeometry(0, 0, 800, 600);
-    hud->setStyleSheet("background:url(:/images/hud.png) no-repeat bottom left; background-color: rgba(0,0,0,0);");
-    hud->show();
+    lblHud = new QLabel(this);
+    lblHud->setGeometry(0, 0, 800, 600);
+    lblHud->setStyleSheet("background:url(:/images/hud.png) no-repeat bottom left; background-color: rgba(0,0,0,0);");
+    lblHud->show();
 
-    gameFrame = new QFrame(this);
-    gameFrame->setFrameShape(QFrame::Box);
-    gameFrame->setLineWidth(10);
-    gameFrame->setStyleSheet("color:rgba(0,0,0,212);");
-    gameFrame->setGeometry(0, 0, 800, 600);
-    gameFrame->show();
+    frGame = new QFrame(this);
+    frGame->setFrameShape(QFrame::Box);
+    frGame->setLineWidth(10);
+    frGame->setStyleSheet("color:rgba(0,0,0,212);");
+    frGame->setGeometry(0, 0, 800, 600);
+    frGame->show();
 
-    pause = new QFrame(gameFrame);
-    pause->setGeometry(0, 0, 4000, 3000);
-    pause->setStyleSheet("background-color:rgba(0, 0, 0, 100);");
-    pause->hide();
+    frPause = new QFrame(frGame);
+    frPause->setGeometry(0, 0, 4000, 3000);
+    frPause->setStyleSheet("background-color:rgba(0, 0, 0, 100);");
+    frPause->hide();
     pPressed = false;
 
-    map = new QLabel(pause);
-    map->setGeometry(100, 100, 410, 310);
-    map->setStyleSheet("background: url(:/images/background3.png) no-repeat top left");
-    map->hide();
+    lblMap = new QLabel(frPause);
+    lblMap->setGeometry(100, 100, 410, 310);
+    lblMap->setStyleSheet("background: url(:/images/background3.png) no-repeat top left");
+    lblMap->hide();
 
     upPressed = false;
     rightPressed = false;
@@ -61,15 +61,15 @@ GameScreen::GameScreen(QWidget *parent) :
 
     spacePressed = false;
 
-    menu = new QPushButton(gameFrame);
-    menu->setGeometry(588,310,121,31);
-    menu->setFlat(true);
-    menu->setStyleSheet("QPushButton { background:url(:/images/buttonmm) no-repeat right top; } QPushButton:hover{ background:url(:/images/buttonmm2.png) no-repeat right top; } QPushButton:pressed { background:url(:/images/buttonmm.png) no-repeat right top; border: 0px solid grey; }");
-    menu->setFocusPolicy(Qt::NoFocus);
-    menu->hide();
-    connect(this->menu, SIGNAL(clicked()), this, SLOT(return_to_menu()));
+    btnMenu = new QPushButton(frGame);
+    btnMenu->setGeometry(588,310,121,31);
+    btnMenu->setFlat(true);
+    btnMenu->setStyleSheet("QPushButton { background:url(:/images/buttonmm) no-repeat right top; } QPushButton:hover{ background:url(:/images/buttonmm2.png) no-repeat right top; } QPushButton:pressed { background:url(:/images/buttonmm.png) no-repeat right top; border: 0px solid grey; }");
+    btnMenu->setFocusPolicy(Qt::NoFocus);
+    btnMenu->hide();
+    connect(this->btnMenu, SIGNAL(clicked()), this, SLOT(returnToMenu()));
 
-    btnPause = new QPushButton(gameFrame);
+    btnPause = new QPushButton(frGame);
     btnPause->setGeometry(600,285,121,31);
     btnPause->setFlat(true);
     btnPause->setStyleSheet("QPushButton { background:url(:/images/buttonpa) no-repeat right top; } QPushButton:hover{ background:url(:/images/buttonpa2.png) no-repeat right top; } QPushButton:pressed { background:url(:/images/buttonpa.png) no-repeat right top; border: 0px solid grey; }");
@@ -77,26 +77,26 @@ GameScreen::GameScreen(QWidget *parent) :
     btnPause->hide();
     connect(this->btnPause, SIGNAL(clicked()), this, SLOT(unPause()));
 
-    bar = new QLabel(gameFrame);
-    bar->setGeometry(700,265,21,100);
-    bar->setStyleSheet("background:url(:/images/bar.png) no-repeat top left;");
-    bar->hide();
+    lblBar = new QLabel(frGame);
+    lblBar->setGeometry(700,265,21,100);
+    lblBar->setStyleSheet("background:url(:/images/bar.png) no-repeat top left;");
+    lblBar->hide();
 
-    playerIcon = new QLabel(this);
-    playerIcon->setGeometry(34, 461, 110, 110);
+    lblPlayerIcon = new QLabel(this);
+    lblPlayerIcon->setGeometry(34, 461, 110, 110);
 
-    playerHealth = new QLabel(this);
-    playerHealth->setGeometry(49, 556, playerHealthPercent, 10);
-    playerHealth->setStyleSheet("background-color:#00ff00;");
-    playerHealth->show();
+    lblPlayerHealth = new QLabel(this);
+    lblPlayerHealth->setGeometry(49, 556, playerHealthPercent, 10);
+    lblPlayerHealth->setStyleSheet("background-color:#00ff00;");
+    lblPlayerHealth->show();
 
-    targetIcon = new QLabel(this);
-    targetIcon->setGeometry(639, 461, 110, 110);
-    targetIcon->setStyleSheet("background-color:#000000;");
+    lblTargetIcon = new QLabel(this);
+    lblTargetIcon->setGeometry(639, 461, 110, 110);
+    lblTargetIcon->setStyleSheet("background-color:#000000;");
 
-    targetHealth = new QLabel(this);
-    targetHealth->setGeometry(654, 466, 100, 10);
-    targetHealth->setStyleSheet("background-color:#00ff00;");
+    lblTargetHealth = new QLabel(this);
+    lblTargetHealth->setGeometry(654, 466, 100, 10);
+    lblTargetHealth->setStyleSheet("background-color:#00ff00;");
 
     QDesktopWidget *desktop = QApplication::desktop();
     int screenWidth, width;
@@ -140,10 +140,10 @@ void GameScreen::unPause()
     timer->start();
     pPressed = false;
     btnPause->hide();
-    menu->hide();
-    pause->hide();
-    bar->hide();
-    map->hide();
+    btnMenu->hide();
+    frPause->hide();
+    lblBar->hide();
+    lblMap->hide();
 }
 
 void GameScreen::keyPressEvent(QKeyEvent *e)
@@ -155,19 +155,19 @@ void GameScreen::keyPressEvent(QKeyEvent *e)
         if (pPressed == false) {
             timer->stop();
             pPressed = true;
-            pause->show();
+            frPause->show();
             btnPause->show();
-            menu->show();
-            bar->show();
-            map->show();
+            btnMenu->show();
+            lblBar->show();
+            lblMap->show();
         } else {
             timer->start();
             pPressed = false;
             btnPause->hide();
-            menu->hide();
-            pause->hide();
-            bar->hide();
-            map->hide();
+            btnMenu->hide();
+            frPause->hide();
+            lblBar->hide();
+            lblMap->hide();
         }
         //qDebug() << "P";
 
@@ -261,13 +261,13 @@ void GameScreen::onTimerHit()
             EntityLabel *e = getByID(playerId);
             if(e->getTeam() == 1)
             {
-                playerIcon->setStyleSheet("background:url(:/images/icons/redhero.png) no-repeat top right; background-color: rgba(0,0,0,0);");
+                lblPlayerIcon->setStyleSheet("background:url(:/images/icons/redhero.png) no-repeat top right; background-color: rgba(0,0,0,0);");
             }
             else
             {
-                playerIcon->setStyleSheet("background:url(:/images/icons/bluehero.png) no-repeat top right; background-color: rgba(0,0,0,0);");
+                lblPlayerIcon->setStyleSheet("background:url(:/images/icons/bluehero.png) no-repeat top right; background-color: rgba(0,0,0,0);");
             }
-            playerIcon->show();
+            lblPlayerIcon->show();
         }
     } else {
         EntityLabel *e = getByID(playerId);
@@ -281,11 +281,11 @@ void GameScreen::onTimerHit()
 
         updateTargetLabel(e->getType(), e->getTeam());
 
-        targetIcon->show();
-        targetHealth->show();
+        lblTargetIcon->show();
+        lblTargetHealth->show();
     } else {
-        targetIcon->hide();
-        targetHealth->hide();
+        lblTargetIcon->hide();
+        lblTargetHealth->hide();
     }
     if(spacePressed)
     {
@@ -372,9 +372,9 @@ void GameScreen::onTimerHit()
             }
         }
     }
-    playerHealth->setGeometry(39, this->height() - 44, playerHealthPercent, 10);
+    lblPlayerHealth->setGeometry(39, this->height() - 44, playerHealthPercent, 10);
     if(targetId != 0){
-        targetHealth->setGeometry(644, this->height() - 134, targetHealthPercent, 10);
+        lblTargetHealth->setGeometry(644, this->height() - 134, targetHealthPercent, 10);
     }
 
 }
@@ -387,16 +387,16 @@ void GameScreen::closeEvent(QCloseEvent *)
 
 void GameScreen::resizeEvent(QResizeEvent *event)
 {
-    gameFrame->resize(event->size());
+    frGame->resize(event->size());
     wdgtGame->setGeometry(-100, this->height() - 2750, 4000, 3000);
-    hud->setGeometry(10, 0, 800, this->height() - 10);
+    lblHud->setGeometry(10, 0, 800, this->height() - 10);
 
-    playerIcon->setGeometry(34, this->height() - 139, 110, 110);
-    playerHealth->setGeometry(49, this->height() - 44, playerHealthPercent, 10);
+    lblPlayerIcon->setGeometry(34, this->height() - 139, 110, 110);
+    lblPlayerHealth->setGeometry(49, this->height() - 44, playerHealthPercent, 10);
 
 
-    targetIcon->setGeometry(639, this->height() - 139, 110, 110);
-    targetHealth->setGeometry(654, this->height() - 134, targetHealthPercent, 10);
+    lblTargetIcon->setGeometry(639, this->height() - 139, 110, 110);
+    lblTargetHealth->setGeometry(654, this->height() - 134, targetHealthPercent, 10);
 
 }
 
@@ -426,37 +426,37 @@ void GameScreen::updateTargetLabel(int targetType, int team)
     if(team == 1){
         switch(targetType){
         case 1:
-            targetIcon->setStyleSheet("background:url(:/images/icons/redcore.png) no-repeat top right");
+            lblTargetIcon->setStyleSheet("background:url(:/images/icons/redcore.png) no-repeat top right");
             break;
         case 2:
-            targetIcon->setStyleSheet("background:url(:/images/icons/redturret.png) no-repeat top right");
+            lblTargetIcon->setStyleSheet("background:url(:/images/icons/redturret.png) no-repeat top right");
             break;
         case 3:
-            targetIcon->setStyleSheet("background:url(:/images/icons/redbot.png) no-repeat top right");
+            lblTargetIcon->setStyleSheet("background:url(:/images/icons/redbot.png) no-repeat top right");
             break;
         case 4:
-            targetIcon->setStyleSheet("background:url(:/images/icons/redhero.png) no-repeat top right");
+            lblTargetIcon->setStyleSheet("background:url(:/images/icons/redhero.png) no-repeat top right");
             break;
         }
     } else if (team == 2) {
         switch(targetType){
         case 1:
-            targetIcon->setStyleSheet("background:url(:/images/icons/bluecore.png) no-repeat top right");
+            lblTargetIcon->setStyleSheet("background:url(:/images/icons/bluecore.png) no-repeat top right");
             break;
         case 2:
-            targetIcon->setStyleSheet("background:url(:/images/icons/blueturret.png) no-repeat top right");
+            lblTargetIcon->setStyleSheet("background:url(:/images/icons/blueturret.png) no-repeat top right");
             break;
         case 3:
-            targetIcon->setStyleSheet("background:url(:/images/icons/bluebot.png) no-repeat top right");
+            lblTargetIcon->setStyleSheet("background:url(:/images/icons/bluebot.png) no-repeat top right");
             break;
         case 4:
-            targetIcon->setStyleSheet("background:url(:/images/icons/bluehero.png) no-repeat top right");
+            lblTargetIcon->setStyleSheet("background:url(:/images/icons/bluehero.png) no-repeat top right");
             break;
         }
     }
 }
 
-void GameScreen::return_to_menu(){
+void GameScreen::returnToMenu(){
     this->hide();
     wdgtGame->releaseKeyboard();
     this->releaseMouse();
@@ -739,8 +739,8 @@ void GameScreen::exterminate(int id){
     qDebug() << id;
     thing->die();
     if(id == targetId){
-        targetHealth->hide();
-        targetIcon->hide();
+        lblTargetHealth->hide();
+        lblTargetIcon->hide();
         targetId = 0;
     }
 }

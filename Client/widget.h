@@ -3,7 +3,7 @@
 
 namespace Ui {
 class Widget;
-class gameScreen;
+class GameScreen;
 class ScoreWindow;
 class HelpWindow;
 class GameStartWidget;
@@ -28,45 +28,54 @@ class Widget : public QWidget
 {
     Q_OBJECT
     
+    //Instance Variables
+    GameScreen *g;
+
+    Ui::GameScreen *gsui;
+
+    GameStartWidget *gsw;
+
+    Ui::GameStartWidget *gswui;
+
+    HelpWindow *h;
+
+    Ui::HelpWindow *hsui;
+
+    QTcpSocket *mySocket;
+
+    ScoreWindow *s;
+
+    Ui::ScoreWindow *scui;
+
+    Ui::Widget *ui;
+
 public:
+    //Constructor
     explicit Widget(QWidget *parent = 0);
+
+    //Destructor
     ~Widget();
     
+    //Setter Methods
     void connectGame(GameScreen *g);
     void connectScores(ScoreWindow *s);
     void connectHelp(HelpWindow *h);
     void connectStart(GameStartWidget *gsw);
 
 private slots:
-    void on_btnLocal_clicked();
 
-    void on_btnNetwork_clicked();
-
-    void on_btnScores_clicked();
-
-    void close_dialog();
-
-    void on_btnHelp_clicked();
-
+    //Button Clicks
     void on_btnExit_clicked();
-
-
+    void on_btnHelp_clicked();
     void on_btnLoad_clicked();
+    void on_btnLocal_clicked();
+    void on_btnNetwork_clicked();
+    void on_btnScores_clicked();
 
 signals:
     void startLocal();
 
 private:
-    Ui::Widget *ui;
-    Ui::gameScreen *gsui;
-    Ui::ScoreWindow *scui;
-    Ui::HelpWindow *hsui;
-    Ui::GameStartWidget *gswui;
-    GameScreen *g;
-    ScoreWindow *s;
-    HelpWindow *h;
-    GameStartWidget *gsw;
-    QTcpSocket *mySocket;
 };
 
 #endif // WIDGET_H

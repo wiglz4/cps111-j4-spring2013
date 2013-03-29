@@ -205,6 +205,12 @@ void GameStartWidget::onBtnStartClicked()
         return;
     }
 
+    if(lnedUsername->displayText().indexOf(" ") != -1)
+    {
+        QMessageBox::warning(this, "Error", "Please enter a username with no spaces.....NONE!");
+        return;
+    }
+
     sock->connectToHost(lnedHost->text(),5000);
     if (!sock->waitForConnected()){
         //qDebug() << lnedHost->text();
