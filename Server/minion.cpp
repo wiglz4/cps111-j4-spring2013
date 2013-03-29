@@ -23,11 +23,11 @@ Minion::Minion(int cTeam, int newX, int newY, World *newMap)
     size = 150; //radius
     type = 3;
 
-    atkDamage = 200;
+    atkDamage = 20;
     atkSpeed = 1.2;
     armor = 20;
     atkRange = 35;
-    detRange = 999;
+    detRange = 400;
     canAttack = true;
     Alive = true;
     newDead = false;
@@ -365,14 +365,14 @@ bool Minion::damage(int value)
 
 void Minion::die()
 {
-    positionChange = false;
+    x = 9000;
+    y = 9000;
+    positionChange = true;
     stateChange = false;
     healthChange = false;
     attackable = false;
     Alive = false;
-    newDead = true;
-    x = 9000;
-    y = 9000;
+    newDead = true;   
     curHealth = 0;
 
 }

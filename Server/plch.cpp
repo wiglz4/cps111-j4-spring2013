@@ -445,17 +445,17 @@ bool PlCh::damage(int value)
 
 void PlCh::die()
 {
-
     //NEEDS CODING
-    positionChange = false;
+    x = 9000;
+    y = 9000;
+    positionChange = true;
     stateChange = false;
     healthChange = false;
     Alive = false;
     newDead = true;
     attackable = false;
     curHealth = maxHealth;
-    x = 9000;
-    y = 9000;
+
     count->reset(250);
     points->incDeaths();
 }

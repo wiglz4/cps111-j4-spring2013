@@ -14,6 +14,8 @@
 
 #include <QDebug>
 
+#define PI 3.14159265
+
 World::World()
 {
 
@@ -146,22 +148,34 @@ int World::determineState(Entity *source, Entity *target)
     a = sourcex - targetx;
     b = sourcey - targety;
     c = sqrt(pow(a,2)+pow(b,2));
+    theta = acos(a/c) * 180.0/PI;
+    if(targety > sourcey)
+    {
+        isUnder = true;
+    }
+    else
+    {
+        isUnder = false;
+    }
+    a = sourcex - targetx;
+    b = sourcey - targety;
+    c = sqrt(pow(a,2)+pow(b,2));
     theta = acos(a/c);
     if(isUnder)
     {
         theta += 180;
     }
-    else if(112.5 >= theta && theta >= 67.5)
+    if(112.5 >= theta && theta >= 67.5)
     {
         state = 1;
     }
     else if(67.5 >= theta && theta >= 22.5)
     {
-        state = 2;
+        state = 8;
     }
     else if(22.5 >=theta || theta >=337.5)
     {
-        state = 3;
+        state = 7;
     }
     else if(337.5 >= theta && theta >= 292.5)
     {
@@ -177,11 +191,11 @@ int World::determineState(Entity *source, Entity *target)
     }
     else if(202.5 >= theta && theta >= 157.5)
     {
-        state = 7;
+        state = 3;
     }
     else if(157.5 >= theta && theta >= 112.5)
     {
-        state = 8;
+        state = 2;
     }
     else {
         state = 5;
@@ -213,12 +227,24 @@ int World::determineState(Entity *source, int cpX, int cpY)
     a = sourcex - targetx;
     b = sourcey - targety;
     c = sqrt(pow(a,2)+pow(b,2));
+    theta = acos(a/c) * 180.0/PI;
+    if(targety > sourcey)
+    {
+        isUnder = true;
+    }
+    else
+    {
+        isUnder = false;
+    }
+    a = sourcex - targetx;
+    b = sourcey - targety;
+    c = sqrt(pow(a,2)+pow(b,2));
     theta = acos(a/c);
     if(isUnder)
     {
         theta += 180;
     }
-    else if(112.5 >= theta && theta >= 67.5)
+    if(112.5 >= theta && theta >= 67.5)
     {
         state = 1;
     }
@@ -270,7 +296,7 @@ int World::determineState(int sourcex, int sourcey, Entity *target)
     double theta;
     bool isUnder;
     int state;
-    if(targety < sourcey)
+    if(targety > sourcey)
     {
         isUnder = true;
     }
@@ -281,22 +307,22 @@ int World::determineState(int sourcex, int sourcey, Entity *target)
     a = sourcex - targetx;
     b = sourcey - targety;
     c = sqrt(pow(a,2)+pow(b,2));
-    theta = acos(a/c);
+    theta = acos(a/c) * 180.0/PI;
     if(isUnder)
     {
         theta += 180;
     }
-    else if(112.5 >= theta && theta >= 67.5)
+    if(112.5 >= theta && theta >= 67.5)
     {
         state = 1;
     }
     else if(67.5 >= theta && theta >= 22.5)
     {
-        state = 2;
+        state = 8;
     }
     else if(22.5 >=theta || theta >=337.5)
     {
-        state = 3;
+        state = 7;
     }
     else if(337.5 >= theta && theta >= 292.5)
     {
@@ -312,11 +338,11 @@ int World::determineState(int sourcex, int sourcey, Entity *target)
     }
     else if(202.5 >= theta && theta >= 157.5)
     {
-        state = 7;
+        state = 3;
     }
     else if(157.5 >= theta && theta >= 112.5)
     {
-        state = 8;
+        state = 2;
     }
     else {
         state = 5;
@@ -332,10 +358,12 @@ int World::determineState(int sourcex, int sourcey, int targetx, int targety)
     double a;
     double b;
     double c;
+    double d;
     double theta;
+    double test;
     bool isUnder;
     int state;
-    if(targety < sourcey)
+    if(targety > sourcey)
     {
         isUnder = true;
     }
@@ -346,42 +374,44 @@ int World::determineState(int sourcex, int sourcey, int targetx, int targety)
     a = sourcex - targetx;
     b = sourcey - targety;
     c = sqrt(pow(a,2)+pow(b,2));
-    theta = acos(a/c);
+    d = a/c;
+    theta = acos(a/c) * 180.0/PI;
+    test = cos(d);
     if(isUnder)
     {
         theta += 180;
     }
-    else if(112.5 >= theta && theta >= 67.5)
+    if(112.5 >= theta && theta >= 67.5)
     {
-        state = 8;
+        state = 1;
     }
     else if(67.5 >= theta && theta >= 22.5)
     {
-        state = 7;
+        state = 8;
     }
     else if(22.5 >=theta || theta >=337.5)
     {
-        state = 6;
+        state = 7;
     }
     else if(337.5 >= theta && theta >= 292.5)
     {
-        state = 5;
+        state = 4;
     }
     else if(292.5 >= theta && theta >= 247.5)
     {
-        state = 4;
+        state = 5;
     }
     else if(247.5 >= theta && theta >= 202.5)
     {
-        state = 3;
+        state = 6;
     }
     else if(202.5 >= theta && theta >= 157.5)
     {
-        state = 2;
+        state = 3;
     }
     else if(157.5 >= theta && theta >= 112.5)
     {
-        state = 1;
+        state = 2;
     }
     else {
         state = 5;
