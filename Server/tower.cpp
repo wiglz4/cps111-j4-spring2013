@@ -124,9 +124,11 @@ void Tower::onTick()
             }
         }
     }
-    if(stateChange)
+    if(stateChange )
     {
-   state = newState;
+        if( newState <= 8 && newState > 0){
+            state = newState;
+        }
     }
 }
 
@@ -148,12 +150,12 @@ bool Tower::damage(int value)
 {
     if(Alive)
     {
-    curHealth = (double)curHealth - (double) value * (double) armor / 100;
-    if(curHealth < 0)
-    {
-        die();
-        return true;
-    }
+        curHealth = (double)curHealth - (double) value * (double) armor / 100;
+        if(curHealth < 0)
+        {
+            die();
+            return true;
+        }
     }
     healthChange = true;
     return false;

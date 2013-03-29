@@ -339,7 +339,9 @@ void Minion::onTick()
             }
         }
     }
-     state = newState;
+    if( newState <= 8 && newState > 0){
+    state = newState;
+    }
 }
 
 
@@ -369,6 +371,8 @@ void Minion::die()
     attackable = false;
     Alive = false;
     newDead = true;
+    x = 9000;
+    y = 9000;
     curHealth = 0;
 
 }

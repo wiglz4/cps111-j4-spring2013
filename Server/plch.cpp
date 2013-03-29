@@ -391,10 +391,12 @@ void PlCh::onTick()
         }
         if(currentState != state) //if player is alive and state changes
         {
-            state = currentState; //update state
+            if( currentState <= 8 && currentState > 0){
+                state = currentState;
+            } //update state
             stateChange = true;   //tell someone about it
         }
-         state = currentState;
+
     }
     else //if player is not alive
     {
@@ -452,6 +454,8 @@ void PlCh::die()
     newDead = true;
     attackable = false;
     curHealth = maxHealth;
+    x = 9000;
+    y = 9000;
     count->reset(250);
     points->incDeaths();
 }
