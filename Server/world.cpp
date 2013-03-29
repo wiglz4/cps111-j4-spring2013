@@ -250,11 +250,11 @@ int World::determineState(Entity *source, int cpX, int cpY)
     }
     else if(67.5 >= theta && theta >= 22.5)
     {
-        state = 2;
+        state = 8;
     }
     else if(22.5 >=theta || theta >=337.5)
     {
-        state = 3;
+        state = 7;
     }
     else if(337.5 >= theta && theta >= 292.5)
     {
@@ -270,11 +270,11 @@ int World::determineState(Entity *source, int cpX, int cpY)
     }
     else if(202.5 >= theta && theta >= 157.5)
     {
-        state = 7;
+        state = 3;
     }
     else if(157.5 >= theta && theta >= 112.5)
     {
-        state = 8;
+        state = 2;
     }
     else {
         state = 5;
