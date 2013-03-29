@@ -311,7 +311,7 @@ void GameScreen::onTimerHit()
         if(upPressed && rightPressed && !downPressed && !leftPressed)
         {
             //2
-            if(wdgtPicture->x() - 8 > -3098 && wdgtPicture->y() + 8 < 2152 && !(wdgtPicture->x() - 8 < -3098))
+            if(wdgtPicture->x() - 8 > -3098 && wdgtPicture->y() + 8 < 2152 )
             {
                 wdgtPicture->move(wdgtPicture->x() - 8, wdgtPicture->y() + 8);
                 qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
@@ -320,7 +320,7 @@ void GameScreen::onTimerHit()
         if(!upPressed && rightPressed && !downPressed && !leftPressed)
         {
             //3
-            if(wdgtPicture->x() - 10 > -3098 && !(wdgtPicture->x() - 10 < -3098));
+            if(wdgtPicture->x() - 10 > -3098)
             {
                 wdgtPicture->move(wdgtPicture->x() - 10 , wdgtPicture->y());
                 qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
@@ -329,7 +329,7 @@ void GameScreen::onTimerHit()
         if(!upPressed && rightPressed && downPressed && !leftPressed)
         {
             //4
-            if(wdgtPicture->x() - 8 > -3098 && wdgtPicture->y() - 8 > -260 && !(wdgtPicture->x() - 8 < -3098))
+            if(wdgtPicture->x() - 8 > -3098 && wdgtPicture->y() - 8 > -260)
             {
                 wdgtPicture->move(wdgtPicture->x()-8, wdgtPicture->y() - 8);
                 qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
