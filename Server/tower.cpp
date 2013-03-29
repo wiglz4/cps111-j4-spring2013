@@ -23,11 +23,11 @@ Tower::Tower(int cTeam, int newX, int newY, World *newMap)
     attackable = true;
     size = 150; //radius
     type = 2;
-    atkDamage = 80;
+    atkDamage = 60;
     atkSpeed = 1;
     armor = 20;
-    atkRange = 600;
-    detRange = 600;
+    atkRange = 550;
+    detRange = 550;
     canAttack = true;
     Alive = true;
     newDead = false;
@@ -54,7 +54,7 @@ void Tower::onTick()
         return;
     }
     double distance;
-    int currentState = state;
+    int newState;
 
     if(target != NULL && target->getAttackable())
     {
@@ -62,12 +62,17 @@ void Tower::onTick()
         if(distance < atkRange)
         {
             //SET STATE HERE
+            newState = world->determineState(x, y, target->getX(), target->getY());
             if(count->Check())
             {
                 if(Attack())
                 {
                     target = NULL;
                 }
+            }
+            if(newState != state)
+            {
+                stateChange = true;
             }
         }
         else
@@ -79,6 +84,7 @@ void Tower::onTick()
                 target = ent;
                 //SET STATE HERE
 
+                newState = world->determineState(x,y, target);
                 if(count->Check())
                 {
                     if(Attack())
@@ -86,6 +92,10 @@ void Tower::onTick()
                         target = NULL;
                     }
 
+                }
+                if(newState != state)
+                {
+                    stateChange = true;
                 }
             }
         }
@@ -96,20 +106,30 @@ void Tower::onTick()
         Entity* ent = map->getNAE(x,y,team, distance);
         if (distance < atkRange)
         {
-            state = 5;
+
 
             target = ent;
             if(count->Check())
             {
+                newState = world->determineState(x,y, target);
                 if(Attack())
                 {
                     target = NULL;
                 }
 
             }
+            if(newState != state)
+            {
+                stateChange = true;
+            }
         }
     }
-
+    if(stateChange )
+    {
+        if( newState <= 8 && newState > 0){
+            state = newState;
+        }
+    }
 }
 
 void Tower::die()
@@ -130,12 +150,12 @@ bool Tower::damage(int value)
 {
     if(Alive)
     {
-    curHealth = (double)curHealth - (double) value * (double) armor / 100;
-    if(curHealth < 0)
-    {
-        die();
-        return true;
-    }
+        curHealth = (double)curHealth - (double) value * (double) armor / 100;
+        if(curHealth < 0)
+        {
+            die();
+            return true;
+        }
     }
     healthChange = true;
     return false;
