@@ -9,6 +9,9 @@ class HelpWindow;
 #include <QPushButton>
 #include <QLabel>
 
+/*This class defines the gui of the
+ help window*/
+
 class HelpWindow : public QWidget
 {
     Q_OBJECT

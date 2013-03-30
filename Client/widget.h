@@ -24,6 +24,9 @@ class GameStartWidget;
 #include "ui_helpwindow.h"
 #include <QTcpSocket>
 
+
+/* This class defines the startup window */
+
 class Widget : public QWidget
 {
     Q_OBJECT

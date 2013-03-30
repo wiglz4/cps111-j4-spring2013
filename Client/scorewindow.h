@@ -12,6 +12,10 @@ class ScoreObject;
 #include <QPushButton>
 #include <QList>
 
+ /* This class defines the gui of the
+ main score window, and the endgame
+ score window */
+
 class ScoreWindow : public QDialog
 {
     Q_OBJECT

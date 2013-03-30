@@ -1,3 +1,10 @@
+//-----------------------------------------------------------
+//File:   scorewindow.cpp
+//Authors: Jeremie Miller, Jonathan Neves, Joel Sampson, John Wiglesworth
+//User IDs: jmill521, jneve321, jsamp710, jwigl437   Class: CPS 110
+//Desc:   This window tells you how well you did at the end of the
+//          game.
+//-----------------------------------------------------------
 #include "scorewindow.h"
 #include "widget.h"
 #include "ui_scorewindow.h"

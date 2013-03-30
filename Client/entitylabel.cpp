@@ -1,7 +1,3 @@
-#include "entitylabel.h"
-
-#include <QDebug>
-
 //-----------------------------------------------------------
 //File:   entitylabel.cpp
 //Authors: Jeremie Miller, Jonathan Neves, Joel Sampson, John Wiglesworth
@@ -9,6 +5,10 @@
 //Desc:   This class provides the basic "unit" of the game.
 //          All clientside units are just an EntityLabel.
 //-----------------------------------------------------------
+
+#include "entitylabel.h"
+
+#include <QDebug>
 
 //Constructor
 EntityLabel::EntityLabel(int id, int type, int initTeam,

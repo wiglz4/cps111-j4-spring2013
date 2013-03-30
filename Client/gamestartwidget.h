@@ -15,6 +15,9 @@ namespace Ui {
 class GameStartWidget;
 }
 
+/*This class defines the window used for
+ the start game options in singleplayer,
+ multiplayer, and load-game mode*/
 class GameStartWidget : public QWidget
 {
     Q_OBJECT
