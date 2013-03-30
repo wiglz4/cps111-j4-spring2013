@@ -30,6 +30,7 @@ ServerWindow::ServerWindow(QWidget *parent) :
     connect(timer, SIGNAL(timeout()) , this, SLOT(timerHit()));
     timerGo = false;
     game = NULL;
+    ui->spinPlayers->setValue(2);
     //timer->start();
 }
 
