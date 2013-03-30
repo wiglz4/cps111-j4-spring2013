@@ -378,11 +378,11 @@ bool Minion::Attack()
 string Minion::save()
 {
     stringstream save;
-    save<<" "<<(type * 10 + 1)<<" "<<absoluteID<<" "<<team<<" "<<((curHealth * 100) / maxHealth)<<" "<<state<< " "<<x<<" "<<y<<" "<<"NOT";
+    save<<" "<<type<<" "<<absoluteID<<" "<<team<<" "<<curHealth<<" "<<state<< " "<<x<<" "<<y;
     return save.str();
 }
 
-Entity* Minion::load()//Needs redesigning
+Entity* Minion::load(std::string loadString)//Needs redesigning
 {
     //NEEDS CODING
     return NULL;

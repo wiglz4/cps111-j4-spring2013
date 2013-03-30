@@ -164,11 +164,11 @@ bool Tower::damage(int value)
 string Tower::save()
 {
     stringstream save;
-    save<<" "<<(type * 10 + 1)<<" "<<absoluteID<<" "<<team<<" "<<((curHealth * 100) / maxHealth)<<" "<<state<< " "<<x<<" "<<y<<" "<<"NOT";
+    save<<" "<<type<<" "<<absoluteID<<" "<<team<<" "<<curHealth<<" "<<state<< " "<<x<<" "<<y;
     return save.str();
 }
 
-Entity* Tower::load()
+Entity* Tower::load(std::string loadString)
 {
     //NEEDS CODING
 }

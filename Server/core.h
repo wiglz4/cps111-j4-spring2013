@@ -13,7 +13,7 @@ public:
     virtual bool damage(int value);
     virtual void onTick();
     virtual string save();
-    virtual Entity* load();
+    virtual Entity* load(std::string loadString);
     virtual string displayString();
 };
 

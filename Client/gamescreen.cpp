@@ -41,7 +41,7 @@ GameScreen::GameScreen(QWidget *parent) :
     frGame = new QFrame(this);
     frGame->setFrameShape(QFrame::Box);
     frGame->setLineWidth(10);
-    frGame->setStyleSheet("color:rgba(0,0,0,212);");
+    frGame->setStyleSheet("color:rgba(0,0,0;212);");
     frGame->setGeometry(0, 0, 800, 600);
     frGame->show();
 

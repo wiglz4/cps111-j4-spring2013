@@ -9,6 +9,7 @@ class Counter;
 
 class PlCh : public Unit
 {
+    PlCh();
 protected:
     string plName;
     Stats *points;
@@ -16,8 +17,6 @@ protected:
     bool isCheatMode;
     bool canCheatMode;
     Counter *cheatCounter;
-
-    PlCh();
 
     bool wPressed;
     bool aPressed;
@@ -51,7 +50,7 @@ public:
     virtual bool damage(int value);
     virtual void onTick();
     virtual string save();
-    virtual Entity* load();
+    virtual Entity* load(std::string loadString);
     virtual string displayString();
     virtual void die();
     virtual void respawn();

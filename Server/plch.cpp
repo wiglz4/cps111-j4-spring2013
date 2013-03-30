@@ -496,11 +496,11 @@ bool PlCh::Attack()
 string PlCh::save()
 {
     stringstream save;
-    save<<" "<<(type * 10 + 1)<<" "<<absoluteID<<" "<<team<<" "<<((curHealth * 100) / maxHealth)<<" "<<state<< " "<<x<<" "<<y<<" "<<plName;
+    save<<" "<<type<<" "<<absoluteID<<" "<<team<<" "<<curHealth<<" "<<state<< " "<<x<<" "<<y<<" "<<plName;
     return save.str();
 }
 
-Entity* PlCh::load()
+Entity* PlCh::load(std::string loadString)
 {
     //NEEDS CODING
 }

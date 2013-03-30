@@ -44,6 +44,8 @@ class GameStartWidget : public QWidget
 
     Widget *w;
 
+    bool multiplayer;
+
 public:
     //Constructor
     explicit GameStartWidget(QWidget *parent = 0);
@@ -71,6 +73,8 @@ public:
 
     //Hide objects necessary for loading
     void hideLoad();
+
+    void isMultiplyer(){multiplayer = true;}
 
 private slots:
     //Button Clicks
