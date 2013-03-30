@@ -713,9 +713,9 @@ void GameScreen::readCommand()
                         break;
 
                         //just in case for some reason the server return a weird case
-                        default:
-                            qDebug() << "Error code AAUGH: Unidentified Case: " << entv;
-                        break;
+                    /*default:
+                        qDebug() << "Error code AAUGH: Unidentified Case: " << entv;
+                        break;*/
                     }
                 }
             }
