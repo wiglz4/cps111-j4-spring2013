@@ -75,7 +75,7 @@ void ServerWindow::dataReceived()
                         game = Game::Load(this, &unUsers);
                         timer->start();
                     }
-                    else
+                    else if (List.at(0) != "9")
                     {
                         int team;
                         team = List.at(0).toInt();
@@ -86,6 +86,20 @@ void ServerWindow::dataReceived()
                         {
                             timerGo = true;
                             timerHit();
+                        }
+                    }
+                    else
+                    {
+                        unUsers.at(i)->setTeam(List.at(1).toInt());
+                        unUsers.at(i)->setUsername(List.at(2).toStdString());
+                        if(unUsers.size() == 2)
+                        {
+                            if(unUsers.at(0)->checkInstanceVars() && unUsers.at(1)->checkInstanceVars())
+                            {
+                                timerGo = true;
+                                timerHit();
+                                qDebug()<<"Finished multiplayer set up";
+                            }
                         }
                     }
                 }
@@ -100,7 +114,7 @@ void ServerWindow::dataReceived()
             {
                 QString str = sock->readLine();
                 unUsers.at(i)->command(str.toStdString());
-                break;
+                return;
             }
         }
     }
@@ -124,7 +138,6 @@ void ServerWindow::timerHit()
             {
                 for(uint i = 0; i < unUsers.size(); ++i)
                 {
-
                     unUsers.at(i)->getSock()->write(message.toAscii());
                 }
             }

@@ -79,6 +79,7 @@ void Widget::on_btnNetwork_clicked(){
     gsw->hideLoad();
     gsw->dislpayHost();
     gsw->show();
+    gsw->isMultiplyer();
     this->hide();
 }
 

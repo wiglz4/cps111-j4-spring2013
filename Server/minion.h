@@ -22,10 +22,12 @@ public:
     virtual bool damage(int value);
     virtual void onTick();
     virtual string save();
-    virtual Entity* load();
+    virtual Entity* load(std::string loadString);
     virtual string displayString();
     virtual void die();
     virtual bool Attack();
+    World* world;
+
 };
 
 #endif // MINION_H

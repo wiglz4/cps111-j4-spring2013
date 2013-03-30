@@ -68,7 +68,6 @@ HelpWindow::~HelpWindow()
 }
 
 void HelpWindow::onMainWindowClicked(){
-    //qDebug() << "pressed";
     this->hide();
     w->show();
 }

@@ -64,7 +64,7 @@ GameStartWidget::GameStartWidget(QWidget *parent) :
     lnedUsername->setGeometry(80, 120, 211, 27);
     lnedUsername->setFrame(false);
     lnedUsername->setStyleSheet("background-color:rgba(0,0,0,100);\ncolor:#fff;\nselection-background-color: rgba(0, 0, 0, 50);");
-    lnedUsername->setText("PlayerName");
+    lnedUsername->setText("Ender_Wiggin");
     lnedUsername->setEchoMode(QLineEdit::Normal);
     lnedUsername->show();
 
@@ -126,6 +126,7 @@ GameStartWidget::GameStartWidget(QWidget *parent) :
     setFixedSize(windowSize.width(), windowSize.height());
 
     loading = false;
+    multiplayer = false;
     setWindowFlags(Qt::SplashScreen);
 }
 
@@ -188,21 +189,30 @@ void GameStartWidget::onBtnStartClicked()
     int num;
     QString message;
     QString filename = "";
-    if(!loading){
-        if(this->btnRed->isChecked()){
+    if(!loading)
+    {
+        if(this->btnRed->isChecked())
+        {
             num = 1;
-        }else if(this->btnBlue->isChecked()){
+        }
+        else if(this->btnBlue->isChecked())
+        {
             num = 2;
         }
-    }else{
+    }
+    else
+    {
         num = 5;
-        if(lnedSave->text() == "" || lnedSave->text() == "filename"){
+        if(lnedSave->text() == "" || lnedSave->text() == "filename")
+        {
             QMessageBox::critical(this, "Error", "Please enter a valid filename");
             return;
         }
         filename = lnedSave->text() + " ";
     }
-    if (lnedHost->text() == "")  {
+
+    if (lnedHost->text() == "")
+    {
         QMessageBox::critical(this, "Error", "Unable to connect to host:\n" + lnedHost->text());
         return;
     }
@@ -213,16 +223,27 @@ void GameStartWidget::onBtnStartClicked()
         return;
     }
 
+    if(lnedUsername->displayText().indexOf(" ") != -1)
+    {
+        QMessageBox::warning(this, "Error", "Please enter a username with no spaces.....NONE!");
+        return;
+    }
+
     sock->connectToHost(lnedHost->text(),5000);
-    if (!sock->waitForConnected()){
-        //qDebug() << lnedHost->text();
+    if (!sock->waitForConnected())
+    {
         sock->disconnect();
         QMessageBox::critical(this, "Error", "Unable to connect to host:\n" + lnedHost->text());
         return;
     }
-
-    message = QString::number(num) + " " + filename + lnedUsername->displayText();
-    qDebug() << message;
+    if(multiplayer)
+    {
+        message = "9 " + QString::number(num) + " " + filename + lnedUsername->displayText();
+    }
+    else
+    {
+        message = QString::number(num) + " " + filename + lnedUsername->displayText();
+    }
     sock->write(message.toAscii());
     g->setPlayername(lnedUsername->text());
     g->show();
