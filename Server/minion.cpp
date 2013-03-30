@@ -301,6 +301,7 @@ void Minion::onTick()
             }
             else
             {
+                distance = sqrt(pow(cpY - y, 2) + pow(cpX - x, 2));
                 theta = asin((y-cpY)/distance);
                 if(cpY > y)
                 {

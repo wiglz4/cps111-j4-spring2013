@@ -742,7 +742,8 @@ void GameScreen::serverDisconnected()
 
 //create a new EntityLabel with <type>, <id>, <team>,
 //<health>, <state> at <posX>, <posY> with <username>
-void GameScreen::createEntity(int type, int id, int team, int health, int state, int posX, int posY, QString name){
+void GameScreen::createEntity(int type, int id, int team, int health, int state, int posX, int posY, QString name)
+{
     EntityLabel *thing = new EntityLabel(id, type, team, posX, posY, health, state, name, wdgtPicture);
     if(name == playername)
     {
