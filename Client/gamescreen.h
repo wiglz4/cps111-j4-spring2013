@@ -15,7 +15,6 @@ class GameScreen;
 #include <vector>
 #include <QResizeEvent>
 #include <QFrame>
-#include <QTcpSocket>
 #include <QPushButton>
 #include <QStringList>
 #include <QTcpSocket>
