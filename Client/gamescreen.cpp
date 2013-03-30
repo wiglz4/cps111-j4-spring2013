@@ -173,6 +173,7 @@ void GameScreen::keyPressEvent(QKeyEvent *e)
             btnMenu->show();
             lblBar->show();
             lblMap->show();
+            sock->write("9\n");
         } else {
             timer->start();
             pPressed = false;
@@ -526,6 +527,16 @@ void GameScreen::readCommand()
                     type = entv/10;
                     switch (entv)
                     {
+                    //pause
+                    case 9:
+                        timer->stop();
+                        pPressed = true;
+                        frPause->show();
+                        btnPause->show();
+                        btnMenu->show();
+                        lblBar->show();
+                        lblMap->show();
+                        break;
 
                     //create and load
                     case 11: //core
