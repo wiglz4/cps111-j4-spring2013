@@ -201,25 +201,25 @@ void GameScreen::keyPressEvent(QKeyEvent *e)
     {
         sock->write("2 2 ");
     }
-    if(e->key() == Qt::Key_Up)
+    if(e->key() == Qt::Key_Up && !e->isAutoRepeat())
     {
         upPressed = true;
     }
-    if(e->key() == Qt::Key_Left)
+    if(e->key() == Qt::Key_Left && !e->isAutoRepeat())
     {
         leftPressed = true;
     }
-    if(e->key() == Qt::Key_Down)
+    if(e->key() == Qt::Key_Down && !e->isAutoRepeat())
     {
         downPressed = true;
     }
-    if(e->key() == Qt::Key_Right)
+    if(e->key() == Qt::Key_Right && !e->isAutoRepeat())
     {
         rightPressed = true;
     }
-    if(e->key() == Qt::Key_Space)
+    if(e->key() == Qt::Key_Space && !e->isAutoRepeat())
     {
-        spacePressed = true;
+        spacePressed = !spacePressed;
     }
 }
 
@@ -243,25 +243,25 @@ void GameScreen::keyReleaseEvent(QKeyEvent *e)
     {
         sock->write("3 2 ");
     }
-    if(e->key() == Qt::Key_Up)
+    if(e->key() == Qt::Key_Up && !e->isAutoRepeat())
     {
         upPressed = false;
     }
-    if(e->key() == Qt::Key_Left)
+    if(e->key() == Qt::Key_Left && !e->isAutoRepeat())
     {
         leftPressed = false;
     }
-    if(e->key() == Qt::Key_Down)
+    if(e->key() == Qt::Key_Down && !e->isAutoRepeat())
     {
         downPressed = false;
     }
-    if(e->key() == Qt::Key_Right)
+    if(e->key() == Qt::Key_Right && !e->isAutoRepeat())
     {
         rightPressed = false;
     }
-    if(e->key() == Qt::Key_Space)
+    if(e->key() == Qt::Key_Space && !e->isAutoRepeat())
     {
-        spacePressed = false;
+        //spacePressed = false;
     }
 
 }
@@ -331,76 +331,87 @@ void GameScreen::onTimerHit()
     }
     else
     {
+        int pureSpeed = 10;
+        int modSpeed = 8;
         if(upPressed && !rightPressed && !downPressed && !leftPressed)
         {
             //1
-            if(wdgtPicture->y() + this->height() + 10 < 2750)
+            if(wdgtPicture->y() + this->height() + pureSpeed < 2750)
             {
-                wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() + 10);
+                wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() + pureSpeed);
                 //qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+                //wdgtPicture->scroll(0, -pureSpeed);
             }
         }
         if(upPressed && rightPressed && !downPressed && !leftPressed)
         {
             //2
-            if(wdgtPicture->x() - this->width() - 8 > -3900 && wdgtPicture->y() +this->height() + 8 < 2750 )
+            if(wdgtPicture->x() - this->width() - modSpeed > -3900 && wdgtPicture->y() +this->height() + modSpeed < 2750 )
             {
-                wdgtPicture->move(wdgtPicture->x() - 8, wdgtPicture->y() + 8);
+                wdgtPicture->move(wdgtPicture->x() - modSpeed, wdgtPicture->y() + modSpeed);
                 //qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+                //wdgtPicture->scroll(modSpeed, -modSpeed);
             }
         }
         if(!upPressed && rightPressed && !downPressed && !leftPressed)
         {
             //3
-            if(wdgtPicture->x() - this->width()- 10 > -3900)
+            if(wdgtPicture->x() - this->width()- pureSpeed > -3900)
             {
-                wdgtPicture->move(wdgtPicture->x() - 10 , wdgtPicture->y());
+                wdgtPicture->move(wdgtPicture->x() - pureSpeed , wdgtPicture->y());
                // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+                //wdgtPicture->scroll(pureSpeed, 0);
             }
         }
         if(!upPressed && rightPressed && downPressed && !leftPressed)
         {
             //4
-            if(wdgtPicture->x() - this->width() -8 > -3098 && wdgtPicture->y() - 8 > -260)
+            if(wdgtPicture->x() - this->width() -modSpeed > -3098 && wdgtPicture->y() - modSpeed > -260)
             {
-                wdgtPicture->move(wdgtPicture->x()-8, wdgtPicture->y() - 8);
+                wdgtPicture->move(wdgtPicture->x()-modSpeed, wdgtPicture->y() - modSpeed);
                // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+                //wdgtPicture->scroll(modSpeed, modSpeed);
             }
         }
         if(!upPressed && !rightPressed && downPressed && !leftPressed)
         {
             //5
-            if(wdgtPicture->y() - 10 > -260)
+            if(wdgtPicture->y() - pureSpeed > -260)
             {
-                wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() - 10);
+                wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() - pureSpeed);
                // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+                //wdgtPicture->scroll(0, pureSpeed);
             }
         }
         if(!upPressed && !rightPressed && downPressed && leftPressed)
         {
             //6
-            if(wdgtPicture->x() + 8 < 110 && wdgtPicture->y() - 8 > -260)
+            if(wdgtPicture->x() + modSpeed < 110 && wdgtPicture->y() - modSpeed > -260)
             {
-                wdgtPicture->move(wdgtPicture->x() + 8, wdgtPicture->y() - 8);
+                wdgtPicture->move(wdgtPicture->x() + modSpeed, wdgtPicture->y() - modSpeed);
                // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+                //wdgtPicture->scroll(-modSpeed, pureSpeed);
             }
         }
         if(!upPressed && !rightPressed && !downPressed && leftPressed)
         {
             //7
-            if(wdgtPicture->x() + 10 < 110)
+            if(wdgtPicture->x() + pureSpeed < 110)
             {
-                wdgtPicture->move(wdgtPicture->x() + 10, wdgtPicture->y());
+                wdgtPicture->move(wdgtPicture->x() + pureSpeed, wdgtPicture->y());
                 //qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+                //wdgtPicture->scroll(-pureSpeed,0);
+
             }
         }
         if(upPressed && !rightPressed && !downPressed && leftPressed)
         {
             //8
-            if(wdgtPicture->x() + 8 < 110 && wdgtPicture->y() +this->height()+ 8 < 2750)
+            if(wdgtPicture->x() + modSpeed < 110 && wdgtPicture->y() +this->height()+ modSpeed < 2750)
             {
-                wdgtPicture->move(wdgtPicture->x() + 8, wdgtPicture->y() + 8);
+                wdgtPicture->move(wdgtPicture->x() + modSpeed, wdgtPicture->y() + modSpeed);
                // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+                //wdgtPicture->scroll(-modSpeed, -modSpeed);
             }
         }
     }

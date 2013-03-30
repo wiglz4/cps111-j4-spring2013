@@ -30,6 +30,7 @@ ServerWindow::ServerWindow(QWidget *parent) :
     connect(timer, SIGNAL(timeout()) , this, SLOT(timerHit()));
     timerGo = false;
     game = NULL;
+    ui->spinPlayers->setValue(2);
     //timer->start();
 }
 
@@ -40,7 +41,6 @@ ServerWindow::~ServerWindow()
 
 void ServerWindow::clientConnected()
 {
-    ui->label->setText("connected");
     User *user = new User();
     QTcpSocket *sock = server.nextPendingConnection();
     connect(sock, SIGNAL(disconnected()), this, SLOT(clientDisconnected()));
@@ -52,6 +52,17 @@ void ServerWindow::clientConnected()
 void ServerWindow::clientDisconnected()
 {
     QTcpSocket *sock = dynamic_cast<QTcpSocket*>(sender());
+    for(int i = 0; i < unUsers.size(); ++i)
+    {
+        if(sock== unUsers.at(i)->getSock())
+        {
+            QString name(unUsers.at(i)->getName().c_str());
+            qDebug()<<"USERNAME: " + name;
+            User* user = unUsers.at(i);
+            unUsers.erase(unUsers.begin() + i);
+            delete user;
+        }
+    }
     sock->deleteLater();
 }
 
@@ -92,13 +103,21 @@ void ServerWindow::dataReceived()
                     {
                         unUsers.at(i)->setTeam(List.at(1).toInt());
                         unUsers.at(i)->setUsername(List.at(2).toStdString());
-                        if(unUsers.size() == 2)
+                        if(unUsers.size() == ui->spinPlayers->value())
                         {
-                            if(unUsers.at(0)->checkInstanceVars() && unUsers.at(1)->checkInstanceVars())
+                            bool go = true;
+                            for(int i = 0; i < unUsers.size(); ++i)
+                            {
+                                if(!unUsers.at(i)->checkInstanceVars())
+                                {
+                                    go = false;
+                                    break;
+                                }
+                            }
+                            if(go)
                             {
                                 timerGo = true;
                                 timerHit();
-                                qDebug()<<"Finished multiplayer set up";
                             }
                         }
                     }
@@ -156,4 +175,17 @@ int ServerWindow::GetUserTeam()
 
 string ServerWindow::GetLoadUsername()
 {
+}
+
+void ServerWindow::on_btnReset_clicked()
+{
+    timer->stop();
+    timerGo = false;
+    game = NULL;
+    for(int i = 0; i < unUsers.size(); ++i)
+    {
+        unUsers.at(i)->getSock()->close();
+        unUsers.at(i)->getSock()->deleteLater();
+    }
+    unUsers.clear();
 }

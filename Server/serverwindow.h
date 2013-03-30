@@ -33,7 +33,6 @@ class ServerWindow : public QMainWindow, public Observer
     int ticks;
     QTcpServer server;
     vector<User *> unUsers;
-    vector<QTcpSocket *> unSocks;
     Game *game;
     bool timerGo;
     //Counter *count;
@@ -58,6 +57,8 @@ private slots:
     void dataReceived();
 
     void timerHit();
+
+    void on_btnReset_clicked();
 
 private:
     Ui::ServerWindow *ui;
