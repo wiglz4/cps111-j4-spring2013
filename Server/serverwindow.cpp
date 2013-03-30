@@ -31,6 +31,7 @@ ServerWindow::ServerWindow(QWidget *parent) :
     timerGo = false;
     game = NULL;
     ui->spinPlayers->setValue(2);
+    bool paused = false;
     //timer->start();
 }
 
@@ -84,7 +85,7 @@ void ServerWindow::dataReceived()
                         unUsers.at(i)->setTeam(GetUserTeam());
                         unUsers.at(i)->setUsername(GetLoadUsername());
                         game = Game::Load(this, &unUsers);
-                        timer->start();
+                        timer->start();                    
                     }
                     else if (List.at(0) != "9")
                     {
@@ -132,8 +133,29 @@ void ServerWindow::dataReceived()
             if(sock == unUsers.at(i)->getSock())
             {
                 QString str = sock->readLine();
-                unUsers.at(i)->command(str.toStdString());
-                return;
+                if(str.at(0) == '7')
+                {
+                    for(int i = 0; i < unUsers.size(); ++i)
+                    {
+                        unUsers.at(i)->getSock()->write("97179 7\n");
+                        qDebug() << "set out 7\n";
+                    }
+                    if(paused)
+                    {
+                        timer->start();
+                        paused = false;
+                    }
+                    else
+                    {
+                        timer->stop();
+                        paused = true;
+                    }
+                }
+                else
+                {
+                    unUsers.at(i)->command(str.toStdString());
+                    return;
+                }
             }
         }
     }

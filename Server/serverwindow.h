@@ -35,6 +35,7 @@ class ServerWindow : public QMainWindow, public Observer
     vector<User *> unUsers;
     Game *game;
     bool timerGo;
+    bool paused;
     //Counter *count;
     bool debug;
     int GetUserTeam();
