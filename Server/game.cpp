@@ -33,7 +33,6 @@ std::string Game::onTick()
         }
         packet = packet + QString::number(obs->getTime()) + "\n";
 
-        qDebug() << packet;
         //should pull stats from players and place them in this order:
         //PLAYERINDICATOR PLAYERNAME TEAM TOWERKILLS MINIONKILLS PLAYERKILLS PLAYERDEATHS
         //this should be repeated until there are no more players to process then the time in seconds should be added to the last slot

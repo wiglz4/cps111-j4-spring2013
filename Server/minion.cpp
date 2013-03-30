@@ -20,7 +20,7 @@ Minion::Minion(int cTeam, int newX, int newY, World *newMap)
     absoluteID = ++curID;
     targetable = true;
     attackable = true;
-    size = 150; //radius
+    size = 10; //radius
     type = 3;
 
     atkDamage = 20;
@@ -266,8 +266,6 @@ void Minion::onTick()
                 }
                 else
                 {
-                    //qDebug()<<"MinionPathTracking";
-                    //qDebug()<<"Reached Joels Weird Math.";
                     distance = sqrt(pow(cpY-y, 2) + pow(cpX - x, 2));
 
                     theta = asin((y-cpY)/distance);
@@ -303,10 +301,6 @@ void Minion::onTick()
             }
             else
             {
-                //qDebug()<<"MinionPathTracking";
-                //qDebug()<<"Reached Joels Weird Math.";
-                distance = sqrt(pow(cpY-y, 2) + pow(cpX - x, 2));
-
                 theta = asin((y-cpY)/distance);
                 if(cpY > y)
                 {
@@ -354,7 +348,6 @@ bool Minion::damage(int value)
         if(curHealth < 0)
         {
             die();
-            //qDebug() << "died";
             healthChange = true;
             return true;
         }

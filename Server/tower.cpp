@@ -21,7 +21,7 @@ Tower::Tower(int cTeam, int newX, int newY, World *newMap)
     absoluteID = ++curID;
     targetable = true;
     attackable = true;
-    size = 150; //radius
+    size = 100; //radius
     type = 2;
     atkDamage = 60;
     atkSpeed = 1;

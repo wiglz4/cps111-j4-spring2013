@@ -39,8 +39,8 @@ public:
     bool getTargetable(){return targetable;}
     bool getAttackable(){return attackable;}
     int getType(){return type;}
-    int getX(){return x;}
-    int getY(){return y;}
+    int getX(){return x + size;}
+    int getY(){return y + size;}
     int getID(){return absoluteID;}
 
     void setCHEALTH(int newHealth){curHealth = newHealth;}

@@ -20,7 +20,7 @@ PlCh::PlCh(int cTeam, int newX, int newY, World *newMap, string pName)
     absoluteID = ++curID;
     targetable = true;
     attackable = true;
-    size = 150; //radius
+    size = 10; //radius
     type = 4;
 
     atkDamage = 600;//incomplete
@@ -237,7 +237,6 @@ void PlCh::onTick()
                             if(target->getAttackable()) //check if can be attacked
                             {
                                 Attack(); //attack
-                                qDebug()<<"Attacking"; //see if attacked: REM
                                 currentState = world->determineState(x,y, target);
                             } else { //if you can't attack it, set it to null
                                 target = NULL;
@@ -288,7 +287,6 @@ void PlCh::onTick()
 
                                 if(count->Check()) //still not sure what this does...
                                 {
-                                    qDebug()<<"Attacking2";
                                     //State Calculations here
                                     if(Attack()) //prolly set up wrong
                                     {
@@ -346,7 +344,6 @@ void PlCh::onTick()
 
                             if(count->Check())
                             {
-                                qDebug()<<"Attacking3";
                                 //SET STATE HERE
                                 if(Attack())
                                 {
@@ -431,8 +428,6 @@ bool PlCh::damage(int value)
     if(Alive)
     {
         curHealth = (double)curHealth - ((double) value * (double) armor / 100);
-        qDebug()<< ((double) value * (double) armor / 100);
-        qDebug()<<curHealth;
         if(curHealth < 0)
         {
             die();
@@ -467,7 +462,6 @@ void PlCh::respawn()
 
 bool PlCh::Attack()
 {
-    //qDebug() << target->getAttackable();
     int t = target->getType();
     if (target->getAttackable())
     {
@@ -475,25 +469,20 @@ bool PlCh::Attack()
         if(b){
             if(t ==1)
             {
-                qDebug()<<"Core";
             }
             else if (t ==2)
             {
-                qDebug()<<"Tower";
                 points->incTKills();
             }
             else if (t ==3)
             {
-                qDebug()<<"Minion";
                 points->incMKills();
             } else if (t == 4)
             {
-                qDebug() << "Player";
                 points->incPKills();
             }
             else
             {
-                qDebug()<<".....We didn't code this yet......";
             }
         }
         return b;

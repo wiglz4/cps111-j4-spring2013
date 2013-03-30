@@ -33,6 +33,5 @@ QString User::score()
     s = s + " " + QString::number(team) + " ";
     string stats = character->getStats();
     s = s + QString::fromStdString(stats);
-    qDebug() << s;
     return s;
 }

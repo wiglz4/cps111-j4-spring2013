@@ -66,7 +66,6 @@ ScoreWindow::~ScoreWindow()
 
 
 void ScoreWindow::onMainWindowClicked(){
-    //qDebug() << "pressed";
     this->hide();
     w->show();
 }
@@ -82,15 +81,18 @@ void ScoreWindow::connectWidget(Widget *w){
 }
 
 void ScoreWindow::addScore(ScoreObject *s){
-    //qDebug() << "added score";
-    if(!isEndgame){
+    if(!isEndgame)
+    {
         makeEndGame();
     }
     QLabel *label = new QLabel(ui->frScore);
     label->setGeometry(4, nextY, 20, 20);
-    if(s->team() == 2){
+    if(s->team() == 2)
+    {
         label->setStyleSheet("background:#44707b");
-    }else if (s->team() == 1){
+    }
+    else if (s->team() == 1)
+    {
         label->setStyleSheet("background:#a23a1d");
     }
     label->show();
@@ -139,7 +141,6 @@ void ScoreWindow::addScore(ScoreObject *s){
 }
 
 void ScoreWindow::addTime(int t){
-    //qDebug() << "added time";
     ui->lblTTime->setText("Game Time:");
     int tenth;
     int seconds;

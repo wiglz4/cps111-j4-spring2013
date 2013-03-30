@@ -56,7 +56,7 @@ GameStartWidget::GameStartWidget(QWidget *parent) :
     lnedUsername->setGeometry(80, 120, 211, 27);
     lnedUsername->setFrame(false);
     lnedUsername->setStyleSheet("background-color:rgba(0,0,0,100);\ncolor:#fff;\nselection-background-color: rgba(0, 0, 0, 50);");
-    lnedUsername->setText("Ender Wiggin");
+    lnedUsername->setText("Ender_Wiggin");
     lnedUsername->setEchoMode(QLineEdit::Normal);
     lnedUsername->show();
 
@@ -213,14 +213,12 @@ void GameStartWidget::onBtnStartClicked()
 
     sock->connectToHost(lnedHost->text(),5000);
     if (!sock->waitForConnected()){
-        //qDebug() << lnedHost->text();
         sock->disconnect();
         QMessageBox::critical(this, "Error", "Unable to connect to host:\n" + lnedHost->text());
         return;
     }
 
     message = QString::number(num) + " " + filename + lnedUsername->displayText();
-    qDebug() << message;
     sock->write(message.toAscii());
     g->setPlayername(lnedUsername->text());
     g->show();
