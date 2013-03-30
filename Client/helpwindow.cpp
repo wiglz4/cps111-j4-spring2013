@@ -1,3 +1,11 @@
+//-----------------------------------------------------------
+//File:   helpwindow.cpp
+//Authors: Jeremie Miller, Jonathan Neves, Joel Sampson, John Wiglesworth
+//User IDs: jmill521, jneve321, jsamp710, jwigl437   Class: CPS 110
+//Desc:   This file provides the window with useful information about
+//          how to play the game
+//-----------------------------------------------------------
+
 #include "helpwindow.h"
 #include "ui_helpwindow.h"
 #include <QPixmap>

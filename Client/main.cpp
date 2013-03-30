@@ -1,3 +1,10 @@
+//-----------------------------------------------------------
+//File:   main.cpp
+//Authors: Jeremie Miller, Jonathan Neves, Joel Sampson, John Wiglesworth
+//User IDs: jmill521, jneve321, jsamp710, jwigl437   Class: CPS 110
+//Desc:   This provides the magic starting bit for the game. And
+//          all the nasty work of connecting everything together.
+//-----------------------------------------------------------
 #include <QApplication>
 #include "widget.h"
 

@@ -1,3 +1,11 @@
+//-----------------------------------------------------------
+//File:   gamescreen.cpp
+//Authors: Jeremie Miller, Jonathan Neves, Joel Sampson, John Wiglesworth
+//User IDs: jmill521, jneve321, jsamp710, jwigl437   Class: CPS 110
+//Desc:   This provides the window where all the fun part of the game
+//          happens.
+//-----------------------------------------------------------
+
 #include "gamescreen.h"
 #include "ui_gamescreen.h"
 #include "entitylabel.h"
@@ -16,6 +24,8 @@
 #include <QDesktopWidget>
 #include <QSize>
 
+
+//Constructor
 GameScreen::GameScreen(QWidget *parent) :
     QWidget(parent),
     gsui(new Ui::GameScreen)
@@ -24,6 +34,15 @@ GameScreen::GameScreen(QWidget *parent) :
 
     playerHealthPercent = 100;
     targetHealthPercent = 100;
+    playerId = 0;
+    targetId = 0;
+
+    targetChanged = false;
+    upPressed = false;
+    rightPressed = false;
+    downPressed = false;
+    leftPressed = false;
+    spacePressed = false;
 
     wdgtGame = new QWidget(this);
     wdgtGame->setGeometry(-100, -2150, 4000, 3000);
@@ -56,12 +75,6 @@ GameScreen::GameScreen(QWidget *parent) :
     lblMap->setStyleSheet("background: url(:/images/background3.png) no-repeat top left");
     lblMap->hide();
 
-    upPressed = false;
-    rightPressed = false;
-    downPressed = false;
-    leftPressed = false;
-
-    spacePressed = false;
 
     btnMenu = new QPushButton(frGame);
     btnMenu->setGeometry(588,310,121,31);
@@ -121,22 +134,20 @@ GameScreen::GameScreen(QWidget *parent) :
 
     setMouseTracking(true);
 
-    playerId = 0;
-    targetId = 0;
-
-    targetChanged = false;
-
     timer = new QTimer(this);
     timer->setInterval(20);
     connect(timer, SIGNAL(timeout()), this, SLOT(onTimerHit()));
     timer->start();
 }
 
+//Destructor
 GameScreen::~GameScreen()
 {
     delete gsui;
 }
 
+
+//hides pause menu
 void GameScreen::unPause()
 {
     timer->start();
@@ -148,6 +159,7 @@ void GameScreen::unPause()
     lblMap->hide();
 }
 
+//registers key press
 void GameScreen::keyPressEvent(QKeyEvent *e)
 {
     if((e->key() == Qt::Key_P && !e->isAutoRepeat() || (e->key() == Qt::Key_Escape && !e->isAutoRepeat())))
@@ -210,6 +222,8 @@ void GameScreen::keyPressEvent(QKeyEvent *e)
     }
 }
 
+
+//registers key release
 void GameScreen::keyReleaseEvent(QKeyEvent *e)
 {
     if(e->key() == Qt::Key_W && !e->isAutoRepeat())
@@ -251,6 +265,8 @@ void GameScreen::keyReleaseEvent(QKeyEvent *e)
 
 }
 
+//processes updates parts of the gui and sends information to
+//server every timer hit
 void GameScreen::onTimerHit()
 {
     if(playerId == 0)
@@ -394,12 +410,13 @@ void GameScreen::onTimerHit()
 
 }
 
-
+//make sure things stop when window is closed
 void GameScreen::closeEvent(QCloseEvent *)
 {
     timer->stop();
 }
 
+//makes sure everything is in proper place when the window changes size
 void GameScreen::resizeEvent(QResizeEvent *event)
 {
     frGame->resize(event->size());
@@ -415,7 +432,7 @@ void GameScreen::resizeEvent(QResizeEvent *event)
 
 }
 
-
+//registers mouse clicks
 void GameScreen::mousePressEvent(QMouseEvent *e)
 {
     if(e->button() == Qt::LeftButton){
@@ -432,6 +449,7 @@ void GameScreen::mousePressEvent(QMouseEvent *e)
     }
 }
 
+//updates the image of target
 void GameScreen::updateTargetLabel(int targetType, int team)
 {
     if(team == 1){
@@ -467,6 +485,7 @@ void GameScreen::updateTargetLabel(int targetType, int team)
     }
 }
 
+//goes back to main menu
 void GameScreen::returnToMenu(){
     this->hide();
     wdgtGame->releaseKeyboard();
@@ -474,7 +493,8 @@ void GameScreen::returnToMenu(){
     w->show();
 }
 
-
+//deciphers all the wonderful numbers which come from the
+    //magic server...
 void GameScreen::readCommand()
 {
     while(sock->canReadLine())
@@ -483,15 +503,15 @@ void GameScreen::readCommand()
         str.remove("\n");
         if(str != "")
         {
-            QStringList List = str.split(" ", QString::SkipEmptyParts);
+            QStringList list = str.split(" ", QString::SkipEmptyParts);
             int iterate = 0;
-            int verifier = List.at(iterate).toInt();
+            int verifier = list.at(iterate).toInt();
             ++iterate;
             if (verifier == 97179)
             {
                 int entv, pHealth, x, y, id, state, team, type;
                 QString playername;
-                for(; iterate < List.size();)
+                for(; iterate < list.size();)
                 {
                     entv = 0;
                     pHealth = 0;
@@ -501,7 +521,7 @@ void GameScreen::readCommand()
                     state = 0;
                     team = 0;
                     playername = "";
-                    entv = List.at(iterate).toInt();
+                    entv = list.at(iterate).toInt();
                     ++iterate;
                     type = entv/10;
                     switch (entv)
@@ -512,19 +532,19 @@ void GameScreen::readCommand()
                     case 21: //tower
                     case 31: //minion
                     case 41: //player
-                        id = List.at(iterate).toInt();
+                        id = list.at(iterate).toInt();
                         ++iterate;
-                        team = List.at(iterate).toInt();
+                        team = list.at(iterate).toInt();
                         ++iterate;
-                        pHealth = List.at(iterate).toInt();
+                        pHealth = list.at(iterate).toInt();
                         ++iterate;
-                        state = List.at(iterate).toInt();
+                        state = list.at(iterate).toInt();
                         ++iterate;
-                        x = List.at(iterate).toInt();
+                        x = list.at(iterate).toInt();
                         ++iterate;
-                        y = List.at(iterate).toInt();
+                        y = list.at(iterate).toInt();
                         ++iterate;
-                        playername = List.at(iterate);
+                        playername = list.at(iterate);
                         ++iterate;
                         createEntity(type, id, team, pHealth, state, x, y, playername);
                         showLbl(id);
@@ -533,11 +553,11 @@ void GameScreen::readCommand()
                         //position change
                     case 32: //minion
                     case 42: //player
-                        id = List.at(iterate).toInt();
+                        id = list.at(iterate).toInt();
                         ++iterate;
-                        x = List.at(iterate).toInt();
+                        x = list.at(iterate).toInt();
                         ++iterate;
-                        y = List.at(iterate).toInt();
+                        y = list.at(iterate).toInt();
                         ++iterate;
                         moveEntity(id, x, y);
                         animate(id);
@@ -548,9 +568,9 @@ void GameScreen::readCommand()
                     case 23: //tower
                     case 33: //minion
                     case 43: //player
-                        id = List.at(iterate).toInt();
+                        id = list.at(iterate).toInt();
                         ++iterate;
-                        state = List.at(iterate).toInt();
+                        state = list.at(iterate).toInt();
                         ++iterate;
                         changeEntityState(id, state);
                         animate(id);
@@ -561,13 +581,13 @@ void GameScreen::readCommand()
                     case 34: //minion
                     case 44: //player
 
-                        id = List.at(iterate).toInt();
+                        id = list.at(iterate).toInt();
                         ++iterate;
-                        state = List.at(iterate).toInt();
+                        state = list.at(iterate).toInt();
                         ++iterate;
-                        x = List.at(iterate).toInt();
+                        x = list.at(iterate).toInt();
                         ++iterate;
-                        y = List.at(iterate).toInt();
+                        y = list.at(iterate).toInt();
                         ++iterate;
                         changeEntityState(id, state);
                         moveEntity(id, x, y);
@@ -580,9 +600,9 @@ void GameScreen::readCommand()
                     case 25: //tower
                     case 35: //minion
                     case 45: //player
-                        id = List.at(iterate).toInt();
+                        id = list.at(iterate).toInt();
                         ++iterate;
-                        pHealth = List.at(iterate).toInt();
+                        pHealth = list.at(iterate).toInt();
                         ++iterate;
                         changeEntityHealth(id, pHealth);
                         showLbl(id);
@@ -591,13 +611,13 @@ void GameScreen::readCommand()
                         //health and position change
                     case 36: //minion
                     case 46: //player
-                        id = List.at(iterate).toInt();
+                        id = list.at(iterate).toInt();
                         ++iterate;
-                        pHealth = List.at(iterate).toInt();
+                        pHealth = list.at(iterate).toInt();
                         ++iterate;
-                        x = List.at(iterate).toInt();
+                        x = list.at(iterate).toInt();
                         ++iterate;
-                        y = List.at(iterate).toInt();
+                        y = list.at(iterate).toInt();
                         ++iterate;
                         changeEntityHealth(id, pHealth);
                         moveEntity(id, x, y);
@@ -609,11 +629,11 @@ void GameScreen::readCommand()
                     case 27: //tower
                     case 37: //minion
                     case 47: //player
-                        id = List.at(iterate).toInt();
+                        id = list.at(iterate).toInt();
                         ++iterate;
-                        pHealth = List.at(iterate).toInt();
+                        pHealth = list.at(iterate).toInt();
                         ++iterate;
-                        state = List.at(iterate).toInt();
+                        state = list.at(iterate).toInt();
                         ++iterate;
                         changeEntityHealth(id, pHealth);
                         changeEntityState(id, state);
@@ -624,15 +644,15 @@ void GameScreen::readCommand()
                         //heath state and position change
                     case 38: //minion
                     case 48: //player
-                        id = List.at(iterate).toInt();
+                        id = list.at(iterate).toInt();
                         ++iterate;
-                        pHealth = List.at(iterate).toInt();
+                        pHealth = list.at(iterate).toInt();
                         ++iterate;
-                        state = List.at(iterate).toInt();
+                        state = list.at(iterate).toInt();
                         ++iterate;
-                        x = List.at(iterate).toInt();
+                        x = list.at(iterate).toInt();
                         ++iterate;
-                        y = List.at(iterate).toInt();
+                        y = list.at(iterate).toInt();
                         ++iterate;
                         changeEntityHealth(id, pHealth);
                         changeEntityState(id, state);
@@ -646,7 +666,7 @@ void GameScreen::readCommand()
                     case 29: //tower
                     case 39: //minion
                     case 49: //player
-                        id = List.at(iterate).toInt();
+                        id = list.at(iterate).toInt();
                         ++iterate;
                         exterminate(id);
                         break;
@@ -661,20 +681,20 @@ void GameScreen::readCommand()
                         int team;
                         int pKills;
                         QString name;
-                        while(List.at(iterate).toStdString() == "P"){
+                        while(list.at(iterate).toStdString() == "P"){
                             ++iterate;
                             ScoreObject *score = new ScoreObject;
-                            name = List.at(iterate);
+                            name = list.at(iterate);
                             ++iterate;
-                            team = List.at(iterate).toInt();
+                            team = list.at(iterate).toInt();
                             ++iterate;
-                            tKills = List.at(iterate).toInt();
+                            tKills = list.at(iterate).toInt();
                             ++iterate;
-                            mKills = List.at(iterate).toInt();
+                            mKills = list.at(iterate).toInt();
                             ++iterate;
-                            pKills = List.at(iterate).toInt();
+                            pKills = list.at(iterate).toInt();
                             ++iterate;
-                            deaths = List.at(iterate).toInt();
+                            deaths = list.at(iterate).toInt();
                             ++iterate;
                             score->setDeaths(deaths);
                             score->setMKills(mKills);
@@ -686,13 +706,15 @@ void GameScreen::readCommand()
                             s->addScore(score);
                         }
                         int time;
-                        time = List.at(iterate).toInt();
+                        time = list.at(iterate).toInt();
                         s->addTime(time);
                         this->hide();
                         s->show();
                         break;
 
-                        /*default:
+                        //just in case for some reason the server return a weird case
+                    /*default:
+                        qDebug() << "Error code AAUGH: Unidentified Case: " << entv;
                         break;*/
                     }
                 }
@@ -701,43 +723,45 @@ void GameScreen::readCommand()
     }
 }
 
+//handle server disconnect
 void GameScreen::serverDisconnected()
 {
     w->close();
 }
 
-
-
-
+//create a new EntityLabel with <type>, <id>, <team>,
+//<health>, <state> at <posX>, <posY> with <username>
 void GameScreen::createEntity(int type, int id, int team, int health, int state, int posX, int posY, QString name){
     EntityLabel *thing = new EntityLabel(id, type, team, posX, posY, health, state, name, wdgtPicture);
     if(name == playername)
     {
         hero = thing;
     }
-    //if on screen
-    //connect(thing, SIGNAL(clicked(int)),this, SLOT(entityClicked(int)));
     thing->show();
     objects.push_back(thing);
 }
 
+//moves entity with <id> to <x>, <y>
 void GameScreen::moveEntity(int id, int x, int y){
     EntityLabel *thing = GameScreen::getByID(id);
     thing->move(x, y);
     thing->nextFrame();
 }
 
+//changes entity with <id>'s heath to <healthPercent>
 void GameScreen::changeEntityHealth(int id, int healthPercent)
 {
     EntityLabel *thing = GameScreen::getByID(id);
     thing->setHealth(healthPercent);
 }
 
+//changes entity with <id>'s direction(state) to <state>
 void GameScreen::changeEntityState(int id, int state){
     EntityLabel *thing = GameScreen::getByID(id);
     thing->setState(state);
 }
 
+//Sets entity with <id> to dead state
 void GameScreen::exterminate(int id){
     EntityLabel *thing = GameScreen::getByID(id);
     thing->die();
@@ -748,12 +772,14 @@ void GameScreen::exterminate(int id){
     }
 }
 
+//shows entity with <id>
 void GameScreen::showLbl(int id)
 {
     EntityLabel *thing = GameScreen::getByID(id);
     thing->show();
 }
 
+//returns entity with <id>
 EntityLabel* GameScreen::getByID(int id)
 {
     for(uint i = 0; i < objects.size(); ++i)
@@ -765,6 +791,7 @@ EntityLabel* GameScreen::getByID(int id)
     }
 }
 
+//returns id of entity with <name>
 int GameScreen::getIdByName(QString& name)
 {
     for(uint i = 0; i < objects.size(); ++i)
@@ -777,11 +804,13 @@ int GameScreen::getIdByName(QString& name)
     return 0;
 }
 
+//updates image of entity with <id>
 void GameScreen::animate(int id){
     EntityLabel *thing = GameScreen::getByID(id);
     thing->updateStyleSheet();
 }
 
+//calculates the total score of score object.
 void ScoreObject::calculate(){
     totalScore = (minionKills * 5) + (playerKills * 60) + (playerDeaths * -10) + (towerKills * 50);
 }

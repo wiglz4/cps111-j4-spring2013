@@ -1,3 +1,11 @@
+//-----------------------------------------------------------
+//File:   gamestartwindow.cpp
+//Authors: Jeremie Miller, Jonathan Neves, Joel Sampson, John Wiglesworth
+//User IDs: jmill521, jneve321, jsamp710, jwigl437   Class: CPS 110
+//Desc:   This provides the window that appears immediately aafter start.
+//
+//-----------------------------------------------------------
+
 #include "gamestartwidget.h"
 #include "ui_gamestartwidget.h"
 #include <QLineEdit>
