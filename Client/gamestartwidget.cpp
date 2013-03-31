@@ -88,18 +88,20 @@ GameStartWidget::GameStartWidget(QWidget *parent) :
 
 
     this->btnRed = new QPushButton(this);
-    this->btnRed->setGeometry(100, 230, 20, 20);
+    this->btnRed->setGeometry(100, 230, 36, 36);
     this->btnRed->setFlat(true);
-    this->btnRed->setStyleSheet("QPushButton {background-color:#ff0000;} QPushButton:flat {background-color:#ff0000;}");
+    btnRed->setFocusPolicy(Qt::NoFocus);
+    this->btnRed->setStyleSheet("QPushButton { background: url(:/images/br_deselected.png) no-repeat top right; } QPushButton:hover{ background:url(:/images/br_clicked.png) no-repeat top left; } QPushButton:checked { background: url(:/images/br_selected.png) no-repeat top left; border: 0px solid grey; }");
     this->btnRed->setCheckable(true);
     this->btnRed->setChecked(false);
     connect(this->btnRed, SIGNAL(clicked()), this, SLOT(onRedClicked()));
     this->btnRed->show();
 
     this->btnBlue = new QPushButton(this);
-    this->btnBlue->setGeometry(130, 230, 20, 20);
+    this->btnBlue->setGeometry(130, 230, 36, 36);
     this->btnBlue->setFlat(true);
-    this->btnBlue->setStyleSheet("background-color:#0000ff;alternate-background-color:#0000ff;");
+    btnBlue->setFocusPolicy(Qt::NoFocus);
+    this->btnBlue->setStyleSheet("QPushButton { background: url(:/images/bb_deselected.png) no-repeat top right; } QPushButton:hover{ background:url(:/images/bb_clicked.png) no-repeat top left; } QPushButton:checked { background: url(:/images/bb_selected.png) no-repeat top left; border: 0px solid grey; }");
     this->btnBlue->setCheckable(true);
     this->btnBlue->setChecked(true);
     connect(this->btnBlue, SIGNAL(clicked()), this, SLOT(onBlueClicked()));
