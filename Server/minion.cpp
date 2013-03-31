@@ -24,11 +24,11 @@ Minion::Minion(int cTeam, int newX, int newY, World *newMap)
     type = 3;
     tombstone = false;
 
-    atkDamage = 20;
+    atkDamage = 100;
     atkSpeed = 1.2;
     armor = 20;
     atkRange = 35;
-    detRange = 400;
+    detRange = 450;
     canAttack = true;
     Alive = true;
     newDead = false;
@@ -39,7 +39,7 @@ Minion::Minion(int cTeam, int newX, int newY, World *newMap)
     stateChange = true;
 
 
-    speed = 4;
+    speed = 3;
     canMove = true;
     positionChange = true;
 
@@ -393,7 +393,7 @@ void Minion::die()
     newDead = true;
     curHealth = 0;
 
-    count->reset(250);
+    count->reset(150);
 
 }
 

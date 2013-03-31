@@ -526,6 +526,14 @@ void GameScreen::readCommand()
                     qDebug()<<entv;
                     switch (entv)
                     {
+                    case 5:
+                        qDebug() << "towershot";
+                        x = list.at(iterate).toInt();
+                        ++iterate;
+                        y = list.at(iterate).toInt();
+                        ++iterate;
+
+                        break;
                     //pause
                     case 7:
                         if (pPressed == false) {

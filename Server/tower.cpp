@@ -23,7 +23,7 @@ Tower::Tower(int cTeam, int newX, int newY, World *newMap)
     attackable = true;
     size = 100; //radius
     type = 2;
-    atkDamage = 60;
+    atkDamage = 400;
     atkSpeed = 1;
     armor = 20;
     atkRange = 550;
