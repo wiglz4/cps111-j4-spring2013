@@ -399,6 +399,7 @@ void PlCh::onTick()
             stateChange = true;
             healthChange = true;
             curHealth = maxHealth;
+            attackable = true;
             state = 5;
             if(team == 1) //Move him, based on team
             {
@@ -503,10 +504,9 @@ string PlCh::displayString()
     stringstream strm;
     if(Alive)
     {
-
         if(isNew)
         {
-            strm<<" "<<(type * 10 + 1)<<" "<<absoluteID<<" "<<team<<" "<<((curHealth * 100)/maxHealth)<<" "<<state<<" "<<x<<" "<<y<<" "<<plName;
+            strm<<" "<<(type * 10 + 1)<<" "<<absoluteID<<" "<<team<<" "<<((curHealth * 100)/maxHealth)<<" "<<state<<" "<<x<<" "<<y<<" "<<plName<<" "<<userID;
             isNew = false;
             healthChange = false;
             stateChange = false;
@@ -556,6 +556,7 @@ string PlCh::displayString()
     }
     else
     {
+        qDebug()<<"Reached !Alive";
         if(newDead)
         {
             strm<<" "<<(type * 10 + 9)<<" "<<absoluteID;

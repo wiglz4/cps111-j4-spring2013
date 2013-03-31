@@ -246,6 +246,7 @@ void GameStartWidget::onBtnStartClicked()
     }
     sock->write(message.toAscii());
     g->setPlayername(lnedUsername->text());
+    g->setUserTeam(num);
     g->show();
     g->grabKeyboard();
     g->passSocket(sock);

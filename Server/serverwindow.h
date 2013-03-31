@@ -40,6 +40,7 @@ class ServerWindow : public QMainWindow, public Observer
     bool debug;
     int GetUserTeam();
     std::string GetLoadUsername();
+    int curUserID;
 
 
 public:
