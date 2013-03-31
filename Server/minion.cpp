@@ -22,12 +22,13 @@ Minion::Minion(int cTeam, int newX, int newY, World *newMap)
     attackable = true;
     size = 10; //radius
     type = 3;
+    tombstone = false;
 
-    atkDamage = 20;
+    atkDamage = 100;
     atkSpeed = 1.2;
     armor = 20;
     atkRange = 35;
-    detRange = 400;
+    detRange = 450;
     canAttack = true;
     Alive = true;
     newDead = false;
@@ -37,7 +38,8 @@ Minion::Minion(int cTeam, int newX, int newY, World *newMap)
     state = 5;
     stateChange = true;
 
-    speed = 4;
+
+    speed = 3;
     canMove = true;
     positionChange = true;
 
@@ -65,64 +67,163 @@ void Minion::onTick()
     int tempX;
     int tempY;
     int newState;
-    if(Alive)
-    {
-        if(target != NULL && target->getAttackable())
+    if(tombstone){
+        Alive = false;
+        stateChange = false;
+        positionChange = false;
+        canMove = false;
+        canAttack = false;
+    }
+    else {
+        if(Alive)
         {
-            distance = sqrt(pow(target->getY()-y, 2) + pow(target->getX() - x, 2));
-            if(distance < detRange)
+            if(target != NULL && target->getAttackable())
             {
-                if(distance < atkRange)
+                distance = sqrt(pow(target->getY()-y, 2) + pow(target->getX() - x, 2));
+                if(distance < detRange)
                 {
-
-                    if(count->Check())
+                    if(distance < atkRange)
                     {
-                        //STATE Calculations here
-                        if(Attack())
+
+                        if(count->Check())
                         {
-                            target = NULL;
+                            //STATE Calculations here
+                            if(Attack())
+                            {
+                                target = NULL;
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        theta = asin((y-target->getY())/distance);
+                        if(target->getY() > y)
+                        {
+                            tempY = y + abs(speed * sin(theta));
+                        }
+                        else
+                        {
+                            tempY = y - abs(speed * sin(theta));
+                        }
+                        if(target->getX() > x)
+                        {
+                            tempX = x + abs(speed * cos(theta));
+                        }
+                        else
+                        {
+                            tempX = x - abs(speed * cos(theta));
+                        }
+                        if(map->boundsCheck(tempX, tempY))
+                        {
+                            //STATE Calculations here
+
+                            newState = world->determineState(x,y,tempX, tempY);
+                            x = tempX;
+                            y = tempY;
+                            //OOL calculations here
                         }
                     }
-
+                    if(newState != state)
+                    {
+                        stateChange = true;
+                    }
                 }
                 else
                 {
-                    theta = asin((y-target->getY())/distance);
-                    if(target->getY() > y)
+                    Entity *ent = map->getNAE(x,y,team, distance);
+                    if (ent != NULL)
                     {
-                        tempY = y + abs(speed * sin(theta));
-                    }
-                    else
-                    {
-                        tempY = y - abs(speed * sin(theta));
-                    }
-                    if(target->getX() > x)
-                    {
-                        tempX = x + abs(speed * cos(theta));
-                    }
-                    else
-                    {
-                        tempX = x - abs(speed * cos(theta));
-                    }
-                    if(map->boundsCheck(tempX, tempY))
-                    {
-                        //STATE Calculations here
+                        if(distance < detRange)
+                        {
+                            target = ent;
+                            if (distance < atkRange)
+                            {
 
-                        newState = world->determineState(x,y,tempX, tempY);
-                        x = tempX;
-                        y = tempY;
-                        //OOL calculations here
+                                if(count->Check())
+                                {
+                                    //State Calculations here
+                                    if(Attack())
+                                    {
+                                        target = NULL;
+                                    }
+                                }
+
+                            }
+                            else
+                            {
+                                theta = asin((y-target->getY())/distance);
+                                if(target->getY() > y)
+                                {
+                                    tempY = y + abs(speed * sin(theta));
+                                }
+                                else
+                                {
+                                    tempY = y - abs(speed * sin(theta));
+                                }
+                                if(target->getX() > x)
+                                {
+                                    tempX = x + abs(speed * cos(theta));
+                                }
+                                else
+                                {
+                                    tempX = x - abs(speed * cos(theta));
+                                }
+                                if(map->boundsCheck(tempX, tempY))
+                                {
+                                    //SET STATE HERE
+                                    x = tempX;
+                                    y = tempY;
+                                    //MESS WITH OOL
+                                }
+                            }
+                            newState = world->determineState(x,y, target);
+                            if(newState != state)
+                            {
+                                stateChange = true;
+                            }
+                        }
+                        else
+                        {
+                            distance = sqrt(pow(cpY-y, 2) + pow(cpX - x, 2));
+                            theta = asin((y-cpY)/distance);
+                            if(cpY > y)
+                            {
+                                tempY = y + abs(speed * sin(theta));
+                            }
+                            else
+                            {
+                                tempY = y - abs(speed * sin(theta));
+                            }
+                            if(cpX > x)
+                            {
+                                tempX = x + abs(speed * cos(theta));
+                            }
+                            else
+                            {
+                                tempX = x - abs(speed * cos(theta));
+                            }
+                            if(map->boundsCheck(tempX, tempY))
+                            {
+                                newState = world->determineState(x,y, tempX, tempY);
+                                if(newState != state)
+                                {
+                                    stateChange = true;
+                                }
+                                //SET STATE HERE
+                                x = tempX;
+                                y = tempY;
+                                //MESS WITH OOL
+                            }
+
+                        }
                     }
-                }
-                if(newState != state)
-                {
-                    stateChange = true;
                 }
             }
             else
             {
                 Entity *ent = map->getNAE(x,y,team, distance);
-                if (ent != NULL)
+                if (ent != NULL && ent->getAttackable())
                 {
                     if(distance < detRange)
                     {
@@ -132,7 +233,7 @@ void Minion::onTick()
 
                             if(count->Check())
                             {
-                                //State Calculations here
+                                //SET STATE HERE
                                 if(Attack())
                                 {
                                     target = NULL;
@@ -176,6 +277,7 @@ void Minion::onTick()
                     else
                     {
                         distance = sqrt(pow(cpY-y, 2) + pow(cpX - x, 2));
+
                         theta = asin((y-cpY)/distance);
                         if(cpY > y)
                         {
@@ -205,69 +307,11 @@ void Minion::onTick()
                             y = tempY;
                             //MESS WITH OOL
                         }
-
-                    }
-                }
-            }
-        }
-        else
-        {
-            Entity *ent = map->getNAE(x,y,team, distance);
-            if (ent != NULL && ent->getAttackable())
-            {
-                if(distance < detRange)
-                {
-                    target = ent;
-                    if (distance < atkRange)
-                    {
-
-                        if(count->Check())
-                        {
-                            //SET STATE HERE
-                            if(Attack())
-                            {
-                                target = NULL;
-                            }
-                        }
-
-                    }
-                    else
-                    {
-                        theta = asin((y-target->getY())/distance);
-                        if(target->getY() > y)
-                        {
-                            tempY = y + abs(speed * sin(theta));
-                        }
-                        else
-                        {
-                            tempY = y - abs(speed * sin(theta));
-                        }
-                        if(target->getX() > x)
-                        {
-                            tempX = x + abs(speed * cos(theta));
-                        }
-                        else
-                        {
-                            tempX = x - abs(speed * cos(theta));
-                        }
-                        if(map->boundsCheck(tempX, tempY))
-                        {
-                            //SET STATE HERE
-                            x = tempX;
-                            y = tempY;
-                            //MESS WITH OOL
-                        }
-                    }
-                    newState = world->determineState(x,y, target);
-                    if(newState != state)
-                    {
-                        stateChange = true;
                     }
                 }
                 else
                 {
-                    distance = sqrt(pow(cpY-y, 2) + pow(cpX - x, 2));
-
+                    distance = sqrt(pow(cpY - y, 2) + pow(cpX - x, 2));
                     theta = asin((y-cpY)/distance);
                     if(cpY > y)
                     {
@@ -299,45 +343,26 @@ void Minion::onTick()
                     }
                 }
             }
-            else
+        }
+        else
+        {
+            if(count->Check())
             {
-                distance = sqrt(pow(cpY - y, 2) + pow(cpX - x, 2));
-                theta = asin((y-cpY)/distance);
-                if(cpY > y)
-                {
-                    tempY = y + abs(speed * sin(theta));
-                }
-                else
-                {
-                    tempY = y - abs(speed * sin(theta));
-                }
-                if(cpX > x)
-                {
-                    tempX = x + abs(speed * cos(theta));
-                }
-                else
-                {
-                    tempX = x - abs(speed * cos(theta));
-                }
-                if(map->boundsCheck(tempX, tempY))
-                {
-                    newState = world->determineState(x,y, tempX, tempY);
-                    if(newState != state)
-                    {
-                        stateChange = true;
-                    }
-                    //SET STATE HERE
-                    x = tempX;
-                    y = tempY;
-                    //MESS WITH OOL
-                }
+                Alive = true;
+                positionChange = true;
+                x = 9000;
+                y = 9000;
+                count->reset(50);
+                tombstone = true;
             }
+
+        }
+        if( newState <= 8 && newState > 0){
+            state = newState;
         }
     }
-    if( newState <= 8 && newState > 0){
-    state = newState;
-    }
 }
+
 
 
 
@@ -359,15 +384,16 @@ bool Minion::damage(int value)
 
 void Minion::die()
 {
-    x = 9000;
-    y = 9000;
-    positionChange = true;
-    stateChange = false;
+    state = 9;
+    positionChange = false;
+    stateChange = true;
     healthChange = false;
     attackable = false;
     Alive = false;
-    newDead = true;   
+    newDead = true;
     curHealth = 0;
+
+    count->reset(150);
 
 }
 

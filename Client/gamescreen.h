@@ -170,6 +170,9 @@ public:
     //clears the object list.
     void cleanObjects();
 
+    //Starts the timer
+    void TimeroftheGameGo(){timer->start();}
+
 private slots:
     //Timer Calculations
     void onTimerHit();
@@ -185,6 +188,7 @@ private slots:
 
     //Big long method that parses info from server
     void readCommand();
+
 
 protected:
     //Overwritten Methods

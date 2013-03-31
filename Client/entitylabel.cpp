@@ -53,11 +53,9 @@ void EntityLabel::die()
     }
     else if (this->type == 3) //minion
     {
-        this->hide();
     }
     else if (this->type == 4) //player
     {
-        this->hide();
     }
 }
 
@@ -75,6 +73,7 @@ void EntityLabel::nextFrame(){
         {
             counter++;
         }
+
     }
     else if (type == 1) //core
     {
@@ -92,6 +91,8 @@ void EntityLabel::nextFrame(){
 //Updates the object's stylesheet based on the
 //  current values of its instance variables.
 void EntityLabel::updateStyleSheet(){
+    if (this->state == 9)
+        this->counter = 1;
     this->setStyleSheet(STYLE_BEGIN + QString("%1").arg(team) +
                         "/" + QString("%1").arg(type) + "/" +
                         QString("%1").arg(state) + "/" +

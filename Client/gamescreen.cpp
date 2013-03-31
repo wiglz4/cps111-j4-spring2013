@@ -137,7 +137,7 @@ GameScreen::GameScreen(QWidget *parent) :
     timer = new QTimer(this);
     timer->setInterval(20);
     connect(timer, SIGNAL(timeout()), this, SLOT(onTimerHit()));
-    timer->start();
+    //timer->start();
 }
 
 //Destructor
@@ -334,7 +334,7 @@ void GameScreen::onTimerHit()
             if(wdgtPicture->x() - this->width()- pureSpeed > -3900)
             {
                 wdgtPicture->move(wdgtPicture->x() - pureSpeed , wdgtPicture->y());
-               // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+                // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
                 //wdgtPicture->scroll(pureSpeed, 0);
             }
         }
@@ -344,7 +344,7 @@ void GameScreen::onTimerHit()
             if(wdgtPicture->x() - this->width() -modSpeed > -3098 && wdgtPicture->y() - modSpeed > -260)
             {
                 wdgtPicture->move(wdgtPicture->x()-modSpeed, wdgtPicture->y() - modSpeed);
-               // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+                // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
                 //wdgtPicture->scroll(modSpeed, modSpeed);
             }
         }
@@ -354,7 +354,7 @@ void GameScreen::onTimerHit()
             if(wdgtPicture->y() - pureSpeed > -260)
             {
                 wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() - pureSpeed);
-               // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+                // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
                 //wdgtPicture->scroll(0, pureSpeed);
             }
         }
@@ -364,7 +364,7 @@ void GameScreen::onTimerHit()
             if(wdgtPicture->x() + modSpeed < 110 && wdgtPicture->y() - modSpeed > -260)
             {
                 wdgtPicture->move(wdgtPicture->x() + modSpeed, wdgtPicture->y() - modSpeed);
-               // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+                // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
                 //wdgtPicture->scroll(-modSpeed, pureSpeed);
             }
         }
@@ -385,7 +385,7 @@ void GameScreen::onTimerHit()
             if(wdgtPicture->x() + modSpeed < 110 && wdgtPicture->y() +this->height()+ modSpeed < 2750)
             {
                 wdgtPicture->move(wdgtPicture->x() + modSpeed, wdgtPicture->y() + modSpeed);
-               // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+                // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
                 //wdgtPicture->scroll(-modSpeed, -modSpeed);
             }
         }
@@ -493,7 +493,7 @@ void GameScreen::returnToMenu(){
 }
 
 //deciphers all the wonderful numbers which come from the
-    //magic server...
+//magic server...
 void GameScreen::readCommand()
 {
     while(sock->canReadLine())
@@ -526,6 +526,14 @@ void GameScreen::readCommand()
                     qDebug()<<entv;
                     switch (entv)
                     {
+                    case 5:
+                        qDebug() << "towershot";
+                        x = list.at(iterate).toInt();
+                        ++iterate;
+                        y = list.at(iterate).toInt();
+                        ++iterate;
+
+                        break;
                     //pause
                     case 7:
                         if (pPressed == false) {
@@ -547,7 +555,7 @@ void GameScreen::readCommand()
                         }
                         break;
 
-                    //create and load
+                        //create and load
                     case 11: //core
                     case 21: //tower
                     case 31: //minion
@@ -688,6 +696,9 @@ void GameScreen::readCommand()
                     case 49: //player
                         id = list.at(iterate).toInt();
                         ++iterate;
+                        changeEntityState(id, 9);
+                        animate(id);
+                        showLbl(id);
                         exterminate(id);
                         break;
 
@@ -737,7 +748,7 @@ void GameScreen::readCommand()
                         break;
 
                         //just in case for some reason the server return a weird case
-                    /*default:
+                        /*default:
                         qDebug() << "Error code AAUGH: Unidentified Case: " << entv;
                         break;*/
                     }
@@ -750,10 +761,14 @@ void GameScreen::readCommand()
 //clean object list
 void GameScreen::cleanObjects()
 {
-    /*for(int i = 0; i < objects.size(); i++){
+    for(int i = objects.size()-1; i > 0; --i)
+    {
         delete objects.at(i);
-    }*/
-
+    }
+    objects.clear();
+    playerId = 0;
+    targetId = 0;
+    timer->stop();
 }
 
 //handle server disconnect
@@ -804,12 +819,15 @@ void GameScreen::changeEntityState(int id, int state){
 //Sets entity with <id> to dead state
 void GameScreen::exterminate(int id){
     EntityLabel *thing = GameScreen::getByID(id);
+    thing->setCounter(1);
     thing->die();
+    showLbl(id);
     if(id == targetId){
         lblTargetHealth->hide();
         lblTargetIcon->hide();
         targetId = 0;
     }
+
 }
 
 //shows entity with <id>

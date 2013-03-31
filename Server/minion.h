@@ -14,9 +14,14 @@ protected:
     int cpY;
     int laneX;
     int laneY;
+    int tombX;
+    int tombY;
+    int newTombX;
+    int newTombY;
 
     //OUT OF LANE
     bool OOL;
+    bool tombstone;
 public:
     Minion(int cTeam, int newX, int newY, World *newMap);
     virtual bool damage(int value);

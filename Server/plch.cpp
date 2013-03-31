@@ -26,8 +26,8 @@ PlCh::PlCh(int cTeam, int newX, int newY, World *newMap, string pName)
     atkDamage = 600;
     atkSpeed = 1;
     armor = 20;
-    atkRange = 600;
-    detRange = 900;
+    atkRange = 500;
+    detRange = 700;
     canAttack = true;
     Alive = true;
     newDead = false;
@@ -436,8 +436,6 @@ bool PlCh::damage(int value)
 void PlCh::die()
 {
     //NEEDS CODING
-    x = 9000;
-    y = 9000;
     positionChange = true;
     stateChange = false;
     healthChange = false;

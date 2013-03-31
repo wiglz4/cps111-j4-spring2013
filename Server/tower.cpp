@@ -23,7 +23,7 @@ Tower::Tower(int cTeam, int newX, int newY, World *newMap)
     attackable = true;
     size = 100; //radius
     type = 2;
-    atkDamage = 60;
+    atkDamage = 400;
     atkSpeed = 1;
     armor = 20;
     atkRange = 550;
@@ -134,9 +134,9 @@ void Tower::onTick()
 
 void Tower::die()
 {
-    //state = 99;
+    state = 9;
     positionChange = false;
-    stateChange = false;
+    stateChange = true;
     healthChange = false;
     attackable = false;
     Alive = false;
