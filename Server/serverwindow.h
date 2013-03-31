@@ -56,9 +56,7 @@ private slots:
     void clientConnected();
     void clientDisconnected();
     void dataReceived();
-
     void timerHit();
-
     void on_btnReset_clicked();
 
 private:
