@@ -75,6 +75,7 @@ private slots:
     //Button Clicks
     void onBtnExit2Clicked();
     void onMainWindowClicked();
+    void showEvent(QShowEvent *);
 
 signals:
     void startMain();

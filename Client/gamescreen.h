@@ -78,6 +78,8 @@ class GameScreen : public QWidget
     bool targetChanged;
     bool upPressed;
 
+    bool gameOver;
+
     int userID;
     int userTeam;
 

@@ -47,6 +47,7 @@ GameScreen::GameScreen(QWidget *parent) :
     downPressed = false;
     leftPressed = false;
     spacePressed = false;
+    gameOver = false;
 
     wdgtGame = new QWidget(this);
     wdgtGame->setGeometry(-100, -2150, 4000, 3000);
@@ -768,6 +769,7 @@ void GameScreen::readCommand()
                         int time;
                         time = list.at(iterate).toInt();
                         s->addTime(time);
+                        gameOver = true;
                         this->hide();
                         s->show();
                         sock->close();
@@ -814,7 +816,10 @@ void GameScreen::serverDisconnected()
     this->releaseKeyboard();
     this->releaseMouse();
     cleanObjects();
-    w->show();
+    if(!gameOver)
+    {
+        w->show();
+    }
 }
 
 //create a new EntityLabel with <type>, <id>, <team>,

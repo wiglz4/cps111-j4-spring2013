@@ -79,6 +79,11 @@ void ScoreWindow::onMainWindowClicked(){
     w->show();
 }
 
+void ScoreWindow::showEvent(QShowEvent *)
+{
+    qDebug()<<"Scorewindow shown";
+}
+
 //exit clicked
 void ScoreWindow::onBtnExit2Clicked()
 {
