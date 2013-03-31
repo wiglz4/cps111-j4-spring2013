@@ -56,7 +56,7 @@ GameStartWidget::GameStartWidget(QWidget *parent) :
     lnedUsername->setGeometry(80, 120, 211, 27);
     lnedUsername->setFrame(false);
     lnedUsername->setStyleSheet("background-color:rgba(0,0,0,100);\ncolor:#fff;\nselection-background-color: rgba(0, 0, 0, 50);");
-    lnedUsername->setText("Ender Wiggin");
+    lnedUsername->setText("EnderWiggin");
     lnedUsername->setEchoMode(QLineEdit::Normal);
     lnedUsername->show();
 

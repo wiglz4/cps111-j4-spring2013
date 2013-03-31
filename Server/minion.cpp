@@ -365,10 +365,9 @@ bool Minion::damage(int value)
 
 void Minion::die()
 {
-    x = 9000;
-    y = 9000;
-    positionChange = true;
-    stateChange = false;
+    state = 9;
+    positionChange = false;
+    stateChange = true;
     healthChange = false;
     attackable = false;
     Alive = false;

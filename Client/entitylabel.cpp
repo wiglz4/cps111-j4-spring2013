@@ -53,11 +53,11 @@ void EntityLabel::die()
     }
     else if (this->type == 3) //minion
     {
-        this->hide();
+        this->nextFrame();
     }
     else if (this->type == 4) //player
     {
-        this->hide();
+        this->nextFrame();
     }
 }
 
@@ -67,6 +67,12 @@ void EntityLabel::die()
 void EntityLabel::nextFrame(){
     if(type == 3 || type == 4)//minion or player
     {
+        if (state ==9)
+        qDebug() << state;
+        if (state == 9 && counter == 19)
+        {
+            this->hide();
+        }
         if(counter == 19)
         {
             counter = 1;
@@ -75,6 +81,7 @@ void EntityLabel::nextFrame(){
         {
             counter++;
         }
+
     }
     else if (type == 1) //core
     {

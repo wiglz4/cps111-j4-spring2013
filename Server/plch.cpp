@@ -446,8 +446,6 @@ bool PlCh::damage(int value)
 void PlCh::die()
 {
     //NEEDS CODING
-    x = 9000;
-    y = 9000;
     positionChange = true;
     stateChange = false;
     healthChange = false;

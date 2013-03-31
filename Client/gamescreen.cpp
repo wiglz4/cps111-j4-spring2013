@@ -323,7 +323,7 @@ void GameScreen::onTimerHit()
             if(wdgtPicture->x() - 10 > -3098 && !(wdgtPicture->x() - 10 < -3098));
             {
                 wdgtPicture->move(wdgtPicture->x() - 10 , wdgtPicture->y());
-               // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+                // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
             }
         }
         if(!upPressed && rightPressed && downPressed && !leftPressed)
@@ -332,7 +332,7 @@ void GameScreen::onTimerHit()
             if(wdgtPicture->x() - 8 > -3098 && wdgtPicture->y() - 8 > -260 && !(wdgtPicture->x() - 8 < -3098))
             {
                 wdgtPicture->move(wdgtPicture->x()-8, wdgtPicture->y() - 8);
-               // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+                // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
             }
         }
         if(!upPressed && !rightPressed && downPressed && !leftPressed)
@@ -341,7 +341,7 @@ void GameScreen::onTimerHit()
             if(wdgtPicture->y() - 10 > -260)
             {
                 wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() - 10);
-               // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+                // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
             }
         }
         if(!upPressed && !rightPressed && downPressed && leftPressed)
@@ -350,7 +350,7 @@ void GameScreen::onTimerHit()
             if(wdgtPicture->x() + 8 < 110 && wdgtPicture->y() - 8 > -260)
             {
                 wdgtPicture->move(wdgtPicture->x() + 8, wdgtPicture->y() - 8);
-               // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+                // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
             }
         }
         if(!upPressed && !rightPressed && !downPressed && leftPressed)
@@ -368,7 +368,7 @@ void GameScreen::onTimerHit()
             if(wdgtPicture->x() + 8 < 110 && wdgtPicture->y() + 8 < 2152)
             {
                 wdgtPicture->move(wdgtPicture->x() + 8, wdgtPicture->y() + 8);
-               // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+                // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
             }
         }
     }
@@ -639,7 +639,9 @@ void GameScreen::readCommand()
                     case 49: //player
                         id = List.at(iterate).toInt();
                         ++iterate;
-                        //qDebug() << "DIED";
+                        changeEntityState(id, 9);
+                        animate(id);
+                        showLbl(id);
                         exterminate(id);
                         break;
 
@@ -730,19 +732,30 @@ void GameScreen::changeEntityHealth(int id, int healthPercent)
 void GameScreen::changeEntityState(int id, int state){
     EntityLabel *thing = GameScreen::getByID(id);
     thing->setState(state);
-    qDebug() << state;
 }
 
 void GameScreen::exterminate(int id){
     EntityLabel *thing = GameScreen::getByID(id);
     qDebug() << "DEAD THING";
     qDebug() << id;
-    thing->die();
+    //thing->setCounter(1);
+    if (thing->getType() != 1 && thing->getType() != 2){
+        thing->die();
+        int g = thing->getCounter() - 1;
+        if (thing->getCounter() == g){
+            thing->hide();
+        }
+    }
+    else {
+        thing->die();
+        showLbl(id);
+    }
     if(id == targetId){
         lblTargetHealth->hide();
         lblTargetIcon->hide();
         targetId = 0;
     }
+
 }
 
 void GameScreen::showLbl(int id)

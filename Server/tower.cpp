@@ -134,9 +134,9 @@ void Tower::onTick()
 
 void Tower::die()
 {
-    //state = 99;
+    state = 9;
     positionChange = false;
-    stateChange = false;
+    stateChange = true;
     healthChange = false;
     attackable = false;
     Alive = false;
