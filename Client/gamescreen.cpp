@@ -150,13 +150,7 @@ GameScreen::~GameScreen()
 //hides pause menu
 void GameScreen::unPause()
 {
-    timer->start();
-    pPressed = false;
-    btnPause->hide();
-    btnMenu->hide();
-    frPause->hide();
-    lblBar->hide();
-    lblMap->hide();
+    sock->write("7\n");
 }
 
 //registers key press
@@ -164,25 +158,7 @@ void GameScreen::keyPressEvent(QKeyEvent *e)
 {
     if((e->key() == Qt::Key_P && !e->isAutoRepeat() || (e->key() == Qt::Key_Escape && !e->isAutoRepeat())))
     {
-
-        if (pPressed == false) {
-            timer->stop();
-            pPressed = true;
-            frPause->show();
-            btnPause->show();
-            btnMenu->show();
-            lblBar->show();
-            lblMap->show();
-        } else {
-            timer->start();
-            pPressed = false;
-            btnPause->hide();
-            btnMenu->hide();
-            frPause->hide();
-            lblBar->hide();
-            lblMap->hide();
-        }
-
+        sock->write("7\n");
     }
     if(e->key() == Qt::Key_W && !e->isAutoRepeat())
     {
@@ -499,8 +475,20 @@ void GameScreen::updateTargetLabel(int targetType, int team)
 //goes back to main menu
 void GameScreen::returnToMenu(){
     this->hide();
-    wdgtGame->releaseKeyboard();
+    this->releaseKeyboard();
     this->releaseMouse();
+    if(pPressed)
+    {
+        timer->start();
+        pPressed = false;
+        btnPause->hide();
+        btnMenu->hide();
+        frPause->hide();
+        lblBar->hide();
+        lblMap->hide();
+    }
+    cleanObjects();
+    sock->close();
     w->show();
 }
 
@@ -535,8 +523,29 @@ void GameScreen::readCommand()
                     entv = list.at(iterate).toInt();
                     ++iterate;
                     type = entv/10;
+                    qDebug()<<entv;
                     switch (entv)
                     {
+                    //pause
+                    case 7:
+                        if (pPressed == false) {
+                            timer->stop();
+                            pPressed = true;
+                            frPause->show();
+                            btnPause->show();
+                            btnMenu->show();
+                            lblBar->show();
+                            lblMap->show();
+                        } else {
+                            timer->start();
+                            pPressed = false;
+                            btnPause->hide();
+                            btnMenu->hide();
+                            frPause->hide();
+                            lblBar->hide();
+                            lblMap->hide();
+                        }
+                        break;
 
                     //create and load
                     case 11: //core
@@ -721,6 +730,10 @@ void GameScreen::readCommand()
                         s->addTime(time);
                         this->hide();
                         s->show();
+                        sock->close();
+                        cleanObjects();
+                        this->releaseKeyboard();
+                        this->releaseMouse();
                         break;
 
                         //just in case for some reason the server return a weird case
@@ -734,10 +747,25 @@ void GameScreen::readCommand()
     }
 }
 
+//clean object list
+void GameScreen::cleanObjects()
+{
+    /*for(int i = 0; i < objects.size(); i++){
+        delete objects.at(i);
+    }*/
+
+}
+
 //handle server disconnect
 void GameScreen::serverDisconnected()
 {
-    w->close();
+    sock->close();
+    this->hide();
+
+    this->releaseKeyboard();
+    this->releaseMouse();
+    cleanObjects();
+    w->show();
 }
 
 //create a new EntityLabel with <type>, <id>, <team>,
