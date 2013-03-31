@@ -137,7 +137,7 @@ GameScreen::GameScreen(QWidget *parent) :
     timer = new QTimer(this);
     timer->setInterval(20);
     connect(timer, SIGNAL(timeout()), this, SLOT(onTimerHit()));
-    timer->start();
+    //timer->start();
 }
 
 //Destructor
@@ -750,10 +750,14 @@ void GameScreen::readCommand()
 //clean object list
 void GameScreen::cleanObjects()
 {
-    /*for(int i = 0; i < objects.size(); i++){
+    for(int i = objects.size()-1; i > 0; --i)
+    {
         delete objects.at(i);
-    }*/
-
+    }
+    objects.clear();
+    playerId = 0;
+    targetId = 0;
+    timer->stop();
 }
 
 //handle server disconnect

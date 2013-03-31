@@ -31,7 +31,7 @@ ServerWindow::ServerWindow(QWidget *parent) :
     timerGo = false;
     game = NULL;
     ui->spinPlayers->setValue(2);
-    bool paused = false;
+    paused = false;
     //timer->start();
 }
 
@@ -96,6 +96,7 @@ void ServerWindow::dataReceived()
                         unUsers.at(i)->setUsername(username);
                         if(!timerGo)
                         {
+                            paused = false;
                             timerGo = true;
                             timerHit();
                         }

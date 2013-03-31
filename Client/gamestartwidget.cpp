@@ -249,7 +249,7 @@ void GameStartWidget::onBtnStartClicked()
     g->show();
     g->grabKeyboard();
     g->passSocket(sock);
-
+    g->TimeroftheGameGo();
     this->hide();
 }
 
