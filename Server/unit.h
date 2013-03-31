@@ -30,7 +30,7 @@ public:
     virtual bool damage(int value) = 0;
     virtual void onTick() = 0;
     virtual string save() = 0;
-    virtual Entity* load() = 0;
+    virtual Entity* load(std::string loadString) = 0;
     virtual string displayString() = 0;
     virtual void die() = 0;
     virtual bool Attack() = 0;

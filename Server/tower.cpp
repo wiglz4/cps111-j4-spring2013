@@ -21,7 +21,7 @@ Tower::Tower(int cTeam, int newX, int newY, World *newMap)
     absoluteID = ++curID;
     targetable = true;
     attackable = true;
-    size = 150; //radius
+    size = 100; //radius
     type = 2;
     atkDamage = 60;
     atkSpeed = 1;
@@ -164,11 +164,11 @@ bool Tower::damage(int value)
 string Tower::save()
 {
     stringstream save;
-    save<<" "<<(type * 10 + 1)<<" "<<absoluteID<<" "<<team<<" "<<((curHealth * 100) / maxHealth)<<" "<<state<< " "<<x<<" "<<y<<" "<<"NOT";
+    save<<" "<<type<<" "<<absoluteID<<" "<<team<<" "<<curHealth<<" "<<state<< " "<<x<<" "<<y;
     return save.str();
 }
 
-Entity* Tower::load()
+Entity* Tower::load(std::string loadString)
 {
     //NEEDS CODING
 }

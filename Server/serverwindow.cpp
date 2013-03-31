@@ -30,6 +30,8 @@ ServerWindow::ServerWindow(QWidget *parent) :
     connect(timer, SIGNAL(timeout()) , this, SLOT(timerHit()));
     timerGo = false;
     game = NULL;
+    ui->spinPlayers->setValue(2);
+    bool paused = false;
     //timer->start();
 }
 
@@ -40,7 +42,6 @@ ServerWindow::~ServerWindow()
 
 void ServerWindow::clientConnected()
 {
-    ui->label->setText("connected");
     User *user = new User();
     QTcpSocket *sock = server.nextPendingConnection();
     connect(sock, SIGNAL(disconnected()), this, SLOT(clientDisconnected()));
@@ -52,6 +53,17 @@ void ServerWindow::clientConnected()
 void ServerWindow::clientDisconnected()
 {
     QTcpSocket *sock = dynamic_cast<QTcpSocket*>(sender());
+    for(int i = 0; i < unUsers.size(); ++i)
+    {
+        if(sock== unUsers.at(i)->getSock())
+        {
+            QString name(unUsers.at(i)->getName().c_str());
+            qDebug()<<"USERNAME: " + name;
+            User* user = unUsers.at(i);
+            unUsers.erase(unUsers.begin() + i);
+            delete user;
+        }
+    }
     sock->deleteLater();
 }
 
@@ -73,9 +85,9 @@ void ServerWindow::dataReceived()
                         unUsers.at(i)->setTeam(GetUserTeam());
                         unUsers.at(i)->setUsername(GetLoadUsername());
                         game = Game::Load(this, &unUsers);
-                        timer->start();
+                        timer->start();                    
                     }
-                    else
+                    else if (List.at(0) != "9")
                     {
                         int team;
                         team = List.at(0).toInt();
@@ -86,6 +98,28 @@ void ServerWindow::dataReceived()
                         {
                             timerGo = true;
                             timerHit();
+                        }
+                    }
+                    else
+                    {
+                        unUsers.at(i)->setTeam(List.at(1).toInt());
+                        unUsers.at(i)->setUsername(List.at(2).toStdString());
+                        if(unUsers.size() == ui->spinPlayers->value())
+                        {
+                            bool go = true;
+                            for(int i = 0; i < unUsers.size(); ++i)
+                            {
+                                if(!unUsers.at(i)->checkInstanceVars())
+                                {
+                                    go = false;
+                                    break;
+                                }
+                            }
+                            if(go)
+                            {
+                                timerGo = true;
+                                timerHit();
+                            }
                         }
                     }
                 }
@@ -99,8 +133,29 @@ void ServerWindow::dataReceived()
             if(sock == unUsers.at(i)->getSock())
             {
                 QString str = sock->readLine();
-                unUsers.at(i)->command(str.toStdString());
-                break;
+                if(str.at(0) == '7')
+                {
+                    for(int i = 0; i < unUsers.size(); ++i)
+                    {
+                        unUsers.at(i)->getSock()->write("97179 7\n");
+                        qDebug() << "set out 7\n";
+                    }
+                    if(paused)
+                    {
+                        timer->start();
+                        paused = false;
+                    }
+                    else
+                    {
+                        timer->stop();
+                        paused = true;
+                    }
+                }
+                else
+                {
+                    unUsers.at(i)->command(str.toStdString());
+                    return;
+                }
             }
         }
     }
@@ -124,7 +179,6 @@ void ServerWindow::timerHit()
             {
                 for(uint i = 0; i < unUsers.size(); ++i)
                 {
-
                     unUsers.at(i)->getSock()->write(message.toAscii());
                 }
             }
@@ -143,4 +197,17 @@ int ServerWindow::GetUserTeam()
 
 string ServerWindow::GetLoadUsername()
 {
+}
+
+void ServerWindow::on_btnReset_clicked()
+{
+    timer->stop();
+    timerGo = false;
+    game = NULL;
+    for(int i = 0; i < unUsers.size(); ++i)
+    {
+        unUsers.at(i)->getSock()->close();
+        unUsers.at(i)->getSock()->deleteLater();
+    }
+    unUsers.clear();
 }

@@ -30,7 +30,7 @@ public:
     virtual bool damage(int value) = 0;
     virtual void onTick() = 0;
     virtual std::string save() = 0;
-    virtual Entity* load() = 0;
+    virtual Entity* load(std::string loadString) = 0;
     virtual std::string displayString() = 0;
     int getCHealth(){return curHealth;}
     int getMHealth(){return maxHealth;}
@@ -39,8 +39,8 @@ public:
     bool getTargetable(){return targetable;}
     bool getAttackable(){return attackable;}
     int getType(){return type;}
-    int getX(){return x;}
-    int getY(){return y;}
+    int getX(){return x + size;}
+    int getY(){return y + size;}
     int getID(){return absoluteID;}
 
     void setCHEALTH(int newHealth){curHealth = newHealth;}

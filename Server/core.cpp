@@ -31,7 +31,6 @@ void Core::endGame()
 bool Core::damage(int value)
 {
     curHealth = curHealth - value;
-    qDebug() << curHealth;
     if(curHealth < 0)
     {
         endGame();
@@ -48,11 +47,11 @@ void Core::onTick()
 string Core::save()
 {
     stringstream save;
-    save<<" "<<(type * 10 + 1)<<" "<<absoluteID<<" "<<team<<" "<<((curHealth * 100) / maxHealth)<<" "<<0<< " "<<x<<" "<<y<<" "<<"NOT";
+    save<<" "<<type<<" "<<absoluteID<<" "<<team<<" "<<curHealth<<" "<<0<< " "<<x<<" "<<y;
     return save.str();
 }
 
-Entity* Core::load()
+Entity* Core::load(std::string loadString)
 {
 //NEEDS CODING
 }

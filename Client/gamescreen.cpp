@@ -1,3 +1,11 @@
+//-----------------------------------------------------------
+//File:   gamescreen.cpp
+//Authors: Jeremie Miller, Jonathan Neves, Joel Sampson, John Wiglesworth
+//User IDs: jmill521, jneve321, jsamp710, jwigl437   Class: CPS 110
+//Desc:   This provides the window where all the fun part of the game
+//          happens.
+//-----------------------------------------------------------
+
 #include "gamescreen.h"
 #include "ui_gamescreen.h"
 #include "entitylabel.h"
@@ -16,6 +24,8 @@
 #include <QDesktopWidget>
 #include <QSize>
 
+
+//Constructor
 GameScreen::GameScreen(QWidget *parent) :
     QWidget(parent),
     gsui(new Ui::GameScreen)
@@ -24,9 +34,20 @@ GameScreen::GameScreen(QWidget *parent) :
 
     playerHealthPercent = 100;
     targetHealthPercent = 100;
+    playerId = 0;
+    targetId = 0;
+
+    targetChanged = false;
+    upPressed = false;
+    rightPressed = false;
+    downPressed = false;
+    leftPressed = false;
+    spacePressed = false;
 
     wdgtGame = new QWidget(this);
     wdgtGame->setGeometry(-100, -2150, 4000, 3000);
+    wdgtGame->setStyleSheet("background-color: rgba(0,0,0,212);");
+
     wdgtPicture = new QWidget(wdgtGame);
     wdgtPicture->setGeometry(0,0,4000,3000);
     wdgtPicture->setStyleSheet("background-image:url(:/images/map4.png)");
@@ -39,7 +60,7 @@ GameScreen::GameScreen(QWidget *parent) :
     frGame = new QFrame(this);
     frGame->setFrameShape(QFrame::Box);
     frGame->setLineWidth(10);
-    frGame->setStyleSheet("color:rgba(0,0,0,212);");
+    frGame->setStyleSheet("color:rgba(0,0,0;212);");
     frGame->setGeometry(0, 0, 800, 600);
     frGame->show();
 
@@ -54,12 +75,6 @@ GameScreen::GameScreen(QWidget *parent) :
     lblMap->setStyleSheet("background: url(:/images/background3.png) no-repeat top left");
     lblMap->hide();
 
-    upPressed = false;
-    rightPressed = false;
-    downPressed = false;
-    leftPressed = false;
-
-    spacePressed = false;
 
     btnMenu = new QPushButton(frGame);
     btnMenu->setGeometry(588,310,121,31);
@@ -119,58 +134,31 @@ GameScreen::GameScreen(QWidget *parent) :
 
     setMouseTracking(true);
 
-    playerId = 0;
-    targetId = 0;
-
-    targetChanged = false;
-
     timer = new QTimer(this);
     timer->setInterval(20);
     connect(timer, SIGNAL(timeout()), this, SLOT(onTimerHit()));
     timer->start();
 }
 
+//Destructor
 GameScreen::~GameScreen()
 {
     delete gsui;
 }
 
+
+//hides pause menu
 void GameScreen::unPause()
 {
-    timer->start();
-    pPressed = false;
-    btnPause->hide();
-    btnMenu->hide();
-    frPause->hide();
-    lblBar->hide();
-    lblMap->hide();
+    sock->write("7\n");
 }
 
+//registers key press
 void GameScreen::keyPressEvent(QKeyEvent *e)
 {
-    //qDebug() << "button";
     if((e->key() == Qt::Key_P && !e->isAutoRepeat() || (e->key() == Qt::Key_Escape && !e->isAutoRepeat())))
     {
-
-        if (pPressed == false) {
-            timer->stop();
-            pPressed = true;
-            frPause->show();
-            btnPause->show();
-            btnMenu->show();
-            lblBar->show();
-            lblMap->show();
-        } else {
-            timer->start();
-            pPressed = false;
-            btnPause->hide();
-            btnMenu->hide();
-            frPause->hide();
-            lblBar->hide();
-            lblMap->hide();
-        }
-        //qDebug() << "P";
-
+        sock->write("7\n");
     }
     if(e->key() == Qt::Key_W && !e->isAutoRepeat())
     {
@@ -188,28 +176,30 @@ void GameScreen::keyPressEvent(QKeyEvent *e)
     {
         sock->write("2 2 ");
     }
-    if(e->key() == Qt::Key_Up)
+    if(e->key() == Qt::Key_Up && !e->isAutoRepeat())
     {
         upPressed = true;
     }
-    if(e->key() == Qt::Key_Left)
+    if(e->key() == Qt::Key_Left && !e->isAutoRepeat())
     {
         leftPressed = true;
     }
-    if(e->key() == Qt::Key_Down)
+    if(e->key() == Qt::Key_Down && !e->isAutoRepeat())
     {
         downPressed = true;
     }
-    if(e->key() == Qt::Key_Right)
+    if(e->key() == Qt::Key_Right && !e->isAutoRepeat())
     {
         rightPressed = true;
     }
-    if(e->key() == Qt::Key_Space)
+    if(e->key() == Qt::Key_Space && !e->isAutoRepeat())
     {
-        spacePressed = true;
+        spacePressed = !spacePressed;
     }
 }
 
+
+//registers key release
 void GameScreen::keyReleaseEvent(QKeyEvent *e)
 {
     if(e->key() == Qt::Key_W && !e->isAutoRepeat())
@@ -228,29 +218,31 @@ void GameScreen::keyReleaseEvent(QKeyEvent *e)
     {
         sock->write("3 2 ");
     }
-    if(e->key() == Qt::Key_Up)
+    if(e->key() == Qt::Key_Up && !e->isAutoRepeat())
     {
         upPressed = false;
     }
-    if(e->key() == Qt::Key_Left)
+    if(e->key() == Qt::Key_Left && !e->isAutoRepeat())
     {
         leftPressed = false;
     }
-    if(e->key() == Qt::Key_Down)
+    if(e->key() == Qt::Key_Down && !e->isAutoRepeat())
     {
         downPressed = false;
     }
-    if(e->key() == Qt::Key_Right)
+    if(e->key() == Qt::Key_Right && !e->isAutoRepeat())
     {
         rightPressed = false;
     }
-    if(e->key() == Qt::Key_Space)
+    if(e->key() == Qt::Key_Space && !e->isAutoRepeat())
     {
-        spacePressed = false;
+        //spacePressed = false;
     }
 
 }
 
+//processes updates parts of the gui and sends information to
+//server every timer hit
 void GameScreen::onTimerHit()
 {
     if(playerId == 0)
@@ -269,13 +261,15 @@ void GameScreen::onTimerHit()
             }
             lblPlayerIcon->show();
         }
-    } else {
+    }
+    else
+    {
         EntityLabel *e = getByID(playerId);
         playerHealthPercent = e->getHealth();
     }
 
-    if(targetId > 0){
-        //qDebug() << "targetID=" << targetId;
+    if(targetId > 0)
+    {
         EntityLabel *e = getByID(targetId);
         targetHealthPercent = e->getHealth();
 
@@ -283,7 +277,9 @@ void GameScreen::onTimerHit()
 
         lblTargetIcon->show();
         lblTargetHealth->show();
-    } else {
+    }
+    else
+    {
         lblTargetIcon->hide();
         lblTargetHealth->hide();
     }
@@ -295,80 +291,102 @@ void GameScreen::onTimerHit()
         int wh = this->height();
         int gw = wdgtPicture->width();
         int gh = wdgtPicture->height();
-        wdgtPicture->move(0-hx+ww/2, gh-hy-wh);
+        if(gh - hy -wh + this->height() < 2750 && gh - hy -wh > -260 && ww/2 - hx - this->width() > -3900 && ww/2 - hx < 110)
+        {
+            wdgtPicture->move(0-hx+ww/2, gh-hy-wh);
+        }
+        else if(gh - hy -wh + this->height() < 2750 && gh - hy - wh > -260)
+        {
+            wdgtPicture->move(wdgtPicture->x(), gh- hy - wh);
+        }
+        else if(ww/2 - hx - this->width() > -3900 && ww/2 - hx < 110)
+        {
+            wdgtPicture->move(0-hx+ww/2, wdgtPicture->y());
+        }
     }
     else
     {
+        int pureSpeed = 10;
+        int modSpeed = 8;
         if(upPressed && !rightPressed && !downPressed && !leftPressed)
         {
             //1
-            if(wdgtPicture->y() + 10 < 2152)
+            if(wdgtPicture->y() + this->height() + pureSpeed < 2750)
             {
-                wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() + 10);
+                wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() + pureSpeed);
                 //qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+                //wdgtPicture->scroll(0, -pureSpeed);
             }
         }
         if(upPressed && rightPressed && !downPressed && !leftPressed)
         {
             //2
-            if(wdgtPicture->x() - 8 > -3098 && wdgtPicture->y() + 8 < 2152 && !(wdgtPicture->x() - 8 < -3098))
+            if(wdgtPicture->x() - this->width() - modSpeed > -3900 && wdgtPicture->y() +this->height() + modSpeed < 2750 )
             {
-                wdgtPicture->move(wdgtPicture->x() - 8, wdgtPicture->y() + 8);
+                wdgtPicture->move(wdgtPicture->x() - modSpeed, wdgtPicture->y() + modSpeed);
                 //qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+                //wdgtPicture->scroll(modSpeed, -modSpeed);
             }
         }
         if(!upPressed && rightPressed && !downPressed && !leftPressed)
         {
             //3
-            if(wdgtPicture->x() - 10 > -3098 && !(wdgtPicture->x() - 10 < -3098));
+            if(wdgtPicture->x() - this->width()- pureSpeed > -3900)
             {
-                wdgtPicture->move(wdgtPicture->x() - 10 , wdgtPicture->y());
+                wdgtPicture->move(wdgtPicture->x() - pureSpeed , wdgtPicture->y());
                 // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+                //wdgtPicture->scroll(pureSpeed, 0);
             }
         }
         if(!upPressed && rightPressed && downPressed && !leftPressed)
         {
             //4
-            if(wdgtPicture->x() - 8 > -3098 && wdgtPicture->y() - 8 > -260 && !(wdgtPicture->x() - 8 < -3098))
+            if(wdgtPicture->x() - this->width() -modSpeed > -3098 && wdgtPicture->y() - modSpeed > -260)
             {
-                wdgtPicture->move(wdgtPicture->x()-8, wdgtPicture->y() - 8);
+                wdgtPicture->move(wdgtPicture->x()-modSpeed, wdgtPicture->y() - modSpeed);
                 // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+                //wdgtPicture->scroll(modSpeed, modSpeed);
             }
         }
         if(!upPressed && !rightPressed && downPressed && !leftPressed)
         {
             //5
-            if(wdgtPicture->y() - 10 > -260)
+            if(wdgtPicture->y() - pureSpeed > -260)
             {
-                wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() - 10);
+                wdgtPicture->move(wdgtPicture->x(), wdgtPicture->y() - pureSpeed);
                 // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+                //wdgtPicture->scroll(0, pureSpeed);
             }
         }
         if(!upPressed && !rightPressed && downPressed && leftPressed)
         {
             //6
-            if(wdgtPicture->x() + 8 < 110 && wdgtPicture->y() - 8 > -260)
+            if(wdgtPicture->x() + modSpeed < 110 && wdgtPicture->y() - modSpeed > -260)
             {
-                wdgtPicture->move(wdgtPicture->x() + 8, wdgtPicture->y() - 8);
+                wdgtPicture->move(wdgtPicture->x() + modSpeed, wdgtPicture->y() - modSpeed);
                 // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+                //wdgtPicture->scroll(-modSpeed, pureSpeed);
             }
         }
         if(!upPressed && !rightPressed && !downPressed && leftPressed)
         {
             //7
-            if(wdgtPicture->x() + 10 < 110)
+            if(wdgtPicture->x() + pureSpeed < 110)
             {
-                wdgtPicture->move(wdgtPicture->x() + 10, wdgtPicture->y());
+                wdgtPicture->move(wdgtPicture->x() + pureSpeed, wdgtPicture->y());
                 //qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+                //wdgtPicture->scroll(-pureSpeed,0);
+
             }
         }
         if(upPressed && !rightPressed && !downPressed && leftPressed)
         {
             //8
-            if(wdgtPicture->x() + 8 < 110 && wdgtPicture->y() + 8 < 2152)
+            if(wdgtPicture->x() + modSpeed < 110 && wdgtPicture->y() +this->height()+ modSpeed < 2750)
             {
-                wdgtPicture->move(wdgtPicture->x() + 8, wdgtPicture->y() + 8);
+                wdgtPicture->move(wdgtPicture->x() + modSpeed, wdgtPicture->y() + modSpeed);
                 // qDebug()<<wdgtPicture->x()<<" "<<wdgtPicture->y();
+                //wdgtPicture->scroll(-modSpeed, -modSpeed);
             }
         }
     }
@@ -379,12 +397,13 @@ void GameScreen::onTimerHit()
 
 }
 
-
+//make sure things stop when window is closed
 void GameScreen::closeEvent(QCloseEvent *)
 {
     timer->stop();
 }
 
+//makes sure everything is in proper place when the window changes size
 void GameScreen::resizeEvent(QResizeEvent *event)
 {
     frGame->resize(event->size());
@@ -400,17 +419,13 @@ void GameScreen::resizeEvent(QResizeEvent *event)
 
 }
 
-
+//registers mouse clicks
 void GameScreen::mousePressEvent(QMouseEvent *e)
 {
-    ////qDebug() <<"mouse clicked";
     if(e->button() == Qt::LeftButton){
-        //qDebug() << "was left mouse button";
         QWidget *l = wdgtPicture->childAt(e->x() + abs(wdgtGame->x()) - wdgtPicture->x(), e->y() + abs(wdgtGame->y()) - wdgtPicture->y());
-        //qDebug() << l;
         EntityLabel *thing = dynamic_cast<EntityLabel*>(l);
         if(thing){
-            //qDebug() << "clicked object with id " << thing->getID();
             QString msg = "1 " + QString::number(thing->getID()) +"\n";
             sock->write(msg.toAscii());
             targetId = thing->getID();
@@ -421,6 +436,7 @@ void GameScreen::mousePressEvent(QMouseEvent *e)
     }
 }
 
+//updates the image of target
 void GameScreen::updateTargetLabel(int targetType, int team)
 {
     if(team == 1){
@@ -456,32 +472,45 @@ void GameScreen::updateTargetLabel(int targetType, int team)
     }
 }
 
+//goes back to main menu
 void GameScreen::returnToMenu(){
     this->hide();
-    wdgtGame->releaseKeyboard();
+    this->releaseKeyboard();
     this->releaseMouse();
+    if(pPressed)
+    {
+        timer->start();
+        pPressed = false;
+        btnPause->hide();
+        btnMenu->hide();
+        frPause->hide();
+        lblBar->hide();
+        lblMap->hide();
+    }
+    cleanObjects();
+    sock->close();
     w->show();
 }
 
-
+//deciphers all the wonderful numbers which come from the
+//magic server...
 void GameScreen::readCommand()
 {
     while(sock->canReadLine())
     {
         QString str = sock->readLine();
-        //qDebug() << str;
         str.remove("\n");
         if(str != "")
         {
-            QStringList List = str.split(" ", QString::SkipEmptyParts);
+            QStringList list = str.split(" ", QString::SkipEmptyParts);
             int iterate = 0;
-            int verifier = List.at(iterate).toInt();
+            int verifier = list.at(iterate).toInt();
             ++iterate;
             if (verifier == 97179)
             {
                 int entv, pHealth, x, y, id, state, team, type;
                 QString playername;
-                for(; iterate < List.size();)
+                for(; iterate < list.size();)
                 {
                     entv = 0;
                     pHealth = 0;
@@ -491,44 +520,64 @@ void GameScreen::readCommand()
                     state = 0;
                     team = 0;
                     playername = "";
-                    entv = List.at(iterate).toInt();
+                    entv = list.at(iterate).toInt();
                     ++iterate;
                     type = entv/10;
+                    qDebug()<<entv;
                     switch (entv)
                     {
+                    //pause
+                    case 7:
+                        if (pPressed == false) {
+                            timer->stop();
+                            pPressed = true;
+                            frPause->show();
+                            btnPause->show();
+                            btnMenu->show();
+                            lblBar->show();
+                            lblMap->show();
+                        } else {
+                            timer->start();
+                            pPressed = false;
+                            btnPause->hide();
+                            btnMenu->hide();
+                            frPause->hide();
+                            lblBar->hide();
+                            lblMap->hide();
+                        }
+                        break;
 
-                    //create and load
+                        //create and load
                     case 11: //core
                     case 21: //tower
                     case 31: //minion
                     case 41: //player
-                        id = List.at(iterate).toInt();
+                        id = list.at(iterate).toInt();
                         ++iterate;
-                        team = List.at(iterate).toInt();
+                        team = list.at(iterate).toInt();
                         ++iterate;
-                        pHealth = List.at(iterate).toInt();
+                        pHealth = list.at(iterate).toInt();
                         ++iterate;
-                        state = List.at(iterate).toInt();
+                        state = list.at(iterate).toInt();
                         ++iterate;
-                        x = List.at(iterate).toInt();
+                        x = list.at(iterate).toInt();
                         ++iterate;
-                        y = List.at(iterate).toInt();
+                        y = list.at(iterate).toInt();
                         ++iterate;
-                        playername = List.at(iterate);
+                        playername = list.at(iterate);
                         ++iterate;
                         createEntity(type, id, team, pHealth, state, x, y, playername);
                         showLbl(id);
-                        //qDebug() << "created " << id;
                         break;
 
                         //position change
                     case 32: //minion
                     case 42: //player
-                        id = List.at(iterate).toInt();
+                        id = list.at(iterate).toInt();
                         ++iterate;
-                        x = List.at(iterate).toInt();
+                        x = list.at(iterate).toInt();
                         ++iterate;
-                        y = List.at(iterate).toInt();
+                        y = list.at(iterate).toInt();
                         ++iterate;
                         moveEntity(id, x, y);
                         animate(id);
@@ -539,9 +588,9 @@ void GameScreen::readCommand()
                     case 23: //tower
                     case 33: //minion
                     case 43: //player
-                        id = List.at(iterate).toInt();
+                        id = list.at(iterate).toInt();
                         ++iterate;
-                        state = List.at(iterate).toInt();
+                        state = list.at(iterate).toInt();
                         ++iterate;
                         changeEntityState(id, state);
                         animate(id);
@@ -552,13 +601,13 @@ void GameScreen::readCommand()
                     case 34: //minion
                     case 44: //player
 
-                        id = List.at(iterate).toInt();
+                        id = list.at(iterate).toInt();
                         ++iterate;
-                        state = List.at(iterate).toInt();
+                        state = list.at(iterate).toInt();
                         ++iterate;
-                        x = List.at(iterate).toInt();
+                        x = list.at(iterate).toInt();
                         ++iterate;
-                        y = List.at(iterate).toInt();
+                        y = list.at(iterate).toInt();
                         ++iterate;
                         changeEntityState(id, state);
                         moveEntity(id, x, y);
@@ -571,9 +620,9 @@ void GameScreen::readCommand()
                     case 25: //tower
                     case 35: //minion
                     case 45: //player
-                        id = List.at(iterate).toInt();
+                        id = list.at(iterate).toInt();
                         ++iterate;
-                        pHealth = List.at(iterate).toInt();
+                        pHealth = list.at(iterate).toInt();
                         ++iterate;
                         changeEntityHealth(id, pHealth);
                         showLbl(id);
@@ -582,13 +631,13 @@ void GameScreen::readCommand()
                         //health and position change
                     case 36: //minion
                     case 46: //player
-                        id = List.at(iterate).toInt();
+                        id = list.at(iterate).toInt();
                         ++iterate;
-                        pHealth = List.at(iterate).toInt();
+                        pHealth = list.at(iterate).toInt();
                         ++iterate;
-                        x = List.at(iterate).toInt();
+                        x = list.at(iterate).toInt();
                         ++iterate;
-                        y = List.at(iterate).toInt();
+                        y = list.at(iterate).toInt();
                         ++iterate;
                         changeEntityHealth(id, pHealth);
                         moveEntity(id, x, y);
@@ -600,11 +649,11 @@ void GameScreen::readCommand()
                     case 27: //tower
                     case 37: //minion
                     case 47: //player
-                        id = List.at(iterate).toInt();
+                        id = list.at(iterate).toInt();
                         ++iterate;
-                        pHealth = List.at(iterate).toInt();
+                        pHealth = list.at(iterate).toInt();
                         ++iterate;
-                        state = List.at(iterate).toInt();
+                        state = list.at(iterate).toInt();
                         ++iterate;
                         changeEntityHealth(id, pHealth);
                         changeEntityState(id, state);
@@ -615,15 +664,15 @@ void GameScreen::readCommand()
                         //heath state and position change
                     case 38: //minion
                     case 48: //player
-                        id = List.at(iterate).toInt();
+                        id = list.at(iterate).toInt();
                         ++iterate;
-                        pHealth = List.at(iterate).toInt();
+                        pHealth = list.at(iterate).toInt();
                         ++iterate;
-                        state = List.at(iterate).toInt();
+                        state = list.at(iterate).toInt();
                         ++iterate;
-                        x = List.at(iterate).toInt();
+                        x = list.at(iterate).toInt();
                         ++iterate;
-                        y = List.at(iterate).toInt();
+                        y = list.at(iterate).toInt();
                         ++iterate;
                         changeEntityHealth(id, pHealth);
                         changeEntityState(id, state);
@@ -637,7 +686,7 @@ void GameScreen::readCommand()
                     case 29: //tower
                     case 39: //minion
                     case 49: //player
-                        id = List.at(iterate).toInt();
+                        id = list.at(iterate).toInt();
                         ++iterate;
                         changeEntityState(id, 9);
                         animate(id);
@@ -647,7 +696,6 @@ void GameScreen::readCommand()
 
                         //endgame
                     case 50:
-                        //qDebug() << "case 50";
                         ScoreWindow *s = new ScoreWindow(w);
                         s->connectWidget(w);
                         int deaths;
@@ -656,20 +704,20 @@ void GameScreen::readCommand()
                         int team;
                         int pKills;
                         QString name;
-                        while(List.at(iterate).toStdString() == "P"){
+                        while(list.at(iterate).toStdString() == "P"){
                             ++iterate;
                             ScoreObject *score = new ScoreObject;
-                            name = List.at(iterate);
+                            name = list.at(iterate);
                             ++iterate;
-                            team = List.at(iterate).toInt();
+                            team = list.at(iterate).toInt();
                             ++iterate;
-                            tKills = List.at(iterate).toInt();
+                            tKills = list.at(iterate).toInt();
                             ++iterate;
-                            mKills = List.at(iterate).toInt();
+                            mKills = list.at(iterate).toInt();
                             ++iterate;
-                            pKills = List.at(iterate).toInt();
+                            pKills = list.at(iterate).toInt();
                             ++iterate;
-                            deaths = List.at(iterate).toInt();
+                            deaths = list.at(iterate).toInt();
                             ++iterate;
                             score->setDeaths(deaths);
                             score->setMKills(mKills);
@@ -681,14 +729,19 @@ void GameScreen::readCommand()
                             s->addScore(score);
                         }
                         int time;
-                        time = List.at(iterate).toInt();
+                        time = list.at(iterate).toInt();
                         s->addTime(time);
                         this->hide();
                         s->show();
+                        sock->close();
+                        cleanObjects();
+                        this->releaseKeyboard();
+                        this->releaseMouse();
                         break;
 
+                        //just in case for some reason the server return a weird case
                         /*default:
-                        //qDebug() << "Error code AAUGH: Unidentified Case: " << entv;
+                        qDebug() << "Error code AAUGH: Unidentified Case: " << entv;
                         break;*/
                     }
                 }
@@ -697,59 +750,66 @@ void GameScreen::readCommand()
     }
 }
 
-void GameScreen::serverDisconnected()
+//clean object list
+void GameScreen::cleanObjects()
 {
-    w->close();
+    /*for(int i = 0; i < objects.size(); i++){
+        delete objects.at(i);
+    }*/
+
 }
 
+//handle server disconnect
+void GameScreen::serverDisconnected()
+{
+    sock->close();
+    this->hide();
 
+    this->releaseKeyboard();
+    this->releaseMouse();
+    cleanObjects();
+    w->show();
+}
 
-
-void GameScreen::createEntity(int type, int id, int team, int health, int state, int posX, int posY, QString name){
+//create a new EntityLabel with <type>, <id>, <team>,
+//<health>, <state> at <posX>, <posY> with <username>
+void GameScreen::createEntity(int type, int id, int team, int health, int state, int posX, int posY, QString name)
+{
     EntityLabel *thing = new EntityLabel(id, type, team, posX, posY, health, state, name, wdgtPicture);
     if(name == playername)
     {
         hero = thing;
     }
-    //if on screen
-    //connect(thing, SIGNAL(clicked(int)),this, SLOT(entityClicked(int)));
     thing->show();
     objects.push_back(thing);
 }
 
+//moves entity with <id> to <x>, <y>
 void GameScreen::moveEntity(int id, int x, int y){
     EntityLabel *thing = GameScreen::getByID(id);
     thing->move(x, y);
     thing->nextFrame();
 }
 
+//changes entity with <id>'s heath to <healthPercent>
 void GameScreen::changeEntityHealth(int id, int healthPercent)
 {
     EntityLabel *thing = GameScreen::getByID(id);
     thing->setHealth(healthPercent);
 }
 
+//changes entity with <id>'s direction(state) to <state>
 void GameScreen::changeEntityState(int id, int state){
     EntityLabel *thing = GameScreen::getByID(id);
     thing->setState(state);
 }
 
+//Sets entity with <id> to dead state
 void GameScreen::exterminate(int id){
     EntityLabel *thing = GameScreen::getByID(id);
-    qDebug() << "DEAD THING";
-    qDebug() << id;
-    //thing->setCounter(1);
-    if (thing->getType() != 1 && thing->getType() != 2){
-        thing->die();
-        int g = thing->getCounter() - 1;
-        if (thing->getCounter() == g){
-            thing->hide();
-        }
-    }
-    else {
-        thing->die();
-        showLbl(id);
-    }
+    thing->setCounter(1);
+    thing->die();
+    showLbl(id);
     if(id == targetId){
         lblTargetHealth->hide();
         lblTargetIcon->hide();
@@ -758,12 +818,14 @@ void GameScreen::exterminate(int id){
 
 }
 
+//shows entity with <id>
 void GameScreen::showLbl(int id)
 {
     EntityLabel *thing = GameScreen::getByID(id);
     thing->show();
 }
 
+//returns entity with <id>
 EntityLabel* GameScreen::getByID(int id)
 {
     for(uint i = 0; i < objects.size(); ++i)
@@ -775,6 +837,7 @@ EntityLabel* GameScreen::getByID(int id)
     }
 }
 
+//returns id of entity with <name>
 int GameScreen::getIdByName(QString& name)
 {
     for(uint i = 0; i < objects.size(); ++i)
@@ -787,11 +850,13 @@ int GameScreen::getIdByName(QString& name)
     return 0;
 }
 
+//updates image of entity with <id>
 void GameScreen::animate(int id){
     EntityLabel *thing = GameScreen::getByID(id);
     thing->updateStyleSheet();
 }
 
+//calculates the total score of score object.
 void ScoreObject::calculate(){
     totalScore = (minionKills * 5) + (playerKills * 60) + (playerDeaths * -10) + (towerKills * 50);
 }

@@ -1,7 +1,3 @@
-#include "entitylabel.h"
-
-#include <QDebug>
-
 //-----------------------------------------------------------
 //File:   entitylabel.cpp
 //Authors: Jeremie Miller, Jonathan Neves, Joel Sampson, John Wiglesworth
@@ -9,6 +5,10 @@
 //Desc:   This class provides the basic "unit" of the game.
 //          All clientside units are just an EntityLabel.
 //-----------------------------------------------------------
+
+#include "entitylabel.h"
+
+#include <QDebug>
 
 //Constructor
 EntityLabel::EntityLabel(int id, int type, int initTeam,
@@ -53,11 +53,9 @@ void EntityLabel::die()
     }
     else if (this->type == 3) //minion
     {
-        this->nextFrame();
     }
     else if (this->type == 4) //player
     {
-        this->nextFrame();
     }
 }
 
@@ -67,12 +65,6 @@ void EntityLabel::die()
 void EntityLabel::nextFrame(){
     if(type == 3 || type == 4)//minion or player
     {
-        if (state ==9)
-        qDebug() << state;
-        if (state == 9 && counter == 19)
-        {
-            this->hide();
-        }
         if(counter == 19)
         {
             counter = 1;
@@ -99,6 +91,8 @@ void EntityLabel::nextFrame(){
 //Updates the object's stylesheet based on the
 //  current values of its instance variables.
 void EntityLabel::updateStyleSheet(){
+    if (this->state == 9)
+        this->counter = 1;
     this->setStyleSheet(STYLE_BEGIN + QString("%1").arg(team) +
                         "/" + QString("%1").arg(type) + "/" +
                         QString("%1").arg(state) + "/" +

@@ -15,7 +15,6 @@ class GameScreen;
 #include <vector>
 #include <QResizeEvent>
 #include <QFrame>
-#include <QTcpSocket>
 #include <QPushButton>
 #include <QStringList>
 #include <QTcpSocket>
@@ -166,7 +165,10 @@ public:
     void showLbl(int id);
 
     //Grabs keyboard control
-    void takeOverKeyboard() { wdgtGame->grabKeyboard(); }
+    void takeOverKeyboard() { this->grabKeyboard(); }
+
+    //clears the object list.
+    void cleanObjects();
 
 private slots:
     //Timer Calculations
@@ -183,7 +185,7 @@ private slots:
 
     //Big long method that parses info from server
     void readCommand();
-    
+
 protected:
     //Overwritten Methods
     void closeEvent(QCloseEvent *);

@@ -205,81 +205,83 @@ int World::determineState(Entity *source, Entity *target)
 
 int World::determineState(Entity *source, int cpX, int cpY)
 {
-    if (source != NULL){
-    int sourcex = source->getX();
-    int sourcey = source->getY();
-    int targetx = cpX;
-    int targety = cpY;
-    double a;
-    double b;
-    double c;
-    double theta;
-    bool isUnder;
-    int state;
-    if(targety < sourcey)
+    if (source != NULL)
     {
-        isUnder = true;
-    }
-    else
-    {
-        isUnder = false;
-    }
-    a = sourcex - targetx;
-    b = sourcey - targety;
-    c = sqrt(pow(a,2)+pow(b,2));
-    theta = acos(a/c) * 180.0/PI;
-    if(targety > sourcey)
-    {
-        isUnder = true;
-    }
-    else
-    {
-        isUnder = false;
-    }
-    a = sourcex - targetx;
-    b = sourcey - targety;
-    c = sqrt(pow(a,2)+pow(b,2));
-    theta = acos(a/c);
-    if(isUnder)
-    {
-        theta += 180;
-    }
-    if(112.5 >= theta && theta >= 67.5)
-    {
-        state = 1;
-    }
-    else if(67.5 >= theta && theta >= 22.5)
-    {
-        state = 8;
-    }
-    else if(22.5 >=theta || theta >=337.5)
-    {
-        state = 7;
-    }
-    else if(337.5 >= theta && theta >= 292.5)
-    {
-        state = 4;
-    }
-    else if(292.5 >= theta && theta >= 247.5)
-    {
-        state = 5;
-    }
-    else if(247.5 >= theta && theta >= 202.5)
-    {
-        state = 6;
-    }
-    else if(202.5 >= theta && theta >= 157.5)
-    {
-        state = 3;
-    }
-    else if(157.5 >= theta && theta >= 112.5)
-    {
-        state = 2;
-    }
-    else {
-        state = 5;
-    }
-    return state;
+        int sourcex = source->getX();
+        int sourcey = source->getY();
+        int targetx = cpX;
+        int targety = cpY;
+        double a;
+        double b;
+        double c;
+        double theta;
+        bool isUnder;
+        int state;
+        if(targety < sourcey)
+        {
+            isUnder = true;
+        }
+        else
+        {
+            isUnder = false;
+        }
+        a = sourcex - targetx;
+        b = sourcey - targety;
+        c = sqrt(pow(a,2)+pow(b,2));
+        theta = acos(a/c) * 180.0/PI;
+        if(targety > sourcey)
+        {
+            isUnder = true;
+        }
+        else
+        {
+            isUnder = false;
+        }
+        a = sourcex - targetx;
+        b = sourcey - targety;
+        c = sqrt(pow(a,2)+pow(b,2));
+        theta = acos(a/c);
+        if(isUnder)
+        {
+            theta += 180;
+        }
+        if(112.5 >= theta && theta >= 67.5)
+        {
+            state = 1;
+        }
+        else if(67.5 >= theta && theta >= 22.5)
+        {
+            state = 8;
+        }
+        else if(22.5 >=theta || theta >=337.5)
+        {
+            state = 7;
+        }
+        else if(337.5 >= theta && theta >= 292.5)
+        {
+            state = 4;
+        }
+        else if(292.5 >= theta && theta >= 247.5)
+        {
+            state = 5;
+        }
+        else if(247.5 >= theta && theta >= 202.5)
+        {
+            state = 6;
+        }
+        else if(202.5 >= theta && theta >= 157.5)
+        {
+            state = 3;
+        }
+        else if(157.5 >= theta && theta >= 112.5)
+        {
+            state = 2;
+        }
+        else
+        {
+            state = 5;
+        }
+        return state;
     }
     int state = 5;
     return state;
@@ -288,66 +290,67 @@ int World::determineState(Entity *source, int cpX, int cpY)
 int World::determineState(int sourcex, int sourcey, Entity *target)
 {
     if (target != NULL){
-    int targetx = target->getX();
-    int targety = target->getY();
-    double a;
-    double b;
-    double c;
-    double theta;
-    bool isUnder;
-    int state;
-    if(targety > sourcey)
-    {
-        isUnder = true;
-    }
-    else
-    {
-        isUnder = false;
-    }
-    a = sourcex - targetx;
-    b = sourcey - targety;
-    c = sqrt(pow(a,2)+pow(b,2));
-    theta = acos(a/c) * 180.0/PI;
-    if(isUnder)
-    {
-        theta += 180;
-    }
-    if(112.5 >= theta && theta >= 67.5)
-    {
-        state = 1;
-    }
-    else if(67.5 >= theta && theta >= 22.5)
-    {
-        state = 8;
-    }
-    else if(22.5 >=theta || theta >=337.5)
-    {
-        state = 7;
-    }
-    else if(337.5 >= theta && theta >= 292.5)
-    {
-        state = 4;
-    }
-    else if(292.5 >= theta && theta >= 247.5)
-    {
-        state = 5;
-    }
-    else if(247.5 >= theta && theta >= 202.5)
-    {
-        state = 6;
-    }
-    else if(202.5 >= theta && theta >= 157.5)
-    {
-        state = 3;
-    }
-    else if(157.5 >= theta && theta >= 112.5)
-    {
-        state = 2;
-    }
-    else {
-        state = 5;
-    }
-    return state;
+        int targetx = target->getX();
+        int targety = target->getY();
+        double a;
+        double b;
+        double c;
+        double theta;
+        bool isUnder;
+        int state;
+        if(targety > sourcey)
+        {
+            isUnder = true;
+        }
+        else
+        {
+            isUnder = false;
+        }
+        a = sourcex - targetx;
+        b = sourcey - targety;
+        c = sqrt(pow(a,2)+pow(b,2));
+        theta = acos(a/c) * 180.0/PI;
+        if(isUnder)
+        {
+            theta += 180;
+        }
+        if(112.5 >= theta && theta >= 67.5)
+        {
+            state = 1;
+        }
+        else if(67.5 >= theta && theta >= 22.5)
+        {
+            state = 8;
+        }
+        else if(22.5 >=theta || theta >=337.5)
+        {
+            state = 7;
+        }
+        else if(337.5 >= theta && theta >= 292.5)
+        {
+            state = 4;
+        }
+        else if(292.5 >= theta && theta >= 247.5)
+        {
+            state = 5;
+        }
+        else if(247.5 >= theta && theta >= 202.5)
+        {
+            state = 6;
+        }
+        else if(202.5 >= theta && theta >= 157.5)
+        {
+            state = 3;
+        }
+        else if(157.5 >= theta && theta >= 112.5)
+        {
+            state = 2;
+        }
+        else
+        {
+            state = 5;
+        }
+        return state;
     }
     int state = 5;
     return state;
@@ -413,7 +416,8 @@ int World::determineState(int sourcex, int sourcey, int targetx, int targety)
     {
         state = 2;
     }
-    else {
+    else
+    {
         state = 5;
     }
     return state;
