@@ -556,12 +556,12 @@ string PlCh::displayString()
     }
     else
     {
-        qDebug()<<"Reached !Alive";
         if(newDead)
         {
             strm<<" "<<(type * 10 + 9)<<" "<<absoluteID;
             newDead = false;
             return strm.str();
         }
+        return "";
     }
 }

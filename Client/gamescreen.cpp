@@ -805,7 +805,6 @@ void GameScreen::serverDisconnected()
 {
     sock->close();
     this->hide();
-
     this->releaseKeyboard();
     this->releaseMouse();
     cleanObjects();

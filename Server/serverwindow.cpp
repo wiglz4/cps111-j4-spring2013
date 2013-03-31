@@ -44,20 +44,28 @@ ServerWindow::~ServerWindow()
 
 void ServerWindow::clientConnected()
 {
-    User *user = new User();
-    QTcpSocket *sock = server.nextPendingConnection();
-    connect(sock, SIGNAL(disconnected()), this, SLOT(clientDisconnected()));
-    connect(sock, SIGNAL(readyRead()), this, SLOT(dataReceived()));
-    user->setSocket(sock);
-    unUsers.push_back(user);
-    QString idMessage;
-    idMessage.append("97179 777 ");
-    idMessage.append(QString::number(curUserID));
-    idMessage.append("\n");
-    qDebug()<<idMessage;
-    user->setUserID(curUserID);
-    ++curUserID;
-    sock->write(idMessage.toAscii());
+    if(game == NULL)
+    {
+        User *user = new User();
+        QTcpSocket *sock = server.nextPendingConnection();
+        connect(sock, SIGNAL(disconnected()), this, SLOT(clientDisconnected()));
+        connect(sock, SIGNAL(readyRead()), this, SLOT(dataReceived()));
+        user->setSocket(sock);
+        unUsers.push_back(user);
+        QString idMessage;
+        idMessage.append("97179 777 ");
+        idMessage.append(QString::number(curUserID));
+        idMessage.append("\n");
+        user->setUserID(curUserID);
+        ++curUserID;
+        sock->write(idMessage.toAscii());
+    }
+    else
+    {
+        QTcpSocket *sock = server.nextPendingConnection();
+        sock->close();
+        sock->deleteLater();
+    }
 }
 
 void ServerWindow::clientDisconnected()
@@ -152,7 +160,6 @@ void ServerWindow::dataReceived()
                     for(int i = 0; i < unUsers.size(); ++i)
                     {
                         unUsers.at(i)->getSock()->write("97179 7\n");
-                        qDebug() << "set out 7\n";
                     }
                     if(paused)
                     {
