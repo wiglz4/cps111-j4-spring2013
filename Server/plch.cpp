@@ -12,22 +12,22 @@ PlCh::PlCh(int cTeam, int newX, int newY, World *newMap, string pName)
     map = newMap;
     x = newX;
     y = newY;
-    curHealth = 999;//incomplete
-    maxHealth = 999;//incomplete
+    curHealth = 999;
+    maxHealth = 999;
     healthChange = true;
     isNew = true;
     team = cTeam;
     absoluteID = ++curID;
     targetable = true;
     attackable = true;
-    size = 10; //radius
+    size = 10;
     type = 4;
 
-    atkDamage = 600;//incomplete
+    atkDamage = 600;
     atkSpeed = 1;
     armor = 20;
-    atkRange = 600;//incomplete
-    detRange = 900;//incomplete
+    atkRange = 600;
+    detRange = 900;
     canAttack = true;
     Alive = true;
     newDead = false;
@@ -61,9 +61,8 @@ void PlCh::command(string cmdString)
 {
     std::stringstream strm;
     strm << cmdString;
-    //parse for int x for click / button press
     int type;
-    int number; //parse for the rest of the stream
+    int number;
     strm>>type>>number;
     if (type == 1)
     {
@@ -116,13 +115,11 @@ void PlCh::command(string cmdString)
 
 void PlCh::cheatMode()
 {
-    //NEEDS CODING
 }
 
 //Moves player based on keypress, returns new state
 int PlCh::moveManual(){
     int currentState = 0;
-    //Move (Joel's Magic Mathy Stuff)
     int tempX;
     int tempY;
     if(wPressed && !aPressed && !sPressed && !dPressed)
@@ -214,37 +211,36 @@ void PlCh::onTick()
     int tempY;
     int currentState = state;
 
-    if(Alive) //if player is alive
+    if(Alive)
     {
-        if (wPressed || aPressed|| sPressed|| dPressed) //and if a key is pressed
+        if (wPressed || aPressed|| sPressed|| dPressed)
         {
-            currentState = moveManual(); //move him
+            currentState = moveManual();
         }
         else
         {
-            if(target != NULL && target->getAttackable()) //if player is alive and not moving and the target is not null
+            if(target != NULL && target->getAttackable())
             {
-                //calculate distance to target
                 distance = sqrt(pow(target->getY()-y, 2) + pow(target->getX() - x, 2));
-                if(distance < detRange) //if target is within detection range
+                if(distance < detRange)
                 {
-                    if(distance < atkRange) //if target is also within attack range
+                    if(distance < atkRange)
                     {
 
-                        if(count->Check()) //Who knows
+                        if(count->Check())
                         {
 
-                            if(target->getAttackable()) //check if can be attacked
+                            if(target->getAttackable())
                             {
-                                Attack(); //attack
+                                Attack();
                                 currentState = world->determineState(x,y, target);
-                            } else { //if you can't attack it, set it to null
+                            } else {
                                 target = NULL;
                             }
                         }
 
                     }
-                    else //if target is in detect range but not in attack range, move within attack range
+                    else
                     {
                         theta = asin((y-target->getY())/distance);
                         delta = acos((x-target->getX())/distance);
@@ -266,7 +262,6 @@ void PlCh::onTick()
                         }
                         if(map->boundsCheck(tempX, tempY))
                         {
-                            //STATE Calculations here
                             x = tempX;
                             y = tempY;
                             positionChange = true;
@@ -274,18 +269,18 @@ void PlCh::onTick()
                         }
                     }
                 }
-                else //if target is not within attack or detect range
+                else
                 {
-                    Entity *ent = map->getNAE(x,y,team, distance); //What on earth does this do?
-                    if (ent != NULL) // if entity is not null
+                    Entity *ent = map->getNAE(x,y,team, distance);
+                    if (ent != NULL)
                     {
-                        if(distance < detRange) //and if entity is within detection range
+                        if(distance < detRange)
                         {
-                            target = ent; //set target to entity
-                            if (distance < atkRange)  //and if entity is within attack range
+                            target = ent;
+                            if (distance < atkRange)
                             {
 
-                                if(count->Check()) //still not sure what this does...
+                                if(count->Check())
                                 {
                                     //State Calculations here
                                     if(Attack()) //prolly set up wrong
