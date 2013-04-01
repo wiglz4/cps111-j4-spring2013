@@ -12,8 +12,8 @@ PlCh::PlCh(int cTeam, int newX, int newY, World *newMap, string pName)
     map = newMap;
     x = newX;
     y = newY;
-    curHealth = 999;//FIX
-    maxHealth = 999;//FIX
+    curHealth = 1500;//
+    maxHealth = 1500;//
     healthChange = true;
     isNew = true;
     team = cTeam;
@@ -23,11 +23,11 @@ PlCh::PlCh(int cTeam, int newX, int newY, World *newMap, string pName)
     size = 10;
     type = 4;
 
-    atkDamage = 600000;//FIX
-    atkSpeed = 4;//FIX(was 1)
-    armor = 100;//FIX
-    atkRange = 500;//FIX(was 500)
-    detRange = 700;//FIX(was 700)
+    atkDamage = 175;//
+    atkSpeed = 1;//
+    armor = 20;//
+    atkRange = 500;//
+    detRange = 800;//
     canAttack = true;
     Alive = true;
     newDead = false;
@@ -37,7 +37,7 @@ PlCh::PlCh(int cTeam, int newX, int newY, World *newMap, string pName)
     state = 5;
     stateChange = true;
 
-    speed = 20;//FIX(was 4)
+    speed = 4;//
     canMove = true;
     positionChange = true;
 
@@ -265,7 +265,7 @@ void PlCh::onTick()
                             x = tempX;
                             y = tempY;
                             positionChange = true;
-                            currentState = world->determineState(this, x,y, tempX, tempY);
+                            currentState = world->determineState(x,y, tempX, tempY);
                         }
                     }
                 }
@@ -314,7 +314,7 @@ void PlCh::onTick()
                                 }
                                 if(map->boundsCheck(tempX, tempY))
                                 {
-                                    currentState = world->determineState(this, x,y, tempX, tempY);
+                                    currentState = world->determineState(x,y, tempX, tempY);
                                     //SET STATE HERE
                                     x = tempX;
                                     y = tempY;
@@ -374,7 +374,7 @@ void PlCh::onTick()
                                 x = tempX;
                                 y = tempY;
                                 positionChange = true;
-                                currentState = world->determineState(this, x,y, tempX, tempY);
+                                currentState = world->determineState(x,y, tempX, tempY);
                             }
                         }
                     }

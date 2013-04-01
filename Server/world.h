@@ -95,7 +95,7 @@ public:
     int determineState(Entity*, Entity*);
     int determineState(Entity*, int, int);
     int determineState(int, int, Entity*);
-    int determineState(Entity*, int, int, int, int);
+    int determineState(int, int, int, int);
 
     Entity *bob;
 

@@ -12,8 +12,8 @@ Minion::Minion(int cTeam, int newX, int newY, World *newMap)
     map = newMap;
     x = newX;
     y = newY;
-    curHealth = 500;
-    maxHealth = 500;
+    curHealth = 800;
+    maxHealth = 800;
     healthChange = true;
     isNew = true;
     team = cTeam;
@@ -120,7 +120,7 @@ void Minion::onTick()
                         {
                             //STATE Calculations here
 
-                            newState = world->determineState(this, x,y,tempX, tempY);
+                            newState = world->determineState(x,y,tempX, tempY);
                             x = tempX;
                             y = tempY;
                             //OOL calculations here
@@ -207,7 +207,7 @@ void Minion::onTick()
                             }
                             if(map->boundsCheck(tempX, tempY))
                             {
-                                newState = world->determineState(this, x,y, tempX, tempY);
+                                newState = world->determineState(x,y, tempX, tempY);
                                 if(newState != state)
                                 {
                                     stateChange = true;
@@ -332,7 +332,7 @@ void Minion::onTick()
                         }
                         if(map->boundsCheck(tempX, tempY))
                         {
-                            newState = world->determineState(this, x,y, tempX, tempY);
+                            newState = world->determineState(x,y, tempX, tempY);
                             if(newState != state)
                             {
                                 stateChange = true;
@@ -366,7 +366,7 @@ void Minion::onTick()
                     }
                     if(map->boundsCheck(tempX, tempY))
                     {
-                        newState = world->determineState(this, x,y, tempX, tempY);
+                        newState = world->determineState(x,y, tempX, tempY);
                         if(newState != state)
                         {
                             stateChange = true;

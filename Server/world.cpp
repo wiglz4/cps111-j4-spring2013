@@ -379,7 +379,7 @@ int World::determineState(int sourcex, int sourcey, Entity *target)
     return state;
 }
 
-int World::determineState(Entity *source, int sourcex, int sourcey, int targetx, int targety)
+int World::determineState(int sourcex, int sourcey, int targetx, int targety)
 {
     qDebug() << "4";
     double a;
@@ -409,51 +409,40 @@ int World::determineState(Entity *source, int sourcex, int sourcey, int targetx,
         theta += 180;
     }
 
-    if(112.5 >= theta && theta >= 67.5)
+    if(112.5 >= theta && theta > 67.5)
     {
         state = 1;
     }
-    else if(67.5 >= theta && theta >= 22.5)
+    else if(67.5 >= theta && theta > 22.5)
     {
-        //if (source->getTeam() == 1)
-          //  state = 2;
         state = 8;
     }
-    else if(22.5 >=theta || theta >=337.5)
+    else if(22.5 >=theta || theta > 337.5)
     {
-        if (source->getTeam() == 1 && source->getType() == 3)
-           state = 3;
-        else
         state = 7;
     }
-    else if(337.5 >= theta && theta >= 292.5)
+    else if(337.5 >= theta && theta > 292.5)
     {
-       // if (source->getTeam() == 1)
-         //   state = 4;
         state = 4;
     }
-    else if(292.5 >= theta && theta >= 247.5)
+    else if(292.5 >= theta && theta > 247.5)
     {
         state = 5;
     }
-    else if(247.5 >= theta && theta >= 202.5)
+    else if(247.5 >= theta && theta > 202.5)
     {
-    //    if (source->getTeam() == 1)
-      //      state = 6;
         state = 6;
     }
-    else if(202.5 >= theta && theta >= 157.5)
+    else if(202.5 >= theta && theta > 157.5)
     {
-       if (source->getTeam() == 1 && source->getType() == 3)
-            state = 7;
-       else
         state = 3;
     }
-    else if(157.5 >= theta && theta >= 112.5)
+    else if(157.5 >= theta && theta > 112.5)
     {
         state = 2;
     }
-    else {
+    else
+    {
         state = 5;
     }
     return state;
