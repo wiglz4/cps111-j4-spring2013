@@ -64,7 +64,10 @@ public:
 
     //Unimplemented methods that don't work
     //-----------------------------------//
+
+    //populates a vector of score objects from a file
     QList<ScoreObject> populateScores();
+    //adds a score object to <scores>
     void addScoreToScores(ScoreObject *);
 
     
@@ -72,6 +75,7 @@ private slots:
     //Button Clicks
     void onBtnExit2Clicked();
     void onMainWindowClicked();
+    void showEvent(QShowEvent *);
 
 signals:
     void startMain();

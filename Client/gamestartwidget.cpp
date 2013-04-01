@@ -18,6 +18,7 @@
 
 class GameStartWidget;
 
+//Constructor
 GameStartWidget::GameStartWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::GameStartWidget)
@@ -88,18 +89,20 @@ GameStartWidget::GameStartWidget(QWidget *parent) :
 
 
     this->btnRed = new QPushButton(this);
-    this->btnRed->setGeometry(100, 230, 20, 20);
+    this->btnRed->setGeometry(100, 230, 36, 36);
     this->btnRed->setFlat(true);
-    this->btnRed->setStyleSheet("QPushButton {background-color:#ff0000;} QPushButton:flat {background-color:#ff0000;}");
+    btnRed->setFocusPolicy(Qt::NoFocus);
+    this->btnRed->setStyleSheet("QPushButton { background: url(:/images/br_deselected.png) no-repeat top right; } QPushButton:hover{ background:url(:/images/br_clicked.png) no-repeat top left; } QPushButton:checked { background: url(:/images/br_selected.png) no-repeat top left; border: 0px solid grey; }");
     this->btnRed->setCheckable(true);
     this->btnRed->setChecked(false);
     connect(this->btnRed, SIGNAL(clicked()), this, SLOT(onRedClicked()));
     this->btnRed->show();
 
     this->btnBlue = new QPushButton(this);
-    this->btnBlue->setGeometry(130, 230, 20, 20);
+    this->btnBlue->setGeometry(130, 230, 36, 36);
     this->btnBlue->setFlat(true);
-    this->btnBlue->setStyleSheet("background-color:#0000ff;alternate-background-color:#0000ff;");
+    btnBlue->setFocusPolicy(Qt::NoFocus);
+    this->btnBlue->setStyleSheet("QPushButton { background: url(:/images/bb_deselected.png) no-repeat top right; } QPushButton:hover{ background:url(:/images/bb_clicked.png) no-repeat top left; } QPushButton:checked { background: url(:/images/bb_selected.png) no-repeat top left; border: 0px solid grey; }");
     this->btnBlue->setCheckable(true);
     this->btnBlue->setChecked(true);
     connect(this->btnBlue, SIGNAL(clicked()), this, SLOT(onBlueClicked()));
@@ -130,6 +133,7 @@ GameStartWidget::GameStartWidget(QWidget *parent) :
     setWindowFlags(Qt::SplashScreen);
 }
 
+//Sets <w>, <sock>, and <g>
 void GameStartWidget::connectStuff(Widget *wdgt, QTcpSocket *s, GameScreen *gmscr)
 {
     g = gmscr;
@@ -137,18 +141,21 @@ void GameStartWidget::connectStuff(Widget *wdgt, QTcpSocket *s, GameScreen *gmsc
     sock = s;
 }
 
+//Hide objects necessary for multiplayer
 void GameStartWidget::hideHost()
 {
     lblHost->hide();
     lnedHost->hide();
 }
 
+//Show objects necessary for multiplayer
 void GameStartWidget::dislpayHost()
 {
     lblHost->show();
     lnedHost->show();
 }
 
+//Show objects necessary for loading
 void GameStartWidget::displayLoad()
 {
     lnedSave->show();
@@ -158,6 +165,7 @@ void GameStartWidget::displayLoad()
     loading = true;
 }
 
+//Hide objects necessary for loading
 void GameStartWidget::hideLoad()
 {
     lnedSave->hide();
@@ -167,23 +175,28 @@ void GameStartWidget::hideLoad()
     loading = false;
 }
 
+//Destructor
 GameStartWidget::~GameStartWidget()
 {
     delete ui;
 }
 
+//Main menu button clicked
 void GameStartWidget::onMainWindowClicked()
 {
     this->hide();
     w->show();
 }
 
+
+//exit button clicked
 void GameStartWidget::onBtnExitClicked()
 {
     QApplication::quit();
 
 }
 
+//start game clicked
 void GameStartWidget::onBtnStartClicked()
 {
     int num;
@@ -246,6 +259,7 @@ void GameStartWidget::onBtnStartClicked()
     }
     sock->write(message.toAscii());
     g->setPlayername(lnedUsername->text());
+    g->setUserTeam(num);
     g->show();
     g->grabKeyboard();
     g->passSocket(sock);
@@ -253,12 +267,14 @@ void GameStartWidget::onBtnStartClicked()
     this->hide();
 }
 
+//red button clicked
 void GameStartWidget::onRedClicked()
 {
     this->btnBlue->setChecked(false);
     this->btnRed->setChecked(true);
 }
 
+//blue button clicked
 void GameStartWidget::onBlueClicked()
 {
     this->btnRed->setChecked(false);

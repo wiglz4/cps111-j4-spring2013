@@ -22,6 +22,7 @@
 
 using namespace std;
 
+//Constructor
 ScoreWindow::ScoreWindow(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ScoreWindow),
@@ -66,27 +67,36 @@ ScoreWindow::ScoreWindow(QWidget *parent) :
     setWindowFlags(Qt::SplashScreen);
 }
 
+//Destructor
 ScoreWindow::~ScoreWindow()
 {
     delete ui;
 }
 
-
+//main menu clicked
 void ScoreWindow::onMainWindowClicked(){
     this->hide();
     w->show();
 }
 
+void ScoreWindow::showEvent(QShowEvent *)
+{
+    qDebug()<<"Scorewindow shown";
+}
+
+//exit clicked
 void ScoreWindow::onBtnExit2Clicked()
 {
     QApplication::quit();
 }
 
+//Sets <this->w> to <w>
 void ScoreWindow::connectWidget(Widget *w){
     this->w = w;
     connect(this->btnExit2, SIGNAL(clicked()), this, SLOT(onBtnExit2Clicked()));
 }
 
+//Adds a score to interface
 void ScoreWindow::addScore(ScoreObject *s){
     if(!isEndgame)
     {
@@ -147,6 +157,7 @@ void ScoreWindow::addScore(ScoreObject *s){
     nextY += 26;
 }
 
+//Sets text of <ui->lblTTIme>
 void ScoreWindow::addTime(int t){
     ui->lblTTime->setText("Game Time:");
     int tenth;
@@ -169,7 +180,7 @@ void ScoreWindow::addTime(int t){
                          QString::number(seconds) + "." + QString::number(tenth));
 }
 
-
+//Sets up display for enndgame
 void ScoreWindow::makeEndGame(){
     ui->frScore->setFrameShape(QFrame::Box);
     ui->frScore->setStyleSheet("background:rgb(100,100,100);");
@@ -197,6 +208,7 @@ void ScoreWindow::makeEndGame(){
     isEndgame = true;
 }
 
+//populates a vector of score objects from a file
 QList<ScoreObject> ScoreWindow::populateScores()
 {
     std::stringstream s;

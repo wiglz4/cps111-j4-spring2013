@@ -78,6 +78,11 @@ class GameScreen : public QWidget
     bool targetChanged;
     bool upPressed;
 
+    bool gameOver;
+
+    int userID;
+    int userTeam;
+
     int playerHealthPercent;
     int playerId;
     int targetHealthPercent;
@@ -132,6 +137,8 @@ public:
 
     //Sets <playername> to <p>
     void setPlayername(QString p){playername = p;}
+
+    void setUserTeam(int team){userTeam = team;}
 
     //Getter Methods
     //(Technically just used to find an EntityLabel in <objects>)
@@ -197,6 +204,7 @@ protected:
     void keyReleaseEvent(QKeyEvent *);
     void mousePressEvent(QMouseEvent *);
     void resizeEvent ( QResizeEvent *);
+    void showEvent(QShowEvent *);
 
     //Other Methods
 

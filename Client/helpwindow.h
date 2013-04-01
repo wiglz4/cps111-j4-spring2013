@@ -46,7 +46,6 @@ private slots:
     //Button Clicks
     void onMainWindowClicked();
     void onBtnExit2Clicked();
-    void onBtnNetworkClicked();
 };
 
 #endif // HELPWINDOW_H

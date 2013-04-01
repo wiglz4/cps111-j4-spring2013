@@ -37,12 +37,17 @@ GameScreen::GameScreen(QWidget *parent) :
     playerId = 0;
     targetId = 0;
 
+    hero = NULL;
+    userID = 0;
+    userTeam = 0;
+
     targetChanged = false;
     upPressed = false;
     rightPressed = false;
     downPressed = false;
     leftPressed = false;
     spacePressed = false;
+    gameOver = false;
 
     wdgtGame = new QWidget(this);
     wdgtGame->setGeometry(-100, -2150, 4000, 3000);
@@ -247,25 +252,27 @@ void GameScreen::onTimerHit()
 {
     if(playerId == 0)
     {
-        playerId = getIdByName(playername);
-        if(playerId != 0)
+        if(hero != NULL)
         {
-            EntityLabel *e = getByID(playerId);
-            if(e->getTeam() == 1)
+            playerId = hero->getID();
+            if(playerId != 0)
             {
-                lblPlayerIcon->setStyleSheet("background:url(:/images/icons/redhero.png) no-repeat top right; background-color: rgba(0,0,0,0);");
+                EntityLabel *e = getByID(playerId);
+                if(e->getTeam() == 1)
+                {
+                    lblPlayerIcon->setStyleSheet("background:url(:/images/icons/redhero.png) no-repeat top right; background-color: rgba(0,0,0,0);");
+                }
+                else
+                {
+                    lblPlayerIcon->setStyleSheet("background:url(:/images/icons/bluehero.png) no-repeat top right; background-color: rgba(0,0,0,0);");
+                }
+                lblPlayerIcon->show();
             }
-            else
-            {
-                lblPlayerIcon->setStyleSheet("background:url(:/images/icons/bluehero.png) no-repeat top right; background-color: rgba(0,0,0,0);");
-            }
-            lblPlayerIcon->show();
         }
     }
     else
     {
-        EntityLabel *e = getByID(playerId);
-        playerHealthPercent = e->getHealth();
+        playerHealthPercent = hero->getHealth();
     }
 
     if(targetId > 0)
@@ -419,6 +426,15 @@ void GameScreen::resizeEvent(QResizeEvent *event)
 
 }
 
+void GameScreen::showEvent(QShowEvent *)
+{
+    if(userTeam == 1)
+    {
+        //if(wdgtPicture->x() - this->width() - modSpeed > -3900 && wdgtPicture->y() +this->height() + modSpeed < 2750 )
+        wdgtPicture->move(-3878 + this->width(),2740 - this->height());
+    }
+}
+
 //registers mouse clicks
 void GameScreen::mousePressEvent(QMouseEvent *e)
 {
@@ -508,7 +524,7 @@ void GameScreen::readCommand()
             ++iterate;
             if (verifier == 97179)
             {
-                int entv, pHealth, x, y, id, state, team, type;
+                int entv, pHealth, x, y, id, state, team, type, playerID;
                 QString playername;
                 for(; iterate < list.size();)
                 {
@@ -526,6 +542,11 @@ void GameScreen::readCommand()
                     qDebug()<<entv;
                     switch (entv)
                     {
+                    case 777:
+                        this->userID = list.at(iterate).toInt();
+                        ++iterate;
+                        break;
+
                     case 5:
                         qDebug() << "towershot";
                         x = list.at(iterate).toInt();
@@ -534,7 +555,7 @@ void GameScreen::readCommand()
                         ++iterate;
 
                         break;
-                    //pause
+                        //pause
                     case 7:
                         if (pPressed == false) {
                             timer->stop();
@@ -575,6 +596,15 @@ void GameScreen::readCommand()
                         playername = list.at(iterate);
                         ++iterate;
                         createEntity(type, id, team, pHealth, state, x, y, playername);
+                        if(entv == 41)
+                        {
+                            playerID = list.at(iterate).toInt();
+                            if(userID == list.at(iterate).toInt())
+                            {
+                                hero = objects.at(objects.size()-1);
+                            }
+                            ++iterate;
+                        }
                         showLbl(id);
                         break;
 
@@ -739,6 +769,7 @@ void GameScreen::readCommand()
                         int time;
                         time = list.at(iterate).toInt();
                         s->addTime(time);
+                        gameOver = true;
                         this->hide();
                         s->show();
                         sock->close();
@@ -775,12 +806,20 @@ void GameScreen::cleanObjects()
 void GameScreen::serverDisconnected()
 {
     sock->close();
+    userID = 0;
+    targetId = 0;
+    playerId = 0;
+    hero = NULL;
+    userTeam = 0;
+    spacePressed = false;
     this->hide();
-
     this->releaseKeyboard();
     this->releaseMouse();
     cleanObjects();
-    w->show();
+    if(!gameOver)
+    {
+        w->show();
+    }
 }
 
 //create a new EntityLabel with <type>, <id>, <team>,
@@ -788,10 +827,6 @@ void GameScreen::serverDisconnected()
 void GameScreen::createEntity(int type, int id, int team, int health, int state, int posX, int posY, QString name)
 {
     EntityLabel *thing = new EntityLabel(id, type, team, posX, posY, health, state, name, wdgtPicture);
-    if(name == playername)
-    {
-        hero = thing;
-    }
     thing->show();
     objects.push_back(thing);
 }
