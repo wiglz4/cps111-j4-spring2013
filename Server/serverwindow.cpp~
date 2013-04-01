@@ -10,7 +10,7 @@
 #include <QLabel>
 #include <QDebug>
 
-//Release-1.0
+//NEEDS BUNCHES OF WORK
 ServerWindow::ServerWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::ServerWindow),
