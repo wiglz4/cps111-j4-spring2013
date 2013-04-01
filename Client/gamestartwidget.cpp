@@ -18,6 +18,7 @@
 
 class GameStartWidget;
 
+//Constructor
 GameStartWidget::GameStartWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::GameStartWidget)
@@ -132,6 +133,7 @@ GameStartWidget::GameStartWidget(QWidget *parent) :
     setWindowFlags(Qt::SplashScreen);
 }
 
+//Sets <w>, <sock>, and <g>
 void GameStartWidget::connectStuff(Widget *wdgt, QTcpSocket *s, GameScreen *gmscr)
 {
     g = gmscr;
@@ -139,18 +141,21 @@ void GameStartWidget::connectStuff(Widget *wdgt, QTcpSocket *s, GameScreen *gmsc
     sock = s;
 }
 
+//Hide objects necessary for multiplayer
 void GameStartWidget::hideHost()
 {
     lblHost->hide();
     lnedHost->hide();
 }
 
+//Show objects necessary for multiplayer
 void GameStartWidget::dislpayHost()
 {
     lblHost->show();
     lnedHost->show();
 }
 
+//Show objects necessary for loading
 void GameStartWidget::displayLoad()
 {
     lnedSave->show();
@@ -160,6 +165,7 @@ void GameStartWidget::displayLoad()
     loading = true;
 }
 
+//Hide objects necessary for loading
 void GameStartWidget::hideLoad()
 {
     lnedSave->hide();
@@ -169,23 +175,28 @@ void GameStartWidget::hideLoad()
     loading = false;
 }
 
+//Destructor
 GameStartWidget::~GameStartWidget()
 {
     delete ui;
 }
 
+//Main menu button clicked
 void GameStartWidget::onMainWindowClicked()
 {
     this->hide();
     w->show();
 }
 
+
+//exit button clicked
 void GameStartWidget::onBtnExitClicked()
 {
     QApplication::quit();
 
 }
 
+//start game clicked
 void GameStartWidget::onBtnStartClicked()
 {
     int num;
@@ -255,12 +266,14 @@ void GameStartWidget::onBtnStartClicked()
     this->hide();
 }
 
+//red button clicked
 void GameStartWidget::onRedClicked()
 {
     this->btnBlue->setChecked(false);
     this->btnRed->setChecked(true);
 }
 
+//blue button clicked
 void GameStartWidget::onBlueClicked()
 {
     this->btnRed->setChecked(false);

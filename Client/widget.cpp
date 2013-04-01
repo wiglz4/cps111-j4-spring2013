@@ -16,6 +16,7 @@
 #include <QDesktopWidget>
 #include <QSize>
 
+//Constructor
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Widget),
@@ -51,13 +52,14 @@ Widget::Widget(QWidget *parent) :
     setWindowFlags(Qt::SplashScreen);
 }
 
+//Destructor
 Widget::~Widget()
 {
     delete ui;
 }
 
 
-
+//sets <this->g> to <g>
 void Widget::connectGame(GameScreen *g)
 {
     this->g = g;
@@ -67,6 +69,7 @@ void Widget::connectGame(GameScreen *g)
     connect(mySocket, SIGNAL(disconnected()), this->g, SLOT(serverDisconnected()));
 }
 
+//singleplayer clicked
 void Widget::on_btnLocal_clicked()
 {
     gsw->hideLoad();
@@ -75,6 +78,7 @@ void Widget::on_btnLocal_clicked()
     this->hide();
 }
 
+//multiplayer clicked
 void Widget::on_btnNetwork_clicked(){
     gsw->hideLoad();
     gsw->dislpayHost();
@@ -83,12 +87,7 @@ void Widget::on_btnNetwork_clicked(){
     this->hide();
 }
 
-/*void Widget::close_dialog()
-{
-    this->show();
-    s->hide();
-}*/
-
+//sets <this->s> to <s>
 void Widget::connectScores(ScoreWindow *s)
 {
     this->s = s;
@@ -96,12 +95,14 @@ void Widget::connectScores(ScoreWindow *s)
     s->connectWidget(this);
 }
 
+//high scores clicked
 void Widget::on_btnScores_clicked()
 {    
     s->show();
     this->hide();
 }
 
+//sets <this->h> to <h>
 void Widget::connectHelp(HelpWindow *h)
 {
     this->h = h;
@@ -109,6 +110,7 @@ void Widget::connectHelp(HelpWindow *h)
     h->connectWidget(this);
 }
 
+//sets <this->gsw> to <gsw>
 void Widget::connectStart(GameStartWidget *gsw)
 {
     this->gsw = gsw;
@@ -116,18 +118,20 @@ void Widget::connectStart(GameStartWidget *gsw)
     gsw->connectStuff(this, mySocket, g);
 }
 
+//help clicked
 void Widget::on_btnHelp_clicked()
 {
     h->show();
     this->hide();    
 }
 
+//exit clicked
 void Widget::on_btnExit_clicked()
 {
     QApplication::quit();
 }
 
-
+//load game clicked
 void Widget::on_btnLoad_clicked()
 {
     gsw->dislpayHost();

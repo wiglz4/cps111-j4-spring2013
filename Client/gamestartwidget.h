@@ -77,6 +77,7 @@ public:
     //Hide objects necessary for loading
     void hideLoad();
 
+    //Switches between singleplayer and multiplayer mode.
     void isMultiplyer(){multiplayer = true;}
 
 private slots:

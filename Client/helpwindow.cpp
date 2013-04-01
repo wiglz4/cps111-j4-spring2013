@@ -13,6 +13,7 @@
 #include <QDesktopWidget>
 #include <QSize>
 
+//Constructor
 HelpWindow::HelpWindow(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::HelpWindow)
@@ -62,23 +63,21 @@ HelpWindow::HelpWindow(QWidget *parent) :
     setWindowFlags(Qt::SplashScreen);
 }
 
+//Destructor
 HelpWindow::~HelpWindow()
 {
     delete ui;
 }
 
+//Main menu clicked
 void HelpWindow::onMainWindowClicked(){
     this->hide();
     w->show();
 }
 
+//exit clicked
 void HelpWindow::onBtnExit2Clicked()
 {
     QApplication::quit();
 }
 
-
-void HelpWindow::onBtnNetworkClicked()
-{
-
-}

@@ -64,7 +64,10 @@ public:
 
     //Unimplemented methods that don't work
     //-----------------------------------//
+
+    //populates a vector of score objects from a file
     QList<ScoreObject> populateScores();
+    //adds a score object to <scores>
     void addScoreToScores(ScoreObject *);
 
     
