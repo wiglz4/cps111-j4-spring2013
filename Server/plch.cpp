@@ -265,7 +265,7 @@ void PlCh::onTick()
                             x = tempX;
                             y = tempY;
                             positionChange = true;
-                            currentState = world->determineState(x,y, tempX, tempY);
+                            currentState = world->determineState(this, x,y, tempX, tempY);
                         }
                     }
                 }
@@ -314,7 +314,7 @@ void PlCh::onTick()
                                 }
                                 if(map->boundsCheck(tempX, tempY))
                                 {
-                                    currentState = world->determineState(x,y, tempX, tempY);
+                                    currentState = world->determineState(this, x,y, tempX, tempY);
                                     //SET STATE HERE
                                     x = tempX;
                                     y = tempY;
@@ -374,7 +374,7 @@ void PlCh::onTick()
                                 x = tempX;
                                 y = tempY;
                                 positionChange = true;
-                                currentState = world->determineState(x,y, tempX, tempY);
+                                currentState = world->determineState(this, x,y, tempX, tempY);
                             }
                         }
                     }

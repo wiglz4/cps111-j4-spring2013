@@ -62,7 +62,7 @@ void Tower::onTick()
         if(distance < atkRange)
         {
             //SET STATE HERE
-            newState = world->determineState(x, y, target->getX(), target->getY());
+            newState = world->determineState(this, x, y, target->getX(), target->getY());
             if(count->Check())
             {
                 if(Attack())

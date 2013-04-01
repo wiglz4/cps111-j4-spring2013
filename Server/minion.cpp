@@ -46,13 +46,13 @@ Minion::Minion(int cTeam, int newX, int newY, World *newMap)
     //CHANGE WITH IFS
     if(team == 1)
     {
-        cpX = 550;
-        cpY = 2380;
+        cpX = 450;
+        cpY = 2500;
     }
     else
     {
-        cpX = 3240;
-        cpY = 380;
+        cpX = 3320;
+        cpY = 440;
     }
     OOL = false;
 }
@@ -118,7 +118,7 @@ void Minion::onTick()
                         {
                             //STATE Calculations here
 
-                            newState = world->determineState(x,y,tempX, tempY);
+                            newState = world->determineState(this, x,y,tempX, tempY);
                             x = tempX;
                             y = tempY;
                             //OOL calculations here
@@ -205,7 +205,7 @@ void Minion::onTick()
                             }
                             if(map->boundsCheck(tempX, tempY))
                             {
-                                newState = world->determineState(x,y, tempX, tempY);
+                                newState = world->determineState(this, x,y, tempX, tempY);
                                 if(newState != state)
                                 {
                                     stateChange = true;
@@ -297,7 +297,7 @@ void Minion::onTick()
                         }
                         if(map->boundsCheck(tempX, tempY))
                         {
-                            newState = world->determineState(x,y, tempX, tempY);
+                            newState = world->determineState(this, x,y, tempX, tempY);
                             if(newState != state)
                             {
                                 stateChange = true;
@@ -331,7 +331,7 @@ void Minion::onTick()
                     }
                     if(map->boundsCheck(tempX, tempY))
                     {
-                        newState = world->determineState(x,y, tempX, tempY);
+                        newState = world->determineState(this, x,y, tempX, tempY);
                         if(newState != state)
                         {
                             stateChange = true;
