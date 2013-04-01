@@ -70,6 +70,7 @@ void ServerWindow::clientConnected()
 
 void ServerWindow::clientDisconnected()
 {
+    qDebug()<<"clientDisconnected()";
     QTcpSocket *sock = dynamic_cast<QTcpSocket*>(sender());
     for(int i = 0; i < unUsers.size(); ++i)
     {
@@ -85,7 +86,6 @@ void ServerWindow::clientDisconnected()
     if(unUsers.size()==0)
     {
         on_btnReset_clicked();
-        qDebug()<<"Auto-reset";
     }
 }
 
@@ -225,10 +225,10 @@ void ServerWindow::on_btnReset_clicked()
     timer->stop();
     timerGo = false;
     game = NULL;
+    vector<QTcpSocket*> socks;
     for(int i = 0; i < unUsers.size(); ++i)
     {
         unUsers.at(i)->getSock()->close();
-        unUsers.at(i)->getSock()->deleteLater();
     }
     unUsers.clear();
 }

@@ -804,6 +804,12 @@ void GameScreen::cleanObjects()
 void GameScreen::serverDisconnected()
 {
     sock->close();
+    userID = 0;
+    targetId = 0;
+    playerId = 0;
+    hero = NULL;
+    userTeam = 0;
+    spacePressed = false;
     this->hide();
     this->releaseKeyboard();
     this->releaseMouse();
