@@ -89,20 +89,20 @@ GameStartWidget::GameStartWidget(QWidget *parent) :
 
 
     this->btnRed = new QPushButton(this);
-    this->btnRed->setGeometry(100, 230, 36, 36);
+    this->btnRed->setGeometry(100, 230, 40, 40);
     this->btnRed->setFlat(true);
     btnRed->setFocusPolicy(Qt::NoFocus);
-    this->btnRed->setStyleSheet("QPushButton { background: url(:/images/br_deselected.png) no-repeat top right; } QPushButton:hover{ background:url(:/images/br_clicked.png) no-repeat top left; } QPushButton:checked { background: url(:/images/br_selected.png) no-repeat top left; border: 0px solid grey; }");
+    this->btnRed->setStyleSheet("QPushButton { background: url(:/images/br_deselected.png) no-repeat top left; } QPushButton:hover{ background:url(:/images/br_clicked.png) no-repeat top left; } QPushButton:checked { background: url(:/images/br_selected.png) no-repeat top left; border: 0px solid grey; }");
     this->btnRed->setCheckable(true);
     this->btnRed->setChecked(false);
     connect(this->btnRed, SIGNAL(clicked()), this, SLOT(onRedClicked()));
     this->btnRed->show();
 
     this->btnBlue = new QPushButton(this);
-    this->btnBlue->setGeometry(130, 230, 36, 36);
+    this->btnBlue->setGeometry(145, 230, 40, 40);
     this->btnBlue->setFlat(true);
     btnBlue->setFocusPolicy(Qt::NoFocus);
-    this->btnBlue->setStyleSheet("QPushButton { background: url(:/images/bb_deselected.png) no-repeat top right; } QPushButton:hover{ background:url(:/images/bb_clicked.png) no-repeat top left; } QPushButton:checked { background: url(:/images/bb_selected.png) no-repeat top left; border: 0px solid grey; }");
+    this->btnBlue->setStyleSheet("QPushButton { background: url(:/images/bb_deselected.png) no-repeat top left; } QPushButton:hover{ background:url(:/images/bb_clicked.png) no-repeat top left; } QPushButton:checked { background: url(:/images/bb_selected.png) no-repeat top left; border: 0px solid grey; }");
     this->btnBlue->setCheckable(true);
     this->btnBlue->setChecked(true);
     connect(this->btnBlue, SIGNAL(clicked()), this, SLOT(onBlueClicked()));
