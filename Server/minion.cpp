@@ -67,14 +67,16 @@ void Minion::onTick()
     int tempX;
     int tempY;
     int newState;
-    if(tombstone){
+    if(tombstone)
+    {
         Alive = false;
         stateChange = false;
         positionChange = false;
         canMove = false;
         canAttack = false;
     }
-    else {
+    else
+    {
         if(Alive)
         {
             if(target != NULL && target->getAttackable())
@@ -218,12 +220,45 @@ void Minion::onTick()
 
                         }
                     }
+                    else
+                    {
+                        distance = sqrt(pow(cpY-y, 2) + pow(cpX - x, 2));
+                        theta = asin((y-cpY)/distance);
+                        if(cpY > y)
+                        {
+                            tempY = y + abs(speed * sin(theta));
+                        }
+                        else
+                        {
+                            tempY = y - abs(speed * sin(theta));
+                        }
+                        if(cpX > x)
+                        {
+                            tempX = x + abs(speed * cos(theta));
+                        }
+                        else
+                        {
+                            tempX = x - abs(speed * cos(theta));
+                        }
+                        if(map->boundsCheck(tempX, tempY))
+                        {
+                            newState = world->determineState(x,y, tempX, tempY);
+                            if(newState != state)
+                            {
+                                stateChange = true;
+                            }
+                            //SET STATE HERE
+                            x = tempX;
+                            y = tempY;
+                            //MESS WITH OOL
+                        }
+                    }
                 }
             }
             else
             {
                 Entity *ent = map->getNAE(x,y,team, distance);
-                if (ent != NULL && ent->getAttackable())
+                if (ent != NULL)
                 {
                     if(distance < detRange)
                     {
@@ -354,10 +389,12 @@ void Minion::onTick()
                 y = 9000;
                 count->reset(50);
                 tombstone = true;
+                attackable = false;
             }
 
         }
-        if( newState <= 8 && newState > 0){
+        if( newState <= 8 && newState > 0)
+        {
             state = newState;
         }
     }

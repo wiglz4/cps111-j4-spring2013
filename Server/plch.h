@@ -17,6 +17,7 @@ protected:
     bool isCheatMode;
     bool canCheatMode;
     Counter *cheatCounter;
+    int userID;
 
     bool wPressed;
     bool aPressed;
@@ -41,6 +42,8 @@ public:
 
     //returns the necessary stats information
     string getStats();
+
+    void setUserID(int id){userID = id;}
 
     //changes various characterstics to render the character invincible
     void cheatMode();

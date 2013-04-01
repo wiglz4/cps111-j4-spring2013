@@ -33,6 +33,8 @@ ServerWindow::ServerWindow(QWidget *parent) :
     ui->spinPlayers->setValue(2);
     paused = false;
     //timer->start();
+    curUserID = 1;
+    qDebug()<<curUserID;
 }
 
 ServerWindow::~ServerWindow()
@@ -42,12 +44,28 @@ ServerWindow::~ServerWindow()
 
 void ServerWindow::clientConnected()
 {
-    User *user = new User();
-    QTcpSocket *sock = server.nextPendingConnection();
-    connect(sock, SIGNAL(disconnected()), this, SLOT(clientDisconnected()));
-    connect(sock, SIGNAL(readyRead()), this, SLOT(dataReceived()));
-    user->setSocket(sock);
-    unUsers.push_back(user);
+    if(game == NULL)
+    {
+        User *user = new User();
+        QTcpSocket *sock = server.nextPendingConnection();
+        connect(sock, SIGNAL(disconnected()), this, SLOT(clientDisconnected()));
+        connect(sock, SIGNAL(readyRead()), this, SLOT(dataReceived()));
+        user->setSocket(sock);
+        unUsers.push_back(user);
+        QString idMessage;
+        idMessage.append("97179 777 ");
+        idMessage.append(QString::number(curUserID));
+        idMessage.append("\n");
+        user->setUserID(curUserID);
+        ++curUserID;
+        sock->write(idMessage.toAscii());
+    }
+    else
+    {
+        QTcpSocket *sock = server.nextPendingConnection();
+        sock->close();
+        sock->deleteLater();
+    }
 }
 
 void ServerWindow::clientDisconnected()
@@ -58,21 +76,25 @@ void ServerWindow::clientDisconnected()
         if(sock== unUsers.at(i)->getSock())
         {
             QString name(unUsers.at(i)->getName().c_str());
-            qDebug()<<"USERNAME: " + name;
             User* user = unUsers.at(i);
             unUsers.erase(unUsers.begin() + i);
             delete user;
         }
     }
     sock->deleteLater();
+    if(unUsers.size()==0)
+    {
+        on_btnReset_clicked();
+        qDebug()<<"Auto-reset";
+    }
 }
 
 void ServerWindow::dataReceived()
 {
     QTcpSocket *sock = dynamic_cast<QTcpSocket*>(sender());
+    QString str = sock->readLine();
     if(game == NULL)
     {
-        QString str = sock->readLine();
         for(uint i = 0; i < unUsers.size(); ++i)
         {
             if(sock == unUsers.at(i)->getSock())
@@ -85,7 +107,7 @@ void ServerWindow::dataReceived()
                         unUsers.at(i)->setTeam(GetUserTeam());
                         unUsers.at(i)->setUsername(GetLoadUsername());
                         game = Game::Load(this, &unUsers);
-                        timer->start();                    
+                        timer->start();
                     }
                     else if (List.at(0) != "9")
                     {
@@ -133,13 +155,11 @@ void ServerWindow::dataReceived()
         {
             if(sock == unUsers.at(i)->getSock())
             {
-                QString str = sock->readLine();
                 if(str.at(0) == '7')
                 {
                     for(int i = 0; i < unUsers.size(); ++i)
                     {
                         unUsers.at(i)->getSock()->write("97179 7\n");
-                        qDebug() << "set out 7\n";
                     }
                     if(paused)
                     {

@@ -70,6 +70,7 @@ World::World(vector<User *> *vect, Game* gam)
         if(vect->at(i)->getTeam() == 1)
         {
             aPlCh = new PlCh(1, 3230 ,165 + redMod * 100, this, vect->at(i)->getName());
+            aPlCh->setUserID(vect->at(i)->getUserID());
             vect->at(i)->setCharacter(aPlCh);
             allEntities.push_back(aPlCh);
             redEntities.push_back(aPlCh);
@@ -77,6 +78,7 @@ World::World(vector<User *> *vect, Game* gam)
         else
         {
             aPlCh = new PlCh(2,250,2500 + blueMod * 100, this, vect->at(i)->getName());
+            aPlCh->setUserID(vect->at(i)->getUserID());
             vect->at(i)->setCharacter(aPlCh);
             allEntities.push_back(aPlCh);
             blueEntities.push_back(aPlCh);
@@ -94,11 +96,14 @@ Entity *World::getNAE(int x, int y, int team, double &distance)
     {
         for(unsigned int i = 0; i < blueEntities.size(); ++i)
         {
-            dist2 = sqrt(pow(blueEntities.at(i)->getY()-y, 2) + pow(blueEntities.at(i)->getX() - x, 2));
-            if(dist2 < distance)
+            if(blueEntities.at(i)->getAttackable())
             {
-                distance = dist2;
-                entNum = i;
+                dist2 = sqrt(pow(blueEntities.at(i)->getY()-y, 2) + pow(blueEntities.at(i)->getX() - x, 2));
+                if(dist2 < distance)
+                {
+                    distance = dist2;
+                    entNum = i;
+                }
             }
         }
         if(entNum != -1)
@@ -110,11 +115,14 @@ Entity *World::getNAE(int x, int y, int team, double &distance)
     {
         for(unsigned int i = 0; i < redEntities.size(); ++i)
         {
-            dist2 = sqrt(pow(redEntities.at(i)->getY()-y, 2) + pow(redEntities.at(i)->getX() - x, 2));
-            if(dist2 < distance)
+            if(redEntities.at(i)->getAttackable())
             {
-                distance = dist2;
-                entNum = i;
+                dist2 = sqrt(pow(redEntities.at(i)->getY()-y, 2) + pow(redEntities.at(i)->getX() - x, 2));
+                if(dist2 < distance)
+                {
+                    distance = dist2;
+                    entNum = i;
+                }
             }
         }
         if(entNum != -1)

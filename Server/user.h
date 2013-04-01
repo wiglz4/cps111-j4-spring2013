@@ -15,16 +15,18 @@ class User
     int team;
     QTcpSocket *sock;
     PlCh *character;
-
-
+    int userID;
 
 public:
     User();
     void setSocket(QTcpSocket *newSock){sock = newSock;}
     void setCharacter(PlCh *newChar){character = newChar;}
     void setUsername(std::string user){userName = user;}
+    void setUserID(int id){userID = id;}
     void setTeam(int nTeam){team = nTeam;}
     void command(std::string cmdString);
+
+    int getUserID(){return userID;}
 
     //checks to see whether this user has specified their name and team
     bool checkInstanceVars();
