@@ -595,6 +595,7 @@ void GameScreen::readCommand()
                         ++iterate;
                         playername = list.at(iterate);
                         ++iterate;
+                        QApplication::processEvents();
                         createEntity(type, id, team, pHealth, state, x, y, playername);
                         if(entv == 41)
                         {
